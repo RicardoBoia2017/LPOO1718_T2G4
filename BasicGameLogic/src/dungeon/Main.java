@@ -298,7 +298,29 @@ public class Main {
 			 else{
 				 rand = randomnumber.nextInt(4);	 
 
+				 if(matrix[ogre.coordY-1][ogre.coordX] == hero.id || matrix[ogre.coordY+1][ogre.coordX] == hero.id || matrix[ogre.coordY][ogre.coordX-1] == hero.id || matrix[ogre.coordY][ogre.coordX+1] == hero.id)
+				 {
+					 for(int i = 0; i < matrix.length; i++) {
+						 System.out.println(matrix[i]);
+					 }
+					 
+					 System.out.println("Game Over.");
+					 
+					 return;
+				 }
+				 
 				 ogremove (matrix,ogre,rand);
+				 
+				 if(matrix[ogre.coordY-1][ogre.coordX] == hero.id || matrix[ogre.coordY+1][ogre.coordX] == hero.id || matrix[ogre.coordY][ogre.coordX-1] == hero.id || matrix[ogre.coordY][ogre.coordX+1] == hero.id)
+				 {
+					 for(int i = 0; i < matrix.length; i++) {
+						 System.out.println(matrix[i]);
+					 }
+					 
+					 System.out.println("Game Over.");
+					 
+					 return;
+				 }
 				 
 				 if (level [1][7] == ' ' && hero.id == 'H')
 						level[1][7] = 'k';
