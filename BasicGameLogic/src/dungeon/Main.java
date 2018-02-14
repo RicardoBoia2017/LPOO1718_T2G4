@@ -6,11 +6,74 @@ import java.util.Random;
 
 public class Main {
 	
-	public static void ogremove(char [][] level, Character character, char command) {
-		 
+	public static void ogremove(char [][] level, Character character, int command) {
+		
+		switch (command){
+		
+		// left
+		case 0:
+		{
+			if(level[character.coordY][character.coordX-1] == ' '){
+				level[character.coordY][character.coordX-1] = character.id;
+				level[character.coordY][character.coordX] = ' ';
+				character.coordX = character.coordX-1;
+			}
+			
+			break;
+		}
+		
+		//right
+		case 1:
+		{
+			 if(level[character.coordY][character.coordX+1] == ' ') {
+				 level[character.coordY][character.coordX+1] = character.id;
+				 level[character.coordY][character.coordX] = ' ';
+				 character.coordX = character.coordX+1;
+			 }
+			 
+			 else if(level[character.coordY][character.coordX+1] == 'k') {
+				 level[character.coordY][character.coordX+1] = '$';
+				 level[character.coordY][character.coordX] = ' ';
+				 character.coordX = character.coordX+1;
+			 }
+			 
+			 break;
+		}
+		
+		//down
+		case 2:
+		{
+			 if(level[character.coordY+1][character.coordX] == ' ') {
+				 level[character.coordY+1][character.coordX] = character.id;
+				 level[character.coordY][character.coordX] = ' ';
+				 character.coordY = character.coordY+1;
+			 }
+			 
+			 break;
+		}
+		
+		//up
+		case 3:
+		{
+			 if(level[character.coordY-1][character.coordX] == ' ') {
+				 level[character.coordY-1][character.coordX] = character.id;
+				 level[character.coordY][character.coordX] = ' ';
+				 character.coordY = character.coordY-1;
+			 }
+			 
+			 else if(level[character.coordY-1][character.coordX] == 'k') {
+				 level[character.coordY-1][character.coordX] = '$';
+				 level[character.coordY][character.coordX] = ' ';
+				 character.coordY = character.coordY-1;
+			 }
+			 
+			 break;
+		}
+		}
+				 
 	}
 	
-	public static int move(char[][] matrix, Character character, char command) {
+	public static int move(char[][] matrix, Character character, char command, int stage) {
 		 switch(command) {
 		 
 		 case 'a': 
@@ -21,7 +84,8 @@ public class Main {
 				 character.coordX = character.coordX-1;
 			 } 
 			 
-			 else if(matrix[character.coordY][character.coordX-1] == 'k') {
+			 //Checks if hero steps over the lever
+			 else if(matrix[character.coordY][character.coordX-1] == 'k' && stage == 1) {
 				 
 				 matrix[5][0] = 'S';
 				 matrix[6][0] = 'S';
@@ -31,11 +95,15 @@ public class Main {
 				 character.coordX = character.coordX-1;
 			 } 
 			 
+			 else if(matrix[character.coordY][character.coordX-1] == 'I' && stage == 2) {
+				 matrix[character.coordY][character.coordX-1] = 'S';
+			 }
+			 
 			 else if(matrix[character.coordY][character.coordX-1] == 'S') {
 				 System.out.print("Victory.");
 				 return 1;
 			 }
-			 
+						 
 			 break;
 		 }
 		 
@@ -43,6 +111,15 @@ public class Main {
 		 {
 			 
 			 if(matrix[character.coordY][character.coordX+1] == ' ') {
+				 matrix[character.coordY][character.coordX+1] = character.id;
+				 matrix[character.coordY][character.coordX] = ' ';
+				 character.coordX = character.coordX+1;
+			 }
+			 
+			 //checks if hero grabs key
+			 else if (matrix[character.coordY][character.coordX+1] == 'k')
+			 {
+				 character.id = 'K';
 				 matrix[character.coordY][character.coordX+1] = character.id;
 				 matrix[character.coordY][character.coordX] = ' ';
 				 character.coordX = character.coordX+1;
@@ -71,6 +148,12 @@ public class Main {
 				 character.coordY = character.coordY-1;
 			 }
 			 
+			 else if (matrix[character.coordY-1][character.coordX] == 'k'){
+				 character.id = 'K';
+				 matrix[character.coordY-1][character.coordX] = character.id;
+				 matrix[character.coordY][character.coordX] = ' ';
+				 character.coordY = character.coordY-1;
+			 }
 			 break;
 		 }
 		 
@@ -91,7 +174,7 @@ public class Main {
 		 
 		 char command;
 		 
-		 boolean stage1 = true;
+		 int stage = 1;
 		 
 		 int a = 0;
 		 
@@ -101,18 +184,20 @@ public class Main {
 		 
 		 Character guard = new Character(8,1,'G');
 		 
+		 Character ogre = new Character (4,1,'O');
+		 		 
 		 char [] guardposition = {'a', 's', 's','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
 		 
 		 char [][] matrix = {{'X','X','X','X','X','X','X','X','X', 'X'}, 
-								   {'X','H',' ',' ','I',' ','X',' ','G', 'X'},
-								   {'X','X','X',' ','X','X','X',' ',' ', 'X'},
-								   {'X',' ','I',' ','I',' ','X',' ',' ', 'X'},
-								   {'X','X','X',' ','X','X','X',' ',' ', 'X'},
-								   {'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},
-								   {'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},
-								   {'X','X','X',' ','X','X','X','X',' ', 'X'},
-								   {'X',' ','I',' ','I',' ','X','k',' ', 'X'},
-								   {'X','X','X','X','X','X','X','X','X', 'X'}};
+							 {'X','H',' ',' ','I',' ','X',' ','G', 'X'},
+							 {'X','X','X',' ','X','X','X',' ',' ', 'X'},
+							 {'X',' ','I',' ','I',' ','X',' ',' ', 'X'},
+							 {'X','X','X',' ','X','X','X',' ',' ', 'X'},
+							 {'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},
+							 {'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},
+							 {'X','X','X',' ','X','X','X','X',' ', 'X'},
+							 {'X',' ','I',' ','I',' ','X','k',' ', 'X'},
+							 {'X','X','X','X','X','X','X','X','X', 'X'}};
 		 
 		 char [][] level = {
 				   {'X','X','X','X','X','X','X','X','X'},
@@ -150,28 +235,34 @@ public class Main {
 			 
 			 //hero phase
 			 
-			 if(move(matrix, hero, command) == 1) {
-				 System.out.println(" ");
+			 if(move(matrix, hero, command, stage) == 1) {
 				 
-				 System.out.println("Now you went up the stairs, new stage.");
-				 
-				 System.out.println(" ");
+				 if (stage == 1){
+				
+				System.out.println(" ");
+				System.out.println("Now you went up the stairs, new stage.");
+				System.out.println(" ");
 				 
 				 // you went up the stairs, now a new level must begin.
 				 
 				 matrix = level.clone();
 				 
-				 hero = new Character(1,7,'H');
+				 hero.coordX = 1;
+				 hero.coordY = 7;
 				 
-				 Character ogre = new Character(4,1,'O');
 				 
-				 stage1 = false;
+					stage = 2;
+				 	continue;
+				 }
+				 
+				 else if (stage == 2)
+					 return;
 			 } 
 			 
 			 //k's position has to be k whenever the hero steps out, same for I.
 			 //this is not so true for stage 2 I think. In stage 2 hero picks it up, ogre is the one where it stays.
 			
-			if(stage1) {
+			if(stage == 1) {
 			 if(matrix[8][7] == ' ') {
 				 matrix[8][7] = 'k';
 			 }
@@ -179,9 +270,9 @@ public class Main {
 			 
 			 //guard phase, he will only move in a given pattern according to the array guardpositon.
 			 
-			 if(stage1){
+			 if(stage == 1){
 			 
-			 move(matrix, guard, guardposition[a]);
+			 move(matrix, guard, guardposition[a],stage);
 			 
 			 a++;
 			 
@@ -200,33 +291,20 @@ public class Main {
 				 return;
 			 }
 			 
-			 continue;
-			}
+			 }
 			 
 			 //the ogre moves randomly, we're going to have to generate random numbers.
 			 
-			 rand = randomnumber.nextInt(4);
-			 
-			 switch(rand) {
-			 
-			 case 0:
-				 command = 'a';
-				 break;
+			 else{
+				 rand = randomnumber.nextInt(4);	 
+
+				 ogremove (matrix,ogre,rand);
 				 
-			 case 1:
-				 command = 'd';
-				 break;
-			
-			 case 2:
-				 command = 'w';
-				 break;
-			
-			 case 3:
-				 command = 's';
-				 break;
+				 if (level [1][7] == ' ' && hero.id == 'H')
+						level[1][7] = 'k';
 			 }
-			 
-			 //Now all you have to do is call ogremove with variable "command".
 		 }
+		 
+		// keyboard.close();
 	}
 }
