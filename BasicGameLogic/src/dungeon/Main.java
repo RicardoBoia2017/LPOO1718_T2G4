@@ -4,17 +4,89 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class Main {
+	
+	public static void move(char[][] matrix, int coordX, int coordY, char command, char id) {
+		 switch(command) {
+		 
+		 case 'a': 
+		 {
+			 if(matrix[coordY][coordX-1] == ' ') {
+				 matrix[coordY][coordX-1] = id;
+				 matrix[coordY][coordX] = ' ';
+				 coordX = coordX-1;
+			 } 
+			 
+			 else if(matrix[coordY][coordX-1] == 'k') {
+				 
+				 matrix[5][0] = 'S';
+				 matrix[6][0] = 'S';
+				 
+				 matrix[coordY][coordX-1] = id;
+				 matrix[coordY][coordX] = ' ';
+				 coordX = coordX-1;
+			 } 
+			 
+			 else if(matrix[coordY][coordX-1] == 'S') {
+				 System.out.print("Victory.");
+				 return;
+			 }
+			 
+			 break;
+		 }
+		 
+		 case 'd': 
+		 {
+			 
+			 if(matrix[coordY][coordX+1] == ' ') {
+				 matrix[coordY][coordX+1] = id;
+				 matrix[coordY][coordX] = ' ';
+				 coordX = coordX+1;
+			 }
+			 
+			 break;
+		 }
+		 
+		 case 's': 
+		 {
+			 
+			 if(matrix[coordY+1][coordX] == ' ') {
+				 matrix[coordY+1][coordX] = id;
+				 matrix[coordY][coordX] = ' ';
+				 coordY = coordY+1;
+			 }
+			 
+			 break;
+		 }
+		 
+		 case 'w': 
+		 {
+			 if(matrix[coordY-1][coordX] == ' ') {
+				 matrix[coordY-1][coordX] = id;
+				 matrix[coordY][coordX] = ' ';
+				 coordY = coordY-1;
+			 }
+			 
+			 break;
+		 }
+		 
+		 case 'e': 
+		 {
+			 return;
+		 }
+		 
+		 }
+	}
 
 	public static void main(String[] args) {
 		 Scanner keyboard = new Scanner(System.in);
 		 
 		 char command;
 		 
-		 int posHeroX = 1;
-		 int posHeroY = 1;
+		 Character hero = new Character(1,1,'H');
 		 
-		 int posGuardX = 8;
-		 int posGuardY = 1;
+		 Character guard = new Character(8,1,'G');
+		 
+		 char [] guardposition = {'a', 's', 's','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
 		 
 		 char [][] matrix = {{'X','X','X','X','X','X','X','X','X', 'X'}, 
 								   {'X','H',' ',' ','I',' ','X',' ','G', 'X'},
@@ -50,6 +122,9 @@ public class Main {
 				 continue;
 			 }
 			 
+			 move(matrix, hero.coordX, hero.coordY, command, hero.id);
+			 
+			 /*
 			 switch(command) {
 			 
 			 case 'a': 
@@ -118,7 +193,7 @@ public class Main {
 				 return;
 			 }
 			 
-			 }
+			 }*/
 			 
 			 //k's position has to be k whenever the hero steps out, same for I.
 			 if(matrix[8][7] == ' ') {
@@ -134,10 +209,11 @@ public class Main {
 				 matrix[6][0] = 'S';
 			 }*/
 			 
-			 if(matrix[posGuardY-1][posGuardX] == 'H' || matrix[posGuardY+1][posGuardX] == 'H' || matrix[posGuardY][posGuardX-1] == 'H' || matrix[posGuardY][posGuardX+1] == 'H') {
+			 if(matrix[guard.coordY-1][guard.coordX] == 'H' || matrix[guard.coordY+1][guard.coordX] == 'H' || matrix[guard.coordY][guard.coordX-1] == 'H' || matrix[guard.coordY][guard.coordX+1] == 'H') {
 				 System.out.println("Game Over.");
 				 return;
 			 }
+			 
 		 }
 	}
 
