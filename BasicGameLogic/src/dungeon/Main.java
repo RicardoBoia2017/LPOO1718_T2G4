@@ -7,7 +7,7 @@ import java.util.Random;
 public class Main {
 	
 	public static void ogremove(char [][] level, Character character, char command) {
-		
+		 
 	}
 	
 	public static int move(char[][] matrix, Character character, char command) {
