@@ -199,6 +199,8 @@ public class Main {
 				 
 				 return;
 			 }
+			 
+			 continue;
 			}
 			 
 			 //the ogre moves randomly, we're going to have to generate random numbers.
