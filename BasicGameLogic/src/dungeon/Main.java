@@ -6,6 +6,73 @@ import java.util.Random;
 
 public class Main {
 	
+	public static void clubmove(char [][] level, Character character, Character club, int clubplace) {
+		
+		switch(clubplace) {
+		
+		//appears at the left adjacent cell, in relation to our character - the ogre.
+		case 0:
+		{
+			if(level[character.coordY][character.coordX-1] == ' '){
+				club.coordX = character.coordX-1;
+				level[character.coordY][character.coordX-1] = club.id;
+				level[character.coordY][character.coordX] = ' ';
+			}
+			
+			break;
+		}
+		
+		//.. right ...
+		case 1:
+		{
+			 if(level[character.coordY][character.coordX+1] == ' ') {
+				 club.coordX = character.coordX+1;
+				 level[character.coordY][character.coordX+1] = club.id;
+				 level[character.coordY][character.coordX] = ' ';
+			 }
+			 
+			 else if(level[character.coordY][character.coordX+1] == 'k') {
+				 club.id = '$';
+				 club.coordX = character.coordX+1;
+				 level[character.coordY][character.coordX+1] = club.id;
+				 level[character.coordY][character.coordX] = ' ';
+			 }
+			 
+			 break;
+		}
+		
+		//down
+		case 2:
+		{
+			 if(level[character.coordY+1][character.coordX] == ' ') {
+				 club.coordY = character.coordY+1;
+				 level[character.coordY+1][character.coordX] = club.id;
+				 level[character.coordY][character.coordX] = ' ';
+			 }
+			 
+			 break;
+		}
+		
+		//up
+		case 3:
+		{
+			 if(level[character.coordY-1][character.coordX] == ' ') {
+				 club.coordY = character.coordY-1;
+				 level[character.coordY-1][character.coordX] = club.id;
+				 level[character.coordY][character.coordX] = ' ';
+			 }
+			 
+			 else if(level[character.coordY-1][character.coordX] == 'k') {
+				 club.id = '$';
+				 club.coordY = character.coordY-1;
+				 level[character.coordY-1][character.coordX] = club.id;
+				 level[character.coordY][character.coordX] = ' ';
+			 }
+		}
+		
+		}
+	}
+	
 	public static void ogremove(char [][] level, Character character, int command) {
 		
 		switch (command){
@@ -94,8 +161,8 @@ public class Main {
 				 matrix[character.coordY][character.coordX] = ' ';
 				 character.coordX = character.coordX-1;
 			 } 
-			 
-			 else if(matrix[character.coordY][character.coordX-1] == 'I' && stage == 2) {
+			 //to open the door you need to check if the Hero has the key, aka, is in K state.
+			 else if(matrix[character.coordY][character.coordX-1] == 'I' && stage == 2 && character.id == 'K') {
 				 matrix[character.coordY][character.coordX-1] = 'S';
 			 }
 			 
@@ -172,6 +239,8 @@ public class Main {
 		 
 		 Random randomnumber = new Random();
 		 
+		 Random randomclub = new Random();
+		 
 		 char command;
 		 
 		 int stage = 1;
@@ -180,11 +249,17 @@ public class Main {
 		 
 		 int rand;
 		 
+		 int clubplacement;
+		 
 		 Character hero = new Character(1,1,'H');
 		 
 		 Character guard = new Character(8,1,'G');
 		 
 		 Character ogre = new Character (4,1,'O');
+		 
+		 //the club "behaves" like a character
+		 
+		 Character club = new Character(5,1,'*');
 		 		 
 		 char [] guardposition = {'a', 's', 's','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
 		 
@@ -311,7 +386,13 @@ public class Main {
 				 
 				 ogremove (matrix,ogre,rand);
 				 
-				 if(matrix[ogre.coordY-1][ogre.coordX] == hero.id || matrix[ogre.coordY+1][ogre.coordX] == hero.id || matrix[ogre.coordY][ogre.coordX-1] == hero.id || matrix[ogre.coordY][ogre.coordX+1] == hero.id)
+				 //the ogre moved,and now so must the club
+				 
+				 clubplacement = randomclub.nextInt(4);
+				 
+				 clubmove(matrix,ogre,club,clubplacement);
+				 
+				 if(matrix[ogre.coordY-1][ogre.coordX] == hero.id || matrix[ogre.coordY+1][ogre.coordX] == hero.id || matrix[ogre.coordY][ogre.coordX-1] == hero.id || matrix[ogre.coordY][ogre.coordX+1] == hero.id || matrix[club.coordY][club.coordX+1] == hero.id || matrix[club.coordY][club.coordX-1] == hero.id || matrix[club.coordY-1][club.coordX] == hero.id || matrix[club.coordY+1][club.coordX] == hero.id)
 				 {
 					 for(int i = 0; i < matrix.length; i++) {
 						 System.out.println(matrix[i]);
