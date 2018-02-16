@@ -8,15 +8,23 @@ public class Main {
 	
 	public static void clubmove(char [][] level, Character character, Character club, int clubplace) {
 		
+		Random randomnum = new Random();
+		
+		int rand;
+		
 		switch(clubplace) {
 		
 		//appears at the left adjacent cell, in relation to our character - the ogre.
 		case 0:
 		{
 			if(level[character.coordY][character.coordX-1] == ' '){
-				club.coordX = character.coordX-1;
 				level[character.coordY][character.coordX-1] = club.id;
-				level[character.coordY][character.coordX] = ' ';
+				level[club.coordY][club.coordX] = ' ';
+				club.coordX = character.coordX-1;
+				club.coordY = character.coordY;
+			} else {
+				rand = randomnum.nextInt(4);
+				clubmove(level, character, club, rand); //recursion to avoid cases where ogre has an X in the position the club wants to move to.
 			}
 			
 			break;
@@ -26,17 +34,22 @@ public class Main {
 		case 1:
 		{
 			 if(level[character.coordY][character.coordX+1] == ' ') {
-				 club.coordX = character.coordX+1;
 				 level[character.coordY][character.coordX+1] = club.id;
-				 level[character.coordY][character.coordX] = ' ';
+				 level[club.coordY][club.coordX] = ' ';
+				 club.coordX = character.coordX+1;
+				 club.coordY = character.coordY;
 			 }
 			 
 			 else if(level[character.coordY][character.coordX+1] == 'k') {
 				 club.id = '$';
-				 club.coordX = character.coordX+1;
 				 level[character.coordY][character.coordX+1] = club.id;
-				 level[character.coordY][character.coordX] = ' ';
-			 }
+				 level[club.coordY][club.coordX] = ' ';
+				 club.coordX = character.coordX+1;
+				 club.coordY = character.coordY;
+			 } else {
+					rand = randomnum.nextInt(4);
+					clubmove(level, character, club, rand);
+				}
 			 
 			 break;
 		}
@@ -45,10 +58,14 @@ public class Main {
 		case 2:
 		{
 			 if(level[character.coordY+1][character.coordX] == ' ') {
-				 club.coordY = character.coordY+1;
 				 level[character.coordY+1][character.coordX] = club.id;
-				 level[character.coordY][character.coordX] = ' ';
-			 }
+				 level[club.coordY][club.coordX] = ' ';
+				 club.coordY = character.coordY+1;
+				 club.coordX = character.coordX;
+			 } else {
+					rand = randomnum.nextInt(4);
+					clubmove(level, character, club, rand); 
+				}
 			 
 			 break;
 		}
@@ -57,17 +74,24 @@ public class Main {
 		case 3:
 		{
 			 if(level[character.coordY-1][character.coordX] == ' ') {
-				 club.coordY = character.coordY-1;
 				 level[character.coordY-1][character.coordX] = club.id;
-				 level[character.coordY][character.coordX] = ' ';
+				 level[club.coordY][club.coordX] = ' ';
+				 club.coordY = character.coordY-1;
+				 club.coordX = character.coordX;
 			 }
 			 
 			 else if(level[character.coordY-1][character.coordX] == 'k') {
 				 club.id = '$';
-				 club.coordY = character.coordY-1;
 				 level[character.coordY-1][character.coordX] = club.id;
-				 level[character.coordY][character.coordX] = ' ';
-			 }
+				 level[club.coordY][club.coordX] = ' ';
+				 club.coordY = character.coordY-1;
+				 club.coordX = character.coordX;
+			 } else {
+					rand = randomnum.nextInt(4);
+					clubmove(level, character, club, rand); 
+				}
+			 
+			 break;
 		}
 		
 		}
@@ -259,7 +283,7 @@ public class Main {
 		 
 		 //the club "behaves" like a character
 		 
-		 Character club = new Character(5,1,'*');
+		 Character club = new Character(3,1,'*');
 		 		 
 		 char [] guardposition = {'a', 's', 's','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
 		 
@@ -276,7 +300,7 @@ public class Main {
 		 
 		 char [][] level = {
 				   {'X','X','X','X','X','X','X','X','X'},
-				   {'I',' ',' ',' ','O',' ',' ','k','X'},
+				   {'I',' ',' ','*','O',' ',' ','k','X'},
 				   {'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				   {'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				   {'X',' ',' ',' ',' ',' ',' ',' ','X'},
@@ -386,8 +410,7 @@ public class Main {
 				 
 				 ogremove (matrix,ogre,rand);
 				 
-				 //the ogre moved,and now so must the club
-				 
+				 //club moves
 				 clubplacement = randomclub.nextInt(4);
 				 
 				 clubmove(matrix,ogre,club,clubplacement);
