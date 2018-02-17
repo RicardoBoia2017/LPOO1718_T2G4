@@ -358,6 +358,17 @@ public class Main {
 					 return;
 			 } 
 			 
+			 if(matrix[guard.coordY-1][guard.coordX] == 'H' || matrix[guard.coordY+1][guard.coordX] == 'H' || matrix[guard.coordY][guard.coordX-1] == 'H' || matrix[guard.coordY][guard.coordX+1] == 'H') {
+				 
+				 for(int i = 0; i < matrix.length; i++) {
+					 System.out.println(matrix[i]);
+				 }
+				 
+				 System.out.println("Game Over.");
+				 
+				 return;
+			 }
+			 
 			 //k's position has to be k whenever the hero steps out, same for I.
 			 //this is not so true for stage 2 I think. In stage 2 hero picks it up, ogre is the one where it stays.
 			
