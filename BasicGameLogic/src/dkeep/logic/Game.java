@@ -15,6 +15,7 @@ public class Game {
 		map = new Map();
 		ogre = new Ogre(4,1);
 		club = new Club(3,1);
+		//
 	}
 	
 	public void updateGame(char herocommand) {
