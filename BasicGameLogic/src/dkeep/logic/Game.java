@@ -7,7 +7,6 @@ public class Game {
 	Club club;
 	Map map;
 	
-	
 	public Game() {
 		// TODO Auto-generated constructor stub
 		hero = new Hero(1,1);
@@ -15,8 +14,9 @@ public class Game {
 		map = new Map();
 		ogre = new Ogre(4,1);
 		club = new Club(3,1);
-		//
 	}
+	
+	public char[][] getmap(){return map.getmap();};	
 	
 	public void updateGame(char herocommand) {
 		int stage = map.getcurrentlevel();
@@ -24,7 +24,7 @@ public class Game {
 		
 		//hero phase
 		 
-		 if(/*move hero returns 1 passing the doors*/) {
+		 if(hero.move(map, command, stage)) {
 			 
 			if (stage == 1){
 			

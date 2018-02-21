@@ -60,5 +60,7 @@ public class Guard extends Character{
 			 break;
 		 }
 		}
+    if(currentposition == )
+    
    }
 }
