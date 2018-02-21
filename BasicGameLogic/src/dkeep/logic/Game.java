@@ -94,7 +94,7 @@ public class Game {
 		 if(map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H') {
 			 
 			 //pass interface game over state, interface will print.
-			 
+			 System.out.println("");
 			 System.out.println("Game Over.");
 			 
 			 char[][] gameovermap = map.getmap();
@@ -142,7 +142,7 @@ public class Game {
 			 if(map.getmap()[ogre.coordY-1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY+1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY][ogre.coordX-1] == hero.id || map.getmap()[ogre.coordY][ogre.coordX+1] == hero.id || map.getmap()[club.coordY][club.coordX+1] == hero.id || map.getmap()[club.coordY][club.coordX-1] == hero.id || map.getmap()[club.coordY-1][club.coordX] == hero.id || map.getmap()[club.coordY+1][club.coordX] == hero.id)
 			 {
 				 //interface
-				 
+				 System.out.println("");
 				 System.out.println("Game Over.");
 				 
 				 char[][] gameovermap = map.getmap();

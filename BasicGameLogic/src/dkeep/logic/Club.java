@@ -24,6 +24,8 @@ public class Club extends Character {
 				map.setMap(coordY, coordX, ' ');
 				coordX = character.coordX-1;
 				coordY = character.coordY;
+				if (id == '$')
+					id = '*';
 			} else {
 				rand = randomnum.nextInt(4);
 				move(map, rand, character); //recursion to avoid cases where ogre has an X in the position the club wants to move to.
@@ -88,6 +90,8 @@ public class Club extends Character {
 				 map.setMap(coordY, coordX, ' ');
 				 coordY = character.coordY-1;
 				 coordX = character.coordX;
+				 if (id == '$')
+						id = '*';
 			 } else {
 					rand = randomnum.nextInt(4);
 					move(map, rand, character);

@@ -19,10 +19,6 @@ public class Main {
 				 System.out.println(map[i]);
 			 }
 			
-			 if(map[0][0] == 'E' || map[0][0] == 'W') {
-				 game_state = "GAME OVER";
-			 }
-			
 			 System.out.println(" ");
 			 System.out.println("Options:");
 			 System.out.println("(w) - up");
@@ -44,6 +40,13 @@ public class Main {
 			 }
 			 
 			 map = game.updateGame(command); //TODO find a way to pass game state from game to here
+			 
+			 if(map[0][0] == 'E' || map[0][0] == 'W') {
+				 game_state = "GAME OVER";
+				 for(int i = 0; i < map.length; i++) {
+					 System.out.println(map[i]);
+				 }
+			 }
 		}
 		
 		s.close();
