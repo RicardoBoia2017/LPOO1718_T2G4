@@ -1,4 +1,4 @@
-package dungeon;
+package dkeep.logic;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -259,8 +259,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		 Scanner keyboard = new Scanner(System.in);
-		 
+		/* 
 		 Random randomnumber = new Random();
 		 
 		 Random randomclub = new Random();
@@ -286,7 +285,10 @@ public class Main {
 		 Character club = new Character(3,1,'*');
 		 		 
 		 char [] guardposition = {'a', 's', 's','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
-		 
+		
+		*/
+		
+		 /* 
 		 char [][] matrix = {{'X','X','X','X','X','X','X','X','X', 'X'}, 
 							 {'X','H',' ',' ','I',' ','X',' ','G', 'X'},
 							 {'X','X','X',' ','X','X','X',' ',' ', 'X'},
@@ -307,36 +309,13 @@ public class Main {
 				   {'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				   {'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				   {'X','H',' ',' ',' ',' ',' ',' ','X'},
-				   {'X','X','X','X','X','X','X','X','X'}};
+				   {'X','X','X','X','X','X','X','X','X'}};*/
 	
-		 
-		 while(true) {
-			 
-			 for(int i = 0; i < matrix.length; i++) {
-				 System.out.println(matrix[i]);
-			 }
-			 
-			 System.out.println(" ");
-			 System.out.println("Options:");
-			 System.out.println("(w) - up");
-			 System.out.println("(a) - left");
-			 System.out.println("(s) - down");
-			 System.out.println("(d) - right");
-			 System.out.println("(e) - exit");
-			 System.out.println("Command: ");			 
-			 
-			 command = keyboard.next().charAt(0);
-			 
-			 if(command != 'w' && command != 'a' && command != 's' && command != 'd' && command != 'e') {
-				 System.out.println("Invalid option");
-				 continue;
-			 }
-			 
 			 //hero phase
 			 
-			 if(move(matrix, hero, command, stage) == 1) {
+			 if(/*move hero returns 1 passing the doors*/) {
 				 
-				 if (stage == 1){
+				if (stage == 1){
 				
 				System.out.println(" ");
 				System.out.println("Now you went up the stairs, new stage.");
@@ -344,15 +323,14 @@ public class Main {
 				 
 				 // you went up the stairs, now a new level must begin.
 				 
-				 matrix = level.clone();
+				//update game stage
 				 
-				 hero.coordX = 1;
-				 hero.coordY = 7;
+				hero.coordX = 1;
+				hero.coordY = 7;
 				 
-				 
-					stage = 2;
-				 	continue;
-				 }
+				stage = 2;
+				continue;
+				}
 				 
 				 else if (stage == 2)
 					 return;
@@ -381,9 +359,7 @@ public class Main {
 			 
 			 if(matrix[guard.coordY-1][guard.coordX] == 'H' || matrix[guard.coordY+1][guard.coordX] == 'H' || matrix[guard.coordY][guard.coordX-1] == 'H' || matrix[guard.coordY][guard.coordX+1] == 'H') {
 				 
-				 for(int i = 0; i < matrix.length; i++) {
-					 System.out.println(matrix[i]);
-				 }
+				 //pass interface game over state, interface will print.
 				 
 				 System.out.println("Game Over.");
 				 
@@ -399,15 +375,14 @@ public class Main {
 
 				 if(matrix[ogre.coordY-1][ogre.coordX] == hero.id || matrix[ogre.coordY+1][ogre.coordX] == hero.id || matrix[ogre.coordY][ogre.coordX-1] == hero.id || matrix[ogre.coordY][ogre.coordX+1] == hero.id)
 				 {
-					 for(int i = 0; i < matrix.length; i++) {
-						 System.out.println(matrix[i]);
-					 }
+					 //interface
 					 
 					 System.out.println("Game Over.");
 					 
 					 return;
 				 }
 				 
+				 //ogre moves
 				 ogremove (matrix,ogre,rand);
 				 
 				 //club moves
@@ -417,14 +392,13 @@ public class Main {
 				 
 				 if(matrix[ogre.coordY-1][ogre.coordX] == hero.id || matrix[ogre.coordY+1][ogre.coordX] == hero.id || matrix[ogre.coordY][ogre.coordX-1] == hero.id || matrix[ogre.coordY][ogre.coordX+1] == hero.id || matrix[club.coordY][club.coordX+1] == hero.id || matrix[club.coordY][club.coordX-1] == hero.id || matrix[club.coordY-1][club.coordX] == hero.id || matrix[club.coordY+1][club.coordX] == hero.id)
 				 {
-					 for(int i = 0; i < matrix.length; i++) {
-						 System.out.println(matrix[i]);
-					 }
+					 //intercace
 					 
 					 System.out.println("Game Over.");
 					 
 					 return;
 				 }
+				 
 				 
 				 if (level [1][7] == ' ' && hero.id == 'H')
 						level[1][7] = 'k';
@@ -432,5 +406,4 @@ public class Main {
 		 }
 		 
 		// keyboard.close();
-	}
 }
