@@ -5,8 +5,8 @@ import java.util.Random;
 public class Game {
 	Hero hero;
 	Guard guard;
-	Ogre ogre;
-	Club club;
+	Ogre [] ogre;
+	Club [] club;
 	Map map;
 	
 	public Game() {
@@ -14,15 +14,19 @@ public class Game {
 		hero = new Hero(1,1);
 		guard = new Guard(8,1);
 		map = new Map();
-		ogre = new Ogre(4,1);
-		club = new Club(3,1);
+		ogre = new Ogre[3];
+		ogre[0] = new Ogre (4,1);
+		ogre[1] = new Ogre (4,1);
+		club = new Club[3];
+		club[0] = new Club(3,1);
+		club[1] = new Club(3,1);
 	}
 	
 	public char[][] getmap(){return map.getmap();};	
 	
 	public char[][] updateGame(char herocommand) {
 		int stage = map.getcurrentlevel();
-		int a, rand;
+		int  rand;
 		int clubplacement;
 		char[][] emptygameover = {}; //when it's gameover, an empty array will be retuned.
 		
@@ -115,10 +119,12 @@ public class Game {
 		 //the ogre moves randomly, we're going to have to generate random numbers.
 		 
 		 else{
-			 rand = randomnumber.nextInt(4);	 
+			 for (int i = 0;i < 2; i++)
+			 { 
+				 rand = randomnumber.nextInt(4);	 
 
-			 if(map.getmap()[ogre.coordY-1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY+1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY][ogre.coordX-1] == hero.id || map.getmap()[ogre.coordY][ogre.coordX+1] == hero.id)
-			 {
+				 if(map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id)
+				 {
 				 
 				 System.out.println("Game Over.");
 				 
@@ -129,37 +135,37 @@ public class Game {
 				 gameovermap[0][2] = 'D';
 				 
 				 return gameovermap;
-			 }
+				 }	
 			 
-			 //ogre moves
-			 ogre.move(map,rand);
-			 
-			 //club moves
-			 clubplacement = randomclub.nextInt(4);
-			 
-			 club.move(map,clubplacement, ogre);
-			 
-			 if(map.getmap()[ogre.coordY-1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY+1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY][ogre.coordX-1] == hero.id || map.getmap()[ogre.coordY][ogre.coordX+1] == hero.id || map.getmap()[club.coordY][club.coordX+1] == hero.id || map.getmap()[club.coordY][club.coordX-1] == hero.id || map.getmap()[club.coordY-1][club.coordX] == hero.id || map.getmap()[club.coordY+1][club.coordX] == hero.id)
-			 {
-				 //interface
-				 System.out.println("");
-				 System.out.println("Game Over.");
+				 //ogre moves
+				 ogre[i].move(map,rand);
 				 
-				 char[][] gameovermap = map.getmap();
+				 //club moves
+				 clubplacement = randomclub.nextInt(4);
 				 
-				 gameovermap[0][0] = 'E';
-				 gameovermap[0][1] = 'N';
-				 gameovermap[0][2] = 'D';
+				 club[i].move(map,clubplacement, ogre[i]);
 				 
-				 return gameovermap;
-			 }
-			 
-			 
-			 if (map.getmap()[1][7] == ' ' && hero.id == 'H')
-					map.setMap(1, 7, 'k');
-			 
-			 //by now both the club and the ogre, also hero have moved which concludes a turn in stagee2
-			 return map.getmap();
-		 }
+				 if(map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX-1] == hero.id || map.getmap()[club[i].coordY-1][club[i].coordX] == hero.id || map.getmap()[club[i].coordY+1][club[i].coordX] == hero.id)
+				 {
+					 //interface
+					 System.out.println("");
+					 System.out.println("Game Over.");
+					 
+					 char[][] gameovermap = map.getmap();
+					 
+					 gameovermap[0][0] = 'E';
+					 gameovermap[0][1] = 'N';
+					 gameovermap[0][2] = 'D';
+					 
+					 return gameovermap;
+				 }
+			 } 
+				 
+				 if (map.getmap()[1][7] == ' ' && hero.id == 'H')
+						map.setMap(1, 7, 'k');
+				 
+				 //by now both the club and the ogre, also hero have moved which concludes a turn in stagee2
+				 return map.getmap();
+	}
 	}
 }
