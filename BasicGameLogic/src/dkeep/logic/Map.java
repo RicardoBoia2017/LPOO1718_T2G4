@@ -1,7 +1,8 @@
 package dkeep.logic;
 
 public class Map {
-	private char [][] level1 = {{'X','X','X','X','X','X','X','X','X', 'X'}, 
+	private char [][] level1 = {
+			 {'X','X','X','X','X','X','X','X','X', 'X'}, 
 			 {'X','H',' ',' ','I',' ','X',' ','G', 'X'},
 			 {'X','X','X',' ','X','X','X',' ',' ', 'X'},
 			 {'X',' ','I',' ','I',' ','X',' ',' ', 'X'},

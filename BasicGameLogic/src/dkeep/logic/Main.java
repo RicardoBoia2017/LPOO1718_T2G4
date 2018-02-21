@@ -1,4 +1,4 @@
-package dkeep.logic;
+/*package dkeep.logic;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -259,7 +259,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		/* 
+		
 		 Random randomnumber = new Random();
 		 
 		 Random randomclub = new Random();
@@ -286,9 +286,9 @@ public class Main {
 		 		 
 		 char [] guardposition = {'a', 's', 's','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
 		
-		*/
 		
-		 /* 
+		
+		 
 		 char [][] matrix = {{'X','X','X','X','X','X','X','X','X', 'X'}, 
 							 {'X','H',' ',' ','I',' ','X',' ','G', 'X'},
 							 {'X','X','X',' ','X','X','X',' ',' ', 'X'},
@@ -309,11 +309,11 @@ public class Main {
 				   {'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				   {'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				   {'X','H',' ',' ',' ',' ',' ',' ','X'},
-				   {'X','X','X','X','X','X','X','X','X'}};*/
+				   {'X','X','X','X','X','X','X','X','X'}};
 	
 			 //hero phase
 			 
-			 if(/*move hero returns 1 passing the doors*/) {
+			 if() {
 				 
 				if (stage == 1){
 				
@@ -417,4 +417,4 @@ public class Main {
 		 }
 		 
 		// keyboard.close();
-}
+}*/

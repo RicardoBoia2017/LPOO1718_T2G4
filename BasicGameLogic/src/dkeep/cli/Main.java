@@ -13,10 +13,14 @@ public class Main {
 		Game game = new Game();
 		char [][] map = game.getmap(); 
 		
-		while(game_state != "GAME OVER" && game_state != "VICTORY") {
+		while(game_state != "GAME OVER") {
 		 
 			for(int i = 0; i < map.length; i++) {
 				 System.out.println(map[i]);
+			 }
+			
+			 if(map[0][0] == 'E' || map[0][0] == 'W') {
+				 game_state = "GAME OVER";
 			 }
 			
 			 System.out.println(" ");
@@ -35,14 +39,13 @@ public class Main {
 					 continue;
 			 }
 			 
+			 if(command == 'e') {
+				 System.exit(0);
+			 }
+			 
 			 map = game.updateGame(command); //TODO find a way to pass game state from game to here
-		 		 
 		}
 		
-		if (game_state == "VICTORY")
-			 System.out.print("Victory.");
-		else
-			 System.out.println("Game Over.");
+		s.close();
 	}
-
 }

@@ -35,7 +35,9 @@ public class Hero extends Character {
 			 }
 			 
 			 else if(map.getmap()[coordY][coordX-1] == 'S') {
-				 System.out.print("Victory.");
+				 
+				 System.out.println("Victory.");
+				 
 				 return 1;
 			 }
 						 

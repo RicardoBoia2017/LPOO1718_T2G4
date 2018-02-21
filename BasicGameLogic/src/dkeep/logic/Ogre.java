@@ -7,16 +7,16 @@ public class Ogre extends Character {
 		super(x, y, 'O');
 	}
 	
-	public void move(char [][] map, int command) {
+	public void move(Map map, int command) {
 		
 		switch (command){
 		
 		// left
 		case 0:
 		{
-			if(map[coordY][coordX-1] == ' '){
-				map[coordY][coordX-1] = id;
-				map[coordY][coordX] = ' ';
+			if(map.getmap()[coordY][coordX-1] == ' '){
+				map.setMap(coordY, coordX-1, id);
+				map.setMap(coordY, coordX, ' ');
 				coordX = coordX-1;
 			}
 			
@@ -26,15 +26,15 @@ public class Ogre extends Character {
 		//right
 		case 1:
 		{
-			 if(map[coordY][coordX+1] == ' ') {
-				 map[coordY][coordX+1] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[coordY][coordX+1] == ' ') {
+				 map.setMap(coordY, coordX+1, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordX = coordX+1;
 			 }
 			 
-			 else if(map[coordY][coordX+1] == 'k') {
-				 map[coordY][coordX+1] = '$';
-				 map[coordY][coordX] = ' ';
+			 else if(map.getmap()[coordY][coordX+1] == 'k') {
+				 map.setMap(coordY, coordX+1, '$');
+				 map.setMap(coordY, coordX, ' ');
 				 coordX = coordX+1;
 			 }
 			 
@@ -44,9 +44,9 @@ public class Ogre extends Character {
 		//down
 		case 2:
 		{
-			 if(map[coordY+1][coordX] == ' ') {
-				 map[coordY+1][coordX] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[coordY+1][coordX] == ' ') {
+				 map.setMap(coordY+1, coordX, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY+1;
 			 }
 			 
@@ -56,15 +56,15 @@ public class Ogre extends Character {
 		//up
 		case 3:
 		{
-			 if(map[coordY-1][coordX] == ' ') {
-				 map[coordY-1][coordX] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[coordY-1][coordX] == ' ') {
+				 map.setMap(coordY-1, coordX, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY-1;
 			 }
 			 
-			 else if(map[coordY-1][coordX] == 'k') {
-				 map[coordY-1][coordX] = '$';
-				 map[coordY][coordX] = ' ';
+			 else if(map.getmap()[coordY-1][coordX] == 'k') {
+				 map.setMap(coordY-1, coordX, '$');
+				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY-1;
 			 }
 			 

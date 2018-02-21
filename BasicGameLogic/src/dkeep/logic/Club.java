@@ -9,7 +9,7 @@ public class Club extends Character {
 		super(x, y, '*');
 	}
 	
-	public void move(char [][] map, int clubplace, Ogre character) {
+	public void move(Map map, int clubplace, Ogre character) {
 		Random randomnum = new Random();
 		
 		int rand;
@@ -19,9 +19,9 @@ public class Club extends Character {
 		//appears at the left adjacent cell, in relation to our character - the ogre.
 		case 0:
 		{
-			if(map[character.coordY][character.coordX-1] == ' '){
-				map[character.coordY][character.coordX-1] = id;
-				map[coordY][coordX] = ' ';
+			if(map.getmap()[character.coordY][character.coordX-1] == ' '){
+				map.setMap(character.coordY, character.coordX-1, id);
+				map.setMap(coordY, coordX, ' ');
 				coordX = character.coordX-1;
 				coordY = character.coordY;
 			} else {
@@ -35,17 +35,17 @@ public class Club extends Character {
 		//.. right ...
 		case 1:
 		{
-			 if(map[character.coordY][character.coordX+1] == ' ') {
-				 map[character.coordY][character.coordX+1] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[character.coordY][character.coordX+1] == ' ') {
+				 map.setMap(character.coordY, character.coordX+1, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordX = character.coordX+1;
 				 coordY = character.coordY;
 			 }
 			 
-			 else if(map[character.coordY][character.coordX+1] == 'k') {
+			 else if(map.getmap()[character.coordY][character.coordX+1] == 'k') {
 				 id = '$';
-				 map[character.coordY][character.coordX+1] = id;
-				 map[coordY][coordX] = ' ';
+				 map.setMap(character.coordY, character.coordX+1, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordX = character.coordX+1;
 				 coordY = character.coordY;
 			 } else {
@@ -59,9 +59,9 @@ public class Club extends Character {
 		//down
 		case 2:
 		{
-			 if(map[character.coordY+1][character.coordX] == ' ') {
-				 map[character.coordY+1][character.coordX] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[character.coordY+1][character.coordX] == ' ') {
+				 map.setMap(character.coordY+1, character.coordX, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordY = character.coordY+1;
 				 coordX = character.coordX;
 			 } else {
@@ -75,17 +75,17 @@ public class Club extends Character {
 		//up
 		case 3:
 		{
-			 if(map[character.coordY-1][character.coordX] == ' ') {
-				 map[character.coordY-1][character.coordX] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[character.coordY-1][character.coordX] == ' ') {
+				 map.setMap(character.coordY-1, character.coordX, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordY = character.coordY-1;
 				 coordX = character.coordX;
 			 }
 			 
-			 else if(map[character.coordY-1][character.coordX] == 'k') {
+			 else if(map.getmap()[character.coordY-1][character.coordX] == 'k') {
 				 id = '$';
-				 map[character.coordY-1][character.coordX] = id;
-				 map[coordY][coordX] = ' ';
+				 map.setMap(character.coordY-1, character.coordX, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordY = character.coordY-1;
 				 coordX = character.coordX;
 			 } else {

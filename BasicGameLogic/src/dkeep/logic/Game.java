@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.util.Random;
+
 public class Game {
 	Hero hero;
 	Guard guard;
@@ -18,13 +20,18 @@ public class Game {
 	
 	public char[][] getmap(){return map.getmap();};	
 	
-	public void updateGame(char herocommand) {
+	public char[][] updateGame(char herocommand) {
 		int stage = map.getcurrentlevel();
-		int a;
+		int a, rand;
+		int clubplacement;
+		char[][] emptygameover = {}; //when it's gameover, an empty array will be retuned.
+		
+		Random randomnumber = new Random();
+		Random randomclub = new Random();
 		
 		//hero phase
 		 
-		 if(hero.move(map, command, stage)) {
+		 if(hero.move(map, herocommand, stage) == 1) {
 			 
 			if (stage == 1){
 			
@@ -32,7 +39,7 @@ public class Game {
 			System.out.println("Now you went up the stairs, new stage.");
 			System.out.println(" ");
 			 
-			 // you went up the stairs, now a new level must begin.
+			// you went up the stairs, now a new level must begin.
 			 
 			//update game stage
 			 
@@ -40,11 +47,18 @@ public class Game {
 			hero.setcoordY(7);
 			 
 			stage = 2;
-			continue;
+			map.setmap(2); //change to second map
+			} else {
+				//he achieved the S victory door in stage 2, the game is over.
+				 char[][] gameovermap = map.getmap();
+				 
+				 gameovermap[0][0] = 'W';
+				 gameovermap[0][1] = 'I';
+				 gameovermap[0][2] = 'N';
+				 
+				 return gameovermap;
 			}
-			 
-			 else if (stage == 2)
-				 return;
+			
 		 }
 		 
 		 //k's position has to be k whenever the hero steps out, same for I.
@@ -59,23 +73,42 @@ public class Game {
 		 //guard phase, he will only move in a given pattern according to the array guardpositon.
 		 
 		 if(stage == 1){
+	
+			 if(map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H') {
+				 
+				 //pass interface game over state, interface will print.
+				 
+				 System.out.println("Game Over.");
+				 
+				 char[][] gameovermap = map.getmap();
+				 
+				 gameovermap[0][0] = 'E';
+				 gameovermap[0][1] = 'N';
+				 gameovermap[0][2] = 'D';
+				 
+				 return gameovermap;
+			 }
 		 
-		 //move(matrix, guard, guardposition[a],stage);
+		 guard.move(map);
 		 
-		 // parameter for guard a++;
-		 
-		 if (a == guardposition.length) {
-			 a = 0;
-		 }
-		 
-		 if(matrix[guard.coordY-1][guard.coordX] == 'H' || matrix[guard.coordY+1][guard.coordX] == 'H' || matrix[guard.coordY][guard.coordX-1] == 'H' || matrix[guard.coordY][guard.coordX+1] == 'H') {
+		 if(map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H') {
 			 
 			 //pass interface game over state, interface will print.
 			 
 			 System.out.println("Game Over.");
 			 
-			 return;
+			 char[][] gameovermap = map.getmap();
+			 
+			 gameovermap[0][0] = 'E';
+			 gameovermap[0][1] = 'N';
+			 gameovermap[0][2] = 'D';
+			 
+			 return gameovermap;
 		 }
+		 
+		 //end of a turn of stage 1, by now the map has the current state and hero and guard have both moved and checked for collision.
+		 
+		 return map.getmap();
 		 
 		 }
 		 
@@ -84,35 +117,49 @@ public class Game {
 		 else{
 			 rand = randomnumber.nextInt(4);	 
 
-			 if(matrix[ogre.coordY-1][ogre.coordX] == hero.id || matrix[ogre.coordY+1][ogre.coordX] == hero.id || matrix[ogre.coordY][ogre.coordX-1] == hero.id || matrix[ogre.coordY][ogre.coordX+1] == hero.id)
+			 if(map.getmap()[ogre.coordY-1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY+1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY][ogre.coordX-1] == hero.id || map.getmap()[ogre.coordY][ogre.coordX+1] == hero.id)
+			 {
+				 
+				 System.out.println("Game Over.");
+				 
+				 char[][] gameovermap = map.getmap();
+				 
+				 gameovermap[0][0] = 'E';
+				 gameovermap[0][1] = 'N';
+				 gameovermap[0][2] = 'D';
+				 
+				 return gameovermap;
+			 }
+			 
+			 //ogre moves
+			 ogre.move(map,rand);
+			 
+			 //club moves
+			 clubplacement = randomclub.nextInt(4);
+			 
+			 club.move(map,clubplacement, ogre);
+			 
+			 if(map.getmap()[ogre.coordY-1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY+1][ogre.coordX] == hero.id || map.getmap()[ogre.coordY][ogre.coordX-1] == hero.id || map.getmap()[ogre.coordY][ogre.coordX+1] == hero.id || map.getmap()[club.coordY][club.coordX+1] == hero.id || map.getmap()[club.coordY][club.coordX-1] == hero.id || map.getmap()[club.coordY-1][club.coordX] == hero.id || map.getmap()[club.coordY+1][club.coordX] == hero.id)
 			 {
 				 //interface
 				 
 				 System.out.println("Game Over.");
 				 
-				 return;
-			 }
-			 
-			 //ogre moves
-			 ogremove (matrix,ogre,rand);
-			 
-			 //club moves
-			 clubplacement = randomclub.nextInt(4);
-			 
-			 clubmove(matrix,ogre,club,clubplacement);
-			 
-			 if(matrix[ogre.coordY-1][ogre.coordX] == hero.id || matrix[ogre.coordY+1][ogre.coordX] == hero.id || matrix[ogre.coordY][ogre.coordX-1] == hero.id || matrix[ogre.coordY][ogre.coordX+1] == hero.id || matrix[club.coordY][club.coordX+1] == hero.id || matrix[club.coordY][club.coordX-1] == hero.id || matrix[club.coordY-1][club.coordX] == hero.id || matrix[club.coordY+1][club.coordX] == hero.id)
-			 {
-				 //intercace
+				 char[][] gameovermap = map.getmap();
 				 
-				 System.out.println("Game Over.");
+				 gameovermap[0][0] = 'E';
+				 gameovermap[0][1] = 'N';
+				 gameovermap[0][2] = 'D';
 				 
-				 return;
+				 return gameovermap;
 			 }
 			 
 			 
-			 if (level [1][7] == ' ' && hero.id == 'H')
-					level[1][7] = 'k';
+			 if (map.getmap()[1][7] == ' ' && hero.id == 'H')
+					map.setMap(1, 7, 'k');
+			 
+			 //by now both the club and the ogre, also hero have moved which concludes a turn in stagee2
+			 return map.getmap();
 		 }
 	}
 }

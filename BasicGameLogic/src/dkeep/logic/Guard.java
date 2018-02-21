@@ -11,14 +11,14 @@ public class Guard extends Character{
 		currentposition = 0;
 	}
 	
-	public void move(char [][] map) {
+	public void move(Map map) {
     switch(positionarray[currentposition]) {
 		 
 		 case 'a': 
 		 {
-			 if(map[coordY][coordX-1] == ' ') {
-				 map[coordY][coordX-1] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[coordY][coordX-1] == ' ') {
+				 map.setMap(coordY, coordX-1, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordX = coordX-1;
 			 } 
 						 
@@ -28,9 +28,9 @@ public class Guard extends Character{
 		 case 'd': 
 		 {
 			 
-			 if(map[coordY][coordX+1] == ' ') {
-				 map[coordY][coordX+1] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[coordY][coordX+1] == ' ') {
+				 map.setMap(coordY, coordX+1, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordX = coordX+1;
 			 }
 			 
@@ -40,9 +40,9 @@ public class Guard extends Character{
 		 case 's': 
 		 {
 			 
-			 if(map[coordY+1][coordX] == ' ') {
-				 map[coordY+1][coordX] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[coordY+1][coordX] == ' ') {
+				 map.setMap(coordY+1, coordX, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY+1;
 			 }
 			 
@@ -51,16 +51,21 @@ public class Guard extends Character{
 		 
 		 case 'w': 
 		 {
-			 if(map[coordY-1][coordX] == ' ') {
-				 map[coordY-1][coordX] = id;
-				 map[coordY][coordX] = ' ';
+			 if(map.getmap()[coordY-1][coordX] == ' ') {
+				 map.setMap(coordY-1, coordX, id);
+				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY-1;
 			 }
 	
 			 break;
 		 }
 		}
-    if(currentposition == )
+    
+    if(currentposition == positionarray.length-1) {
+    	currentposition = 0;
+    } else {
+    	currentposition++;
+    }
     
    }
 }
