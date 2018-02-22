@@ -12,7 +12,7 @@ public class Game {
 	public Game() {
 		// TODO Auto-generated constructor stub
 		hero = new Hero(1,1);
-		guard = new Guard(8,1);
+		guard = new Guard(8,1,"Drunken");
 		map = new Map();
 		ogre = new Ogre[3];
 		ogre[0] = new Ogre (4,1);
@@ -28,7 +28,6 @@ public class Game {
 		int stage = map.getcurrentlevel();
 		int  rand;
 		int clubplacement;
-		char[][] emptygameover = {}; //when it's gameover, an empty array will be retuned.
 		
 		Random randomnumber = new Random();
 		Random randomclub = new Random();
@@ -78,7 +77,7 @@ public class Game {
 		 
 		 if(stage == 1){
 	
-			 if(map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H') {
+			 if(guard.id == 'G' && (map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H')) {
 				 
 				 //pass interface game over state, interface will print.
 				 
@@ -92,10 +91,24 @@ public class Game {
 				 
 				 return gameovermap;
 			 }
+			 
+		 switch(guard.personality) {
 		 
-		 guard.move(map);
+		 case "Rookie":
+			 guard.rookieMove(map);
+			 break;
+		
+		 case "Drunken":
+			 guard.drunkenMove(map);
+			 break;
+			 
+		 case "Suspicious":
+			 guard.suspiciousMove(map);
+			 break;
+		 }
 		 
-		 if(map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H') {
+		 
+		 if(guard.id == 'G' && (map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H')) {
 			 
 			 //pass interface game over state, interface will print.
 			 System.out.println("");
