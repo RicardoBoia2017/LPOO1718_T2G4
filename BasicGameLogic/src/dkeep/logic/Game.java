@@ -48,10 +48,13 @@ public class Game {
 			 
 			hero.setcoordX(1);
 			hero.setcoordY(7);
+			hero.setid('A');
+
 			 
 			stage = 2;
 			map.setmap(2); //change to second map
-			} else {
+			} 
+			else {
 				//he achieved the S victory door in stage 2, the game is over.
 				 char[][] gameovermap = map.getmap();
 				 

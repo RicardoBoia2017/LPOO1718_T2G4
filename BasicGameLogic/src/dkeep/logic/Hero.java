@@ -98,4 +98,6 @@ public class Hero extends Character {
 		 
 		 return 0;
 	}
+
+	public void setid (char newId) {id = newId;}
 }
