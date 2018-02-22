@@ -2,12 +2,26 @@ package dkeep.logic;
 
 public class Ogre extends Character {
 
+	int stun_counter;
+	
 	public Ogre(int x, int y) {
 		// TODO Auto-generated constructor stub
 		super(x, y, 'O');
 	}
 	
 	public void move(Map map, int command) {
+		
+		if (stun_counter == 2){
+			stun_counter--;
+			return;
+		}
+		
+		else if (stun_counter == 1)
+		{
+			stun_counter --;
+			id = 'O';
+			return;
+		}
 		
 		switch (command){
 		
@@ -70,6 +84,17 @@ public class Ogre extends Character {
 			 
 			 break;
 		}
+		
 		}
+		if (id =='$' && (coordX != 7 || coordY != 1) )
+			id = 'O';
 	}
+
+	public void stun(){
+		stun_counter = 2;
+		id = '8';
+	}
+	
+	public void setId (char newId) {id = newId;}
+
 }

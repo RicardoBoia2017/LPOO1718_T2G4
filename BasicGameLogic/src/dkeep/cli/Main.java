@@ -14,7 +14,7 @@ public class Main {
 		char [][] map = game.getmap(); 
 		
 		while(game_state != "GAME OVER") {
-		 
+			
 			for(int i = 0; i < map.length; i++) {
 				 System.out.println(map[i]);
 			 }

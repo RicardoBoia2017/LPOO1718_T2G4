@@ -16,7 +16,7 @@ public class Game {
 		map = new Map();
 		ogre = new Ogre[3];
 		ogre[0] = new Ogre (4,1);
-		ogre[1] = new Ogre (4,1);
+		//ogre[1] = new Ogre (4,1);
 		club = new Club[3];
 		club[0] = new Club(3,1);
 		club[1] = new Club(3,1);
@@ -34,7 +34,8 @@ public class Game {
 		
 		//hero phase
 		 
-		 if(hero.move(map, herocommand, stage) == 1) {
+		int hero_mov = hero.move(map, herocommand, stage);
+		if(hero_mov == 1) {
 			 
 			if (stage == 1){
 			
@@ -135,11 +136,53 @@ public class Game {
 		 //the ogre moves randomly, we're going to have to generate random numbers.
 		 
 		 else{
-			 for (int i = 0;i < 2; i++)
+			 for (int i = 0;i < 1; i++)
 			 { 
+				 if (hero_mov == 2)
+				{
+					switch(herocommand)
+					{
+						case 'a':
+						{
+							if (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1)
+								ogre[i].stun();
+									
+							break;
+						}
+								
+						case 'd':
+						{
+							if (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX+1)
+								ogre[i].stun();
+									
+							break;	
+						}
+							
+						case 's':
+						{
+							if (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX)
+								ogre[i].stun();
+									
+							break;	
+						}
+							
+						case 'w':
+						{
+							if (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX)
+								ogre[i].stun();
+									
+							break;	
+						}
+					}
+				}
+				
+				 
 				 rand = randomnumber.nextInt(4);	 
 
-				 if(map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id)
+				 int stun = ogre[i].stun_counter;
+
+				 
+				 if(stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) )
 				 {
 				 
 				 System.out.println("Game Over.");
@@ -152,16 +195,31 @@ public class Game {
 				 
 				 return gameovermap;
 				 }	
-			 
+				 
 				 //ogre moves
 				 ogre[i].move(map,rand);
+				 
+				 if(stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) ) 
+				 {
+					 //interface
+					 System.out.println("");
+					 System.out.println("Game Over.");
+							 
+					 char[][] gameovermap = map.getmap();
+							 
+					 gameovermap[0][0] = 'E';
+					 gameovermap[0][1] = 'N';
+					 gameovermap[0][2] = 'D';
+							 
+					 return gameovermap;
+				 }
 				 
 				 //club moves
 				 clubplacement = randomclub.nextInt(4);
 				 
 				 club[i].move(map,clubplacement, ogre[i]);
 				 
-				 if(map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX-1] == hero.id || map.getmap()[club[i].coordY-1][club[i].coordX] == hero.id || map.getmap()[club[i].coordY+1][club[i].coordX] == hero.id)
+				 if (map.getmap()[club[i].coordY][club[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX-1] == hero.id || map.getmap()[club[i].coordY-1][club[i].coordX] == hero.id || map.getmap()[club[i].coordY+1][club[i].coordX] == hero.id)
 				 {
 					 //interface
 					 System.out.println("");
@@ -184,4 +242,6 @@ public class Game {
 				 return map.getmap();
 	}
 	}
+
+	//public int g () {return ogre.length;}
 }
