@@ -19,7 +19,7 @@ public class Guard extends Character{
 	}
 	
 	public void rookieMove(Map map) {
-    switch(positionarray[currentposition]) {
+		switch(positionarray[currentposition]) {
 		 
 		 case 'a': 
 		 {
@@ -88,25 +88,38 @@ public class Guard extends Character{
 	    // if awake == 3, he'll invert his route. how to invert the route?
 	    	//swap positionarray by the inverted path randomly, carry on from currentposition.
 	    
-	    if(awake == 3 && id == 'g' && reversedroute == false) {
-	    	//he can also only invert his route if he was asleep previously, and following his normal route.
+	    if(awake == 3 && id == 'g') {
+	    	//if awake happens to be 3, and he was asleep previously, AKA had id 'g'.
 	    	id = 'G';
-	    	reversedroute = true;
+		    
+	    	//if he woke up, and hadn't inverted, he inverts.
+	    	if(reversedroute == false) {
+	    		reversedroute = true;
+		    	
+		    	temp = positionarray.clone();
+		    	
+		    	positionarray = invertedposition.clone();
+		    	
+		    	invertedposition = temp;
+		    }
+	    	//if he woke up, and inverted previously, he goes back to normal.
+	    	else {
+	    		reversedroute = false;
+	    		
+				temp = invertedposition.clone();
+				
+				invertedposition = positionarray.clone();
+				
+				positionarray = temp;
+	    	}
+		    
 	    } else {
 	    	if(id == 'g') {
-	    		//if the numbers 1 or 0 are generated, and he was asleep previously, now he is awake and following his normal route.
+	    		//if the numbers 1 or 0 are generated, and he was asleep previously, now he is awake and following whatever his previous route was.
+	    		//1 and 0 don't reverse the route, only 3 does.
 	    		id = 'G';
 	    		map.setMap(coordY, coordX, id);
 	    	}
-	    }
-	    
-	    if(reversedroute = true) {
-	    	
-	    	temp = positionarray.clone();
-	    	
-	    	positionarray = invertedposition.clone();
-	    	
-	    	invertedposition = temp;
 	    }
 	    
 		switch(positionarray[currentposition]) {
@@ -159,17 +172,6 @@ public class Guard extends Character{
 		}
 		
 		if(currentposition == positionarray.length-1) {
-			
-			if(reversedroute) {
-				reversedroute = false;
-				
-				temp = invertedposition.clone();
-				
-				invertedposition = positionarray.clone();
-				
-				positionarray = temp;
-			}
-			
 	    	currentposition = 0;
 	    } else {
 	    	currentposition++;
@@ -190,20 +192,27 @@ public class Guard extends Character{
 		
 	    paranoid = check.nextInt(4);
 	    
-	    if(paranoid == 2 && reversedroute == false) {
-	    	//he can invert his route here.
-	    	reversedroute = true;
-	    }
-	    
-	    if(reversedroute = true) {
-	    	
-	    	//swapping forward path with inverted path
-	    	
-	    	temp = positionarray.clone();
-	    	
-	    	positionarray = invertedposition.clone();
-	    	
-	    	invertedposition = temp;
+	    if(paranoid == 2) {
+	    	//if he hadn't inverted, he inverts.
+	    	if(reversedroute == false) {
+	    		reversedroute = true;
+		    	
+		    	temp = positionarray.clone();
+		    	
+		    	positionarray = invertedposition.clone();
+		    	
+		    	invertedposition = temp;
+		    }
+	    	//if he inverted previously, he goes back to normal.
+	    	else {
+	    		reversedroute = false;
+	    		
+				temp = invertedposition.clone();
+				
+				invertedposition = positionarray.clone();
+				
+				positionarray = temp;
+	    	}
 	    }
 	    
 		switch(positionarray[currentposition]) {
@@ -256,19 +265,6 @@ public class Guard extends Character{
 		}
 		
 		if(currentposition == positionarray.length-1) {
-			
-			if(reversedroute) {
-				//swapping inverted path with forward path
-				
-				reversedroute = false;
-				
-				temp = invertedposition.clone();
-				
-				invertedposition = positionarray.clone();
-				
-				positionarray = temp;
-			}
-			
 	    	currentposition = 0;
 	    } else {
 	    	currentposition++;

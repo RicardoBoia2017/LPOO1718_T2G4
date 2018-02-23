@@ -12,7 +12,7 @@ public class Game {
 	public Game() {
 		// TODO Auto-generated constructor stub
 		hero = new Hero(1,1);
-		guard = new Guard(8,1,"Drunken");
+		guard = new Guard(8,1,"Suspicious");
 		map = new Map();
 		ogre = new Ogre[3];
 		ogre[0] = new Ogre (4,1);
