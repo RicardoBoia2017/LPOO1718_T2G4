@@ -12,7 +12,10 @@ public class Ogre extends Character {
 		stun_counter = 0;
 	}
 	
-	public void move(Map map, int command) {
+	public void move(Map map, int ogreplace, int nTries) { 
+		
+		if (nTries == 0)
+			return;
 		
 		if (stun_counter == 2){
 			stun_counter--;
@@ -22,11 +25,14 @@ public class Ogre extends Character {
 		else if (stun_counter == 1)
 		{
 			stun_counter --;
-			id = 'O';
 			return;
 		}
 		
-		switch (command){
+		Random randomnum = new Random();
+		
+		int rand;
+		
+		switch (ogreplace){
 		
 		// left
 		case 0:
@@ -35,6 +41,11 @@ public class Ogre extends Character {
 				map.setMap(coordY, coordX-1, id);
 				map.setMap(coordY, coordX, ' ');
 				coordX = coordX-1;
+			}
+			else 
+			{
+				rand = randomnum.nextInt(4);
+				move(map, rand, nTries--);
 			}
 			
 			break;
@@ -55,6 +66,12 @@ public class Ogre extends Character {
 				 coordX = coordX+1;
 			 }
 			 
+			 else 
+			{
+				rand = randomnum.nextInt(4);
+				move(map, rand, nTries--);
+			}
+			 
 			 break;
 		}
 		
@@ -66,6 +83,12 @@ public class Ogre extends Character {
 				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY+1;
 			 }
+			
+			 else 
+			{
+				rand = randomnum.nextInt(4);
+				move(map, rand, nTries--);
+			}
 			 
 			 break;
 		}
@@ -84,6 +107,12 @@ public class Ogre extends Character {
 				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY-1;
 			 }
+			
+			 else 
+			{
+				rand = randomnum.nextInt(4);
+				move(map, rand, nTries--);
+			}
 			 
 			 break;
 		}
