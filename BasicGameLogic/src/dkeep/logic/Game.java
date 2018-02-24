@@ -204,27 +204,28 @@ public class Game {
 				 //ogre moves
 				 ogre[i].move(map,rand);
 				 
-				 if(stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) ) 
-				 {
-					 //interface
-					 System.out.println("");
-					 System.out.println("Game Over.");
-							 
-					 char[][] gameovermap = map.getmap();
-							 
-					 gameovermap[0][0] = 'E';
-					 gameovermap[0][1] = 'N';
-					 gameovermap[0][2] = 'D';
-							 
-					 return gameovermap;
-				 }
-				 
+//				 if(stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) ) 
+//				 {
+//					 //interface
+//					 System.out.println("");
+//					 System.out.println("Game Over.");
+//							 
+//					 char[][] gameovermap = map.getmap();
+//							 
+//					 gameovermap[0][0] = 'E';
+//					 gameovermap[0][1] = 'N';
+//					 gameovermap[0][2] = 'D';
+//							 
+//					 return gameovermap;
+//				 }
+//				 
 				 //club moves
 				 clubplacement = randomclub.nextInt(4);
 				 
 				 club[i].move(map,clubplacement, ogre[i], 8);
 				 
-				 if (map.getmap()[club[i].coordY][club[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX-1] == hero.id || map.getmap()[club[i].coordY-1][club[i].coordX] == hero.id || map.getmap()[club[i].coordY+1][club[i].coordX] == hero.id)
+				 if ( (stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) )
+				 || (map.getmap()[club[i].coordY][club[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX-1] == hero.id || map.getmap()[club[i].coordY-1][club[i].coordX] == hero.id || map.getmap()[club[i].coordY+1][club[i].coordX] == hero.id) )
 				 {
 					 //interface
 					 System.out.println("");
