@@ -97,21 +97,21 @@ public class Game {
 				 
 				 return gameovermap;
 			 }
+			 
+//		 switch(guard.personality) {
+//		 
+//		 case "Rookie":
+//			 guard.rookieMove(map);
+//			 break;
+//		
+//		 case "Drunken":
+//			 guard.drunkenMove(map);
+//			 break;
 //			 
-////		 switch(guard.personality) {
-////		 
-////		 case "Rookie":
-////			 guard.rookieMove(map);
-////			 break;
-////		
-////		 case "Drunken":
-////			 guard.drunkenMove(map);
-////			 break;
-////			 
-////		 case "Suspicious":
-////			 guard.suspiciousMove(map);
-////			 break;
-////		 }
+//		 case "Suspicious":
+//			 guard.suspiciousMove(map);
+//			 break;
+//		 }
 		 
 		 
 		 if(guard.id == 'G' && (map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H')) {
@@ -238,10 +238,12 @@ public class Game {
 					 
 					 return gameovermap;
 				 }
+				 
+				 if (map.getmap()[1][7] == ' ' && hero.id == 'A')
+						map.setMap(1, 7, 'k');
 			 } 
 				 
-				 if (map.getmap()[1][7] == ' ' && hero.id == 'H')
-						map.setMap(1, 7, 'k');
+				 
 				 
 				 //by now both the club and the ogre, also hero have moved which concludes a turn in stagee2
 				 return map.getmap();
