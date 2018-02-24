@@ -14,12 +14,14 @@ public class Game {
 		hero = new Hero(1,1);
 		guard = new Guard(8,1,"Suspicious");
 		map = new Map();
-		ogre = new Ogre[3];
+		
+		ogre = new Ogre[1];
 		ogre[0] = new Ogre (4,1);
 		//ogre[1] = new Ogre (4,1);
-		club = new Club[3];
+		
+		club = new Club[1];
 		club[0] = new Club(3,1);
-		club[1] = new Club(3,1);
+		//club[1] = new Club(3,1);
 	}
 	
 	public char[][] getmap(){return map.getmap();};	
@@ -95,21 +97,21 @@ public class Game {
 				 
 				 return gameovermap;
 			 }
-			 
-		 switch(guard.personality) {
-		 
-		 case "Rookie":
-			 guard.rookieMove(map);
-			 break;
-		
-		 case "Drunken":
-			 guard.drunkenMove(map);
-			 break;
-			 
-		 case "Suspicious":
-			 guard.suspiciousMove(map);
-			 break;
-		 }
+//			 
+////		 switch(guard.personality) {
+////		 
+////		 case "Rookie":
+////			 guard.rookieMove(map);
+////			 break;
+////		
+////		 case "Drunken":
+////			 guard.drunkenMove(map);
+////			 break;
+////			 
+////		 case "Suspicious":
+////			 guard.suspiciousMove(map);
+////			 break;
+////		 }
 		 
 		 
 		 if(guard.id == 'G' && (map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H')) {
@@ -138,38 +140,41 @@ public class Game {
 		 else{
 			 for (int i = 0;i < 1; i++)
 			 { 
-				 if (hero_mov == 2)
+				 System.out.println(hero_mov);
+					System.out.println(ogre.length);
+
+				 if (hero_mov == 2 && ogre[i].stun_counter == 0)
 				{
 					switch(herocommand)
 					{
 						case 'a':
 						{
-							if (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1)
-								ogre[i].stun();
+							if ( (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1) || (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX-1) )
+								ogre[i].stun(map);
 									
 							break;
 						}
 								
 						case 'd':
 						{
-							if (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX+1)
-								ogre[i].stun();
+							if ( (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX+1) || (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX) )
+								ogre[i].stun(map);
 									
 							break;	
 						}
 							
 						case 's':
 						{
-							if (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX)
-								ogre[i].stun();
+							if ( (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX+1) || (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1) )
+								ogre[i].stun(map);
 									
 							break;	
 						}
 							
 						case 'w':
 						{
-							if (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX)
-								ogre[i].stun();
+							if ( (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX + 1) || (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1) )
+								ogre[i].stun(map);
 									
 							break;	
 						}
@@ -217,7 +222,7 @@ public class Game {
 				 //club moves
 				 clubplacement = randomclub.nextInt(4);
 				 
-				 club[i].move(map,clubplacement, ogre[i]);
+				 club[i].move(map,clubplacement, ogre[i], 8);
 				 
 				 if (map.getmap()[club[i].coordY][club[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX-1] == hero.id || map.getmap()[club[i].coordY-1][club[i].coordX] == hero.id || map.getmap()[club[i].coordY+1][club[i].coordX] == hero.id)
 				 {
@@ -243,5 +248,4 @@ public class Game {
 	}
 	}
 
-	//public int g () {return ogre.length;}
 }

@@ -9,7 +9,11 @@ public class Club extends Character {
 		super(x, y, '*');
 	}
 	
-	public void move(Map map, int clubplace, Ogre character) {
+	public void move(Map map, int clubplace, Ogre character, int nTries) {
+		
+		if (nTries == 0)
+			return;
+		
 		Random randomnum = new Random();
 		
 		int rand;
@@ -28,7 +32,7 @@ public class Club extends Character {
 					id = '*';
 			} else {
 				rand = randomnum.nextInt(4);
-				move(map, rand, character); //recursion to avoid cases where ogre has an X in the position the club wants to move to.
+				move(map, rand, character, nTries--); //recursion to avoid cases where ogre has an X in the position the club wants to move to.
 			}
 			
 			break;
@@ -52,7 +56,7 @@ public class Club extends Character {
 				 coordY = character.coordY;
 			 } else {
 					rand = randomnum.nextInt(4);
-					move(map, rand, character);
+					move(map, rand, character, nTries--);
 				}
 			 
 			 break;
@@ -68,7 +72,7 @@ public class Club extends Character {
 				 coordX = character.coordX;
 			 } else {
 					rand = randomnum.nextInt(4);
-					move(map, rand, character); 
+					move(map, rand, character, nTries--); 
 				}
 			 
 			 break;
@@ -94,7 +98,7 @@ public class Club extends Character {
 						id = '*';
 			 } else {
 					rand = randomnum.nextInt(4);
-					move(map, rand, character);
+					move(map, rand, character, nTries--);
 				}
 			 
 			 break;

@@ -7,6 +7,7 @@ public class Ogre extends Character {
 	public Ogre(int x, int y) {
 		// TODO Auto-generated constructor stub
 		super(x, y, 'O');
+		stun_counter = 0;
 	}
 	
 	public void move(Map map, int command) {
@@ -90,9 +91,10 @@ public class Ogre extends Character {
 			id = 'O';
 	}
 
-	public void stun(){
+	public void stun(Map map){
 		stun_counter = 2;
 		id = '8';
+		map.setMap(coordY, coordX, id);
 	}
 	
 	public void setId (char newId) {id = newId;}

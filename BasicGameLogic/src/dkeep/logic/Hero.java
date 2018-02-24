@@ -41,8 +41,8 @@ public class Hero extends Character {
 				 return 1;
 			 }
 					
-			 else if (coordX > 1){
-				 	if(stage == 2 && (map.getmap()[coordY][coordX-2] == 'O' || map.getmap()[coordY-1][coordX-1] == 'O' || map.getmap()[coordY+1][coordX-1] == 'O' ) )  
+			 if (coordX > 1){
+				 	if(stage == 2 && (map.getmap()[coordY][coordX-1] == 'O' || map.getmap()[coordY-1][coordX] == 'O' || map.getmap()[coordY+1][coordX] == 'O' ) )  
 					 	return 2;
 			}
 			 break;
@@ -66,9 +66,9 @@ public class Hero extends Character {
 				 coordX = coordX+1;
 			 }
 			 
-			 else if (coordX < 7)
+			 if (coordX < 7)
 			 {
-				 if(stage == 2 && ( map.getmap()[coordY][coordX+2] == 'O' || map.getmap()[coordY-1][coordX+1] == 'O' || map.getmap()[coordY+1][coordX+1] == 'O') ) 
+				 if(stage == 2 && ( map.getmap()[coordY][coordX+1] == 'O' || map.getmap()[coordY-1][coordX] == 'O' || map.getmap()[coordY+1][coordX] == 'O') ) 
 					 	return 2;
 			 }
 			 
@@ -84,9 +84,9 @@ public class Hero extends Character {
 				 coordY = coordY+1;
 			 }
 			 
-			 else if (coordY < 7)
+			 if (coordY < 7)
 			 {
-				 if(stage == 2 && (map.getmap()[coordY+2][coordX] == 'O' || map.getmap()[coordY+1][coordX-1] == 'O' || map.getmap()[coordY+1][coordX+1] == 'O') )  
+				 if(stage == 2 && (map.getmap()[coordY+1][coordX] == 'O' || map.getmap()[coordY][coordX-1] == 'O' || map.getmap()[coordY][coordX+1] == 'O') )  
 					 	return 2;
 			 }
 			 
@@ -108,9 +108,9 @@ public class Hero extends Character {
 				 coordY = coordY-1;
 			 }
 			 
-			 else if (coordY > 1)
+			 if (coordY > 1)
 			 {
-				 if(stage == 2 && (map.getmap()[coordY-2][coordX] == 'O' || map.getmap()[coordY-1][coordX-1] == 'O' || map.getmap()[coordY-1][coordX+1] == 'O') )  
+				 if(stage == 2 && (map.getmap()[coordY-1][coordX] == 'O' || map.getmap()[coordY][coordX-1] == 'O' || map.getmap()[coordY][coordX+1] == 'O') )  
 					 	return 2;
 			 }
 			 
