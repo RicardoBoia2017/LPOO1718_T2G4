@@ -5,7 +5,7 @@ import java.util.Random;
 public class Guard extends Character{
 
 	char[] positionarray = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
-	char[] invertedposition = {'s','s','s','s','s','a','a','a','a','a','a','a','w','d','d','d','d','d','d','w','w','w','w','d'};
+	char[] inverposition = {'d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s','s'};
 	int currentposition;
 	String personality;
 	boolean reversedroute; //tells you whether he reversed the route
@@ -86,7 +86,7 @@ public class Guard extends Character{
 	    
 	    if(awake != 2) { //he only applies this movement logic if he is awake!
 	    // if awake == 3, he'll invert his route. how to invert the route?
-	    	//swap positionarray by the inverted path randomly, carry on from currentposition.
+	    // swap positionarray by the inverted path randomly, carry on from currentposition.
 	    
 	    if(awake == 3 && id == 'g') {
 	    	//if awake happens to be 3, and he was asleep previously, AKA had id 'g'.
@@ -98,17 +98,17 @@ public class Guard extends Character{
 		    	
 		    	temp = positionarray.clone();
 		    	
-		    	positionarray = invertedposition.clone();
+		    	positionarray = inverposition.clone();
 		    	
-		    	invertedposition = temp;
+		    	inverposition = temp;
 		    }
 	    	//if he woke up, and inverted previously, he goes back to normal.
 	    	else {
 	    		reversedroute = false;
 	    		
-				temp = invertedposition.clone();
+				temp = inverposition.clone();
 				
-				invertedposition = positionarray.clone();
+				inverposition = positionarray.clone();
 				
 				positionarray = temp;
 	    	}
@@ -199,17 +199,17 @@ public class Guard extends Character{
 		    	
 		    	temp = positionarray.clone();
 		    	
-		    	positionarray = invertedposition.clone();
+		    	positionarray = inverposition.clone();
 		    	
-		    	invertedposition = temp;
+		    	inverposition = temp;
 		    }
 	    	//if he inverted previously, he goes back to normal.
 	    	else {
 	    		reversedroute = false;
 	    		
-				temp = invertedposition.clone();
+				temp = inverposition.clone();
 				
-				invertedposition = positionarray.clone();
+				inverposition = positionarray.clone();
 				
 				positionarray = temp;
 	    	}
