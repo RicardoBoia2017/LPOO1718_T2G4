@@ -35,10 +35,12 @@ public class Map {
 	private int currentmap;
 	
 	public Map(int test) {
-		if (test == 0)
+		if (test == 0) {
 			currentmap = 1;
-		else
+		}
+		else {
 			currentmap = -1;
+		}
 	}
 	
 	public void setmap(int current) {
@@ -63,7 +65,7 @@ public class Map {
 		return empty;
 	}
 	
-	public int getcurrentlevel() {return currentmap;};
+	public int getcurrentlevel() {/*if(currentmap == -1) return 1; else*/ return currentmap;};
 	
 	public void setMap(int y, int x, char change) {
 		if(currentmap == 1) {

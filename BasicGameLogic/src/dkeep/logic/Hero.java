@@ -22,13 +22,14 @@ public class Hero extends Character {
 			 //Checks if hero steps over the lever
 			 else if(map.getmap()[coordY][coordX-1] == 'k' && stage == 1) {
 				 
-				 map.getmap()[5][0] = 'S';
-				 map.getmap()[6][0] = 'S';
+				 map.setMap(5, 0, 'S');
+				 map.setMap(6, 0, 'S');
 				 
 				 map.setMap(coordY, coordX-1,id);
 				 map.setMap(coordY, coordX, ' ');
 				 coordX = coordX-1;
-			 } 
+			 }
+			 
 			 //to open the door you need to check if the Hero has the key, aka, is in K state.
 			 else if(map.getmap()[coordY][coordX-1] == 'I' && stage == 2 && id == 'K') {
 				 map.setMap(coordY, coordX-1, 'S');
@@ -80,6 +81,16 @@ public class Hero extends Character {
 			 
 			 if(map.getmap()[coordY+1][coordX] == ' ') {
 				 map.setMap(coordY+1, coordX, id);
+				 map.setMap(coordY, coordX, ' ');
+				 coordY = coordY+1;
+			 }
+			 
+			 else if(map.getmap()[coordY+1][coordX] == 'k' && stage == -1) {
+				 
+				 map.setMap(2, 0, 'S');
+				 map.setMap(3, 0, 'S');
+				 
+				 map.setMap(coordY+1, coordX,id);
 				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY+1;
 			 }

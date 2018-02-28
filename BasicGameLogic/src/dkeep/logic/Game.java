@@ -8,18 +8,24 @@ public class Game {
 	Ogre [] ogre;
 	Club [] club;
 	Map map;
+	int keycoordX;
+	int keycoordY;
 	
-	public Game() {
+	
+	public Game(int test) {
 		// TODO Auto-generated constructor stub
-		hero = new Hero(1,1);
-		guard = new Guard(8,1,"Drunken");
-		map = new Map();
 		
 		if (test == 1)
 		{
 			hero = new Hero(1,1);
-			guard = new Guard(8,1,"Suspicious");
-			Map map = new Map(1);
+			guard = new Guard(3,1,"Rookie");
+			map = new Map(-1);
+			ogre = new Ogre[1];
+			ogre[0] = new Ogre(3,2);
+			club = new Club[1];
+			club[0] = new Club(4,2);
+			keycoordX = 1;
+			keycoordY = 3;
 		}
 		
 		else
@@ -27,6 +33,8 @@ public class Game {
 			hero = new Hero(1,1);
 			guard = new Guard(8,1,"Suspicious");
 			map = new Map(0);
+			keycoordX = 7;
+			keycoordY = 8;
 			
 			Random randomnumber = new Random();
 			int nOgres = randomnumber.nextInt(3);
@@ -48,9 +56,13 @@ public class Game {
 	
 	public char[][] getmap(){return map.getmap();};	
 	
+	public Guard getguard() {return guard;};
+	
+	public Map getMap() {return map;};
+	
 	public char[][] updateGame(char herocommand) {
 		int stage = map.getcurrentlevel();
-		int  rand;
+		int rand;
 		int clubplacement;
 		
 		Random randomnumber = new Random();
@@ -62,7 +74,7 @@ public class Game {
 		
 		if(hero_mov == 1) {
 			 
-			if (stage == 1){
+			if (stage == 1 || stage == -1){
 			
 			System.out.println(" ");
 			System.out.println("Now you went up the stairs, new stage.");
@@ -76,6 +88,8 @@ public class Game {
 			hero.setcoordX(1);
 			hero.setcoordY(7);
 			hero.setid('A');
+			keycoordX = 7;
+			keycoordY = 1;
 
 			 
 			stage = 2;
@@ -84,13 +98,12 @@ public class Game {
 			
 			else {
 				//he achieved the S victory door in stage 2, the game is over.
-				 char[][] gameovermap = map.getmap();
 				 
-				 gameovermap[0][0] = 'W';
-				 gameovermap[0][1] = 'I';
-				 gameovermap[0][2] = 'N';
+				 map.setMap(0, 0, 'W');
+				 map.setMap(0, 1, 'I');
+				 map.setMap(0, 2, 'N');
 				 
-				 return gameovermap;
+				 return map.getmap();
 			}
 			
 		 }
@@ -98,15 +111,15 @@ public class Game {
 		 //k's position has to be k whenever the hero steps out, same for I.
 		 //this is not so true for stage 2 I think. In stage 2 hero picks it up, ogre is the one where it stays.
 		
-		if(stage == 1) {
-		 if(map.getmap()[8][7] == ' ') {
-			 map.setMap(8, 7, 'k');
+		if(stage == 1 || stage == -1) {
+		 if(map.getmap()[keycoordY][keycoordX] == ' ') {
+			 map.setMap(keycoordY, keycoordX, 'k');
 		 }
 		}
 		
 		 //guard phase, he will only move in a given pattern according to the array guardpositon.
 		 
-		 if(stage == 1){
+		 if(stage == 1 || stage == -1){
 	
 			 if(guard.id == 'G' && (map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H')) {
 				 
@@ -114,16 +127,14 @@ public class Game {
 				 
 				 System.out.println("Game Over.");
 				 
-				 char[][] gameovermap = map.getmap();
+				 map.setMap(0, 0, 'E');
+				 map.setMap(0, 1, 'N');
+				 map.setMap(0, 2, 'D');
 				 
-				 gameovermap[0][0] = 'E';
-				 gameovermap[0][1] = 'N';
-				 gameovermap[0][2] = 'D';
-				 
-				 return gameovermap;
+				 return map.getmap();
 			 }
-			 
-		 switch(guard.personality) {
+		 
+		/*switch(guard.personality) {
 		 
 		 case "Rookie":
 			 guard.rookieMove(map);
@@ -136,8 +147,8 @@ public class Game {
 		 case "Suspicious":
 			 guard.suspiciousMove(map);
 			 break;
-		 }
-		 
+		 }*/
+	
 		 
 		 if(guard.id == 'G' && (map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H')) {
 			 
@@ -145,13 +156,11 @@ public class Game {
 			 System.out.println("");
 			 System.out.println("Game Over.");
 			 
-			 char[][] gameovermap = map.getmap();
+			 map.setMap(0, 0, 'E');
+			 map.setMap(0, 1, 'N');
+			 map.setMap(0, 2, 'D');
 			 
-			 gameovermap[0][0] = 'E';
-			 gameovermap[0][1] = 'N';
-			 gameovermap[0][2] = 'D';
-			 
-			 return gameovermap;
+			 return map.getmap();
 		 }
 		 
 		 //end of a turn of stage 1, by now the map has the current state and hero and guard have both moved and checked for collision.
@@ -214,33 +223,16 @@ public class Game {
 				 
 				 System.out.println("Game Over.");
 				 
-				 char[][] gameovermap = map.getmap();
+				 map.setMap(0, 0, 'E');
+				 map.setMap(0, 1, 'N');
+				 map.setMap(0, 2, 'D');
 				 
-				 gameovermap[0][0] = 'E';
-				 gameovermap[0][1] = 'N';
-				 gameovermap[0][2] = 'D';
-				 
-				 return gameovermap;
+				 return map.getmap();
 				 }	
 				 
 				 //ogre moves
 				 ogre[i].move(map,rand, 8);
 				 
-//				 if(stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) ) 
-//				 {
-//					 //interface
-//					 System.out.println("");
-//					 System.out.println("Game Over.");
-//							 
-//					 char[][] gameovermap = map.getmap();
-//							 
-//					 gameovermap[0][0] = 'E';
-//					 gameovermap[0][1] = 'N';
-//					 gameovermap[0][2] = 'D';
-//							 
-//					 return gameovermap;
-//				 }
-//				 
 				 //club moves
 				 clubplacement = randomclub.nextInt(4);
 				 
@@ -253,13 +245,11 @@ public class Game {
 					 System.out.println("");
 					 System.out.println("Game Over.");
 					 
-					 char[][] gameovermap = map.getmap();
+					 map.setMap(0, 0, 'E');
+					 map.setMap(0, 1, 'N');
+					 map.setMap(0, 2, 'D');
 					 
-					 gameovermap[0][0] = 'E';
-					 gameovermap[0][1] = 'N';
-					 gameovermap[0][2] = 'D';
-					 
-					 return gameovermap;
+					 return map.getmap();
 				 }
 				 
 				 if (ogre[i].id == '8' && ogre[i].stun_counter == 0)
@@ -268,8 +258,8 @@ public class Game {
 						map.setMap(ogre[i].coordY, ogre[i].coordX, ogre[i].id);
 				 }
 				 
-				 if (map.getmap()[1][7] == ' ' && hero.id == 'A')
-						map.setMap(1, 7, 'k');
+				 if (map.getmap()[keycoordY][keycoordX] == ' ' && hero.id == 'A')
+						map.setMap(keycoordY, keycoordX, 'k');
 				 
 				 
 			 } 
