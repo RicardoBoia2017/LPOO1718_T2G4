@@ -10,7 +10,7 @@ public class Main {
 		Scanner s = new Scanner (System.in);	
 		String game_state = "LEVEL1";
 		
-		Game game = new Game();
+		Game game = new Game(0);
 		char [][] map = game.getmap(); 
 		
 		while(game_state != "GAME OVER") {

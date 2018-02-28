@@ -9,26 +9,36 @@ public class Game {
 	Club [] club;
 	Map map;
 	
-	public Game() {
-		// TODO Auto-generated constructor stub
-		hero = new Hero(1,1);
-		guard = new Guard(8,1,"Suspicious");
-		map = new Map();
+	public Game(int test) {
 		
-		Random randomnumber = new Random();
-		int nOgres = randomnumber.nextInt(3);
-
-		
-		ogre = new Ogre[nOgres+1];
-		for (int i = 0; i < nOgres+1; i++)
+		if (test == 1)
 		{
-			ogre[i] = new Ogre (4,1);
+			hero = new Hero(1,1);
+			guard = new Guard(8,1,"Suspicious");
+			Map map = new Map(1);
 		}
 		
-		club = new Club[nOgres+1];
-		for (int i = 0; i < nOgres+1; i++)
+		else
 		{
-			club[i] = new Club(3,1);
+			hero = new Hero(1,1);
+			guard = new Guard(8,1,"Suspicious");
+			map = new Map(0);
+			
+			Random randomnumber = new Random();
+			int nOgres = randomnumber.nextInt(3);
+	
+			
+			ogre = new Ogre[nOgres+1];
+			for (int i = 0; i < nOgres+1; i++)
+			{
+				ogre[i] = new Ogre (4,1);
+			}
+			
+			club = new Club[nOgres+1];
+			for (int i = 0; i < nOgres+1; i++)
+			{
+				club[i] = new Club(3,1);
+			}
 		}
 	}
 	
@@ -264,5 +274,6 @@ public class Game {
 				 return map.getmap();
 	}
 	}
-
+	
+	public Hero getHero() {return hero;}
 }

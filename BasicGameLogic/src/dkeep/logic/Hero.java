@@ -123,4 +123,7 @@ public class Hero extends Character {
 	}
 
 	public void setid (char newId) {id = newId;}
+	
+	public int getCoordX () {return coordX;}
+	public int getCoordY () {return coordY;}
 }
