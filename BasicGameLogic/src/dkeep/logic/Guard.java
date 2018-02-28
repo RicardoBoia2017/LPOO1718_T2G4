@@ -5,7 +5,7 @@ import java.util.Random;
 public class Guard extends Character{
 
 	char[] positionarray = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
-	char[] inverposition = {'d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s','s'};
+	char[] inverposition = {'s','d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s'};
 	int currentposition;
 	String personality;
 	boolean reversedroute; //tells you whether he reversed the route
@@ -171,17 +171,33 @@ public class Guard extends Character{
 			 }
 		}
 		
-		if(currentposition == positionarray.length-1) {
-	    	currentposition = 0;
-	    } else {
-	    	currentposition++;
-	    }
+		//if he didn't invert
+		if(reversedroute == false) {
+			if(currentposition == positionarray.length-1) {
+				currentposition = 0;
+			} else {
+				currentposition++;
+			}
+		}
+		
+		//if he inverted
+		else {
+			if(currentposition == 0) {
+				currentposition = positionarray.length-1;
+			} else {
+				currentposition--;
+			}
+		}
 	  } 
 	   
 	else {
 		id = 'g';
 		map.setMap(coordY, coordX, id);
 	}
+	    
+	    System.out.println("Position index: ");
+	    System.out.println(currentposition);
+	    System.out.println(reversedroute);
 }
 	
 	public void suspiciousMove(Map map) {
@@ -264,10 +280,26 @@ public class Guard extends Character{
 			 }
 		}
 		
-		if(currentposition == positionarray.length-1) {
-	    	currentposition = 0;
-	    } else {
-	    	currentposition++;
-	    }
+		//if he didn't invert
+		if(reversedroute == false) {
+			if(currentposition == positionarray.length-1) {
+				currentposition = 0;
+			} else {
+				currentposition++;
+			}
+		}
+		
+		//if he inverted
+		else {
+			if(currentposition == 0) {
+				currentposition = positionarray.length-1;
+			} else {
+				currentposition--;
+			}
+		}
+		
+	    System.out.println("Position index: ");
+	    System.out.println(currentposition);
+	    System.out.println(reversedroute);
 	}
 }

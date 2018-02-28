@@ -9,7 +9,11 @@ public class Game {
 	Club [] club;
 	Map map;
 	
-	public Game(int test) {
+	public Game() {
+		// TODO Auto-generated constructor stub
+		hero = new Hero(1,1);
+		guard = new Guard(8,1,"Drunken");
+		map = new Map();
 		
 		if (test == 1)
 		{
@@ -55,6 +59,7 @@ public class Game {
 		//hero phase
 		 
 		int hero_mov = hero.move(map, herocommand, stage);
+		
 		if(hero_mov == 1) {
 			 
 			if (stage == 1){
@@ -75,7 +80,8 @@ public class Game {
 			 
 			stage = 2;
 			map.setmap(2); //change to second map
-			} 
+			}
+			
 			else {
 				//he achieved the S victory door in stage 2, the game is over.
 				 char[][] gameovermap = map.getmap();
@@ -267,9 +273,6 @@ public class Game {
 				 
 				 
 			 } 
-				 
-				 
-				 
 				 //by now both the club and the ogre, also hero have moved which concludes a turn in stagee2
 				 return map.getmap();
 	}
