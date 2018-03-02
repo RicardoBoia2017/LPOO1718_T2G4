@@ -293,7 +293,7 @@ public class TestDungeonGameLogic {
 	//TASK 3
 	
 	@Test(timeout=1000)
-	public void testSomeRandomBehaviour {
+	public void testSomeRandomBehaviour() {
 		
 		Game game = new Game(1);
 		char [][] map;
@@ -309,31 +309,37 @@ public class TestDungeonGameLogic {
 		
 		while(!outcome1 || !outcome2 || !outcome3 || !outcome4) {
 			//Hero moves into a wall for the time being
+			
 			game.updateGame('a');
 			
-			if(/*condition 1*/) {
+			if(game.getOgre().getRand() == 0) {
+				assertEquals(3, game.getOgre().getcoordX());
+				assertEquals(1, game.getOgre().getcoordY());
 				outcome1 = true;
-				
 			}
 			
-			else if(/*condition 2*/) {
+			else if(game.getOgre().getRand() == 1) {
+				assertEquals(5, game.getOgre().getcoordX());
+				assertEquals(1, game.getOgre().getcoordY());
 				outcome2 = true;
 			}
 			
-			else if(/*condition 3*/) {
+			else if(game.getOgre().getRand() == 3) {
+				assertEquals(4, game.getOgre().getcoordX());
+				assertEquals(0, game.getOgre().getcoordY());
 				outcome3 = true;
 			}
 			
-			else if(/*condition 4*/) {
+			else if(game.getOgre().getRand() == 2) {
+				assertEquals(4, game.getOgre().getcoordX());
+				assertEquals(2, game.getOgre().getcoordY());
 				outcome4 = true;
 			}
 			
 			else {
-				fail("Some error message.")
+				fail("Some error message.");
 			}
 		}
 	}
-	
-	
 }
 

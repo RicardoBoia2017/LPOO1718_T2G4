@@ -66,7 +66,7 @@ public class Map {
 		return empty;
 	}
 	
-	public int getcurrentlevel() {/*if(currentmap == -1) return 1; else*/ return currentmap;};
+	public int getcurrentlevel() {return currentmap;};
 	
 	public void setMap(int y, int x, char change) {
 		if(currentmap == 1) {

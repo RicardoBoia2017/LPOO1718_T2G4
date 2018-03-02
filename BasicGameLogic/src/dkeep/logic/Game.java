@@ -60,6 +60,8 @@ public class Game {
 	
 	public Map getMap() {return map;};
 	
+	public Ogre getOgre() {return ogre[0];};
+	
 	public char[][] updateGame(char herocommand) {
 		int stage = map.getcurrentlevel();
 		int rand;
@@ -134,7 +136,7 @@ public class Game {
 				 return map.getmap();
 			 }
 		 
-		/*switch(guard.personality) {
+		switch(guard.personality) {
 		 
 		 case "Rookie":
 			 guard.rookieMove(map);
@@ -147,7 +149,7 @@ public class Game {
 		 case "Suspicious":
 			 guard.suspiciousMove(map);
 			 break;
-		 }*/
+		 }
 	
 		 
 		 if(guard.id == 'G' && (map.getmap()[guard.coordY-1][guard.coordX] == 'H' || map.getmap()[guard.coordY+1][guard.coordX] == 'H' || map.getmap()[guard.coordY][guard.coordX-1] == 'H' || map.getmap()[guard.coordY][guard.coordX+1] == 'H')) {
@@ -230,13 +232,13 @@ public class Game {
 				 return map.getmap();
 				 }	
 				 
-//				 //ogre moves
-//				 ogre[i].move(map,rand, 8);
-//				 
-//				 //club moves
-//				 clubplacement = randomclub.nextInt(4);
-//				 
-//				 club[i].move(map,clubplacement, ogre[i], 8);
+				//ogre moves
+				// ogre[i].move(map,rand, 8);				 
+				 
+				 //club moves
+				 //clubplacement = randomclub.nextInt(4);
+				 
+				 //club[i].move(map,clubplacement, ogre[i], 8);
 				 
 				 if ( (stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) )
 				 || (map.getmap()[club[i].coordY][club[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX-1] == hero.id || map.getmap()[club[i].coordY-1][club[i].coordX] == hero.id || map.getmap()[club[i].coordY+1][club[i].coordX] == hero.id) )
