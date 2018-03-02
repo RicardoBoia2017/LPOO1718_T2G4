@@ -21,9 +21,9 @@ public class Game {
 			guard = new Guard(3,1,"Rookie");
 			map = new Map(-1);
 			ogre = new Ogre[1];
-			ogre[0] = new Ogre(3,2);
+			ogre[0] = new Ogre(4,1);
 			club = new Club[1];
-			club[0] = new Club(4,2);
+			club[0] = new Club(3,1);
 			keycoordX = 1;
 			keycoordY = 3;
 		}
@@ -230,13 +230,13 @@ public class Game {
 				 return map.getmap();
 				 }	
 				 
-				 //ogre moves
-				 ogre[i].move(map,rand, 8);
-				 
-				 //club moves
-				 clubplacement = randomclub.nextInt(4);
-				 
-				 club[i].move(map,clubplacement, ogre[i], 8);
+//				 //ogre moves
+//				 ogre[i].move(map,rand, 8);
+//				 
+//				 //club moves
+//				 clubplacement = randomclub.nextInt(4);
+//				 
+//				 club[i].move(map,clubplacement, ogre[i], 8);
 				 
 				 if ( (stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) )
 				 || (map.getmap()[club[i].coordY][club[i].coordX+1] == hero.id || map.getmap()[club[i].coordY][club[i].coordX-1] == hero.id || map.getmap()[club[i].coordY-1][club[i].coordX] == hero.id || map.getmap()[club[i].coordY+1][club[i].coordX] == hero.id) )

@@ -32,6 +32,7 @@ public class Map {
 			{'X','X','X','X','X'},
 	};
 	
+	
 	private int currentmap;
 	
 	public Map(int test) {
