@@ -5,14 +5,20 @@ import java.util.Random;
 public class Ogre extends Character {
 
 	int stun_counter;
+	private int randholder;
 	
 	public Ogre(int x, int y) {
 		// TODO Auto-generated constructor stub
 		super(x, y, 'O');
 		stun_counter = 0;
+		randholder = 0;
 	}
 	
-	public void move(Map map, int ogreplace, int nTries) { 
+	public void move(Map map, int ogreplace, int nTries) {
+		
+		Random randomnum = new Random();
+		
+		randholder = ogreplace;
 		
 		if (nTries == 0)
 			return;
@@ -28,10 +34,6 @@ public class Ogre extends Character {
 			return;
 		}
 		
-		Random randomnum = new Random();
-		
-		int rand;
-		
 		switch (ogreplace){
 		
 		// left
@@ -44,8 +46,8 @@ public class Ogre extends Character {
 			}
 			else 
 			{
-				rand = randomnum.nextInt(4);
-				move(map, rand, nTries--);
+				randholder = randomnum.nextInt(4);
+				move(map, randholder, nTries--);
 			}
 			
 			break;
@@ -68,8 +70,8 @@ public class Ogre extends Character {
 			 
 			 else 
 			{
-				rand = randomnum.nextInt(4);
-				move(map, rand, nTries--);
+				randholder = randomnum.nextInt(4);
+				move(map, randholder, nTries--);
 			}
 			 
 			 break;
@@ -86,8 +88,8 @@ public class Ogre extends Character {
 			
 			 else 
 			{
-				rand = randomnum.nextInt(4);
-				move(map, rand, nTries--);
+				randholder = randomnum.nextInt(4);
+				move(map, randholder, nTries--);
 			}
 			 
 			 break;
@@ -110,14 +112,15 @@ public class Ogre extends Character {
 			
 			 else 
 			{
-				rand = randomnum.nextInt(4);
-				move(map, rand, nTries--);
+				randholder = randomnum.nextInt(4);
+				move(map, randholder, nTries--);
 			}
 			 
 			 break;
 		}
 		
 		}
+		
 		if (id =='$' && (coordX != 7 || coordY != 1) )
 			id = 'O';
 	}
@@ -129,5 +132,6 @@ public class Ogre extends Character {
 	}
 	
 	public void setId (char newId) {id = newId;}
-
+	
+	public int getRand() {return randholder;};
 }
