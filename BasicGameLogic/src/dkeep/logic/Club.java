@@ -19,7 +19,7 @@ public class Club extends Character {
 	
 	public void setBlocker(boolean truefalse) {movementBlocker = truefalse;}
 	
-	public void move(Map map, int clubplace, Ogre character, int nTries) {
+	public void move(Map map, int clubplace, Ogre character, int nTries) throws IllegalMapChangeException {
 		
 		if (nTries == 0)
 			return;

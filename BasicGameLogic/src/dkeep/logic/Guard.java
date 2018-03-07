@@ -18,7 +18,7 @@ public class Guard extends Character{
 		reversedroute = false;
 	}
 	
-	public void rookieMove(Map map) {
+	public void rookieMove(Map map) throws IllegalMapChangeException {
 		switch(positionarray[currentposition]) {
 		 
 		 case 'a': 
@@ -76,7 +76,7 @@ public class Guard extends Character{
     
    }
 	
-	public void drunkenMove(Map map) {
+	public void drunkenMove(Map map) throws IllegalMapChangeException {
 	    Random passout = new Random();
 	    char[] temp;
 	    
@@ -200,7 +200,7 @@ public class Guard extends Character{
 	    System.out.println(reversedroute);
 }
 	
-	public void suspiciousMove(Map map) {
+	public void suspiciousMove(Map map) throws IllegalMapChangeException {
 	    Random check = new Random();
 	    char[] temp;
 	    

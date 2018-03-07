@@ -7,7 +7,7 @@ public class Hero extends Character {
 		super(x, y, 'H');
 	}
 	
-	public int move(Map map, char command, int stage) {
+	public int move(Map map, char command, int stage) throws IllegalMapChangeException {
 		//abstract movement method
 		 switch(command) {
 		 

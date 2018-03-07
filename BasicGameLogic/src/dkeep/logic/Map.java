@@ -68,16 +68,32 @@ public class Map {
 	
 	public int getcurrentlevel() {return currentmap;};
 	
-	public void setMap(int y, int x, char change) {
+	public void setMap(int y, int x, char change) throws IllegalMapChangeException {
+		
 		if(currentmap == 1) {
+			
+			if(level1[y][x] == 'X') {
+				throw new IllegalMapChangeException();
+			}
+			
 			level1[y][x] = change;
 		}
 		
 		if(currentmap == 2) {
+			
+			if(level1[y][x] == 'X') {
+				throw new IllegalMapChangeException();
+			}
+			
 			level2[y][x] = change;
 		}
 		
 		if(currentmap == -1) {
+			
+			if(level1[y][x] == 'X') {
+				throw new IllegalMapChangeException();
+			}
+			
 			testLevel1[y][x] = change;
 		}
 	}

@@ -73,9 +73,16 @@ public class Game {
 		Random randomnumber = new Random();
 		Random randomclub = new Random();
 		
+		int hero_mov = 0;
+		
 		//hero phase
-		 
-		int hero_mov = hero.move(map, herocommand, stage);
+		try {
+		hero_mov = hero.move(map, herocommand, stage);
+		}
+		
+		catch(IllegalMapChangeException e) {
+			
+		}
 		
 		if(hero_mov == 1) {
 			 
@@ -90,7 +97,7 @@ public class Game {
 			 
 			//update game stage
 			 
-			hero.setcoordX(1);
+			//hero.setcoordX(1);
 			hero.setcoordY(7);
 			hero.setid('A');
 			keycoordX = 7;
@@ -106,9 +113,13 @@ public class Game {
 			else {
 				//he achieved the S victory door in stage 2, the game is over.
 				 
-				 map.setMap(0, 0, 'W');
-				 map.setMap(0, 1, 'I');
-				 map.setMap(0, 2, 'N');
+				 try {
+					map.setMap(0, 0, 'W');
+					map.setMap(0, 1, 'I');
+					map.setMap(0, 2, 'N');
+				} catch (IllegalMapChangeException e) {
+					// TODO Auto-generated catch block
+				}
 				 
 				 return map.getmap();
 			}
@@ -120,7 +131,11 @@ public class Game {
 		
 		if(stage == 1 || stage == -1) {
 		 if(map.getmap()[keycoordY][keycoordX] == ' ') {
-			 map.setMap(keycoordY, keycoordX, 'k');
+			 try {
+				map.setMap(keycoordY, keycoordX, 'k');
+			} catch (IllegalMapChangeException e) {
+				// TODO Auto-generated catch block
+			}
 		 }
 		}
 		
@@ -134,9 +149,13 @@ public class Game {
 				 
 				 System.out.println("Game Over.");
 				 
-				 map.setMap(0, 0, 'E');
-				 map.setMap(0, 1, 'N');
-				 map.setMap(0, 2, 'D');
+				 try {
+				    map.setMap(0, 0, 'E');
+					map.setMap(0, 1, 'N');
+					map.setMap(0, 2, 'D');
+				} catch (IllegalMapChangeException e) {
+					// TODO Auto-generated catch block
+				}
 				 
 				 return map.getmap();
 			 }
@@ -144,15 +163,27 @@ public class Game {
 		switch(guard.personality) {
 		 
 		 case "Rookie":
-			 guard.rookieMove(map);
+			 try {
+				guard.rookieMove(map);
+			} catch (IllegalMapChangeException e) {
+				// TODO Auto-generated catch block
+			}
 			 break;
 		
 		 case "Drunken":
-			 guard.drunkenMove(map);
+			 try {
+				guard.drunkenMove(map);
+			} catch (IllegalMapChangeException e) {
+				// TODO Auto-generated catch block
+			}
 			 break;
 			 
 		 case "Suspicious":
-			 guard.suspiciousMove(map);
+			 try {
+				guard.suspiciousMove(map);
+			} catch (IllegalMapChangeException e) {
+				// TODO Auto-generated catch block
+			}
 			 break;
 		 }
 	
@@ -163,9 +194,13 @@ public class Game {
 			 System.out.println("");
 			 System.out.println("Game Over.");
 			 
-			 map.setMap(0, 0, 'E');
-			 map.setMap(0, 1, 'N');
-			 map.setMap(0, 2, 'D');
+			 try {
+				map.setMap(0, 0, 'E');
+				map.setMap(0, 1, 'N');
+				map.setMap(0, 2, 'D');
+			} catch (IllegalMapChangeException e) {
+				// TODO Auto-generated catch block
+			}
 			 
 			 return map.getmap();
 		 }
@@ -181,14 +216,18 @@ public class Game {
 		 else{
 			 for (int i = 0;i < ogre.length; i++)
 			 { 
-				 if (hero_mov == 2 && ogre[i].stun_counter == 0)
+				 if (hero_mov == 2 && ogre[i].stun_counter == 0 && hero.getID() == 'A')
 				{
 					switch(herocommand)
 					{
 						case 'a':
 						{
-							if ( (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1) || (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX-1) )
-								ogre[i].stun(map);
+							if ( (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1) || (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX-1))
+								try {
+									ogre[i].stun(map);
+								} catch (IllegalMapChangeException e) {
+									// TODO Auto-generated catch block
+								}
 									
 							break;
 						}
@@ -196,7 +235,11 @@ public class Game {
 						case 'd':
 						{
 							if ( (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX+1) || (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX) )
-								ogre[i].stun(map);
+								try {
+									ogre[i].stun(map);
+								} catch (IllegalMapChangeException e) {
+									// TODO Auto-generated catch block
+								}
 									
 							break;	
 						}
@@ -204,7 +247,11 @@ public class Game {
 						case 's':
 						{
 							if ( (ogre[i].coordY == hero.coordY+1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX+1) || (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1) )
-								ogre[i].stun(map);
+								try {
+									ogre[i].stun(map);
+								} catch (IllegalMapChangeException e) {
+									// TODO Auto-generated catch block
+								}
 									
 							break;	
 						}
@@ -212,7 +259,11 @@ public class Game {
 						case 'w':
 						{
 							if ( (ogre[i].coordY == hero.coordY-1 && ogre[i].coordX == hero.coordX) || (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX + 1) || (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX-1) )
-								ogre[i].stun(map);
+								try {
+									ogre[i].stun(map);
+								} catch (IllegalMapChangeException e) {
+									// TODO Auto-generated catch block
+								}
 									
 							break;	
 						}
@@ -230,9 +281,13 @@ public class Game {
 				 
 				 System.out.println("Game Over.");
 				 
-				 map.setMap(0, 0, 'E');
-				 map.setMap(0, 1, 'N');
-				 map.setMap(0, 2, 'D');
+				 try {
+					map.setMap(0, 0, 'E');
+					map.setMap(0, 1, 'N');
+					map.setMap(0, 2, 'D');
+				} catch (IllegalMapChangeException e) {
+					// TODO Auto-generated catch block
+				}
 				 
 				 return map.getmap();
 				 }	
@@ -240,7 +295,11 @@ public class Game {
 				 if (ogre[i].getBlocker() == false)
 				 {
 					//ogre moves
-					 ogre[i].move(map,rand, 8);				 
+					 try {
+						ogre[i].move(map,rand, 8);
+					} catch (IllegalMapChangeException e) {
+						// TODO Auto-generated catch block
+					}				 
 				 }
 				
 				 if (club[i].getBlocker() == false) {
@@ -248,7 +307,11 @@ public class Game {
 					 //club moves
 					 clubplacement = randomclub.nextInt(4); 
 					 
-					 club[i].move(map,clubplacement, ogre[i], 8);
+					 try {
+						club[i].move(map,clubplacement, ogre[i], 8);
+					} catch (IllegalMapChangeException e) {
+						// TODO Auto-generated catch block
+					}
 				 }
 				 
 				 if ( (stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) )
@@ -258,9 +321,13 @@ public class Game {
 					 System.out.println("");
 					 System.out.println("Game Over.");
 					 
-					 map.setMap(0, 0, 'E');
-					 map.setMap(0, 1, 'N');
-					 map.setMap(0, 2, 'D');
+					 try {
+						map.setMap(0, 0, 'E');
+						map.setMap(0, 1, 'N');
+						map.setMap(0, 2, 'D');
+					} catch (IllegalMapChangeException e) {
+						// TODO Auto-generated catch block
+					}
 					 
 					 return map.getmap();
 				 }
@@ -268,13 +335,19 @@ public class Game {
 				 if (ogre[i].id == '8' && ogre[i].stun_counter == 0)
 				 {
 						ogre[i].id = 'O';
-						map.setMap(ogre[i].coordY, ogre[i].coordX, ogre[i].id);
+						try {
+							map.setMap(ogre[i].coordY, ogre[i].coordX, ogre[i].id);
+						} catch (IllegalMapChangeException e) {
+							// TODO Auto-generated catch block
+						}
 				 }
 				 
 				 if (map.getmap()[keycoordY][keycoordX] == ' ' && hero.id == 'A')
+					try {
 						map.setMap(keycoordY, keycoordX, 'k');
-				 
-				 
+					} catch (IllegalMapChangeException e) {
+						// TODO Auto-generated catch block
+					}
 			 } 
 				 //by now both the club and the ogre, also hero have moved which concludes a turn in stagee2
 				 return map.getmap();

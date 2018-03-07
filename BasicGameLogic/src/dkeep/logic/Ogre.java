@@ -16,7 +16,7 @@ public class Ogre extends Character {
 		movementBlocker = false;
 	}
 	
-	public void move(Map map, int ogreplace, int nTries) {
+	public void move(Map map, int ogreplace, int nTries) throws IllegalMapChangeException {
 		
 		Random randomnum = new Random();
 		
@@ -127,7 +127,7 @@ public class Ogre extends Character {
 			id = 'O';
 	}
 
-	public void stun(Map map){
+	public void stun(Map map) throws IllegalMapChangeException{
 		stun_counter = 2;
 		id = '8';
 		map.setMap(coordY, coordX, id);

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import dkeep.logic.Game;
+import dkeep.logic.IllegalMapChangeException;
 import dkeep.logic.Map;
 
 
@@ -377,10 +378,30 @@ public class TestDungeonGameLogic {
 		
 		game.setMap(newmap);
 		
-		game.getMap().setMap(1, 4, ' ');
-		game.getMap().setMap(2, 4, 'O');
-		game.getMap().setMap(1, 3, ' ');
-		game.getMap().setMap(2, 3, '*');
+		try {
+			game.getMap().setMap(1, 4, ' ');
+		} catch (IllegalMapChangeException e) {
+			// TODO Auto-generated catch bloco
+		}
+		
+		try {
+			game.getMap().setMap(2, 4, 'O');
+		} catch (IllegalMapChangeException e) {
+			// TODO Auto-generated catch block
+		}
+		
+		try {
+			game.getMap().setMap(1, 3, ' ');
+		} catch (IllegalMapChangeException e) {
+			// TODO Auto-generated catch block
+		}
+		
+		try {
+			game.getMap().setMap(2, 3, '*');
+		} catch (IllegalMapChangeException e) {
+			// TODO Auto-generated catch block
+		}
+		
 		game.getOgre().setcoordY(2);
 		game.getClub().setcoordY(2);
 		game.getOgre().setBlocker(true);
