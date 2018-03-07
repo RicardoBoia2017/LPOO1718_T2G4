@@ -3,11 +3,21 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Club extends Character {
+	
+	boolean movementBlocker;
+	int clubrand;
 
 	public Club(int x, int y) {
 		// TODO Auto-generated constructor stub
 		super(x, y, '*');
+		movementBlocker = false;
 	}
+	
+	public int getRand() {return clubrand;}
+	
+	public boolean getBlocker() {return movementBlocker;}
+	
+	public void setBlocker(boolean truefalse) {movementBlocker = truefalse;}
 	
 	public void move(Map map, int clubplace, Ogre character, int nTries) {
 		
@@ -16,7 +26,7 @@ public class Club extends Character {
 		
 		Random randomnum = new Random();
 		
-		int rand;
+		clubrand = clubplace;
 		
 		switch(clubplace) {
 		
@@ -32,8 +42,8 @@ public class Club extends Character {
 				coordY = character.coordY;
 
 			} else {
-				rand = randomnum.nextInt(4);
-				move(map, rand, character, nTries--); //recursion to avoid cases where ogre has an X in the position the club wants to move to.
+				clubrand = randomnum.nextInt(4);
+				move(map, clubrand, character, nTries--); //recursion to avoid cases where ogre has an X in the position the club wants to move to.
 			}
 			
 			break;
@@ -58,8 +68,8 @@ public class Club extends Character {
 				 coordX = character.coordX+1;
 				 coordY = character.coordY;
 			 } else {
-					rand = randomnum.nextInt(4);
-					move(map, rand, character, nTries--);
+					clubrand = randomnum.nextInt(4);
+					move(map, clubrand, character, nTries--);
 				}
 			 
 			 break;
@@ -77,8 +87,8 @@ public class Club extends Character {
 				 coordX = character.coordX;
 
 			 } else {
-					rand = randomnum.nextInt(4);
-					move(map, rand, character, nTries--); 
+					clubrand = randomnum.nextInt(4);
+					move(map, clubrand, character, nTries--); 
 				}
 			 
 			 break;
@@ -103,8 +113,8 @@ public class Club extends Character {
 				 coordY = character.coordY-1;
 				 coordX = character.coordX;
 			 } else {
-					rand = randomnum.nextInt(4);
-					move(map, rand, character, nTries--);
+					clubrand = randomnum.nextInt(4);
+					move(map, clubrand, character, nTries--);
 				}
 			 
 			 break;

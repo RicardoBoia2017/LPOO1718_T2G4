@@ -109,6 +109,7 @@ public class TestDungeonGameLogic {
 		Game game = new Game(1);
 		char [][] map;
 		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -139,6 +140,7 @@ public class TestDungeonGameLogic {
 		Game game = new Game(1);
 		char [][] map;
 		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -171,6 +173,7 @@ public class TestDungeonGameLogic {
 		Game game = new Game(1);
 		char [][] map;
 		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -200,6 +203,7 @@ public class TestDungeonGameLogic {
 		Game game = new Game(1);
 		char [][] map;
 		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -248,6 +252,7 @@ public class TestDungeonGameLogic {
 		Game game = new Game(1);
 		char [][] map;
 		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -347,6 +352,76 @@ public class TestDungeonGameLogic {
 			else if(game.getOgre().getRand() == 2) {
 				assertEquals(coordX, game.getOgre().getcoordX());
 				assertEquals(coordY + 1, game.getOgre().getcoordY());
+				outcome4 = true;
+			}
+			
+			else {
+				fail("Some error message.");
+			}
+		}
+	}
+	
+	@Test(timeout=1000)
+	public void testSomeClubBehaviour() {
+		Game game = new Game(1);
+		char [][] map;
+		Map newmap = new Map(0);
+		newmap.setmap(2);
+		
+		//hero moves into next level
+		game.updateGame('s');
+		game.updateGame('s');
+		game.updateGame('a');
+		assertEquals(1, game.getHero().getCoordX());
+		assertEquals(7, game.getHero().getCoordY());
+		
+		game.setMap(newmap);
+		
+		game.getMap().setMap(1, 4, ' ');
+		game.getMap().setMap(2, 4, 'O');
+		game.getMap().setMap(1, 3, ' ');
+		game.getMap().setMap(2, 3, '*');
+		game.getOgre().setcoordY(2);
+		game.getClub().setcoordY(2);
+		game.getOgre().setBlocker(true);
+		
+		//outcome1: Club moves left.
+		//outcome2: Club moves right.
+		//outcome3: Club moves up.
+		//outcome4: Club moves down.
+		
+		boolean outcome1 = false, outcome2 = false, outcome3 = false, outcome4 = false;
+		
+		while(!outcome1 || !outcome2 || !outcome3 || !outcome4) {
+			//Hero moves into a wall for the time being
+			
+			game.updateGame('s');
+			
+			if(game.getClub().getRand() == 0) {
+				System.out.println("left.");
+				assertEquals(3, game.getClub().getcoordX());
+				assertEquals(2, game.getClub().getcoordY());
+				outcome1 = true;
+			}
+			
+			else if(game.getClub().getRand() == 1) {
+				System.out.println("right.");
+				assertEquals(5, game.getClub().getcoordX());
+				assertEquals(2, game.getClub().getcoordY());
+				outcome2 = true;
+			}
+			
+			else if(game.getClub().getRand() == 3) {
+				System.out.println("up.");
+				assertEquals(4, game.getClub().getcoordX());
+				assertEquals(1, game.getClub().getcoordY());
+				outcome3 = true;
+			}
+			
+			else if(game.getClub().getRand() == 2) {
+				System.out.println("down");
+				assertEquals(4, game.getClub().getcoordX());
+				assertEquals(3, game.getClub().getcoordY());
 				outcome4 = true;
 			}
 			

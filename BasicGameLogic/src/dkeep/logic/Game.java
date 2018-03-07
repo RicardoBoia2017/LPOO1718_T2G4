@@ -11,6 +11,7 @@ public class Game {
 	int keycoordX;
 	int keycoordY;
 	
+	public void setMap(Map map) {this.map = map;}
 	
 	public Game(int test) {
 		// TODO Auto-generated constructor stub
@@ -61,6 +62,8 @@ public class Game {
 	public Map getMap() {return map;};
 	
 	public Ogre getOgre() {return ogre[0];};
+	
+	public Club getClub() {return club[0];};
 	
 	public char[][] updateGame(char herocommand) {
 		int stage = map.getcurrentlevel();
@@ -238,9 +241,12 @@ public class Game {
 				 {
 					//ogre moves
 					 ogre[i].move(map,rand, 8);				 
+				 }
+				
+				 if (club[i].getBlocker() == false) {
 					 
 					 //club moves
-					 clubplacement = randomclub.nextInt(4);
+					 clubplacement = randomclub.nextInt(4); 
 					 
 					 club[i].move(map,clubplacement, ogre[i], 8);
 				 }
