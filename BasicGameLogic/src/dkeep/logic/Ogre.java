@@ -6,12 +6,14 @@ public class Ogre extends Character {
 
 	int stun_counter;
 	private int randholder;
+	boolean movementBlocker;
 	
 	public Ogre(int x, int y) {
 		// TODO Auto-generated constructor stub
 		super(x, y, 'O');
 		stun_counter = 0;
 		randholder = 0;
+		movementBlocker = false;
 	}
 	
 	public void move(Map map, int ogreplace, int nTries) {
@@ -134,4 +136,13 @@ public class Ogre extends Character {
 	public void setId (char newId) {id = newId;}
 	
 	public int getRand() {return randholder;};
+	
+	public int getStunCounter () {return stun_counter;}
+	
+	public boolean getBlocker () {return movementBlocker;}
+	
+	public void setBlocker (boolean b)
+	{
+		this.movementBlocker = b;
+	}
 }
