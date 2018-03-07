@@ -104,7 +104,7 @@ public class TestDungeonGameLogic {
 	//TASK 2
 	
 	@Test
-	public void testMoveHeroIntoOgre() //Não é suposto acontecer o que está no enunciado
+	public void testMoveHeroIntoOgre() 
 	{
 		Game game = new Game(1);
 		char [][] map;
@@ -327,28 +327,24 @@ public class TestDungeonGameLogic {
 			game.updateGame('s');
 			
 			if(game.getOgre().getRand() == 0) {
-				System.out.println("LEFT " + game.getOgre().getcoordX() + "  " + game.getOgre().getcoordY());
 				assertEquals(coordX - 1 , game.getOgre().getcoordX());
 				assertEquals(coordY, game.getOgre().getcoordY());
 				outcome1 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 1) {
-				System.out.println("RIGHT " + game.getOgre().getcoordX() + "  " + game.getOgre().getcoordY());
 				assertEquals(coordX + 1, game.getOgre().getcoordX());
 				assertEquals(coordY, game.getOgre().getcoordY());
 				outcome2 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 3) {
-				System.out.println("UP " + game.getOgre().getcoordX() + "  " + game.getOgre().getcoordY());
 				assertEquals(coordX, game.getOgre().getcoordX());
 				assertEquals(coordY-1, game.getOgre().getcoordY());
 				outcome3 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 2) {
-				System.out.println("DOWN " + game.getOgre().getcoordX() + "  " + game.getOgre().getcoordY());
 				assertEquals(coordX, game.getOgre().getcoordX());
 				assertEquals(coordY + 1, game.getOgre().getcoordY());
 				outcome4 = true;

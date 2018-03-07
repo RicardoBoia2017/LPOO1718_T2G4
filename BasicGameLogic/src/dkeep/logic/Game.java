@@ -23,7 +23,7 @@ public class Game {
 			ogre = new Ogre[1];
 			ogre[0] = new Ogre(4,1);
 			club = new Club[1];
-			club[0] = new Club(1,1);
+			club[0] = new Club(3,1);
 			keycoordX = 1;
 			keycoordY = 3;
 		}
