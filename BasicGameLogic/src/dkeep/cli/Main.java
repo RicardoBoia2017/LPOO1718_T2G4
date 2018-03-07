@@ -41,7 +41,7 @@ public class Main {
 			 
 			 map = game.updateGame(command); //TODO find a way to pass game state from game to here
 			 
-			 if(map[0][0] == 'E' || map[0][0] == 'W') {
+			 if(game.getGameState() == "Over" || game.getGameState() == "Victory") {
 				 game_state = "GAME OVER";
 				 for(int i = 0; i < map.length; i++) {
 					 System.out.println(map[i]);

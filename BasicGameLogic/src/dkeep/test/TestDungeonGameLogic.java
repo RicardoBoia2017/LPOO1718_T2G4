@@ -21,6 +21,7 @@ public class TestDungeonGameLogic {
 		
 		//check if the hero moved down with 's'
 		game.updateGame('s');
+
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(2, game.getHero().getCoordY());
 	}
@@ -48,14 +49,16 @@ public class TestDungeonGameLogic {
 		//check if the hero moved next to guard and lost
 		char[][] map;
 		map = game.updateGame('d');
-		
+		for(int i = 0; i < map.length; i++) {
+			 System.out.println(map[i]);
+		 }
 		assertEquals(2, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
 		assertEquals(3, game.getguard().getcoordX());
 		assertEquals(1, game.getguard().getcoordY());
 		
-		assertEquals('E', map[0][0]);
+		assertEquals("Over", game.getGameState());
 	}
 	
 	@Test
@@ -108,7 +111,7 @@ public class TestDungeonGameLogic {
 	public void testMoveHeroIntoOgre() 
 	{
 		Game game = new Game(1);
-		char [][] map;
+		char [][] map; 
 		game.getOgre().setBlocker(true);
 		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
@@ -296,8 +299,8 @@ public class TestDungeonGameLogic {
 		assertEquals(1, game.getHero().getCoordY());
 		
 		//hero wins
-		map = game.updateGame('a');
-		assertEquals('W', map [0][0]);
+		game.updateGame('a');
+		assertEquals("Victory", game.getGameState());
 	}
 	
 	//TASK 3

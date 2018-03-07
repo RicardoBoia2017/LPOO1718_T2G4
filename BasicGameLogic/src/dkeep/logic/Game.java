@@ -10,6 +10,7 @@ public class Game {
 	Map map;
 	int keycoordX;
 	int keycoordY;
+	String gameState;
 	
 	public void setMap(Map map) {this.map = map;}
 	
@@ -27,6 +28,7 @@ public class Game {
 			club[0] = new Club(3,1);
 			keycoordX = 1;
 			keycoordY = 3;
+			gameState = "Running";
 		}
 		
 		else
@@ -52,6 +54,7 @@ public class Game {
 			{
 				club[i] = new Club(3,1);
 			}
+			gameState = "Running";
 		}
 	}
 	
@@ -77,11 +80,11 @@ public class Game {
 		
 		//hero phase
 		try {
-		hero_mov = hero.move(map, herocommand, stage);
+			hero_mov = hero.move(map, herocommand, stage);
 		}
 		
 		catch(IllegalMapChangeException e) {
-			
+			System.out.println("Exceção mov hero");
 		}
 		
 		if(hero_mov == 1) {
@@ -113,13 +116,14 @@ public class Game {
 			else {
 				//he achieved the S victory door in stage 2, the game is over.
 				 
-				 try {
-					map.setMap(0, 0, 'W');
-					map.setMap(0, 1, 'I');
-					map.setMap(0, 2, 'N');
-				} catch (IllegalMapChangeException e) {
-					// TODO Auto-generated catch block
-				}
+				gameState = "Victory";
+//				 try {
+//					map.setMap(0, 0, 'W');
+//					map.setMap(0, 1, 'I');
+//					map.setMap(0, 2, 'N');
+//				} catch (IllegalMapChangeException e) {
+//					// TODO Auto-generated catch block
+//				}
 				 
 				 return map.getmap();
 			}
@@ -149,13 +153,15 @@ public class Game {
 				 
 				 System.out.println("Game Over.");
 				 
-				 try {
-				    map.setMap(0, 0, 'E');
-					map.setMap(0, 1, 'N');
-					map.setMap(0, 2, 'D');
-				} catch (IllegalMapChangeException e) {
-					// TODO Auto-generated catch block
-				}
+				 gameState = "Over";
+				 
+//				 try {
+//				    map.setMap(0, 0, 'E');
+//					map.setMap(0, 1, 'N');
+//					map.setMap(0, 2, 'D');
+//				} catch (IllegalMapChangeException e) {
+//					// TODO Auto-generated catch block
+//				}
 				 
 				 return map.getmap();
 			 }
@@ -194,13 +200,15 @@ public class Game {
 			 System.out.println("");
 			 System.out.println("Game Over.");
 			 
-			 try {
-				map.setMap(0, 0, 'E');
-				map.setMap(0, 1, 'N');
-				map.setMap(0, 2, 'D');
-			} catch (IllegalMapChangeException e) {
-				// TODO Auto-generated catch block
-			}
+			 gameState = "Over";
+			 
+//			 try {
+//				map.setMap(0, 0, 'E');
+//				map.setMap(0, 1, 'N');
+//				map.setMap(0, 2, 'D');
+//			} catch (IllegalMapChangeException e) {
+//				// TODO Auto-generated catch block
+//			}
 			 
 			 return map.getmap();
 		 }
@@ -279,17 +287,19 @@ public class Game {
 				 if(stun == 0 && (map.getmap()[ogre[i].coordY-1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY+1][ogre[i].coordX] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX-1] == hero.id || map.getmap()[ogre[i].coordY][ogre[i].coordX+1] == hero.id) )
 				 {
 				 
-				 System.out.println("Game Over.");
+					 System.out.println("Game Over.");
+					 
+					 gameState = "Over";
 				 
-				 try {
-					map.setMap(0, 0, 'E');
-					map.setMap(0, 1, 'N');
-					map.setMap(0, 2, 'D');
-				} catch (IllegalMapChangeException e) {
-					// TODO Auto-generated catch block
-				}
+//				 try {
+//					map.setMap(0, 0, 'E');
+//					map.setMap(0, 1, 'N');
+//					map.setMap(0, 2, 'D');
+//				} catch (IllegalMapChangeException e) {
+//					// TODO Auto-generated catch block
+//				}
 				 
-				 return map.getmap();
+					 return map.getmap();
 				 }	
 				 
 				 if (ogre[i].getBlocker() == false)
@@ -321,13 +331,15 @@ public class Game {
 					 System.out.println("");
 					 System.out.println("Game Over.");
 					 
-					 try {
-						map.setMap(0, 0, 'E');
-						map.setMap(0, 1, 'N');
-						map.setMap(0, 2, 'D');
-					} catch (IllegalMapChangeException e) {
-						// TODO Auto-generated catch block
-					}
+					 gameState = "Over";
+					 
+//					 try {
+//						map.setMap(0, 0, 'E');
+//						map.setMap(0, 1, 'N');
+//						map.setMap(0, 2, 'D');
+//					} catch (IllegalMapChangeException e) {
+//						// TODO Auto-generated catch block
+//					}
 					 
 					 return map.getmap();
 				 }
@@ -355,4 +367,6 @@ public class Game {
 	}
 	
 	public Hero getHero() {return hero;}
+	
+	public String getGameState () {return gameState;}
 }

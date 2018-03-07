@@ -81,7 +81,7 @@ public class Map {
 		
 		if(currentmap == 2) {
 			
-			if(level1[y][x] == 'X') {
+			if(level2[y][x] == 'X') {
 				throw new IllegalMapChangeException();
 			}
 			
@@ -90,7 +90,7 @@ public class Map {
 		
 		if(currentmap == -1) {
 			
-			if(level1[y][x] == 'X') {
+			if(testLevel1[y][x] == 'X') {
 				throw new IllegalMapChangeException();
 			}
 			
