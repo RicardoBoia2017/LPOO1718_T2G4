@@ -9,6 +9,7 @@ public class Guard extends Character{
 	int currentposition;
 	String personality;
 	boolean reversedroute; //tells you whether he reversed the route
+	boolean movementBlocker;
 	
 	public Guard(int x, int y, String persona) {
 		// TODO Auto-generated constructor stub
@@ -16,6 +17,7 @@ public class Guard extends Character{
 		currentposition = 0;
 		personality = persona;
 		reversedroute = false;
+		this.movementBlocker = false;
 	}
 	
 	public void rookieMove(Map map) throws IllegalMapChangeException {
@@ -302,4 +304,11 @@ public class Guard extends Character{
 	    System.out.println(currentposition);
 	    System.out.println(reversedroute);
 	}
+
+	public void setMovementBlocker(boolean newValue)
+	{
+		this.movementBlocker = newValue;
+	}
+	
+	public boolean getMovementBlocker(){return this.movementBlocker;}
 }
