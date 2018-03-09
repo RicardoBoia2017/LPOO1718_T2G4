@@ -289,6 +289,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		//call game constructor with Game(int numberOfOgres, String guardPersonality)
 		game = new Game(numberOfOgres, guardPersonality);
+		game.getGuard().setMovementBlocker(true);
 		nOgresBox.setValue(null);
 		
 		//printing out the current map using a custom function that converts it to string first

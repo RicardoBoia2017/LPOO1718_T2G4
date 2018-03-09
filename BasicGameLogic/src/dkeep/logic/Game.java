@@ -100,11 +100,6 @@ public class Game {
 
 	public char[][] updateGame(char herocommand) {
 		int stage = map.getcurrentlevel();
-		int rand;
-		int clubplacement;
-
-		Random randomnumber = new Random();
-		Random randomclub = new Random();
 
 		int hero_mov = 0;
 
@@ -278,8 +273,6 @@ public class Game {
 					}
 				}
 
-				rand = randomnumber.nextInt(4);
-
 				int stun = ogre[i].getStunCounter();
 				
 				if (stun == 0 && checkHeroGetsCaught(ogre[i])) {
@@ -294,18 +287,15 @@ public class Game {
 				if (ogre[i].getBlocker() == false) {
 					// ogre moves
 					try {
-						ogre[i].move(map, rand, 8);
+						ogre[i].move(map);
 					} catch (IllegalMapChangeException e) {
 					}
 				}
 
 				if (club[i].getBlocker() == false) {
 
-					// club moves
-					clubplacement = randomclub.nextInt(4);
-
 					try {
-						club[i].move(map, clubplacement, ogre[i], 8);
+						club[i].move(map, ogre[i]);
 					} catch (IllegalMapChangeException e) {
 					}
 				}

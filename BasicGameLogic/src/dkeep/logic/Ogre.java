@@ -16,14 +16,14 @@ public class Ogre extends Character {
 		movementBlocker = false;
 	}
 	
-	public void move(Map map, int ogreplace, int nTries) throws IllegalMapChangeException {
+	public void move(Map map) throws IllegalMapChangeException {
 		
-		Random randomnum = new Random();
+		//Random randomnum = new Random();
 		
-		randholder = ogreplace;
+		//randholder = ogreplace;
 		
-		if (nTries == 0)
-			return;
+		//if (nTries <= 0)
+			//return;
 		
 		if (stun_counter == 2){
 			stun_counter--;
@@ -36,91 +36,83 @@ public class Ogre extends Character {
 			return;
 		}
 		
-		switch (ogreplace){
+		int nTries = 8;
+		boolean Moved = false;
 		
-		// left
-		case 0:
-		{
-			if(map.getmap()[coordY][coordX-1] == ' '){
-				map.setMap(coordY, coordX-1, id);
-				map.setMap(coordY, coordX, ' ');
-				coordX = coordX-1;
-			}
-			else 
-			{
-				randholder = randomnum.nextInt(4);
-				move(map, randholder, nTries--);
-			}
+		while (nTries > 0) {
+			Random randomnum = new Random();
 			
-			break;
-		}
-		
-		//right
-		case 1:
-		{
-			 if(map.getmap()[coordY][coordX+1] == ' ') {
-				 map.setMap(coordY, coordX+1, id);
-				 map.setMap(coordY, coordX, ' ');
-				 coordX = coordX+1;
-			 }
-			 
-			 else if(map.getmap()[coordY][coordX+1] == 'k') {
-				 map.setMap(coordY, coordX+1, '$');
-				 map.setMap(coordY, coordX, ' ');
-				 coordX = coordX+1;
-			 }
-			 
-			 else 
-			{
-				randholder = randomnum.nextInt(4);
-				move(map, randholder, nTries--);
-			}
-			 
-			 break;
-		}
-		
-		//down
-		case 2:
-		{
-			 if(map.getmap()[coordY+1][coordX] == ' ') {
-				 map.setMap(coordY+1, coordX, id);
-				 map.setMap(coordY, coordX, ' ');
-				 coordY = coordY+1;
-			 }
+			randholder = randomnum.nextInt(4);
+
+			//randholder = ogreplace;
 			
-			 else 
-			{
-				randholder = randomnum.nextInt(4);
-				move(map, randholder, nTries--);
+			switch (randholder) {
+
+			// left
+			case 0: {
+				if (map.getmap()[coordY][coordX - 1] == ' ') {
+					map.setMap(coordY, coordX - 1, id);
+					map.setMap(coordY, coordX, ' ');
+					coordX = coordX - 1;
+					Moved = true;
+				} 
+
+				break;
 			}
-			 
-			 break;
-		}
-		
-		//up
-		case 3:
-		{
-			 if(map.getmap()[coordY-1][coordX] == ' ') {
-				 map.setMap(coordY-1, coordX, id);
-				 map.setMap(coordY, coordX, ' ');
-				 coordY = coordY-1;
-			 }
-			 
-			 else if(map.getmap()[coordY-1][coordX] == 'k') {
-				 map.setMap(coordY-1, coordX, '$');
-				 map.setMap(coordY, coordX, ' ');
-				 coordY = coordY-1;
-			 }
-			
-			 else 
-			{
-				randholder = randomnum.nextInt(4);
-				move(map, randholder, nTries--);
+
+			// right
+			case 1: {
+				if (map.getmap()[coordY][coordX + 1] == ' ') {
+					map.setMap(coordY, coordX + 1, id);
+					map.setMap(coordY, coordX, ' ');
+					coordX = coordX + 1;
+					Moved = true;
+				}
+
+				else if (map.getmap()[coordY][coordX + 1] == 'k') {
+					map.setMap(coordY, coordX + 1, '$');
+					map.setMap(coordY, coordX, ' ');
+					coordX = coordX + 1;
+					Moved = true;
+				}
+
+				break;
 			}
-			 
-			 break;
-		}
-		
+
+			// down
+			case 2: {
+				if (map.getmap()[coordY + 1][coordX] == ' ') {
+					map.setMap(coordY + 1, coordX, id);
+					map.setMap(coordY, coordX, ' ');
+					coordY = coordY + 1;
+					Moved = true;
+				}
+
+				break;
+			}
+
+			// up
+			case 3: {
+				if (map.getmap()[coordY - 1][coordX] == ' ') {
+					map.setMap(coordY - 1, coordX, id);
+					map.setMap(coordY, coordX, ' ');
+					coordY = coordY - 1;
+					Moved = true;
+				}
+
+				else if (map.getmap()[coordY - 1][coordX] == 'k') {
+					map.setMap(coordY - 1, coordX, '$');
+					map.setMap(coordY, coordX, ' ');
+					coordY = coordY - 1;
+					Moved = true;
+				}
+
+				break;
+			}
+			}
+			if (Moved)
+				break;
+			nTries--;
 		}
 		
 		if (id =='$' && (coordX != 7 || coordY != 1) )

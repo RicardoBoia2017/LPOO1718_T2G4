@@ -19,107 +19,111 @@ public class Club extends Character {
 	
 	public void setBlocker(boolean truefalse) {movementBlocker = truefalse;}
 	
-	public void move(Map map, int clubplace, Ogre character, int nTries) throws IllegalMapChangeException {
+	public void move(Map map,Ogre character) throws IllegalMapChangeException {
 		
-		if (nTries == 0)
-			return;
+//		if (nTries <= 0)
+//			return;
 		
-		Random randomnum = new Random();
+//		Random randomnum = new Random();
 		
-		clubrand = clubplace;
+//		clubrand = clubplace;
 		
-		switch(clubplace) {
+		int nTries = 8;
+		boolean Moved = false;
 		
-		//appears at the left adjacent cell, in relation to our character - the ogre.
-		case 0:
-		{
-			if(map.getmap()[character.coordY][character.coordX-1] == ' '){
-				if (id == '$')
-					id = '*';
-				map.setMap(character.coordY, character.coordX-1, id);
-				map.setMap(coordY, coordX, ' ');
-				coordX = character.coordX-1;
-				coordY = character.coordY;
-
-			} else {
-				clubrand = randomnum.nextInt(4);
-				move(map, clubrand, character, nTries--); //recursion to avoid cases where ogre has an X in the position the club wants to move to.
-			}
+		while (nTries > 0) {
 			
-			break;
-		}
-		
-		//.. right ...
-		case 1:
-		{
-			 if(map.getmap()[character.coordY][character.coordX+1] == ' ') {
-				if (id == '$')
-					id = '*';
-				 map.setMap(character.coordY, character.coordX+1, id);
-				 map.setMap(coordY, coordX, ' ');
-				 coordX = character.coordX+1;
-				 coordY = character.coordY;
-			 }
-			 
-			 else if(map.getmap()[character.coordY][character.coordX+1] == 'k') {
-				 id = '$';
-				 map.setMap(character.coordY, character.coordX+1, id);
-				 map.setMap(coordY, coordX, ' ');
-				 coordX = character.coordX+1;
-				 coordY = character.coordY;
-			 } else {
-					clubrand = randomnum.nextInt(4);
-					move(map, clubrand, character, nTries--);
-				}
-			 
-			 break;
-		}
-		
-		//down
-		case 2:
-		{
-			 if(map.getmap()[character.coordY+1][character.coordX] == ' ') {
-				if (id == '$')
-					id = '*';
-				 map.setMap(character.coordY+1, character.coordX, id);
-				 map.setMap(coordY, coordX, ' ');
-				 coordY = character.coordY+1;
-				 coordX = character.coordX;
+			Random randomnum = new Random();
+			
+			clubrand = randomnum.nextInt(4);
 
-			 } else {
-					clubrand = randomnum.nextInt(4);
-					move(map, clubrand, character, nTries--); 
+			
+			switch (clubrand) {
+
+			// appears at the left adjacent cell, in relation to our character -
+			// the ogre.
+			case 0: {
+				if (map.getmap()[character.coordY][character.coordX - 1] == ' ') {
+					if (id == '$')
+						id = '*';
+					map.setMap(character.coordY, character.coordX - 1, id);
+					map.setMap(coordY, coordX, ' ');
+					coordX = character.coordX - 1;
+					coordY = character.coordY;
+					Moved = true;
+				} 
+
+				break;
+			}
+
+			// .. right ...
+			case 1: {
+				if (map.getmap()[character.coordY][character.coordX + 1] == ' ') {
+					if (id == '$')
+						id = '*';
+					map.setMap(character.coordY, character.coordX + 1, id);
+					map.setMap(coordY, coordX, ' ');
+					coordX = character.coordX + 1;
+					coordY = character.coordY;
+					Moved = true;
 				}
-			 
-			 break;
-		}
-		
-		//up
-		case 3:
-		{
-			 if(map.getmap()[character.coordY-1][character.coordX] == ' ') {
-				if (id == '$')
-					id = '*';
-				 map.setMap(character.coordY-1, character.coordX, id);
-				 map.setMap(coordY, coordX, ' ');
-				 coordY = character.coordY-1;
-				 coordX = character.coordX;
-			 }
-			 
-			 else if(map.getmap()[character.coordY-1][character.coordX] == 'k') {
-				 id = '$';
-				 map.setMap(character.coordY-1, character.coordX, id);
-				 map.setMap(coordY, coordX, ' ');
-				 coordY = character.coordY-1;
-				 coordX = character.coordX;
-			 } else {
-					clubrand = randomnum.nextInt(4);
-					move(map, clubrand, character, nTries--);
+
+				else if (map.getmap()[character.coordY][character.coordX + 1] == 'k') {
+					id = '$';
+					map.setMap(character.coordY, character.coordX + 1, id);
+					map.setMap(coordY, coordX, ' ');
+					coordX = character.coordX + 1;
+					coordY = character.coordY;
+					Moved = true;
+				} 
+				
+				break;
+			}
+
+			// down
+			case 2: {
+				if (map.getmap()[character.coordY + 1][character.coordX] == ' ') {
+					if (id == '$')
+						id = '*';
+					map.setMap(character.coordY + 1, character.coordX, id);
+					map.setMap(coordY, coordX, ' ');
+					coordY = character.coordY + 1;
+					coordX = character.coordX;
+					Moved = true;
+				} 
+
+				break;
+			}
+
+			// up
+			case 3: {
+				if (map.getmap()[character.coordY - 1][character.coordX] == ' ') {
+					if (id == '$')
+						id = '*';
+					map.setMap(character.coordY - 1, character.coordX, id);
+					map.setMap(coordY, coordX, ' ');
+					coordY = character.coordY - 1;
+					coordX = character.coordX;
+					Moved = true;
 				}
-			 
-			 break;
-		}
-		
+
+				else if (map.getmap()[character.coordY - 1][character.coordX] == 'k') {
+					id = '$';
+					map.setMap(character.coordY - 1, character.coordX, id);
+					map.setMap(coordY, coordX, ' ');
+					coordY = character.coordY - 1;
+					coordX = character.coordX;
+					Moved = true;
+				} 
+
+				break;
+			}
+
+			}
+			if (Moved)
+				break;
+						
+			nTries--;		
 		}
 	}
 }

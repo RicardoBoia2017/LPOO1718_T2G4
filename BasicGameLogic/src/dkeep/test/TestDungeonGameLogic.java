@@ -359,24 +359,28 @@ public class TestDungeonGameLogic {
 			game.updateGame('s');
 			
 			if(game.getOgre().getRand() == 0) {
+				System.out.println(0);
 				assertEquals(coordX - 1 , game.getOgre().getcoordX());
 				assertEquals(coordY, game.getOgre().getcoordY());
 				outcome1 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 1) {
+				System.out.println(1);
 				assertEquals(coordX + 1, game.getOgre().getcoordX());
 				assertEquals(coordY, game.getOgre().getcoordY());
 				outcome2 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 3) {
+				System.out.println(2);
 				assertEquals(coordX, game.getOgre().getcoordX());
 				assertEquals(coordY-1, game.getOgre().getcoordY());
 				outcome3 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 2) {
+				System.out.println(3);
 				assertEquals(coordX, game.getOgre().getcoordX());
 				assertEquals(coordY + 1, game.getOgre().getcoordY());
 				outcome4 = true;
@@ -548,6 +552,42 @@ public class TestDungeonGameLogic {
 				assertEquals ('k', map[game.getKeyCoordY()][game.getKeyCoordX()]);
 				outcome3 = true;
 			}
+		}
+	}
+
+	public void testOgre()
+	{
+		Game game = new Game(1);
+		char [][] map;
+		Map newmap = new Map(0);
+		newmap.setmap(2);
+		game.getClub().setBlocker(true);
+		
+		//hero moves into next level
+		game.updateGame('s');
+		game.updateGame('s');
+		game.updateGame('a');
+		assertEquals(1, game.getHero().getCoordX());
+		assertEquals(7, game.getHero().getCoordY());
+		
+		try {
+			game.getMap().setMap(1, 5, 'X');
+		} catch (IllegalMapChangeException e) {
+		}
+		
+		try {
+			game.getMap().setMap(2, 4, 'X');
+		} catch (IllegalMapChangeException e) {
+		}
+
+		int n = 15;
+		
+		while (n > 0)
+		{	
+			game.updateGame('s');
+			assertEquals(4 , game.getOgre().getcoordX());
+			assertEquals(1, game.getOgre().getcoordY());
+			n--;
 		}
 	}
 }
