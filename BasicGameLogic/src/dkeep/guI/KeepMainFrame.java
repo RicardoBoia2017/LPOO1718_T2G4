@@ -4,18 +4,32 @@
  * and open the template in the editor.
  */
 package dkeep.guI;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.event.ActionListener;
+
 import java.awt.event.ActionEvent;
+import java.text.NumberFormat;
+
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.NumberFormatter;
+
+import dkeep.logic.Game;
 
 /**
  *
  * @author luis
  */
 public class KeepMainFrame extends javax.swing.JFrame {
-
+	
+	//by default ..
+	
+	private int numberOfOgres = 1;
+	
+	private String guardPersonality = "Rookie";
+	
+	private Game game;
+	
+	private Boolean newgamestarted = false;
+	
     /**
      * Creates new form KeepMainFrame
      */
@@ -31,24 +45,24 @@ public class KeepMainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
+    	
+    	//formating the textfield for integer number of ogres
+        NumberFormat format = NumberFormat.getInstance();
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setValueClass(Integer.class);
+        formatter.setMinimum(1);
+        formatter.setMaximum(3);
+        formatter.setAllowsInvalid(false);
 
         label1 = new java.awt.Label();
-        NumberOgres = new java.awt.TextField();
+        nOgresBox = new JFormattedTextField(formatter);
         label2 = new java.awt.Label();
-        ChoosePersonality = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         NewGame = new javax.swing.JButton();
-        NewGame.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        	}
-        });
-        MoveLeft = new javax.swing.JButton();
-        MoveUp = new javax.swing.JButton();
-        MoveUp.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        MoveRight = new javax.swing.JButton();
-        MoveDown = new javax.swing.JButton();
+        moveLeft = new javax.swing.JButton();
+        moveUp = new javax.swing.JButton();
+        moveRight = new javax.swing.JButton();
+        moveDown = new javax.swing.JButton();
         ExitGame = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -59,14 +73,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
         label1.setText("Number of ogres:");
 
-        NumberOgres.setName(""); // NOI18N
-        NumberOgres.setSelectionEnd(-1);
-        
+        nOgresBox.setName(""); // NOI18N
+        nOgresBox.setSelectionEnd(-1);
+
         label2.setText("Guard personality");
 
-        ChoosePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rookie", "Drunken", "Suspicious" }));
-        ChoosePersonality.setToolTipText("");
-        ChoosePersonality.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rookie", "Drunken", "Suspicious" }));
+        jComboBox1.setToolTipText("");
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
@@ -74,25 +88,36 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
         NewGame.setText("New Game");
         NewGame.setToolTipText("");
+        NewGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        MoveLeft.setText("left");
-        MoveLeft.addActionListener(new java.awt.event.ActionListener() {
+        moveLeft.setText("Left");
+        moveLeft.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        MoveUp.setText("up");
+        moveUp.setText("Up");
+        moveUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        MoveRight.setText("right");
-        MoveRight.addActionListener(new java.awt.event.ActionListener() {
+
+        moveRight.setText("Right");
+        moveRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        MoveDown.setText("down");
-        MoveDown.addActionListener(new java.awt.event.ActionListener() {
+        moveDown.setText("Down");
+        moveDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
@@ -100,118 +125,264 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
         ExitGame.setText("Exit Game");
         ExitGame.setToolTipText("");
+        ExitGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("<Game status goes here>");
         jLabel1.setToolTipText("");
 
         GameScreen.setEditable(false);
         GameScreen.setColumns(20);
-        GameScreen.setFont(new java.awt.Font("Courier 10 Pitch", 0, 15)); // NOI18N
+        GameScreen.setFont(new java.awt.Font("Courier 10 Pitch", 0, 20)); // NOI18N
         GameScreen.setRows(5);
         jScrollPane1.setViewportView(GameScreen);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-        	layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(layout.createSequentialGroup()
-        			.addGap(1)
-        			.addComponent(label1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(NumberOgres, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(356, Short.MAX_VALUE))
-        		.addGroup(layout.createSequentialGroup()
-        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jLabel1)
-        					.addGap(108))
-        				.addGroup(layout.createSequentialGroup()
-        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(layout.createSequentialGroup()
-        							.addComponent(label2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(ChoosePersonality, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(layout.createSequentialGroup()
-        							.addContainerGap()
-        							.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE)))
-        					.addPreferredGap(ComponentPlacement.RELATED)))
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(layout.createSequentialGroup()
-        							.addGap(8)
-        							.addComponent(NewGame, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-        							.addGap(27))
-        						.addGroup(layout.createSequentialGroup()
-        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(ExitGame, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-        								.addGroup(layout.createSequentialGroup()
-        									.addPreferredGap(ComponentPlacement.RELATED)
-        									.addComponent(MoveLeft)
-        									.addPreferredGap(ComponentPlacement.UNRELATED)
-        									.addComponent(MoveRight)))
-        							.addContainerGap()))
-        					.addGroup(layout.createSequentialGroup()
-        						.addGap(43)
-        						.addComponent(MoveUp)
-        						.addContainerGap()))
-        				.addGroup(layout.createSequentialGroup()
-        					.addGap(29)
-        					.addComponent(MoveDown)
-        					.addContainerGap())))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nOgresBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(108, 108, 108))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(NewGame, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                        .addGap(27, 27, 27))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ExitGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
+                                        .addComponent(moveDown))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(moveLeft)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(moveRight)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(moveUp)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
-        	layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(layout.createSequentialGroup()
-        			.addGap(22)
-        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        				.addComponent(label1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(NumberOgres, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addGap(21)
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        				.addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        					.addComponent(NewGame)
-        					.addComponent(ChoosePersonality, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)))
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(layout.createSequentialGroup()
-        					.addGap(101)
-        					.addComponent(MoveUp)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(MoveRight)
-        						.addComponent(MoveLeft))
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(MoveDown)
-        					.addPreferredGap(ComponentPlacement.RELATED))
-        				.addGroup(layout.createSequentialGroup()
-        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)))
-        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel1)
-        				.addComponent(ExitGame))
-        			.addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nOgresBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(NewGame)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(moveUp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(moveLeft)
+                            .addComponent(moveRight))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(moveDown)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(ExitGame))
+                .addContainerGap())
         );
-        getContentPane().setLayout(layout);
 
         pack();
-    }// </editor-fold>                        
-
+    }// </editor-fold>       
+    
+    /*
+     * CONVERT MAP TO STRING
+     * */
+    private String convertmaptoString(char[][] mapprint) {
+		
+    	String s = "";
+    	
+    	for(int i = 0; i < mapprint.length; i++) {
+			for(int j = 0; j < mapprint[i].length; j++) {
+				s += mapprint[i][j]; 
+				
+				if(j == mapprint[i].length - 1) {
+					s += "\n";
+				}
+			}
+		}
+    	
+    	return s;
+    }
+    
+    /*
+     * GUARD PERSONALITY
+     * */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
-    }                                          
 
+        Object selected = jComboBox1.getSelectedItem();
+        
+        if(selected.toString().equals("Rookie")) {
+        	guardPersonality = "Rookie";
+        }
+       
+        else if(selected.toString().equals("Drunken")) {
+        	guardPersonality = "Drunken";
+        }
+        
+        else if(selected.toString().equals("Suspicious")) {
+        	guardPersonality = "Suspicious";
+        }
+    } 
+    
+    /*
+     * NEW GAME BUTTON
+     * */
+	private void jButton1ActionPerformed(ActionEvent evt) {
+		//to make a new game we need to know the number of ogres and guardPersonaility
+		
+		//guard personality has already been selected in the combobox (by omittion it  will be rookie)
+		
+		//as for number of ogres?
+		
+		if(nOgresBox.getValue() != null) {
+			//if the text field is empty, it will by omission be 1 ogre
+			
+			//otherwise ..
+			String s = nOgresBox.getText();
+			 
+			numberOfOgres = Integer.parseInt(s);
+		}
+		
+		//call game constructor with Game(int numberOfOgres, String guardPersonality)
+		game = new Game(numberOfOgres, guardPersonality);
+		nOgresBox.setValue(null);
+		
+		//printing out the current map using a custom function that converts it to string first
+		char[][] mapprint;
+		
+		mapprint = game.getmap();
+		
+		GameScreen.setText(convertmaptoString(mapprint));
+		
+		newgamestarted = true;
+		
+		jLabel1.setText("The game is running.");
+	}
+
+	 /*
+     * HERO MOVE LEFT
+     * */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
+    	if(newgamestarted && game.getGameState().equals("Running")) {
+    		game.updateGame('a');
+    		
+    		char[][] mapprint;
+    		
+    		mapprint = game.getmap();
+    		
+    		GameScreen.setText(null);
+    		
+    		GameScreen.setText(convertmaptoString(mapprint));
+    	} else {
+    		jLabel1.setText("The game is over.");
+    	}
+    }
+    
+	/*
+    * HERO MOVE UP
+    * */
+	private void jButton3ActionPerformed(ActionEvent evt) {
+    	if(newgamestarted && game.getGameState().equals("Running")) {
+    		game.updateGame('w');
+    		
+    		char[][] mapprint;
+    		
+    		mapprint = game.getmap();
+    		
+    		GameScreen.setText(null);
+    		
+    		GameScreen.setText(convertmaptoString(mapprint));
+    	} else {
+    		jLabel1.setText("The game is over.");
+    	}
+	}
 
+	/*
+    * HERO MOVE RIGHT
+    **/
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    	if(newgamestarted && game.getGameState().equals("Running")) {
+    		game.updateGame('d');
+    		
+    		char[][] mapprint;
+    		
+    		mapprint = game.getmap();
+    		
+    		GameScreen.setText(null);
+    		
+    		GameScreen.setText(convertmaptoString(mapprint));
+    	} else {
+    		jLabel1.setText("The game is over.");
+    	}
     }                                        
 
+	/*
+    * HERO MOVE DOWN
+    * */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
+    	if(newgamestarted && game.getGameState().equals("Running")) {
+    		game.updateGame('s');
+    		
+    		char[][] mapprint;
+    		
+    		mapprint = game.getmap();
+    		
+    		GameScreen.setText(null);
+    		
+    		GameScreen.setText(convertmaptoString(mapprint));
+    	} else {
+    		jLabel1.setText("The game is over.");
+    	}
+    }
+    
+	private void jButton6ActionPerformed(ActionEvent evt) {
+		// exit game button
+		System.exit(0);
+	}
 
     /**
      * @param args the command line arguments
@@ -250,18 +421,18 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton NewGame;
-    private javax.swing.JButton MoveLeft;
-    private javax.swing.JButton MoveUp;
-    private javax.swing.JButton MoveRight;
-    private javax.swing.JButton MoveDown;
+    private javax.swing.JButton moveLeft;
+    private javax.swing.JButton moveUp;
+    private javax.swing.JButton moveRight;
+    private javax.swing.JButton moveDown;
     private javax.swing.JButton ExitGame;
-    private javax.swing.JComboBox<String> ChoosePersonality;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea GameScreen;
     private java.awt.Label label1;
     private java.awt.Label label2;
-    private java.awt.TextField NumberOgres;
+    private JFormattedTextField nOgresBox;
     // End of variables declaration                   
 }
 

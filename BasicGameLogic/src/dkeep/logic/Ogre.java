@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Ogre extends Character {
 
-	int stun_counter;
+	private int stun_counter;
 	private int randholder;
 	boolean movementBlocker;
 	

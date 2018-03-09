@@ -11,11 +11,34 @@ public class Game {
 	int keycoordX;
 	int keycoordY;
 	String gameState;
-
-	public void setMap(Map map) {
-		this.map = map;
+	
+	public void setMap(Map map) {this.map = map;}
+	
+	public Game(int numberOfOgres, String guardPersonality) {
+		
+		hero = new Hero(1,1);
+		guard = new Guard(8,1,guardPersonality);
+		map = new Map(0);
+		keycoordX = 7;
+		keycoordY = 8;
+		
+		int nOgres = numberOfOgres;
+		
+		ogre = new Ogre[nOgres];
+		for (int i = 0; i < nOgres; i++)
+		{
+			ogre[i] = new Ogre (4,1);
+		}
+		
+		club = new Club[nOgres];
+		for (int i = 0; i < nOgres; i++)
+		{
+			club[i] = new Club(3,1);
+		}
+		
+		gameState = "Running";
 	}
-
+	
 	public Game(int test) {
 
 		if (test == 1) {
@@ -39,7 +62,7 @@ public class Game {
 			keycoordY = 8;
 
 			Random randomnumber = new Random();
-			int nOgres = randomnumber.nextInt(3);
+			int nOgres = randomnumber.nextInt(3); //0-2
 
 			ogre = new Ogre[nOgres + 1];
 			for (int i = 0; i < nOgres + 1; i++) {
@@ -50,6 +73,7 @@ public class Game {
 			for (int i = 0; i < nOgres + 1; i++) {
 				club[i] = new Club(3, 1);
 			}
+			
 			gameState = "Running";
 		}
 	}
@@ -202,7 +226,8 @@ public class Game {
 
 		else {
 			for (int i = 0; i < ogre.length; i++) {
-				if (hero_mov == 2 && ogre[i].stun_counter == 0 && hero.getID() == 'A') {
+				System.out.println(i + "  " + ogre.length);
+				if (hero_mov == 2 && ogre[i].getStunCounter() == 0 && hero.getID() == 'A') {
 					switch (herocommand) {
 					case 'a': {
 						if ((ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX - 1)
@@ -256,8 +281,8 @@ public class Game {
 
 				rand = randomnumber.nextInt(4);
 
-				int stun = ogre[i].stun_counter;
-
+				int stun = ogre[i].getStunCounter();
+				
 				if (stun == 0 && checkHeroGetsCaught(ogre[i])) {
 
 					System.out.println("Game Over.");
@@ -297,7 +322,7 @@ public class Game {
 					return map.getmap();
 				}
 
-				if (ogre[i].id == '8' && ogre[i].stun_counter == 0) {
+				if (ogre[i].id == '8' && stun == 0) {
 					ogre[i].id = 'O';
 					try {
 						map.setMap(ogre[i].coordY, ogre[i].coordX, ogre[i].id);
