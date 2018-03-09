@@ -14,6 +14,31 @@ public class Game {
 	
 	public void setMap(Map map) {this.map = map;}
 	
+	public Game(int numberOfOgres, String guardPersonality) {
+		
+		hero = new Hero(1,1);
+		guard = new Guard(8,1,guardPersonality);
+		map = new Map(0);
+		keycoordX = 7;
+		keycoordY = 8;
+		
+		int nOgres = numberOfOgres;
+		
+		ogre = new Ogre[nOgres];
+		for (int i = 0; i < nOgres-1; i++)
+		{
+			ogre[i] = new Ogre (4,1);
+		}
+		
+		club = new Club[nOgres];
+		for (int i = 0; i < nOgres-1; i++)
+		{
+			club[i] = new Club(3,1);
+		}
+		
+		gameState = "Running";
+	}
+	
 	public Game(int test) {
 		// TODO Auto-generated constructor stub
 		
@@ -54,6 +79,7 @@ public class Game {
 			{
 				club[i] = new Club(3,1);
 			}
+			
 			gameState = "Running";
 		}
 	}
@@ -84,7 +110,7 @@ public class Game {
 		}
 		
 		catch(IllegalMapChangeException e) {
-			System.out.println("Exceção mov hero");
+			System.out.println("Exceï¿½ï¿½o mov hero");
 		}
 		
 		if(hero_mov == 1) {

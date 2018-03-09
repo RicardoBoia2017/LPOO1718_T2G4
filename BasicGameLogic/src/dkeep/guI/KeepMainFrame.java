@@ -5,12 +5,31 @@
  */
 package dkeep.guI;
 
+import java.awt.event.ActionEvent;
+import java.text.NumberFormat;
+
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.NumberFormatter;
+
+import dkeep.logic.Game;
+
 /**
  *
  * @author luis
  */
 public class KeepMainFrame extends javax.swing.JFrame {
-
+	
+	//by default ..
+	
+	private int numberOfOgres = 1;
+	
+	private String guardPersonality = "Rookie";
+	
+	private Game game;
+	
+	private Boolean newgamestarted = false;
+	
     /**
      * Creates new form KeepMainFrame
      */
@@ -26,9 +45,17 @@ public class KeepMainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
+    	
+    	//formating the textfield for integer number of ogres
+        NumberFormat format = NumberFormat.getInstance();
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setValueClass(Integer.class);
+        formatter.setMinimum(1);
+        formatter.setMaximum(3);
+        formatter.setAllowsInvalid(false);
 
         label1 = new java.awt.Label();
-        textField1 = new java.awt.TextField();
+        textField1 = new JFormattedTextField(formatter);
         label2 = new java.awt.Label();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
@@ -61,6 +88,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
         jButton1.setText("New Game");
         jButton1.setToolTipText("");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("left");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +102,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
         });
 
         jButton3.setText("up");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
 
         jButton4.setText("right");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -87,13 +125,18 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
         jButton6.setText("Exit Game");
         jButton6.setToolTipText("");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("<Game status goes here>");
         jLabel1.setToolTipText("");
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Courier 10 Pitch", 0, 15)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Courier 10 Pitch", 0, 20)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -182,23 +225,165 @@ public class KeepMainFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
-
+    }// </editor-fold>       
+    
+    /*
+     * CONVERT MAP TO STRING
+     * */
+    private String convertmaptoString(char[][] mapprint) {
+		
+    	String s = "";
+    	
+    	for(int i = 0; i < mapprint.length; i++) {
+			for(int j = 0; j < mapprint[i].length; j++) {
+				s += mapprint[i][j]; 
+				
+				if(j == mapprint[i].length - 1) {
+					s += "\n";
+				}
+			}
+		}
+    	
+    	return s;
+    }
+    
+    /*
+     * GUARD PERSONALITY
+     * */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
-    }                                          
 
+        Object selected = jComboBox1.getSelectedItem();
+        
+        if(selected.toString().equals("Rookie")) {
+        	guardPersonality = "Rookie";
+        }
+       
+        else if(selected.toString().equals("Drunken")) {
+        	guardPersonality = "Drunken";
+        }
+        
+        else if(selected.toString().equals("Suspicious")) {
+        	guardPersonality = "Suspicious";
+        }
+    } 
+    
+    /*
+     * NEW GAME BUTTON
+     * */
+	private void jButton1ActionPerformed(ActionEvent evt) {
+		//to make a new game we need to know the number of ogres and guardPersonaility
+		
+		//guard personality has already been selected in the combobox (by omittion it  will be rookie)
+		
+		//as for number of ogres?
+		
+		if(textField1.getValue() != null) {
+			//if the text field is empty, it will by omission be 1 ogre
+			
+			//otherwise ..
+			String s = textField1.getText();
+			 
+			numberOfOgres = Integer.parseInt(s);
+		}
+		
+		//call game constructor with Game(int numberOfOgres, String guardPersonality)
+		game = new Game(numberOfOgres, guardPersonality);
+		
+		textField1.setValue(null);
+		
+		//printing out the current map using a custom function that converts it to string first
+		char[][] mapprint;
+		
+		mapprint = game.getmap();
+		
+		jTextArea1.setText(convertmaptoString(mapprint));
+		
+		newgamestarted = true;
+		
+		jLabel1.setText("The game is running.");
+	}
+
+	 /*
+     * HERO MOVE LEFT
+     * */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
+    	if(newgamestarted && game.getGameState().equals("Running")) {
+    		game.updateGame('a');
+    		
+    		char[][] mapprint;
+    		
+    		mapprint = game.getmap();
+    		
+    		jTextArea1.setText(null);
+    		
+    		jTextArea1.setText(convertmaptoString(mapprint));
+    	} else {
+    		jLabel1.setText("The game is over.");
+    	}
+    }
+    
+	/*
+    * HERO MOVE UP
+    * */
+	private void jButton3ActionPerformed(ActionEvent evt) {
+    	if(newgamestarted && game.getGameState().equals("Running")) {
+    		game.updateGame('w');
+    		
+    		char[][] mapprint;
+    		
+    		mapprint = game.getmap();
+    		
+    		jTextArea1.setText(null);
+    		
+    		jTextArea1.setText(convertmaptoString(mapprint));
+    	} else {
+    		jLabel1.setText("The game is over.");
+    	}
+	}
 
+	/*
+    * HERO MOVE RIGHT
+    **/
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    	if(newgamestarted && game.getGameState().equals("Running")) {
+    		game.updateGame('d');
+    		
+    		char[][] mapprint;
+    		
+    		mapprint = game.getmap();
+    		
+    		jTextArea1.setText(null);
+    		
+    		jTextArea1.setText(convertmaptoString(mapprint));
+    	} else {
+    		jLabel1.setText("The game is over.");
+    	}
     }                                        
 
+	/*
+    * HERO MOVE DOWN
+    * */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
+    	if(newgamestarted && game.getGameState().equals("Running")) {
+    		game.updateGame('s');
+    		
+    		char[][] mapprint;
+    		
+    		mapprint = game.getmap();
+    		
+    		jTextArea1.setText(null);
+    		
+    		jTextArea1.setText(convertmaptoString(mapprint));
+    	} else {
+    		jLabel1.setText("The game is over.");
+    	}
+    }
+    
+	private void jButton6ActionPerformed(ActionEvent evt) {
+		// exit game button
+		System.exit(0);
+	}
 
     /**
      * @param args the command line arguments
@@ -248,7 +433,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private java.awt.Label label1;
     private java.awt.Label label2;
-    private java.awt.TextField textField1;
+    private JFormattedTextField textField1;
     // End of variables declaration                   
 }
 
