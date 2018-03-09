@@ -226,7 +226,6 @@ public class Game {
 
 		else {
 			for (int i = 0; i < ogre.length; i++) {
-				System.out.println(i + "  " + ogre.length);
 				if (hero_mov == 2 && ogre[i].getStunCounter() == 0 && hero.getID() == 'A') {
 					switch (herocommand) {
 					case 'a': {
