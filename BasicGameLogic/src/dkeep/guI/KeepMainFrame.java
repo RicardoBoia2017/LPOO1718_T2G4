@@ -55,26 +55,26 @@ public class KeepMainFrame extends javax.swing.JFrame {
         formatter.setAllowsInvalid(false);
 
         label1 = new java.awt.Label();
-        textField1 = new JFormattedTextField(formatter);
+        nOgresBox = new JFormattedTextField(formatter);
         label2 = new java.awt.Label();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        NewGame = new javax.swing.JButton();
+        moveLeft = new javax.swing.JButton();
+        moveUp = new javax.swing.JButton();
+        moveRight = new javax.swing.JButton();
+        moveDown = new javax.swing.JButton();
+        ExitGame = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        GameScreen = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 500));
 
         label1.setText("Number of ogres:");
 
-        textField1.setName(""); // NOI18N
-        textField1.setSelectionEnd(-1);
+        nOgresBox.setName(""); // NOI18N
+        nOgresBox.setSelectionEnd(-1);
 
         label2.setText("Guard personality");
 
@@ -86,46 +86,46 @@ public class KeepMainFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("New Game");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        NewGame.setText("New Game");
+        NewGame.setToolTipText("");
+        NewGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("left");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        moveLeft.setText("Left");
+        moveLeft.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("up");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        moveUp.setText("Up");
+        moveUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
 
-        jButton4.setText("right");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        moveRight.setText("Right");
+        moveRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("down");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        moveDown.setText("Down");
+        moveDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Exit Game");
-        jButton6.setToolTipText("");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        ExitGame.setText("Exit Game");
+        ExitGame.setToolTipText("");
+        ExitGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
@@ -134,11 +134,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
         jLabel1.setText("<Game status goes here>");
         jLabel1.setToolTipText("");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Courier 10 Pitch", 0, 20)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        GameScreen.setEditable(false);
+        GameScreen.setColumns(20);
+        GameScreen.setFont(new java.awt.Font("Courier 10 Pitch", 0, 20)); // NOI18N
+        GameScreen.setRows(5);
+        jScrollPane1.setViewportView(GameScreen);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,7 +148,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nOgresBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,25 +169,25 @@ public class KeepMainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                        .addComponent(NewGame, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                         .addGap(27, 27, 27))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ExitGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(24, 24, 24)
-                                        .addComponent(jButton5))
+                                        .addComponent(moveDown))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton2)
+                                        .addComponent(moveLeft)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton4)))
+                                        .addComponent(moveRight)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jButton3)
+                        .addComponent(moveUp)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -195,24 +195,24 @@ public class KeepMainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nOgresBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
+                        .addComponent(NewGame)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(101, 101, 101)
-                        .addComponent(jButton3)
+                        .addComponent(moveUp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton4))
+                            .addComponent(moveLeft)
+                            .addComponent(moveRight))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
+                        .addComponent(moveDown)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -220,7 +220,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton6))
+                    .addComponent(ExitGame))
                 .addContainerGap())
         );
 
@@ -278,26 +278,25 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		//as for number of ogres?
 		
-		if(textField1.getValue() != null) {
+		if(nOgresBox.getValue() != null) {
 			//if the text field is empty, it will by omission be 1 ogre
 			
 			//otherwise ..
-			String s = textField1.getText();
+			String s = nOgresBox.getText();
 			 
 			numberOfOgres = Integer.parseInt(s);
 		}
 		
 		//call game constructor with Game(int numberOfOgres, String guardPersonality)
 		game = new Game(numberOfOgres, guardPersonality);
-		
-		textField1.setValue(null);
+		nOgresBox.setValue(null);
 		
 		//printing out the current map using a custom function that converts it to string first
 		char[][] mapprint;
 		
 		mapprint = game.getmap();
 		
-		jTextArea1.setText(convertmaptoString(mapprint));
+		GameScreen.setText(convertmaptoString(mapprint));
 		
 		newgamestarted = true;
 		
@@ -315,9 +314,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		
     		mapprint = game.getmap();
     		
-    		jTextArea1.setText(null);
+    		GameScreen.setText(null);
     		
-    		jTextArea1.setText(convertmaptoString(mapprint));
+    		GameScreen.setText(convertmaptoString(mapprint));
     	} else {
     		jLabel1.setText("The game is over.");
     	}
@@ -334,9 +333,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		
     		mapprint = game.getmap();
     		
-    		jTextArea1.setText(null);
+    		GameScreen.setText(null);
     		
-    		jTextArea1.setText(convertmaptoString(mapprint));
+    		GameScreen.setText(convertmaptoString(mapprint));
     	} else {
     		jLabel1.setText("The game is over.");
     	}
@@ -353,9 +352,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		
     		mapprint = game.getmap();
     		
-    		jTextArea1.setText(null);
+    		GameScreen.setText(null);
     		
-    		jTextArea1.setText(convertmaptoString(mapprint));
+    		GameScreen.setText(convertmaptoString(mapprint));
     	} else {
     		jLabel1.setText("The game is over.");
     	}
@@ -372,9 +371,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		
     		mapprint = game.getmap();
     		
-    		jTextArea1.setText(null);
+    		GameScreen.setText(null);
     		
-    		jTextArea1.setText(convertmaptoString(mapprint));
+    		GameScreen.setText(convertmaptoString(mapprint));
     	} else {
     		jLabel1.setText("The game is over.");
     	}
@@ -421,19 +420,19 @@ public class KeepMainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton NewGame;
+    private javax.swing.JButton moveLeft;
+    private javax.swing.JButton moveUp;
+    private javax.swing.JButton moveRight;
+    private javax.swing.JButton moveDown;
+    private javax.swing.JButton ExitGame;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea GameScreen;
     private java.awt.Label label1;
     private java.awt.Label label2;
-    private JFormattedTextField textField1;
+    private JFormattedTextField nOgresBox;
     // End of variables declaration                   
 }
 
