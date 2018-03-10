@@ -332,10 +332,10 @@ public class Game {
 	}
 
 	public boolean checkHeroGetsCaught(Character c) {
-		if (c.id == 'G' && (map.getmap()[c.coordY - 1][c.coordX] == 'H'
-				|| map.getmap()[c.coordY + 1][c.coordX] == 'H'
-				|| map.getmap()[c.coordY][c.coordX - 1] == 'H'
-				|| map.getmap()[c.coordY][c.coordX + 1] == 'H'))
+		if ((map.getmap()[c.coordY - 1][c.coordX] == hero.id
+				|| map.getmap()[c.coordY + 1][c.coordX] == hero.id
+				|| map.getmap()[c.coordY][c.coordX - 1] == hero.id
+				|| map.getmap()[c.coordY][c.coordX + 1] == hero.id))
 			return true;
 
 		return false;
