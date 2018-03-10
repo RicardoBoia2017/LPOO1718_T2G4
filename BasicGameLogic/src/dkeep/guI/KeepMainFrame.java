@@ -301,6 +301,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		newgamestarted = true;
 		
+		//reactivate the buttons just in case they were shutdown previously
+		moveLeft.setEnabled(true);
+		moveRight.setEnabled(true);
+		moveUp.setEnabled(true);
+		moveDown.setEnabled(true);
+		
 		jLabel1.setText("The game is running.");
 	}
 
@@ -319,7 +325,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		GameScreen.setText(null);
     		
     		GameScreen.setText(convertmaptoString(mapprint));
-    	} else {
+    	}
+    	
+    	if(game.getGameState().equals("Over"))
+    	{
     		jLabel1.setText("The game is over.");
     		moveLeft.setEnabled(false);
     		moveRight.setEnabled(false);
@@ -343,7 +352,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		GameScreen.setText(null);
     		
     		GameScreen.setText(convertmaptoString(mapprint));
-    	} else {
+    	} 
+		
+    	if(game.getGameState().equals("Over"))
+    	{
     		jLabel1.setText("The game is over.");
     		moveLeft.setEnabled(false);
     		moveRight.setEnabled(false);
@@ -366,14 +378,17 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		GameScreen.setText(null);
     		
     		GameScreen.setText(convertmaptoString(mapprint));
-    	} else {
+    	}
+    	
+    	if(game.getGameState().equals("Over"))
+    	{
     		jLabel1.setText("The game is over.");
     		moveLeft.setEnabled(false);
     		moveRight.setEnabled(false);
     		moveUp.setEnabled(false);
     		moveDown.setEnabled(false);
     	}
-    }                                        
+    }
 
 	/*
     * HERO MOVE DOWN
@@ -389,7 +404,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		GameScreen.setText(null);
     		
     		GameScreen.setText(convertmaptoString(mapprint));
-    	} else {
+    	}
+    	
+    	if(game.getGameState().equals("Over"))
+    	{
     		jLabel1.setText("The game is over.");
     		moveLeft.setEnabled(false);
     		moveRight.setEnabled(false);
