@@ -51,7 +51,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Integer.class);
         formatter.setMinimum(1);
-        formatter.setMaximum(3);
+        formatter.setMaximum(5);
         formatter.setAllowsInvalid(false);
 
         label1 = new java.awt.Label();
@@ -289,7 +289,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		//call game constructor with Game(int numberOfOgres, String guardPersonality)
 		game = new Game(numberOfOgres, guardPersonality);
-		game.getGuard().setMovementBlocker(true);
+		//game.getGuard().setMovementBlocker(true);
 		nOgresBox.setValue(null);
 		
 		//printing out the current map using a custom function that converts it to string first
@@ -301,6 +301,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		newgamestarted = true;
 		
+		//reactivate the buttons just in case they were shutdown previously
+		moveLeft.setEnabled(true);
+		moveRight.setEnabled(true);
+		moveUp.setEnabled(true);
+		moveDown.setEnabled(true);
+		
 		jLabel1.setText("The game is running.");
 	}
 
@@ -308,6 +314,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
      * HERO MOVE LEFT
      * */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    	
     	if(newgamestarted && game.getGameState().equals("Running")) {
     		game.updateGame('a');
     		
@@ -318,8 +325,15 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		GameScreen.setText(null);
     		
     		GameScreen.setText(convertmaptoString(mapprint));
-    	} else {
+    	}
+    	
+    	if(game.getGameState().equals("Over"))
+    	{
     		jLabel1.setText("The game is over.");
+    		moveLeft.setEnabled(false);
+    		moveRight.setEnabled(false);
+    		moveUp.setEnabled(false);
+    		moveDown.setEnabled(false);
     	}
     }
     
@@ -327,7 +341,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
     * HERO MOVE UP
     * */
 	private void jButton3ActionPerformed(ActionEvent evt) {
-    	if(newgamestarted && game.getGameState().equals("Running")) {
+		
+		if(newgamestarted && game.getGameState().equals("Running")) {
     		game.updateGame('w');
     		
     		char[][] mapprint;
@@ -337,8 +352,15 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		GameScreen.setText(null);
     		
     		GameScreen.setText(convertmaptoString(mapprint));
-    	} else {
+    	} 
+		
+    	if(game.getGameState().equals("Over"))
+    	{
     		jLabel1.setText("The game is over.");
+    		moveLeft.setEnabled(false);
+    		moveRight.setEnabled(false);
+    		moveUp.setEnabled(false);
+    		moveDown.setEnabled(false);
     	}
 	}
 
@@ -356,10 +378,17 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		GameScreen.setText(null);
     		
     		GameScreen.setText(convertmaptoString(mapprint));
-    	} else {
-    		jLabel1.setText("The game is over.");
     	}
-    }                                        
+    	
+    	if(game.getGameState().equals("Over"))
+    	{
+    		jLabel1.setText("The game is over.");
+    		moveLeft.setEnabled(false);
+    		moveRight.setEnabled(false);
+    		moveUp.setEnabled(false);
+    		moveDown.setEnabled(false);
+    	}
+    }
 
 	/*
     * HERO MOVE DOWN
@@ -375,8 +404,15 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		GameScreen.setText(null);
     		
     		GameScreen.setText(convertmaptoString(mapprint));
-    	} else {
+    	}
+    	
+    	if(game.getGameState().equals("Over"))
+    	{
     		jLabel1.setText("The game is over.");
+    		moveLeft.setEnabled(false);
+    		moveRight.setEnabled(false);
+    		moveUp.setEnabled(false);
+    		moveDown.setEnabled(false);
     	}
     }
     
