@@ -6,6 +6,11 @@
 package dkeep.guI;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 
 import javax.swing.JComboBox;
@@ -67,6 +72,51 @@ public class KeepMainFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new SimpleGraphicsPanel();
         //GameScreen = new javax.swing.JTextArea();
+        
+        jScrollPane1.setFocusable(true);
+        
+     // (The key listener won't activate if the element isn't focused ..)
+        
+        // MOUSE LISTENER FOR FOCUS
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            	jScrollPane1.requestFocus();
+            }
+        });
+
+        
+        // KEY LISTENER
+        jScrollPane1.addKeyListener(new KeyListener() {
+           
+        	@Override
+        	public void keyTyped(KeyEvent e) {}
+            
+            @Override
+            public void keyReleased(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch(e.getKeyCode()) {
+                
+                case KeyEvent.VK_LEFT:
+                	moveLeft.doClick();
+                	break;
+                	
+                case KeyEvent.VK_RIGHT:
+                	moveRight.doClick();
+                	break;
+                	
+                case KeyEvent.VK_UP:
+                	moveUp.doClick();
+                	break;
+                	
+                case KeyEvent.VK_DOWN:
+                	moveDown.doClick();
+                	break;
+                }
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 500));

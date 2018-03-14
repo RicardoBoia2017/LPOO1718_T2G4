@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*; 
 
+
 public class SimpleGraphicsPanel extends JPanel {
 	private BufferedImage wallpic;
 	private BufferedImage guardpic;
@@ -18,66 +19,79 @@ public class SimpleGraphicsPanel extends JPanel {
 	private BufferedImage dollarpic;
 	private BufferedImage stairspic;
 	private BufferedImage doorpic;
+	private BufferedImage sleepic;
+	private BufferedImage stunnedpic;
 	private char[][] map;
 	  
 	// Constructor, adding mouse and keyboard listeneres 
 	public SimpleGraphicsPanel() { 
 		//addMouseListener(this); 
 		//addMouseMotionListener(this); 
-		//addKeyListener(this); 
 		
 	       try {                
-	           wallpic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/wall.gif"));
+	           wallpic = ImageIO.read(new File("wall.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           guardpic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/guard.gif"));
+	           guardpic = ImageIO.read(new File("guard.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           heropic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/hero.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       
-	       try {                
-	           ogrepic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/ogre.gif"));
+	           heropic = ImageIO.read(new File("hero.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       
 	       try {                
-	           clubpic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/club.gif"));
+	           ogrepic = ImageIO.read(new File("ogre.gif"));
+	        } catch (IOException ex) {
+	             // handle exception...
+	        }
+	       
+	       
+	       try {                
+	           clubpic = ImageIO.read(new File("club.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           doorpic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/door.gif"));
+	           doorpic = ImageIO.read(new File("door.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           keypic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/key.gif"));
+	           keypic = ImageIO.read(new File("key.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           dollarpic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/dollar.gif"));
+	           dollarpic = ImageIO.read(new File("dollar.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           stairspic = ImageIO.read(new File("/home/luis/Downloads/LPOOSTUFF/stairs.gif"));
+	           stairspic = ImageIO.read(new File("stairs.gif"));
+	        } catch (IOException ex) {
+	             // handle exception...
+	        }
+	       
+	       try {                
+	           sleepic = ImageIO.read(new File("sleep.gif"));
+	        } catch (IOException ex) {
+	             // handle exception...
+	        }
+	       
+	       try {                
+	           stunnedpic = ImageIO.read(new File("stunned.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
@@ -102,6 +116,14 @@ public class SimpleGraphicsPanel extends JPanel {
 				
 				case 'H':
 					g.drawImage(heropic, j*34, i*32, this);
+					break;
+					
+				case 'g':
+					g.drawImage(sleepic, j*34, i*32, this);
+					break;
+				
+				case '8':
+					g.drawImage(stunnedpic, j*34, i*32, this);
 					break;
 				
 				case 'A':
