@@ -10,6 +10,7 @@ import dkeep.logic.Map;
 
 public class TestDungeonGameLogic {
 	
+	@Test
 	public void testHeroMove()
 	{
 		Game game = new Game (1);
@@ -555,40 +556,40 @@ public class TestDungeonGameLogic {
 		}
 	}
 
-	public void testOgre()
-	{
-		Game game = new Game(1);
-		char [][] map;
-		Map newmap = new Map(0);
-		newmap.setmap(2);
-		game.getClub().setBlocker(true);
-		
-		//hero moves into next level
-		game.updateGame('s');
-		game.updateGame('s');
-		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
-		
-		try {
-			game.getMap().setMap(1, 5, 'X');
-		} catch (IllegalMapChangeException e) {
-		}
-		
-		try {
-			game.getMap().setMap(2, 4, 'X');
-		} catch (IllegalMapChangeException e) {
-		}
-
-		int n = 15;
-		
-		while (n > 0)
-		{	
-			game.updateGame('s');
-			assertEquals(4 , game.getOgre().getcoordX());
-			assertEquals(1, game.getOgre().getcoordY());
-			n--;
-		}
-	}
+//	public void testOgre()
+//	{
+//		Game game = new Game(1);
+//		char [][] map;
+//		Map newmap = new Map(0);
+//		newmap.setmap(2);
+//		game.getClub().setBlocker(true);
+//		
+//		//hero moves into next level
+//		game.updateGame('s');
+//		game.updateGame('s');
+//		game.updateGame('a');
+//		assertEquals(1, game.getHero().getCoordX());
+//		assertEquals(7, game.getHero().getCoordY());
+//		
+//		try {
+//			game.getMap().setMap(1, 5, 'X');
+//		} catch (IllegalMapChangeException e) {
+//		}
+//		
+//		try {
+//			game.getMap().setMap(2, 4, 'X');
+//		} catch (IllegalMapChangeException e) {
+//		}
+//
+//		int n = 15;
+//		
+//		while (n > 0)
+//		{	
+//			game.updateGame('s');
+//			assertEquals(4 , game.getOgre().getcoordX());
+//			assertEquals(1, game.getOgre().getcoordY());
+//			n--;
+//		}
+//	}
 }
 
