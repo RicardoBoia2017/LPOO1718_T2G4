@@ -65,8 +65,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
         moveDown = new javax.swing.JButton();
         ExitGame = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        GameScreen = new javax.swing.JTextArea();
+        jScrollPane1 = new SimpleGraphicsPanel();
+        //GameScreen = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 500));
@@ -134,11 +134,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
         jLabel1.setText("<Game status goes here>");
         jLabel1.setToolTipText("");
 
-        GameScreen.setEditable(false);
-        GameScreen.setColumns(20);
-        GameScreen.setFont(new java.awt.Font("Courier 10 Pitch", 0, 20)); // NOI18N
-        GameScreen.setRows(5);
-        jScrollPane1.setViewportView(GameScreen);
+        //GameScreen.setEditable(false);
+        //GameScreen.setColumns(20);
+        //GameScreen.setFont(new java.awt.Font("Courier 10 Pitch", 0, 20)); // NOI18N
+        //GameScreen.setRows(5);
+        //jScrollPane1.setViewportView(GameScreen);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,7 +164,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -216,7 +216,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -297,7 +297,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		mapprint = game.getmap();
 		
-		GameScreen.setText(convertmaptoString(mapprint));
+		jScrollPane1.setMap(mapprint);
+		jScrollPane1.paint(jScrollPane1.getGraphics());
+		
+		//GameScreen.setText(convertmaptoString(mapprint));
 		
 		newgamestarted = true;
 		
@@ -322,9 +325,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		
     		mapprint = game.getmap();
     		
-    		GameScreen.setText(null);
+    		jScrollPane1.setMap(mapprint);
+    		jScrollPane1.paint(jScrollPane1.getGraphics());
     		
-    		GameScreen.setText(convertmaptoString(mapprint));
+    		//GameScreen.setText(null);
+    		
+    		//GameScreen.setText(convertmaptoString(mapprint));
     	}
     	
     	if(game.getGameState().equals("Over"))
@@ -349,9 +355,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		
     		mapprint = game.getmap();
     		
-    		GameScreen.setText(null);
+    		jScrollPane1.setMap(mapprint);
+    		jScrollPane1.paint(jScrollPane1.getGraphics());
     		
-    		GameScreen.setText(convertmaptoString(mapprint));
+    		//GameScreen.setText(null);
+    		
+    		//GameScreen.setText(convertmaptoString(mapprint));
     	} 
 		
     	if(game.getGameState().equals("Over"))
@@ -375,9 +384,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		
     		mapprint = game.getmap();
     		
-    		GameScreen.setText(null);
+    		jScrollPane1.setMap(mapprint);
+    		jScrollPane1.paint(jScrollPane1.getGraphics());
     		
-    		GameScreen.setText(convertmaptoString(mapprint));
+    		//GameScreen.setText(null);
+    		
+    		//GameScreen.setText(convertmaptoString(mapprint));
     	}
     	
     	if(game.getGameState().equals("Over"))
@@ -401,9 +413,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
     		
     		mapprint = game.getmap();
     		
-    		GameScreen.setText(null);
+    		jScrollPane1.setMap(mapprint);
+    		jScrollPane1.paint(jScrollPane1.getGraphics());
     		
-    		GameScreen.setText(convertmaptoString(mapprint));
+    		//GameScreen.setText(null);
+    		
+    		//GameScreen.setText(convertmaptoString(mapprint));
     	}
     	
     	if(game.getGameState().equals("Over"))
@@ -465,8 +480,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton ExitGame;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea GameScreen;
+    private SimpleGraphicsPanel jScrollPane1;
+    //private javax.swing.JTextArea GameScreen;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private JFormattedTextField nOgresBox;

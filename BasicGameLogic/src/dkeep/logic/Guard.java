@@ -196,10 +196,6 @@ public class Guard extends Character{
 		id = 'g';
 		map.setMap(coordY, coordX, id);
 	}
-	    
-	    System.out.println("Position index: ");
-	    System.out.println(currentposition);
-	    System.out.println(reversedroute);
 }
 	
 	public void suspiciousMove(Map map) throws IllegalMapChangeException {
@@ -299,10 +295,6 @@ public class Guard extends Character{
 				currentposition--;
 			}
 		}
-		
-	    System.out.println("Position index: ");
-	    System.out.println(currentposition);
-	    System.out.println(reversedroute);
 	}
 
 	public void setMovementBlocker(boolean newValue)
