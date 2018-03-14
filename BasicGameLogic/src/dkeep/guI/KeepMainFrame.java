@@ -81,7 +81,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            	jScrollPane1.requestFocus();
+            	jScrollPane1.requestFocusInWindow();
             }
         });
 
