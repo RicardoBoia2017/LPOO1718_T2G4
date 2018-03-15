@@ -28,73 +28,92 @@ public class SimpleGraphicsPanel extends JPanel {
 		//addMouseListener(this); 
 		//addMouseMotionListener(this); 
 		
+		int i = 0;
+		
 	       try {                
-	           wallpic = ImageIO.read(new File("Images/wall.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       try {                
-	           guardpic = ImageIO.read(new File("Images/guard.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       try {                
-	           heropic = ImageIO.read(new File("Images/hero.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       
-	       try {                
-	           ogrepic = ImageIO.read(new File("Images/ogre.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       
-	       try {                
-	           clubpic = ImageIO.read(new File("Images/club.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       try {                
-	           doorpic = ImageIO.read(new File("Images/door.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       try {                
-	           keypic = ImageIO.read(new File("Images/key.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       try {                
-	           dollarpic = ImageIO.read(new File("Images/dollar.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       try {                
-	           stairspic = ImageIO.read(new File("Images/stairs.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       try {                
-	           sleepic = ImageIO.read(new File("Images/sleep.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       try {                
-	           stunnedpic = ImageIO.read(new File("Images/stunned.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
+	    	   wallpic = ImageIO.read(new File("Images/wall.gif")); i++;			//#0
+	           guardpic = ImageIO.read(new File("Images/guard.gif")); i++; 			//#1
+	           heropic = ImageIO.read(new File("Images/hero.gif")); i++; 			//#2
+	           ogrepic = ImageIO.read(new File("Images/ogre.gif")); i++; 			//#3
+	           clubpic = ImageIO.read(new File("Images/club.gif")); i++; 			//#4
+	           doorpic = ImageIO.read(new File("Images/door.gif")); i++; 			//#5
+	           keypic = ImageIO.read(new File("Images/key.gif")); i++; 				//#6
+	           dollarpic = ImageIO.read(new File("Images/dollar.gif")); i++; 		//#7
+	           stairspic = ImageIO.read(new File("Images/stairs.gif")); i++; 		//#8
+	           sleepic = ImageIO.read(new File("Images/sleep.gif")); i++;  			//#9
+	           stunnedpic = ImageIO.read(new File("Images/stunned.gif")); 		//#10
+		     } 
+	       catch (IOException ex) {
+	    	   System.out.println("ERROR: Image " + i + " not found.");
+		     }
+		
+//	       try {                
+//	           wallpic = ImageIO.read(new File("Images/wall.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       try {                
+//	           guardpic = ImageIO.read(new File("Images/guard.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       try {                
+//	           heropic = ImageIO.read(new File("Images/hero.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       
+//	       try {                
+//	           ogrepic = ImageIO.read(new File("Images/ogre.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       
+//	       try {                
+//	           clubpic = ImageIO.read(new File("Images/club.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       try {                
+//	           doorpic = ImageIO.read(new File("Images/door.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       try {                
+//	           keypic = ImageIO.read(new File("Images/key.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       try {                
+//	           dollarpic = ImageIO.read(new File("Images/dollar.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       try {                
+//	           stairspic = ImageIO.read(new File("Images/stairs.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       try {                
+//	           sleepic = ImageIO.read(new File("Images/sleep.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
+//	       
+//	       try {                
+//	           stunnedpic = ImageIO.read(new File("Images/stunned.gif"));
+//	        } catch (IOException ex) {
+//	             // handle exception...
+//	        }
 	       
 	       char[][] emptymap = {{' '}};
 	       
