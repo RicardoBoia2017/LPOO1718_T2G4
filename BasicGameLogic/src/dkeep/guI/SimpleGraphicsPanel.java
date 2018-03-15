@@ -41,7 +41,7 @@ public class SimpleGraphicsPanel extends JPanel {
 	           dollarpic = ImageIO.read(new File("Images/dollar.gif")); i++; 		//#7
 	           stairspic = ImageIO.read(new File("Images/stairs.gif")); i++; 		//#8
 	           sleepic = ImageIO.read(new File("Images/sleep.gif")); i++;  			//#9
-	           stunnedpic = ImageIO.read(new File("Images/stunned.gif")); 		//#10
+	           stunnedpic = ImageIO.read(new File("Images/stunned.gif")); 			//#10
 		     } 
 	       catch (IOException ex) {
 	    	   System.out.println("ERROR: Image " + i + " not found.");
