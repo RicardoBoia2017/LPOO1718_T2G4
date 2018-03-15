@@ -29,69 +29,69 @@ public class SimpleGraphicsPanel extends JPanel {
 		//addMouseMotionListener(this); 
 		
 	       try {                
-	           wallpic = ImageIO.read(new File("wall.gif"));
+	           wallpic = ImageIO.read(new File("Images/wall.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           guardpic = ImageIO.read(new File("guard.gif"));
+	           guardpic = ImageIO.read(new File("Images/guard.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           heropic = ImageIO.read(new File("hero.gif"));
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-	       
-	       
-	       try {                
-	           ogrepic = ImageIO.read(new File("ogre.gif"));
+	           heropic = ImageIO.read(new File("Images/hero.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       
 	       try {                
-	           clubpic = ImageIO.read(new File("club.gif"));
+	           ogrepic = ImageIO.read(new File("Images/ogre.gif"));
+	        } catch (IOException ex) {
+	             // handle exception...
+	        }
+	       
+	       
+	       try {                
+	           clubpic = ImageIO.read(new File("Images/club.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           doorpic = ImageIO.read(new File("door.gif"));
+	           doorpic = ImageIO.read(new File("Images/door.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           keypic = ImageIO.read(new File("key.gif"));
+	           keypic = ImageIO.read(new File("Images/key.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           dollarpic = ImageIO.read(new File("dollar.gif"));
+	           dollarpic = ImageIO.read(new File("Images/dollar.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           stairspic = ImageIO.read(new File("stairs.gif"));
+	           stairspic = ImageIO.read(new File("Images/stairs.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           sleepic = ImageIO.read(new File("sleep.gif"));
+	           sleepic = ImageIO.read(new File("Images/sleep.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
 	       
 	       try {                
-	           stunnedpic = ImageIO.read(new File("stunned.gif"));
+	           stunnedpic = ImageIO.read(new File("Images/stunned.gif"));
 	        } catch (IOException ex) {
 	             // handle exception...
 	        }
