@@ -32,6 +32,8 @@ public class Map {
 			{'X','X','X','X','X'},
 	};
 	
+	private char [][] PersonalizedMap;
+	
 	
 	private int currentmap;
 	
@@ -42,6 +44,32 @@ public class Map {
 		else {
 			currentmap = -1;
 		}
+	}
+	
+	public Map (int width, int height)
+	{
+		PersonalizedMap = new char [height] [width];
+		
+		for (int i = 0; i < width; i++)
+		{
+			System.out.println (i);
+			if (i == 0 || i == width -1)
+			{
+				for (int j = 0; j < height; j++)
+				{
+					System.out.print (" imprimiu" + j);
+					PersonalizedMap [j][i] = 'X';
+				}
+			}
+			
+			else
+			{
+				PersonalizedMap [0][i] = 'X';
+				PersonalizedMap [height-1][i] = 'X';
+			}
+		}
+		
+		currentmap = 3;
 	}
 	
 	public void setmap(int current) {
@@ -61,6 +89,11 @@ public class Map {
 		
 		if(currentmap == -1) {
 			return testLevel1;
+		}
+		
+		if (currentmap == 3)
+		{
+			return PersonalizedMap;
 		}
 		
 		return empty;
