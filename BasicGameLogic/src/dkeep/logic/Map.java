@@ -52,12 +52,10 @@ public class Map {
 		
 		for (int i = 0; i < width; i++)
 		{
-			System.out.println (i);
 			if (i == 0 || i == width -1)
 			{
 				for (int j = 0; j < height; j++)
 				{
-					System.out.print (" imprimiu" + j);
 					PersonalizedMap [j][i] = 'X';
 				}
 			}
@@ -100,6 +98,10 @@ public class Map {
 	}
 	
 	public int getcurrentlevel() {return currentmap;};
+	
+	public void setCustomMapTo(char[][] newmap) {
+		PersonalizedMap = newmap;
+	}
 	
 	public void setMap(int y, int x, char change) throws IllegalMapChangeException {
 		

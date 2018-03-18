@@ -25,8 +25,13 @@ public class SimpleGraphicsPanel extends JPanel {
 	  
 	// Constructor, adding mouse and keyboard listeneres 
 	public SimpleGraphicsPanel() { 
-		//addMouseListener(this); 
-		//addMouseMotionListener(this); 
+		
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("You touched me.");
+			}
+		});
 		
 		int i = 0;
 		
@@ -46,74 +51,6 @@ public class SimpleGraphicsPanel extends JPanel {
 	       catch (IOException ex) {
 	    	   System.out.println("ERROR: Image " + i + " not found.");
 		     }
-		
-//	       try {                
-//	           wallpic = ImageIO.read(new File("Images/wall.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       try {                
-//	           guardpic = ImageIO.read(new File("Images/guard.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       try {                
-//	           heropic = ImageIO.read(new File("Images/hero.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       
-//	       try {                
-//	           ogrepic = ImageIO.read(new File("Images/ogre.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       
-//	       try {                
-//	           clubpic = ImageIO.read(new File("Images/club.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       try {                
-//	           doorpic = ImageIO.read(new File("Images/door.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       try {                
-//	           keypic = ImageIO.read(new File("Images/key.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       try {                
-//	           dollarpic = ImageIO.read(new File("Images/dollar.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       try {                
-//	           stairspic = ImageIO.read(new File("Images/stairs.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       try {                
-//	           sleepic = ImageIO.read(new File("Images/sleep.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
-//	       
-//	       try {                
-//	           stunnedpic = ImageIO.read(new File("Images/stunned.gif"));
-//	        } catch (IOException ex) {
-//	             // handle exception...
-//	        }
 	       
 	       char[][] emptymap = {{' '}};
 	       
@@ -123,6 +60,8 @@ public class SimpleGraphicsPanel extends JPanel {
 	public void setMap(char [][] mapprint) {
 		map = mapprint;
 	}
+	
+	public char[][] getMap(){return map;}
 	
 	// Redraws the panel, only when requested by SWING
 	@Override

@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import net.miginfocom.swing.MigLayout;
+//import net.miginfocom.swing.MigLayout;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
@@ -25,6 +25,8 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
@@ -72,7 +74,7 @@ public class OptionsFrame extends JFrame{
 		frame = new JFrame();
 		frame.setPreferredSize(new Dimension(600, 500));
 		frame.setBounds(100, 100, 742, 653);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
 		JPanel panel = new JPanel();
@@ -115,12 +117,14 @@ public class OptionsFrame extends JFrame{
 		panel.add(HeightLabel);
 		panel.add(HeightValue);
 		
+		// GENERATING THE ACTUAL MAP
 		JButton btnCreateMap = new JButton("Create Map");
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnCreateMapActionPerformed(e);
 			}
 		});
+		
 		btnCreateMap.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnCreateMap.setBounds(306, 137, 166, 56);
 		panel.add(btnCreateMap);
@@ -151,7 +155,6 @@ public class OptionsFrame extends JFrame{
 		Map.setBounds(150,241,34*width, 32*height);
 		Map.setMap(m.getmap());
 		Map.paint(Map.getGraphics());
-		
 	}
 	
 	public Dimension getFramePreferredSize() {
@@ -161,4 +164,6 @@ public class OptionsFrame extends JFrame{
 	public void setFramePreferredSize(Dimension preferredSize) {
 		frame.setPreferredSize(preferredSize);
 	}
+	
+	public char[][] getCustomMap() {return Map.getMap();}
 }

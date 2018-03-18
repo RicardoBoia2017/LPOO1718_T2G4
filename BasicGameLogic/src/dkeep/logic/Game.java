@@ -12,7 +12,56 @@ public class Game {
 	int keycoordY;
 	String gameState;
 	
+	
 	public void setMap(Map map) {this.map = map;}
+	
+	public Game(char[][] custommap) {
+		
+		//1. Map must be set to the custom made map.
+		map = new Map(0);
+		map.setCustomMapTo(custommap);
+		map.setmap(3);
+		
+		//2. Must create Hero and Ogres depending on the edited map, also must find key.
+		int ogreCounter = 0;
+		
+		for(int i = 0; i < map.getmap().length; i++) {
+			for(int j = 0; j < map.getmap()[i].length; j++) {
+				if(map.getmap()[i][j] == 'H') {
+					//getting the hero
+					hero = new Hero(j, i);
+				}
+				
+				if(map.getmap()[i][j] == 'O') {
+					//counting ogres
+					ogreCounter++;
+				}
+				
+				if(map.getmap()[i][j] == 'k') {
+					//getting the key
+					keycoordX = j;
+					keycoordY = i;
+				}
+			}
+		}
+		
+		ogre = new Ogre[ogreCounter];
+		
+		int ogreindex = 0;
+		
+		for(int i = 0; i < map.getmap().length; i++) {
+			for(int j = 0; j < map.getmap()[i].length; j++) {
+				if(map.getmap()[i][j] == 'O') {
+					//adding ogres to the array
+					ogre[ogreindex] = new Ogre(j, i);
+					ogreindex++;
+				}
+			}
+		}
+		
+		//3. Declare that the game is running.
+		gameState = "Running";
+	}
 	
 	public Game(int numberOfOgres, String guardPersonality) {
 		

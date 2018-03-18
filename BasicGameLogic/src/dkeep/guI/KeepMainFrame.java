@@ -38,7 +38,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private Game game;
 
-	private Boolean newgamestarted = false;
+	private boolean newgamestarted = false;
+	
+	private boolean customMapMade = false;
 
 	/**
 	 * Creates new form KeepMainFrame
@@ -63,7 +65,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		formatter.setMinimum(1);
 		formatter.setMaximum(5);
 		formatter.setAllowsInvalid(false);
-
+		
+		//the editor will only be properly initialized once the create new map button is pressed
+		editor = null;
+		
 		label1 = new java.awt.Label();
 		nOgresBox = new JFormattedTextField(formatter);
 		label2 = new java.awt.Label();
@@ -75,10 +80,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		moveDown = new javax.swing.JButton();
 		ExitGame = new javax.swing.JButton();
 		jLabel1 = new javax.swing.JLabel();
-		jScrollPane1 = new SimpleGraphicsPanel();
-		// GameScreen = new javax.swing.JTextArea();
+		GameScreen = new SimpleGraphicsPanel();
 
-		jScrollPane1.setFocusable(true);
+		GameScreen.setFocusable(true);
 
 		// (The key listener won't activate if the element isn't focused ..)
 
@@ -86,12 +90,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				jScrollPane1.requestFocusInWindow();
+				GameScreen.requestFocusInWindow();
 			}
 		});
 
 		// KEY LISTENER
-		jScrollPane1.addKeyListener(new KeyListener() {
+		GameScreen.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -129,7 +133,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		label1.setText("Number of ogres:");
 
-		nOgresBox.setName(""); // NOI18N
+		nOgresBox.setName(""); 
 		nOgresBox.setSelectionEnd(-1);
 
 		label2.setText("Guard personality");
@@ -198,13 +202,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		CreateNewMap.setToolTipText("");
 		CreateNewMap.setText("Create New Map");
 
-		// GameScreen.setEditable(false);
-		// GameScreen.setColumns(20);
-		// GameScreen.setFont(new java.awt.Font("Courier 10 Pitch", 0, 20)); //
-		// NOI18N
-		// GameScreen.setRows(5);
-		// jScrollPane1.setViewportView(GameScreen);
-
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		layout.setHorizontalGroup(
 			layout.createParallelGroup(Alignment.LEADING)
@@ -218,7 +215,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 					.addGroup(layout.createParallelGroup(Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE))
+							.addComponent(GameScreen, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE))
 						.addGroup(layout.createSequentialGroup()
 							.addGap(34)
 							.addComponent(label2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -281,7 +278,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 								.addComponent(moveRight))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(moveDown))
-						.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))
+						.addComponent(GameScreen, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))
 					.addGap(56))
 				.addGroup(layout.createSequentialGroup()
 					.addContainerGap(438, Short.MAX_VALUE)
@@ -347,7 +344,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		// omittion it will be rookie)
 
 		// as for number of ogres?
-
+	
+	if(customMapMade != true) {
+		//in this case it will run default maps
+		
 		if (nOgresBox.getValue() != null) {
 			// if the text field is empty, it will by omission be 1 ogre
 
@@ -356,23 +356,35 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 			numberOfOgres = Integer.parseInt(s);
 		}
-
-		// call game constructor with Game(int numberOfOgres, String
-		// guardPersonality)
+		
+		
 		game = new Game(numberOfOgres, guardPersonality);
 		// game.getGuard().setMovementBlocker(true);
 		nOgresBox.setValue(null);
 
 		// printing out the current map using a custom function that converts it
 		// to string first
+			
 		char[][] mapprint;
 
 		mapprint = game.getmap();
 
-		jScrollPane1.setMap(mapprint);
-		jScrollPane1.paint(jScrollPane1.getGraphics());
-
-		// GameScreen.setText(convertmaptoString(mapprint));
+		GameScreen.setMap(mapprint);
+		GameScreen.paint(GameScreen.getGraphics());
+		GameScreen.requestFocusInWindow();
+	}
+		
+	else {
+		//in this case it will run the custom map
+		
+		game = new Game(editor.getCustomMap());
+			
+		GameScreen.setMap(editor.getCustomMap());
+		GameScreen.paint(GameScreen.getGraphics());
+			
+		customMapMade = false;
+		//now the game will be configured to use the custom map.
+	}
 
 		newgamestarted = true;
 
@@ -397,12 +409,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 			mapprint = game.getmap();
 
-			jScrollPane1.setMap(mapprint);
-			jScrollPane1.paint(jScrollPane1.getGraphics());
-
-			// GameScreen.setText(null);
-
-			// GameScreen.setText(convertmaptoString(mapprint));
+			GameScreen.setMap(mapprint);
+			GameScreen.paint(GameScreen.getGraphics());
 		}
 
 		if (game.getGameState().equals("Over")) {
@@ -426,12 +434,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 			mapprint = game.getmap();
 
-			jScrollPane1.setMap(mapprint);
-			jScrollPane1.paint(jScrollPane1.getGraphics());
-
-			// GameScreen.setText(null);
-
-			// GameScreen.setText(convertmaptoString(mapprint));
+			GameScreen.setMap(mapprint);
+			GameScreen.paint(GameScreen.getGraphics());
 		}
 
 		if (game.getGameState().equals("Over")) {
@@ -454,12 +458,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 			mapprint = game.getmap();
 
-			jScrollPane1.setMap(mapprint);
-			jScrollPane1.paint(jScrollPane1.getGraphics());
+			GameScreen.setMap(mapprint);
+			GameScreen.paint(GameScreen.getGraphics());
 
-			// GameScreen.setText(null);
-
-			// GameScreen.setText(convertmaptoString(mapprint));
 		}
 
 		if (game.getGameState().equals("Over")) {
@@ -482,12 +483,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 			mapprint = game.getmap();
 
-			jScrollPane1.setMap(mapprint);
-			jScrollPane1.paint(jScrollPane1.getGraphics());
+			GameScreen.setMap(mapprint);
+			GameScreen.paint(GameScreen.getGraphics());
 
-			// GameScreen.setText(null);
-
-			// GameScreen.setText(convertmaptoString(mapprint));
 		}
 
 		if (game.getGameState().equals("Over")) {
@@ -499,14 +497,17 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		}
 	}
 
+	//EXIT GAME
 	private void jButton6ActionPerformed(ActionEvent evt) {
 		// exit game button
 		System.exit(0);
 	}
 
+	//CREATE MAP
 	private void CreateNewMapActionPerformed (ActionEvent evt)
 	{
-		OptionsFrame o = new OptionsFrame();
+		editor = new OptionsFrame();
+		customMapMade = true;
 	}
 	
 	/**
@@ -555,6 +556,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	// Variables declaration - do not modify
 	private javax.swing.JButton NewGame;
+	private OptionsFrame editor;
 	private javax.swing.JButton moveLeft;
 	private javax.swing.JButton moveUp;
 	private javax.swing.JButton moveRight;
@@ -562,8 +564,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private javax.swing.JButton ExitGame;
 	private javax.swing.JComboBox<String> jComboBox1;
 	private javax.swing.JLabel jLabel1;
-	private SimpleGraphicsPanel jScrollPane1;
-	// private javax.swing.JTextArea GameScreen;
+	private SimpleGraphicsPanel GameScreen;
 	private java.awt.Label label1;
 	private java.awt.Label label2;
 	private JFormattedTextField nOgresBox;
