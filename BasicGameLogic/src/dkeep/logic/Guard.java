@@ -104,6 +104,7 @@ public class Guard extends Character{
 		    	
 		    	inverposition = temp;
 		    }
+	    	
 	    	//if he woke up, and inverted previously, he goes back to normal.
 	    	else {
 	    		reversedroute = false;
@@ -207,6 +208,7 @@ public class Guard extends Character{
 	    paranoid = check.nextInt(4);
 	    
 	    if(paranoid == 2) {
+	    	
 	    	//if he hadn't inverted, he inverts.
 	    	if(reversedroute == false) {
 	    		reversedroute = true;
@@ -217,6 +219,7 @@ public class Guard extends Character{
 		    	
 		    	inverposition = temp;
 		    }
+	    	
 	    	//if he inverted previously, he goes back to normal.
 	    	else {
 	    		reversedroute = false;
@@ -227,6 +230,7 @@ public class Guard extends Character{
 				
 				positionarray = temp;
 	    	}
+	    	
 	    }
 	    
 		switch(positionarray[currentposition]) {

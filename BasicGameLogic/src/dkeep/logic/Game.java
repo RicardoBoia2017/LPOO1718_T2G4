@@ -91,6 +91,7 @@ public class Game {
 	public Game(int test) {
 
 		if (test == 1) {
+			//UNIT TEST MAP
 			hero = new Hero(1, 1);
 			guard = new Guard(3, 1, "Rookie");
 			map = new Map(-1);
@@ -104,8 +105,9 @@ public class Game {
 		}
 
 		else {
+			//NORMAL MAP
 			hero = new Hero(1, 1);
-			guard = new Guard(8, 1, "Suspicious");
+			guard = new Guard(8, 1, "Rookie");
 			map = new Map(0);
 			keycoordX = 7;
 			keycoordY = 8;
@@ -186,7 +188,6 @@ public class Game {
 
 			else {
 				// he achieved the S victory door in stage 2, the game is over.
-
 				gameState = "Victory";
 				return map.getmap();
 			}
@@ -194,20 +195,21 @@ public class Game {
 		}
 
 		// k's position has to be k whenever the hero steps out, same for I.
-		// this is not so true for stage 2 I think. In stage 2 hero picks it up,
-		// ogre is the one where it stays.
+		// this is not so true for stage 2. In stage 2 hero picks k up,
+		// ogre is the one where k stays in place.
 
 		if (stage == 1 || stage == -1) {
 			if (map.getmap()[keycoordY][keycoordX] == ' ') {
+				
 				try {
 					map.setMap(keycoordY, keycoordX, 'k');
-				} catch (IllegalMapChangeException e) {
-				}
+				} 
+				
+				catch (IllegalMapChangeException e) {}
 			}
 
 			// guard phase, he will only move in a given pattern according to
-			// the
-			// array guardpositon.
+			// the array guardpositon.
 
 			if (guard.getMovementBlocker() == false) {
 

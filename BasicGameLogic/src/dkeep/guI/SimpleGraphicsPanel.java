@@ -21,6 +21,7 @@ public class SimpleGraphicsPanel extends JPanel {
 	private BufferedImage doorpic;
 	private BufferedImage sleepic;
 	private BufferedImage stunnedpic;
+	private BufferedImage superheropic;
 	private char[][] map;
 	  
 	// Constructor, adding mouse and keyboard listeneres 
@@ -46,7 +47,8 @@ public class SimpleGraphicsPanel extends JPanel {
 	           dollarpic = ImageIO.read(new File("Images/dollar.gif")); i++; 		//#7
 	           stairspic = ImageIO.read(new File("Images/stairs.gif")); i++; 		//#8
 	           sleepic = ImageIO.read(new File("Images/sleep.gif")); i++;  			//#9
-	           stunnedpic = ImageIO.read(new File("Images/stunned.gif")); 			//#10
+	           stunnedpic = ImageIO.read(new File("Images/stunned.gif")); 	
+	           superheropic = ImageIO.read(new File("Images/superhero.gif"));
 		     } 
 	       catch (IOException ex) {
 	    	   System.out.println("ERROR: Image " + i + " not found.");
@@ -118,6 +120,10 @@ public class SimpleGraphicsPanel extends JPanel {
 					
 				case 'S':
 					g.drawImage(stairspic, j*34, i*32, this);
+					break;
+				
+				case 'K':
+					g.drawImage(superheropic, j*34, i*32, this);
 					break;
 				
 				}
