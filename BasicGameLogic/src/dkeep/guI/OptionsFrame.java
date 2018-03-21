@@ -66,6 +66,8 @@ public class OptionsFrame extends JFrame{
 		});
 	}
 	
+	
+	
 	/**
 	 * Add to popup menu.
 	 */	
@@ -118,15 +120,7 @@ public class OptionsFrame extends JFrame{
         		  menuselection = ((JMenuItem) event.getSource()).getText();
         		  
                   if(menuselection != null) {
-                	  try {
-						map.getMap().setMap(mousecoordY, mousecoordX, selectionToId(menuselection));
-					} catch (IllegalMapChangeException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
                   }
-                  
-                  map.paint(map.getGraphics());
         	  }
         	};
         	
@@ -146,6 +140,7 @@ public class OptionsFrame extends JFrame{
 		initialize();
 		this.frame.setVisible(true);
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -231,6 +226,10 @@ public class OptionsFrame extends JFrame{
 				mousecoordX = e.getX()/34;
 				mousecoordY = e.getY()/32;
                 menu.show(map, e.getX(), e.getY());
+                
+                if(menuselection != null) {
+                	
+                }
 			}
 		});
 	}
