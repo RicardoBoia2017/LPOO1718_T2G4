@@ -59,6 +59,19 @@ public class Game {
 			}
 		}
 		
+		club = new Club[ogreCounter];
+		
+		int clubindex = 0;
+		
+		for(int i = 0; i < map.getmap().length; i++) {
+			for(int j = 0; j < map.getmap()[i].length; j++) {
+				if(map.getmap()[i][j] == '*') {
+					club[clubindex] = new Club(j, i);
+					clubindex++;
+				}
+			}
+		}
+		
 		//3. Declare that the game is running.
 		gameState = "Running";
 	}

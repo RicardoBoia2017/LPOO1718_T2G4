@@ -25,6 +25,7 @@ import javax.swing.text.NumberFormatter;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -44,6 +45,7 @@ public class OptionsFrame extends JFrame{
 	private String menuselection;
 	private int mousecoordX;
 	private int mousecoordY;
+	private boolean validmap = false;
 	
 	private int height;
 	private int width;
@@ -77,6 +79,7 @@ public class OptionsFrame extends JFrame{
 	 * Set map cell to the popup selection.
 	 */
 	public char selectionToId(String menuselection) {
+		
 		if(menuselection.equals("wall")) {
 			return 'X';
 		}
@@ -97,11 +100,15 @@ public class OptionsFrame extends JFrame{
 			return 'k';
 		}
 		
+		if(menuselection.equals("club")) {
+			return '*';
+		}
+		
 		return ' ';
 	}
 	
 	/**
-	 * Create the popup menu for the mouse.
+	 * Create the popup menu for the mouse, including instructions on how to change the map.
 	 */
 	public void createMenu() {
         menu = new JPopupMenu("Menu");
@@ -128,6 +135,8 @@ public class OptionsFrame extends JFrame{
         addtoPopupMenu("key", menuListener);
         addtoPopupMenu("ogre", menuListener);
         addtoPopupMenu("hero", menuListener);
+        addtoPopupMenu("club", menuListener);
+        addtoPopupMenu("delete", menuListener);
 	}
 
 	/**
@@ -188,7 +197,6 @@ public class OptionsFrame extends JFrame{
 		panel.add(HeightLabel);
 		panel.add(HeightValue);
 		
-		// GENERATING THE ACTUAL MAP
 		JButton btnCreateMap = new JButton("Create Map");
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -207,6 +215,10 @@ public class OptionsFrame extends JFrame{
 		btnCreateMap.setBounds(306, 137, 166, 56);
 		panel.add(btnCreateMap);
 		
+		btnEndEdition.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnEndEdition.setBounds(500, 137, 166, 56);
+		panel.add(btnEndEdition);
+		
 		createMenu();
 		
 		map = new SimpleGraphicsPanel();
@@ -218,7 +230,6 @@ public class OptionsFrame extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 				mousecoordX = e.getX()/34;
 				mousecoordY = e.getY()/32;
-				
                 menu.show(map, e.getX(), e.getY());
 			}
 		});
@@ -247,17 +258,26 @@ public class OptionsFrame extends JFrame{
 		map.paint(map.getGraphics());
 	}
 	
+	public boolean checkIfClubNearby(char[][] map, int i, int j) {
+		if(!(map[i+1][j] == '*'|| map[i-1][j] == '*'|| map[i][j+1] == '*' || map[i][j-1] == '*')) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	/**
 	 * Checking for amount of heroes, ogres ..
 	 */
 	
-	private boolean checkmap() {
+	public boolean checkMapIsValid() {
 		
 		int heroCounter = 0;
 		int ogreCounter = 0;
 		int keyCounter = 0;
 		int doorCounter = 0;
 		int wallCounter = 0;
+		int clubCounter = 0;
 		
 		for(int i = 0; i < map.getMap().getmap().length; i++) {
 			for(int j = 0; j < map.getMap().getmap()[i].length; j++) {
@@ -268,6 +288,11 @@ public class OptionsFrame extends JFrame{
 				
 				if(map.getMap().getmap()[i][j] == 'O') {
 					//counting ogres
+					
+					if(!checkIfClubNearby(map.getMap().getmap(), i, j)) {
+						return false;
+					}
+					
 					ogreCounter++;
 				}
 				
@@ -283,10 +308,14 @@ public class OptionsFrame extends JFrame{
 				if(map.getMap().getmap()[i][j] == 'I') {
 					doorCounter++;
 				}
+				
+				if(map.getMap().getmap()[i][j] == '*') {
+					clubCounter++;
+				}
 			}
 		}
 		
-		if(!(heroCounter == 1 && ogreCounter > 0 && keyCounter == 1 && wallCounter > 12 && doorCounter > 0)) {
+		if(!(heroCounter == 1 && ogreCounter > 0 && keyCounter == 1 && wallCounter > 12 && doorCounter > 0 && clubCounter == ogreCounter)) {
 			return false;
 		} else {
 			return true;
@@ -294,12 +323,20 @@ public class OptionsFrame extends JFrame{
 	}
 	
 	private void btnEndEditionActionPerformed(ActionEvent e) {
-		if(!checkmap()) {
-			//TODO: Show popup window
-		}
+		JOptionPane popup = new JOptionPane();
 		
-		//TODO: create function for deleting elements
-		//TODO: add a club.
+		if(!checkMapIsValid()) {
+			
+			popup.showMessageDialog(frame, "The map you entered is invalid.");
+			
+			validmap = false;
+			
+		} else {
+			
+			popup.showMessageDialog(frame, "The map you entered is valid and will be loaded into New Game.");
+			
+			validmap = true;
+		}
 	}
 	
 	public Dimension getFramePreferredSize() {
@@ -311,4 +348,6 @@ public class OptionsFrame extends JFrame{
 	}
 	
 	public Map getCustomMap() {return map.getMap();}
+	
+	public boolean getValidMap() {return validmap;}
 }

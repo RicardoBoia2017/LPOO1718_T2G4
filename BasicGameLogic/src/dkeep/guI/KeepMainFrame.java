@@ -344,8 +344,21 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		// omittion it will be rookie)
 
 		// as for number of ogres?
-	
-	if(customMapMade != true) {
+		
+	if(editor != null && editor.getValidMap()) {
+		//in this case it will run the custom map !IF IT IS VALID!
+			
+		game = new Game(editor.getCustomMap().getmap());
+				
+		gameScreen.setMap(editor.getCustomMap());
+		gameScreen.paint(gameScreen.getGraphics());
+		
+		gameScreen.requestFocusInWindow();
+				
+		customMapMade = false;
+	} 
+
+	else {
 		//in this case it will run default maps
 		
 		if (nOgresBox.getValue() != null) {
@@ -356,7 +369,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 			numberOfOgres = Integer.parseInt(s);
 		}
-		
 		
 		game = new Game(numberOfOgres, guardPersonality);
 		// game.getGuard().setMovementBlocker(true);
@@ -370,18 +382,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		gameScreen.requestFocusInWindow();
 	}
 		
-	else {
-		//in this case it will run the custom map
-		
-		game = new Game(editor.getCustomMap().getmap());
-			
-		gameScreen.setMap(editor.getCustomMap());
-		gameScreen.paint(gameScreen.getGraphics());
-			
-		customMapMade = false;
-		//now the game will be configured to use the custom map.
-	}
-
 		newgamestarted = true;
 
 		// reactivate the buttons just in case they were shutdown previously
@@ -412,6 +412,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			moveUp.setEnabled(false);
 			moveDown.setEnabled(false);
 		}
+		
+		if (game.getGameState().equals("Victory")) {
+			jLabel1.setText("You win!");
+			moveLeft.setEnabled(false);
+			moveRight.setEnabled(false);
+			moveUp.setEnabled(false);
+			moveDown.setEnabled(false);
+		}
 	}
 
 	/*
@@ -428,6 +436,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		if (game.getGameState().equals("Over")) {
 			jLabel1.setText("The game is over.");
+			moveLeft.setEnabled(false);
+			moveRight.setEnabled(false);
+			moveUp.setEnabled(false);
+			moveDown.setEnabled(false);
+		}
+		
+		if (game.getGameState().equals("Victory")) {
+			jLabel1.setText("You win!");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
 			moveUp.setEnabled(false);
@@ -454,6 +470,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			moveUp.setEnabled(false);
 			moveDown.setEnabled(false);
 		}
+		
+		if (game.getGameState().equals("Victory")) {
+			jLabel1.setText("You win!");
+			moveLeft.setEnabled(false);
+			moveRight.setEnabled(false);
+			moveUp.setEnabled(false);
+			moveDown.setEnabled(false);
+		}
 	}
 
 	/*
@@ -475,6 +499,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			moveUp.setEnabled(false);
 			moveDown.setEnabled(false);
 		}
+		
+		if (game.getGameState().equals("Victory")) {
+			jLabel1.setText("You win!");
+			moveLeft.setEnabled(false);
+			moveRight.setEnabled(false);
+			moveUp.setEnabled(false);
+			moveDown.setEnabled(false);
+		}
 	}
 
 	//EXIT GAME
@@ -487,7 +519,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private void CreateNewMapActionPerformed (ActionEvent evt)
 	{
 		editor = new OptionsFrame();
-		customMapMade = true;
 	}
 	
 	/**
