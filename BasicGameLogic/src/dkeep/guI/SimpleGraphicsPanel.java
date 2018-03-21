@@ -52,7 +52,7 @@ public class SimpleGraphicsPanel extends JPanel {
 	       
 	       char[][] emptymap = {{' '}};
 	       
-	       map = new Map(0);
+	       map = new Map();
 	} 
 	
 	public void setMap(Map mapprint) {

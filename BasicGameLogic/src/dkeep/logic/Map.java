@@ -31,11 +31,15 @@ public class Map {
 			{'I','k',' ',' ','X'},
 			{'X','X','X','X','X'},
 	};
-	
+		
 	private char [][] PersonalizedMap;
 	
 	
 	private int currentmap;
+	
+	public Map() {
+		currentmap = 0;
+	}
 	
 	public Map(int test) {
 		if (test == 0) {
@@ -104,6 +108,7 @@ public class Map {
 	}
 	
 	public void setMap(int y, int x, char change) throws IllegalMapChangeException {
+		//TODO: Make this generic
 		
 		if(currentmap == 1) {
 			
@@ -130,6 +135,14 @@ public class Map {
 			}
 			
 			testLevel1[y][x] = change;
+		}
+		
+		if(currentmap == 3) {
+			if(PersonalizedMap[y][x] == 'X') {
+				throw new IllegalMapChangeException();
+			}
+			
+			PersonalizedMap[y][x] = change;
 		}
 	}
 }

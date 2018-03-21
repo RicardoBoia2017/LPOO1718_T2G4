@@ -42,6 +42,8 @@ public class OptionsFrame extends JFrame{
 	private SimpleGraphicsPanel map;
 	private JPopupMenu menu;
 	private String menuselection;
+	private int mousecoordX;
+	private int mousecoordY;
 	
 	private int height;
 	private int width;
@@ -62,8 +64,6 @@ public class OptionsFrame extends JFrame{
 		});
 	}
 	
-	
-	
 	/**
 	 * Add to popup menu.
 	 */	
@@ -71,6 +71,33 @@ public class OptionsFrame extends JFrame{
 		 JMenuItem object = new JMenuItem(nome);
 	     object.addActionListener(menuListener);
 	     menu.add(object);
+	}
+	
+	/**
+	 * Set map cell to the popup selection.
+	 */
+	public char selectionToId(String menuselection) {
+		if(menuselection.equals("wall")) {
+			return 'X';
+		}
+		
+		if(menuselection.equals("hero")) {
+			return 'H';
+		}
+		
+		if(menuselection.equals("ogre")) {
+			return 'O';
+		}
+		
+		if(menuselection.equals("exit door")) {
+			return 'I';
+		}
+		
+		if(menuselection.equals("key")) {
+			return 'k';
+		}
+		
+		return ' ';
 	}
 	
 	/**
@@ -84,7 +111,15 @@ public class OptionsFrame extends JFrame{
         		  menuselection = ((JMenuItem) event.getSource()).getText();
         		  
                   if(menuselection != null) {
+                	  try {
+						map.getMap().setMap(mousecoordY, mousecoordX, selectionToId(menuselection));
+					} catch (IllegalMapChangeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                   }
+                  
+                  map.paint(map.getGraphics());
         	  }
         	};
         	
@@ -93,7 +128,6 @@ public class OptionsFrame extends JFrame{
         addtoPopupMenu("key", menuListener);
         addtoPopupMenu("ogre", menuListener);
         addtoPopupMenu("hero", menuListener);
-		
 	}
 
 	/**
@@ -103,7 +137,6 @@ public class OptionsFrame extends JFrame{
 		initialize();
 		this.frame.setVisible(true);
 	}
-	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -176,14 +209,10 @@ public class OptionsFrame extends JFrame{
 		map.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int xcoord = e.getX()/34;
-				int ycoord = e.getY()/32;
+				mousecoordX = e.getX()/34;
+				mousecoordY = e.getY()/32;
 				
                 menu.show(map, e.getX(), e.getY());
-                
-                if(menuselection != null) {
-                	
-                }
 			}
 		});
 	}
