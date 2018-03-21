@@ -196,6 +196,13 @@ public class OptionsFrame extends JFrame{
 			}
 		});
 		
+		JButton btnEndEdition = new JButton("End Edition");
+		btnEndEdition.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnEndEditionActionPerformed(e);
+			}
+		});
+		
 		btnCreateMap.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnCreateMap.setBounds(306, 137, 166, 56);
 		panel.add(btnCreateMap);
@@ -238,6 +245,61 @@ public class OptionsFrame extends JFrame{
 		map.setBounds(150,241,34*width, 32*height);
 		map.setMap(m);
 		map.paint(map.getGraphics());
+	}
+	
+	/**
+	 * Checking for amount of heroes, ogres ..
+	 */
+	
+	private boolean checkmap() {
+		
+		int heroCounter = 0;
+		int ogreCounter = 0;
+		int keyCounter = 0;
+		int doorCounter = 0;
+		int wallCounter = 0;
+		
+		for(int i = 0; i < map.getMap().getmap().length; i++) {
+			for(int j = 0; j < map.getMap().getmap()[i].length; j++) {
+				if(map.getMap().getmap()[i][j] == 'H') {
+					//counting heroes
+					heroCounter++;
+				}
+				
+				if(map.getMap().getmap()[i][j] == 'O') {
+					//counting ogres
+					ogreCounter++;
+				}
+				
+				if(map.getMap().getmap()[i][j] == 'k') {
+					//counting key
+					keyCounter++;
+				}
+				
+				if(map.getMap().getmap()[i][j] == 'X') {
+					wallCounter++;
+				}
+					
+				if(map.getMap().getmap()[i][j] == 'I') {
+					doorCounter++;
+				}
+			}
+		}
+		
+		if(!(heroCounter == 1 && ogreCounter > 0 && keyCounter == 1 && wallCounter > 12 && doorCounter > 0)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	private void btnEndEditionActionPerformed(ActionEvent e) {
+		if(!checkmap()) {
+			//TODO: Show popup window
+		}
+		
+		//TODO: create function for deleting elements
+		//TODO: add a club.
 	}
 	
 	public Dimension getFramePreferredSize() {
