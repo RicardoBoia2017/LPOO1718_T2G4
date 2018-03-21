@@ -80,9 +80,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		moveDown = new javax.swing.JButton();
 		ExitGame = new javax.swing.JButton();
 		jLabel1 = new javax.swing.JLabel();
-		GameScreen = new SimpleGraphicsPanel();
+		gameScreen = new SimpleGraphicsPanel();
 
-		GameScreen.setFocusable(true);
+		gameScreen.setFocusable(true);
 
 		// (The key listener won't activate if the element isn't focused ..)
 
@@ -90,12 +90,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GameScreen.requestFocusInWindow();
+				gameScreen.requestFocusInWindow();
 			}
 		});
 
 		// KEY LISTENER
-		GameScreen.addKeyListener(new KeyListener() {
+		gameScreen.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -215,7 +215,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 					.addGroup(layout.createParallelGroup(Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(GameScreen, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE))
+							.addComponent(gameScreen, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE))
 						.addGroup(layout.createSequentialGroup()
 							.addGap(34)
 							.addComponent(label2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -278,7 +278,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 								.addComponent(moveRight))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(moveDown))
-						.addComponent(GameScreen, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))
+						.addComponent(gameScreen, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))
 					.addGap(56))
 				.addGroup(layout.createSequentialGroup()
 					.addContainerGap(438, Short.MAX_VALUE)
@@ -364,23 +364,19 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		// printing out the current map using a custom function that converts it
 		// to string first
-			
-		char[][] mapprint;
 
-		mapprint = game.getmap();
-
-		GameScreen.setMap(mapprint);
-		GameScreen.paint(GameScreen.getGraphics());
-		GameScreen.requestFocusInWindow();
+		gameScreen.setMap(game.getMap());
+		gameScreen.paint(gameScreen.getGraphics());
+		gameScreen.requestFocusInWindow();
 	}
 		
 	else {
 		//in this case it will run the custom map
 		
-		game = new Game(editor.getCustomMap());
+		game = new Game(editor.getCustomMap().getmap());
 			
-		GameScreen.setMap(editor.getCustomMap());
-		GameScreen.paint(GameScreen.getGraphics());
+		gameScreen.setMap(editor.getCustomMap());
+		gameScreen.paint(gameScreen.getGraphics());
 			
 		customMapMade = false;
 		//now the game will be configured to use the custom map.
@@ -405,12 +401,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		if (newgamestarted && game.getGameState().equals("Running")) {
 			game.updateGame('a');
 
-			char[][] mapprint;
-
-			mapprint = game.getmap();
-
-			GameScreen.setMap(mapprint);
-			GameScreen.paint(GameScreen.getGraphics());
+			gameScreen.setMap(game.getMap());
+			gameScreen.paint(gameScreen.getGraphics());
 		}
 
 		if (game.getGameState().equals("Over")) {
@@ -430,12 +422,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		if (newgamestarted && game.getGameState().equals("Running")) {
 			game.updateGame('w');
 
-			char[][] mapprint;
-
-			mapprint = game.getmap();
-
-			GameScreen.setMap(mapprint);
-			GameScreen.paint(GameScreen.getGraphics());
+			gameScreen.setMap(game.getMap());
+			gameScreen.paint(gameScreen.getGraphics());
 		}
 
 		if (game.getGameState().equals("Over")) {
@@ -453,13 +441,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 		if (newgamestarted && game.getGameState().equals("Running")) {
 			game.updateGame('d');
-
-			char[][] mapprint;
-
-			mapprint = game.getmap();
-
-			GameScreen.setMap(mapprint);
-			GameScreen.paint(GameScreen.getGraphics());
+			
+			gameScreen.setMap(game.getMap());
+			gameScreen.paint(gameScreen.getGraphics());
 
 		}
 
@@ -478,13 +462,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
 		if (newgamestarted && game.getGameState().equals("Running")) {
 			game.updateGame('s');
-
-			char[][] mapprint;
-
-			mapprint = game.getmap();
-
-			GameScreen.setMap(mapprint);
-			GameScreen.paint(GameScreen.getGraphics());
+			
+			gameScreen.setMap(game.getMap());
+			gameScreen.paint(gameScreen.getGraphics());
 
 		}
 
@@ -564,7 +544,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private javax.swing.JButton ExitGame;
 	private javax.swing.JComboBox<String> jComboBox1;
 	private javax.swing.JLabel jLabel1;
-	private SimpleGraphicsPanel GameScreen;
+	private SimpleGraphicsPanel gameScreen;
 	private java.awt.Label label1;
 	private java.awt.Label label2;
 	private JFormattedTextField nOgresBox;

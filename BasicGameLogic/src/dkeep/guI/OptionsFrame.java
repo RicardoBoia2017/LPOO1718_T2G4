@@ -9,6 +9,7 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 //import net.miginfocom.swing.MigLayout;
@@ -23,6 +24,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.NumberFormatter;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JMenuItem;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -37,8 +39,9 @@ public class OptionsFrame extends JFrame{
 	private JFrame frame;
 	private JTextField HeightValue;
 	private JTextField WidthValue;
-	private SimpleGraphicsPanel Map;
-
+	private SimpleGraphicsPanel map;
+	private JPopupMenu menu;
+	private String menuselection;
 	
 	private int height;
 	private int width;
@@ -58,6 +61,40 @@ public class OptionsFrame extends JFrame{
 			}
 		});
 	}
+	
+	
+	
+	/**
+	 * Add to popup menu.
+	 */	
+	public void addtoPopupMenu(String nome, ActionListener menuListener) {
+		 JMenuItem object = new JMenuItem(nome);
+	     object.addActionListener(menuListener);
+	     menu.add(object);
+	}
+	
+	/**
+	 * Create the popup menu for the mouse.
+	 */
+	public void createMenu() {
+        menu = new JPopupMenu("Menu");
+        
+        ActionListener menuListener = new ActionListener() {
+        	  public void actionPerformed(ActionEvent event) {
+        		  menuselection = ((JMenuItem) event.getSource()).getText();
+        		  
+                  if(menuselection != null) {
+                  }
+        	  }
+        	};
+        	
+        addtoPopupMenu("wall", menuListener);
+        addtoPopupMenu("exit door", menuListener);
+        addtoPopupMenu("key", menuListener);
+        addtoPopupMenu("ogre", menuListener);
+        addtoPopupMenu("hero", menuListener);
+		
+	}
 
 	/**
 	 * Create the application.
@@ -66,6 +103,7 @@ public class OptionsFrame extends JFrame{
 		initialize();
 		this.frame.setVisible(true);
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -129,9 +167,25 @@ public class OptionsFrame extends JFrame{
 		btnCreateMap.setBounds(306, 137, 166, 56);
 		panel.add(btnCreateMap);
 		
-		Map = new SimpleGraphicsPanel();
-		Map.setBounds(102, 241, 523, 341);
-		panel.add(Map);
+		createMenu();
+		
+		map = new SimpleGraphicsPanel();
+		map.setBounds(102, 241, 523, 341);
+		panel.add(map);
+		
+		map.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int xcoord = e.getX()/34;
+				int ycoord = e.getY()/32;
+				
+                menu.show(map, e.getX(), e.getY());
+                
+                if(menuselection != null) {
+                	
+                }
+			}
+		});
 	}
 
 	public void btnCreateMapActionPerformed(ActionEvent e)
@@ -151,10 +205,10 @@ public class OptionsFrame extends JFrame{
 		
 		Map m = new Map (width, height);
 
-		Map.setFocusable(true);
-		Map.setBounds(150,241,34*width, 32*height);
-		Map.setMap(m.getmap());
-		Map.paint(Map.getGraphics());
+		map.setFocusable(true);
+		map.setBounds(150,241,34*width, 32*height);
+		map.setMap(m);
+		map.paint(map.getGraphics());
 	}
 	
 	public Dimension getFramePreferredSize() {
@@ -165,5 +219,5 @@ public class OptionsFrame extends JFrame{
 		frame.setPreferredSize(preferredSize);
 	}
 	
-	public char[][] getCustomMap() {return Map.getMap();}
+	public Map getCustomMap() {return map.getMap();}
 }

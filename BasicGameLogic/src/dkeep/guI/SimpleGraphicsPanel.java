@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.*; 
+import javax.swing.*;
+
+import dkeep.logic.Map; 
 
 
 public class SimpleGraphicsPanel extends JPanel {
@@ -22,17 +24,11 @@ public class SimpleGraphicsPanel extends JPanel {
 	private BufferedImage sleepic;
 	private BufferedImage stunnedpic;
 	private BufferedImage superheropic;
-	private char[][] map;
+	private boolean editmode;
+	private Map map;
 	  
 	// Constructor, adding mouse and keyboard listeneres 
 	public SimpleGraphicsPanel() { 
-		
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("You touched me.");
-			}
-		});
 		
 		int i = 0;
 		
@@ -56,23 +52,25 @@ public class SimpleGraphicsPanel extends JPanel {
 	       
 	       char[][] emptymap = {{' '}};
 	       
-	       map = emptymap;
+	       map = new Map(0);
 	} 
 	
-	public void setMap(char [][] mapprint) {
+	public void setMap(Map mapprint) {
 		map = mapprint;
 	}
 	
-	public char[][] getMap(){return map;}
+	public Map getMap(){return map;}
 	
 	// Redraws the panel, only when requested by SWING
 	@Override
 	public void paintComponent(Graphics g) { 
-		super.paintComponent(g); // limpa fundo ... 		
+		super.paintComponent(g); // limpa fundo ...
 		
-    	for(int i = 0; i < map.length; i++) {
-			for(int j = 0; j < map[i].length; j++) {
-				switch(map[i][j]) {
+		char[][] mapmatrix = map.getmap();
+		
+    	for(int i = 0; i < mapmatrix.length; i++) {
+			for(int j = 0; j < mapmatrix[i].length; j++) {
+				switch(mapmatrix[i][j]) {
 				
 				case 'H':
 					g.drawImage(heropic, j*34, i*32, this);
