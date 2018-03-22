@@ -11,6 +11,7 @@ public class Game {
 	int keycoordX;
 	int keycoordY;
 	String gameState;
+	LevelLogic current;
 	
 	
 	public void setMap(Map map) {this.map = map;}
@@ -83,6 +84,7 @@ public class Game {
 		map = new Map(0);
 		keycoordX = 7;
 		keycoordY = 8;
+		current = new GuardLevel(guardPersonality);
 		
 		int nOgres = numberOfOgres;
 		
@@ -173,7 +175,7 @@ public class Game {
 		}
 
 		catch (IllegalMapChangeException e) {
-			System.out.println("Exceção mov hero");
+			System.out.println("Excecao mov hero");
 		}
 
 		if (hero_mov == 1) {

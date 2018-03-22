@@ -38,8 +38,8 @@ import dkeep.logic.*;
 public class OptionsFrame extends JFrame{
 
 	private JFrame frame;
-	private JTextField HeightValue;
-	private JTextField WidthValue;
+	private JTextField heightValue;
+	private JTextField widthValue;
 	private SimpleGraphicsPanel map;
 	private JPopupMenu menu;
 	private String menuselection;
@@ -148,7 +148,6 @@ public class OptionsFrame extends JFrame{
 		this.frame.setVisible(true);
 	}
 	
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -177,27 +176,27 @@ public class OptionsFrame extends JFrame{
 		WidthLabel.setAlignmentY(Component.TOP_ALIGNMENT);
 		WidthLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 		
-		WidthValue = new JFormattedTextField(formatter);
-		WidthValue.setBounds(399, 25, 111, 32);
-		WidthValue.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		WidthValue.setPreferredSize(new Dimension(10, 32));
-		WidthValue.setColumns(5);
-		WidthValue.setName("");
+		widthValue = new JFormattedTextField(formatter);
+		widthValue.setBounds(399, 25, 111, 32);
+		widthValue.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		widthValue.setPreferredSize(new Dimension(10, 32));
+		widthValue.setColumns(5);
+		widthValue.setName("");
 		
 		JLabel HeightLabel = new JLabel("Height : ");
 		HeightLabel.setBounds(253, 79, 116, 37);
 		HeightLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
-		HeightValue = new JFormattedTextField(formatter);
-		HeightValue.setBounds(399, 78, 111, 32);
-		HeightValue.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		HeightValue.setPreferredSize(new Dimension(10, 32));
-		HeightValue.setColumns(5);
+		heightValue = new JFormattedTextField(formatter);
+		heightValue.setBounds(399, 78, 111, 32);
+		heightValue.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		heightValue.setPreferredSize(new Dimension(10, 32));
+		heightValue.setColumns(5);
 		panel.setLayout(null);
 		panel.add(WidthLabel);
-		panel.add(WidthValue);
+		panel.add(widthValue);
 		panel.add(HeightLabel);
-		panel.add(HeightValue);
+		panel.add(heightValue);
 		
 		JButton btnCreateMap = new JButton("Create Map");
 		btnCreateMap.addActionListener(new ActionListener() {
@@ -244,15 +243,15 @@ public class OptionsFrame extends JFrame{
 	public void btnCreateMapActionPerformed(ActionEvent e)
 	{
 		String s;
-		if (!WidthValue.getText().trim().isEmpty())
+		if (!widthValue.getText().trim().isEmpty())
 		{
-			s = WidthValue.getText();
+			s = widthValue.getText();
 			this.width = Integer.parseInt(s);
 		}
 		
-		if (!HeightValue.getText().trim().isEmpty())
+		if (!heightValue.getText().trim().isEmpty())
 		{
-			s = HeightValue.getText();
+			s = heightValue.getText();
 			this.height = Integer.parseInt(s);
 		}
 		

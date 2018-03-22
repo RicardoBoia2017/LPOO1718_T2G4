@@ -73,12 +73,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		nOgresBox = new JFormattedTextField(formatter);
 		label2 = new java.awt.Label();
 		jComboBox1 = new javax.swing.JComboBox<>();
-		NewGame = new javax.swing.JButton();
+		newGame = new javax.swing.JButton();
 		moveLeft = new javax.swing.JButton();
 		moveUp = new javax.swing.JButton();
 		moveRight = new javax.swing.JButton();
 		moveDown = new javax.swing.JButton();
-		ExitGame = new javax.swing.JButton();
+		exitGame = new javax.swing.JButton();
 		jLabel1 = new javax.swing.JLabel();
 		gameScreen = new SimpleGraphicsPanel();
 
@@ -146,9 +146,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			}
 		});
 
-		NewGame.setText("New Game");
-		NewGame.setToolTipText("");
-		NewGame.addActionListener(new java.awt.event.ActionListener() {
+		newGame.setText("New Game");
+		newGame.setToolTipText("");
+		newGame.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton1ActionPerformed(evt);
 			}
@@ -182,9 +182,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			}
 		});
 
-		ExitGame.setText("Exit Game");
-		ExitGame.setToolTipText("");
-		ExitGame.addActionListener(new java.awt.event.ActionListener() {
+		exitGame.setText("Exit Game");
+		exitGame.setToolTipText("");
+		exitGame.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton6ActionPerformed(evt);
 			}
@@ -193,14 +193,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		jLabel1.setText("<Game status goes here>");
 		jLabel1.setToolTipText("");
 
-		CreateNewMap = new JButton();
-		CreateNewMap.addActionListener(new ActionListener() {
+		createNewMap = new JButton();
+		createNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				CreateNewMapActionPerformed(evt);
 			}
 		});
-		CreateNewMap.setToolTipText("");
-		CreateNewMap.setText("Create New Map");
+		createNewMap.setToolTipText("");
+		createNewMap.setText("Create New Map");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		layout.setHorizontalGroup(
@@ -244,13 +244,13 @@ public class KeepMainFrame extends javax.swing.JFrame {
 									.addContainerGap(100, Short.MAX_VALUE))
 								.addGroup(layout.createSequentialGroup()
 									.addGap(8)
-									.addComponent(NewGame, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+									.addComponent(newGame, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
 									.addGap(27))))
 						.addGroup(layout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(CreateNewMap, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-								.addComponent(ExitGame, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+								.addComponent(createNewMap, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+								.addComponent(exitGame, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
 							.addContainerGap())))
 		);
 		layout.setVerticalGroup(
@@ -264,12 +264,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 					.addGroup(layout.createParallelGroup(Alignment.LEADING)
 						.addComponent(label2, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
 						.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(NewGame)
+							.addComponent(newGame)
 							.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(layout.createParallelGroup(Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
-							.addComponent(CreateNewMap)
+							.addComponent(createNewMap)
 							.addGap(54)
 							.addComponent(moveUp)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -283,7 +283,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 				.addGroup(layout.createSequentialGroup()
 					.addContainerGap(438, Short.MAX_VALUE)
 					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(ExitGame)
+						.addComponent(exitGame)
 						.addComponent(jLabel1))
 					.addContainerGap())
 		);
@@ -566,19 +566,19 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	}
 
 	// Variables declaration - do not modify
-	private javax.swing.JButton NewGame;
+	private javax.swing.JButton newGame;
 	private OptionsFrame editor;
 	private javax.swing.JButton moveLeft;
 	private javax.swing.JButton moveUp;
 	private javax.swing.JButton moveRight;
 	private javax.swing.JButton moveDown;
-	private javax.swing.JButton ExitGame;
+	private javax.swing.JButton exitGame;
 	private javax.swing.JComboBox<String> jComboBox1;
 	private javax.swing.JLabel jLabel1;
 	private SimpleGraphicsPanel gameScreen;
 	private java.awt.Label label1;
 	private java.awt.Label label2;
 	private JFormattedTextField nOgresBox;
-	private JButton CreateNewMap;
+	private JButton createNewMap;
 	// End of variables declaration
 }
