@@ -64,8 +64,7 @@ public class OptionsFrame extends JFrame{
 				}
 			}
 		});
-	}
-	
+	}	
 	
 	
 	/**
@@ -120,8 +119,16 @@ public class OptionsFrame extends JFrame{
         		  menuselection = ((JMenuItem) event.getSource()).getText();
         		  
                   if(menuselection != null) {
+                	  try {
+  						map.getMap().setMap(mousecoordY, mousecoordX, selectionToId(menuselection));
+  					} catch (IllegalMapChangeException e) {
+  						// TODO Auto-generated catch block
+  						e.printStackTrace();
+  					}
+                    }
+                    
+                    map.paint(map.getGraphics());
                   }
-        	  }
         	};
         	
         addtoPopupMenu("wall", menuListener);
