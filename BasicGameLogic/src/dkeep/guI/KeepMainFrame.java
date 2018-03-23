@@ -402,6 +402,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			game.updateGame('a');
 
 			gameScreen.setMap(game.getMap());
+			 
 			gameScreen.paint(gameScreen.getGraphics());
 		}
 

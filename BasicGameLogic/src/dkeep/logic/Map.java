@@ -56,18 +56,22 @@ public class Map {
 		
 		for (int i = 0; i < width; i++)
 		{
-			if (i == 0 || i == width -1)
+			for (int j = 0; j < height; j++)
 			{
-				for (int j = 0; j < height; j++)
+				if (i == 0 || i == width -1)
 				{
 					PersonalizedMap [j][i] = 'X';
 				}
-			}
-			
-			else
-			{
-				PersonalizedMap [0][i] = 'X';
-				PersonalizedMap [height-1][i] = 'X';
+				
+				else if (j == 0 || j == height - 1)
+				{
+					PersonalizedMap [j][i] = 'X';
+				}
+				
+				else
+				{
+					PersonalizedMap [j][i] = ' ';
+				}
 			}
 		}
 		
