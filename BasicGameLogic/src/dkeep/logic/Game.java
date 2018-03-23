@@ -1,6 +1,7 @@
 package dkeep.logic;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Game {
 	Hero hero;
@@ -46,16 +47,18 @@ public class Game {
 			}
 		}
 		
-		ogre = new Ogre[ogreCounter];
+		ArrayList <Ogre> ogres = new ArrayList <Ogre> ();
+		ArrayList <Club> clubs = new ArrayList <Club> ();
 		
-		int ogreindex = 0;
+//		int ogreindex = 0;
 		
 		for(int i = 0; i < map.getmap().length; i++) {
 			for(int j = 0; j < map.getmap()[i].length; j++) {
 				if(map.getmap()[i][j] == 'O') {
 					//adding ogres to the array
-					ogre[ogreindex] = new Ogre(j, i);
-					ogreindex++;
+	//				ogre[ogreindex] = new Ogre(j, i);
+					ogres.add(new Ogre (j,i) );
+		//			ogreindex++;
 				}
 			}
 		}
@@ -67,23 +70,26 @@ public class Game {
 		for(int i = 0; i < map.getmap().length; i++) {
 			for(int j = 0; j < map.getmap()[i].length; j++) {
 				if(map.getmap()[i][j] == '*') {
-					club[clubindex] = new Club(j, i);
-					clubindex++;
+//					club[clubindex] = new Club(j, i);
+//					clubindex++;
+					clubs.add(new Club (j,i));
 				}
 			}
 		}
 		
+		current = new OgreLevel(hero,ogres,clubs);
+
 		//3. Declare that the game is running.
 		gameState = "Running";
 	}
 	
 	public Game(int numberOfOgres, String guardPersonality) {
 		
-		hero = new Hero(1,1);
-		guard = new Guard(8,1,guardPersonality);
+//		hero = new Hero(1,1);
+//		guard = new Guard(8,1,guardPersonality);
 		map = new Map(0);
-		keycoordX = 7;
-		keycoordY = 8;
+//		keycoordX = 7;
+//		keycoordY = 8;
 		current = new GuardLevel(guardPersonality);
 		
 		int nOgres = numberOfOgres;
@@ -121,11 +127,12 @@ public class Game {
 
 		else {
 			//NORMAL MAP
-			hero = new Hero(1, 1);
-			guard = new Guard(8, 1, "Rookie");
+//			hero = new Hero(1, 1);
+//			guard = new Guard(8, 1, "Rookie");
 			map = new Map(0);
-			keycoordX = 7;
-			keycoordY = 8;
+//			keycoordX = 7;
+//			keycoordY = 8;
+			current = new GuardLevel ("Rookie");
 
 			Random randomnumber = new Random();
 			int nOgres = randomnumber.nextInt(3); //0-2
@@ -168,233 +175,245 @@ public class Game {
 		int stage = map.getcurrentlevel();
 
 		int hero_mov = 0;
+		current.updateGame(herocommand, map);
+//
+//		// hero phase
+//		try {
+//			hero_mov = hero.move(map, herocommand, stage);
+//		}
+//
+//		catch (IllegalMapChangeException e) {
+//			System.out.println("Excecao mov hero");
+//		}
 
-		// hero phase
-		try {
-			hero_mov = hero.move(map, herocommand, stage);
+		if (current.getLevelState() == "Passed") {
+
+//		if (stage == 1 || stage == -1) {
+			map.setmap(2);
+			current = new OgreLevel(ogre.length);
+//				System.out.println(" ");
+//				System.out.println("Now you went up the stairs, new stage.");
+//				System.out.println(ogre.length + " ogre(s).");
+//				System.out.println(" ");
+//
+//				// you went up the stairs, now a new level must begin.
+//
+//				// update game stage
+//				hero.setcoordY(7);
+//				hero.setid('A');
+//				keycoordX = 7;
+//				keycoordY = 1;
+//
+//				stage = 2;
+//				map.setmap(2); // change to second map
+//
+//				return map.getmap();
+//			}
+
+//			else {
+//				// he achieved the S victory door in stage 2, the game is over.
+//				gameState = "Victory";
+//				return map.getmap();
+//			}
+
 		}
+		
+		else if (current.getLevelState() == "Over")
+		{
+			System.out.println("Game Over.");
 
-		catch (IllegalMapChangeException e) {
-			System.out.println("Excecao mov hero");
-		}
+			gameState = "Over";
 
-		if (hero_mov == 1) {
-
-			if (stage == 1 || stage == -1) {
-
-				System.out.println(" ");
-				System.out.println("Now you went up the stairs, new stage.");
-				System.out.println(ogre.length + " ogre(s).");
-				System.out.println(" ");
-
-				// you went up the stairs, now a new level must begin.
-
-				// update game stage
-				hero.setcoordY(7);
-				hero.setid('A');
-				keycoordX = 7;
-				keycoordY = 1;
-
-				stage = 2;
-				map.setmap(2); // change to second map
-
-				return map.getmap();
-			}
-
-			else {
-				// he achieved the S victory door in stage 2, the game is over.
-				gameState = "Victory";
-				return map.getmap();
-			}
-
+			return map.getmap();
 		}
 
 		// k's position has to be k whenever the hero steps out, same for I.
 		// this is not so true for stage 2. In stage 2 hero picks k up,
 		// ogre is the one where k stays in place.
 
-		if (stage == 1 || stage == -1) {
-			if (map.getmap()[keycoordY][keycoordX] == ' ') {
-				
-				try {
-					map.setMap(keycoordY, keycoordX, 'k');
-				} 
-				
-				catch (IllegalMapChangeException e) {}
-			}
+//		if (stage == 1 || stage == -1) {
+//			if (map.getmap()[keycoordY][keycoordX] == ' ') {
+//				
+//				try {
+//					map.setMap(keycoordY, keycoordX, 'k');
+//				} 
+//				
+//				catch (IllegalMapChangeException e) {}
+//			}
 
 			// guard phase, he will only move in a given pattern according to
 			// the array guardpositon.
 
-			if (guard.getMovementBlocker() == false) {
-
-				if (checkHeroGetsCaught(guard)) {
-
-					// pass interface game over state, interface will print.
-
-					System.out.println("Game Over.");
-
-					gameState = "Over";
-
-					return map.getmap();
-				}
-
-				switch (guard.personality) {
-
-				case "Rookie":
-					try {
-						guard.rookieMove(map);
-					} catch (IllegalMapChangeException e) {
-					}
-					break;
-
-				case "Drunken":
-					try {
-						guard.drunkenMove(map);
-					} catch (IllegalMapChangeException e) {
-					}
-					break;
-
-				case "Suspicious":
-					try {
-						guard.suspiciousMove(map);
-					} catch (IllegalMapChangeException e) {
-					}
-					break;
-				}
-
-				if (checkHeroGetsCaught(guard)) {
-
-					// pass interface game over state, interface will print.
-					System.out.println("");
-					System.out.println("Game Over.");
-
-					gameState = "Over";
-
-					return map.getmap();
-				}
-
-				// end of a turn of stage 1, by now the map has the current
-				// state
-				// and hero and guard have both moved and checked for collision.
-			}
-			return map.getmap();
-
-		}
+//			if (guard.getMovementBlocker() == false) {
+//
+//				if (checkHeroGetsCaught(guard)) {
+//
+//					// pass interface game over state, interface will print.
+//
+//					System.out.println("Game Over.");
+//
+//					gameState = "Over";
+//
+//					return map.getmap();
+//				}
+//
+//				switch (guard.personality) {
+//
+//				case "Rookie":
+//					try {
+//						guard.rookieMove(map);
+//					} catch (IllegalMapChangeException e) {
+//					}
+//					break;
+//
+//				case "Drunken":
+//					try {
+//						guard.drunkenMove(map);
+//					} catch (IllegalMapChangeException e) {
+//					}
+//					break;
+//
+//				case "Suspicious":
+//					try {
+//						guard.suspiciousMove(map);
+//					} catch (IllegalMapChangeException e) {
+//					}
+//					break;
+//				}
+//
+//				if (checkHeroGetsCaught(guard)) {
+//
+//					// pass interface game over state, interface will print.
+//					System.out.println("");
+//					System.out.println("Game Over.");
+//
+//					gameState = "Over";
+//
+//					return map.getmap();
+//				}
+//
+//				// end of a turn of stage 1, by now the map has the current
+//				// state
+//				// and hero and guard have both moved and checked for collision.
+//			}
+//			return map.getmap();
+//
+//		}
 
 		// the ogre moves randomly, we're going to have to generate random
 		// numbers.
 
-		else {
-			for (int i = 0; i < ogre.length; i++) {
-				if (hero_mov == 2 && ogre[i].getStunCounter() == 0 && hero.getID() == 'A') {
-					switch (herocommand) {
-					case 'a': {
-						if ((ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX - 1)
-								|| (ogre[i].coordY == hero.coordY - 1 && ogre[i].coordX == hero.coordX)
-								|| (ogre[i].coordY == hero.coordY + 1 && ogre[i].coordX == hero.coordX - 1))
-							try {
-								ogre[i].stun(map);
-							} catch (IllegalMapChangeException e) {
-							}
-
-						break;
-					}
-
-					case 'd': {
-						if ((ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX + 1)
-								|| (ogre[i].coordY == hero.coordY + 1 && ogre[i].coordX == hero.coordX)
-								|| (ogre[i].coordY == hero.coordY - 1 && ogre[i].coordX == hero.coordX))
-							try {
-								ogre[i].stun(map);
-							} catch (IllegalMapChangeException e) {
-							}
-
-						break;
-					}
-
-					case 's': {
-						if ((ogre[i].coordY == hero.coordY + 1 && ogre[i].coordX == hero.coordX)
-								|| (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX + 1)
-								|| (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX - 1))
-							try {
-								ogre[i].stun(map);
-							} catch (IllegalMapChangeException e) {
-							}
-
-						break;
-					}
-
-					case 'w': {
-						if ((ogre[i].coordY == hero.coordY - 1 && ogre[i].coordX == hero.coordX)
-								|| (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX + 1)
-								|| (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX - 1))
-							try {
-								ogre[i].stun(map);
-							} catch (IllegalMapChangeException e) {
-							}
-
-						break;
-					}
-					}
-				}
-
-				int stun = ogre[i].getStunCounter();
-				
-				if (stun == 0 && checkHeroGetsCaught(ogre[i])) {
-
-					System.out.println("Game Over.");
-
-					gameState = "Over";
-
-					return map.getmap();
-				}
-
-				if (ogre[i].getBlocker() == false) {
-					// ogre moves
-					try {
-						ogre[i].move(map);
-					} catch (IllegalMapChangeException e) {
-					}
-				}
-
-				if (club[i].getBlocker() == false) {
-
-					try {
-						club[i].move(map, ogre[i]);
-					} catch (IllegalMapChangeException e) {
-					}
-				}
-
-				if ((stun == 0 && (checkHeroGetsCaught(ogre[i]))
-						|| checkHeroGetsCaught(club[i]) ) ) {
-					// interface
-					System.out.println("");
-					System.out.println("Game Over.");
-
-					gameState = "Over";
-
-					return map.getmap();
-				}
-
-				if (ogre[i].id == '8' && stun == 0) {
-					ogre[i].id = 'O';
-					try {
-						map.setMap(ogre[i].coordY, ogre[i].coordX, ogre[i].id);
-					} catch (IllegalMapChangeException e) {
-					}
-				}
-
-				if (map.getmap()[keycoordY][keycoordX] == ' ' && hero.id == 'A')
-					try {
-						map.setMap(keycoordY, keycoordX, 'k');
-					} catch (IllegalMapChangeException e) {
-					}
-			}
-			// by now both the club and the ogre, also hero have moved which
-			// concludes a turn in stagee2
-			return map.getmap();
-		}
+//		else if (current.getLevelState() == "idk"){
+//			for (int i = 0; i < ogre.length; i++) {
+//				if (hero_mov == 2 && ogre[i].getStunCounter() == 0 && hero.getID() == 'A') {
+//					switch (herocommand) {
+//					case 'a': {
+//						if ((ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX - 1)
+//								|| (ogre[i].coordY == hero.coordY - 1 && ogre[i].coordX == hero.coordX)
+//								|| (ogre[i].coordY == hero.coordY + 1 && ogre[i].coordX == hero.coordX - 1))
+//							try {
+//								ogre[i].stun(map);
+//							} catch (IllegalMapChangeException e) {
+//							}
+//
+//						break;
+//					}
+//
+//					case 'd': {
+//						if ((ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX + 1)
+//								|| (ogre[i].coordY == hero.coordY + 1 && ogre[i].coordX == hero.coordX)
+//								|| (ogre[i].coordY == hero.coordY - 1 && ogre[i].coordX == hero.coordX))
+//							try {
+//								ogre[i].stun(map);
+//							} catch (IllegalMapChangeException e) {
+//							}
+//
+//						break;
+//					}
+//
+//					case 's': {
+//						if ((ogre[i].coordY == hero.coordY + 1 && ogre[i].coordX == hero.coordX)
+//								|| (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX + 1)
+//								|| (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX - 1))
+//							try {
+//								ogre[i].stun(map);
+//							} catch (IllegalMapChangeException e) {
+//							}
+//
+//						break;
+//					}
+//
+//					case 'w': {
+//						if ((ogre[i].coordY == hero.coordY - 1 && ogre[i].coordX == hero.coordX)
+//								|| (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX + 1)
+//								|| (ogre[i].coordY == hero.coordY && ogre[i].coordX == hero.coordX - 1))
+//							try {
+//								ogre[i].stun(map);
+//							} catch (IllegalMapChangeException e) {
+//							}
+//
+//						break;
+//					}
+//					}
+//				}
+//
+//				int stun = ogre[i].getStunCounter();
+//				
+//				if (stun == 0 && checkHeroGetsCaught(ogre[i])) {
+//
+//					System.out.println("Game Over.");
+//
+//					gameState = "Over";
+//
+//					return map.getmap();
+//				}
+//
+//				if (ogre[i].getBlocker() == false) {
+//					// ogre moves
+//					try {
+//						ogre[i].move(map);
+//					} catch (IllegalMapChangeException e) {
+//					}
+//				}
+//
+//				if (club[i].getBlocker() == false) {
+//
+//					try {
+//						club[i].move(map, ogre[i]);
+//					} catch (IllegalMapChangeException e) {
+//					}
+//				}
+//
+//				if ((stun == 0 && (checkHeroGetsCaught(ogre[i]))
+//						|| checkHeroGetsCaught(club[i]) ) ) {
+//					// interface
+//					System.out.println("");
+//					System.out.println("Game Over.");
+//
+//					gameState = "Over";
+//
+//					return map.getmap();
+//				}
+//
+//				if (ogre[i].id == '8' && stun == 0) {
+//					ogre[i].id = 'O';
+//					try {
+//						map.setMap(ogre[i].coordY, ogre[i].coordX, ogre[i].id);
+//					} catch (IllegalMapChangeException e) {
+//					}
+//				}
+//
+//				if (map.getmap()[keycoordY][keycoordX] == ' ' && hero.id == 'A')
+//					try {
+//						map.setMap(keycoordY, keycoordX, 'k');
+//					} catch (IllegalMapChangeException e) {
+//					}
+//			}
+//			// by now both the club and the ogre, also hero have moved which
+//			// concludes a turn in stagee2
+//			return map.getmap();
+//		}
+		return map.getmap();
 	}
 
 	public boolean checkHeroGetsCaught(Character c) {

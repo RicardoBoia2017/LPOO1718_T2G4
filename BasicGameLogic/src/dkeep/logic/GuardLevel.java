@@ -7,12 +7,15 @@ public class GuardLevel implements LevelLogic{
 //	Map map;
 	int keycoordX;
 	int keycoordY;
+	String levelState;
 	
 	public GuardLevel(String guardPersonality)
 	{
 		hero = new Hero(1,1);
 		guard = new Guard (8,1,guardPersonality);
-		
+		keycoordX = 7;
+		keycoordY = 8;	
+		levelState = "Running";
 	}
 	
 	@Override
@@ -31,8 +34,9 @@ public class GuardLevel implements LevelLogic{
 		
 		if (heroMovementReturn == 1) {
 
+			levelState = "Passed";
 //				System.out.println(" ");
-//				System.out.println("Now you went up the stairs, new stage.");
+//				System.out.println("Now you went up the stairs, new stage.");  FOR LEVEL2
 //				System.out.println(ogre.length + " ogre(s).");
 //				System.out.println(" ");
 
@@ -68,7 +72,7 @@ public class GuardLevel implements LevelLogic{
 				// pass interface game over state, interface will print.
 
 				System.out.println("Game Over.");
-
+				levelState = "Over";
 //				gameState = "Over";
 
 				return map.getmap();
@@ -104,7 +108,7 @@ public class GuardLevel implements LevelLogic{
 				System.out.println("");
 				System.out.println("Game Over.");
 
-//				gameState = "Over";
+				levelState = "Over";
 
 				return map.getmap();
 			}
@@ -127,4 +131,11 @@ public class GuardLevel implements LevelLogic{
 		return false;
 	}
 
+	
+	@Override
+	public String getLevelState() {
+		return levelState;
+	}
+
+	
 }
