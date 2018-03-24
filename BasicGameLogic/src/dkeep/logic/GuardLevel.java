@@ -4,18 +4,25 @@ public class GuardLevel implements LevelLogic{
 
 	Hero hero;
 	Guard guard;
-//	Map map;
-	int keycoordX;
-	int keycoordY;
+	int keyCoordX;
+	int keyCoordY;
 	String levelState;
 	
 	public GuardLevel(String guardPersonality)
 	{
 		hero = new Hero(1,1);
 		guard = new Guard (8,1,guardPersonality);
-		keycoordX = 7;
-		keycoordY = 8;	
+		keyCoordX = 7;
+		keyCoordY = 8;	
 		levelState = "Running";
+	}
+	
+	public GuardLevel(Hero hero, Guard guard, int [] keyCoords)
+	{
+		this.hero = hero;
+		this.guard = guard;
+		this.keyCoordX = keyCoords[0];
+		this.keyCoordY = keyCoords[1];
 	}
 	
 	@Override
@@ -53,10 +60,10 @@ public class GuardLevel implements LevelLogic{
 //
 //				return map.getmap();
 		}
-		if (map.getmap()[keycoordY][keycoordX] == ' ') {
+		if (map.getmap()[keyCoordY][keyCoordX] == ' ') {
 			
 			try {
-				map.setMap(keycoordY, keycoordX, 'k');
+				map.setMap(keyCoordY, keyCoordX, 'k');
 			} 
 			
 			catch (IllegalMapChangeException e) {}
@@ -67,7 +74,7 @@ public class GuardLevel implements LevelLogic{
 
 		if (guard.getMovementBlocker() == false) {
 
-			if (checkIfGameOver(map)) {
+			if (checkIfHeroGetsCaughtByGuard(map)) {
 
 				// pass interface game over state, interface will print.
 
@@ -102,7 +109,7 @@ public class GuardLevel implements LevelLogic{
 				break;
 			}
 
-			if (checkIfGameOver(map)) {
+			if (checkIfHeroGetsCaughtByGuard(map)) {
 
 				// pass interface game over state, interface will print.
 				System.out.println("");
@@ -120,7 +127,7 @@ public class GuardLevel implements LevelLogic{
 		return map.getmap();		
 	}
 	
-	public boolean checkIfGameOver(Map map)
+	public boolean checkIfHeroGetsCaughtByGuard(Map map)
 	{
 		if (guard.getID() != 'g' && (map.getmap()[guard.coordY - 1][guard.coordX] == hero.id
 				|| map.getmap()[guard.coordY + 1][guard.coordX] == hero.id
@@ -137,5 +144,31 @@ public class GuardLevel implements LevelLogic{
 		return levelState;
 	}
 
-	
+	@Override
+	public Hero getHero() {
+		return hero;
+	}
+	@Override
+	public int getKeyCoordX() {
+		return keyCoordX;
+	}
+	@Override
+	public int getKeyCoordY() {
+		return keyCoordY;
+	}
+
+	@Override
+	public Guard getGuard() {
+		return guard;
+	}
+
+	@Override
+	public Ogre getOgre() {
+		return null;
+	}
+
+	@Override
+	public Club getClub() {
+		return null;
+	}
 }

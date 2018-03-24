@@ -375,6 +375,8 @@ public class TestDungeonGameLogic {
 			
 			else if(game.getOgre().getRand() == 3) {
 				System.out.println(2);
+				System.out.println(coordX + " " + game.getOgre().getcoordX());
+				System.out.println(coordY + " " + game.getOgre().getcoordY());
 				assertEquals(coordX, game.getOgre().getcoordX());
 				assertEquals(coordY-1, game.getOgre().getcoordY());
 				outcome3 = true;

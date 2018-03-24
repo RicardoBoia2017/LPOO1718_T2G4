@@ -4,15 +4,16 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Game {
-	Hero hero;
-	Guard guard;
-	Ogre[] ogre;
-	Club[] club;
+	//Hero hero;
+	//Guard guard;
+	//Ogre[] ogre;
+	//Club[] club;
 	Map map;
-	int keycoordX;
-	int keycoordY;
+//	int keycoordX;
+//	int keycoordY;
 	String gameState;
-	LevelLogic current;
+	int numberOfOgres;
+	LevelLogic currentLevel;
 	
 	
 	public void setMap(Map map) {this.map = map;}
@@ -25,8 +26,10 @@ public class Game {
 		map.setmap(3);
 		
 		//2. Must create Hero and Ogres depending on the edited map, also must find key.
-		int ogreCounter = 0;
-		
+		int [] keyCoords = new int [2] ;
+//		int ogreCounter = 0;
+		Hero hero = null;
+				
 		for(int i = 0; i < map.getmap().length; i++) {
 			for(int j = 0; j < map.getmap()[i].length; j++) {
 				if(map.getmap()[i][j] == 'H') {
@@ -34,15 +37,15 @@ public class Game {
 					hero = new Hero(j, i);
 				}
 				
-				if(map.getmap()[i][j] == 'O') {
-					//counting ogres
-					ogreCounter++;
-				}
+//				if(map.getmap()[i][j] == 'O') {
+//					//counting ogres
+//					ogreCounter++;
+//				}
 				
 				if(map.getmap()[i][j] == 'k') {
 					//getting the key
-					keycoordX = j;
-					keycoordY = i;
+					keyCoords[0] = j;
+					keyCoords[1] = i;
 				}
 			}
 		}
@@ -62,9 +65,7 @@ public class Game {
 				}
 			}
 		}
-		
-		club = new Club[ogreCounter];
-		
+				
 		int clubindex = 0;
 		
 		for(int i = 0; i < map.getmap().length; i++) {
@@ -77,7 +78,7 @@ public class Game {
 			}
 		}
 		
-		current = new OgreLevel(hero,ogres,clubs);
+		currentLevel = new OgreLevel(hero,ogres,clubs, keyCoords);
 
 		//3. Declare that the game is running.
 		gameState = "Running";
@@ -90,22 +91,26 @@ public class Game {
 		map = new Map(0);
 //		keycoordX = 7;
 //		keycoordY = 8;
-		current = new GuardLevel(guardPersonality);
+		int [] keyCoords = new int [2];
+		keyCoords [0] = 7;
+		keyCoords [1] = 8;
+		currentLevel = new GuardLevel(new Hero (1,1), new Guard (8,1,guardPersonality), keyCoords);
 		
-		int nOgres = numberOfOgres;
-		
-		ogre = new Ogre[nOgres];
-		for (int i = 0; i < nOgres; i++)
-		{
-			ogre[i] = new Ogre (4,1);
-		}
-		
-		club = new Club[nOgres];
-		for (int i = 0; i < nOgres; i++)
-		{
-			club[i] = new Club(3,1);
-		}
-		
+		this.numberOfOgres = numberOfOgres;
+//		int nOgres = numberOfOgres;
+//		
+//		ogre = new Ogre[nOgres];
+//		for (int i = 0; i < nOgres; i++)
+//		{
+//			ogre[i] = new Ogre (4,1);
+//		}
+//		
+//		club = new Club[nOgres];
+//		for (int i = 0; i < nOgres; i++)
+//		{
+//			club[i] = new Club(3,1);
+//		}
+//		
 		gameState = "Running";
 	}
 	
@@ -113,15 +118,20 @@ public class Game {
 
 		if (test == 1) {
 			//UNIT TEST MAP
-			hero = new Hero(1, 1);
-			guard = new Guard(3, 1, "Rookie");
+//			hero = new Hero(1, 1);
+//			guard = new Guard(3, 1, "Rookie");
 			map = new Map(-1);
-			ogre = new Ogre[1];
-			ogre[0] = new Ogre(4, 1);
-			club = new Club[1];
-			club[0] = new Club(3, 1);
-			keycoordX = 1;
-			keycoordY = 3;
+			int [] keyCoords = new int[2];
+			keyCoords[0] = 1;
+			keyCoords[1] = 3;
+			currentLevel = new GuardLevel (new Hero(1,1), new Guard (3,1,"Rookie"), keyCoords);
+			numberOfOgres = 1;
+//			ogre = new Ogre[1];
+//			ogre[0] = new Ogre(4, 1);
+//			club = new Club[1];
+//			club[0] = new Club(3, 1);
+//			keycoordX = 1;
+//			keycoordY = 3;
 			gameState = "Running";
 		}
 
@@ -132,21 +142,21 @@ public class Game {
 			map = new Map(0);
 //			keycoordX = 7;
 //			keycoordY = 8;
-			current = new GuardLevel ("Rookie");
+			currentLevel = new GuardLevel ("Rookie");
 
 			Random randomnumber = new Random();
-			int nOgres = randomnumber.nextInt(3); //0-2
+			numberOfOgres = randomnumber.nextInt(3); //0-2
 
-			ogre = new Ogre[nOgres + 1];
-			for (int i = 0; i < nOgres + 1; i++) {
-				ogre[i] = new Ogre(4, 1);
-			}
-
-			club = new Club[nOgres + 1];
-			for (int i = 0; i < nOgres + 1; i++) {
-				club[i] = new Club(3, 1);
-			}
-			
+//			ogre = new Ogre[nOgres + 1];
+//			for (int i = 0; i < nOgres + 1; i++) {
+//				ogre[i] = new Ogre(4, 1);
+//			}
+//
+//			club = new Club[nOgres + 1];
+//			for (int i = 0; i < nOgres + 1; i++) {
+//				club[i] = new Club(3, 1);
+//			}
+//			
 			gameState = "Running";
 		}
 	}
@@ -156,7 +166,7 @@ public class Game {
 	};
 
 	public Guard getGuard() {
-		return guard;
+		return currentLevel.getGuard();
 	};
 
 	public Map getMap() {
@@ -164,18 +174,18 @@ public class Game {
 	};
 
 	public Ogre getOgre() {
-		return ogre[0];
+		return currentLevel.getOgre();
 	};
 
 	public Club getClub() {
-		return club[0];
+		return currentLevel.getClub();
 	};
 
 	public char[][] updateGame(char herocommand) {
 		int stage = map.getcurrentlevel();
 
 		int hero_mov = 0;
-		current.updateGame(herocommand, map);
+		currentLevel.updateGame(herocommand, map);
 //
 //		// hero phase
 //		try {
@@ -186,11 +196,11 @@ public class Game {
 //			System.out.println("Excecao mov hero");
 //		}
 
-		if (current.getLevelState() == "Passed") {
+		if (currentLevel.getLevelState() == "Passed") {
 
 //		if (stage == 1 || stage == -1) {
 			map.setmap(2);
-			current = new OgreLevel(ogre.length);
+			currentLevel = new OgreLevel(numberOfOgres);
 //				System.out.println(" ");
 //				System.out.println("Now you went up the stairs, new stage.");
 //				System.out.println(ogre.length + " ogre(s).");
@@ -218,7 +228,7 @@ public class Game {
 
 		}
 		
-		else if (current.getLevelState() == "Over")
+		else if (currentLevel.getLevelState() == "Over")
 		{
 			System.out.println("Game Over.");
 
@@ -416,26 +426,26 @@ public class Game {
 		return map.getmap();
 	}
 
-	public boolean checkHeroGetsCaught(Character c) {
-		if (c.getID() != 'g' && (map.getmap()[c.coordY - 1][c.coordX] == hero.id
-				|| map.getmap()[c.coordY + 1][c.coordX] == hero.id
-				|| map.getmap()[c.coordY][c.coordX - 1] == hero.id
-				|| map.getmap()[c.coordY][c.coordX + 1] == hero.id))
-			return true;
-
-		return false;
-	}
+//	public boolean checkHeroGetsCaught(Character c) {
+//		if (c.getID() != 'g' && (map.getmap()[c.coordY - 1][c.coordX] == hero.id
+//				|| map.getmap()[c.coordY + 1][c.coordX] == hero.id
+//				|| map.getmap()[c.coordY][c.coordX - 1] == hero.id
+//				|| map.getmap()[c.coordY][c.coordX + 1] == hero.id))
+//			return true;
+//
+//		return false;
+//	}
 
 	public Hero getHero() {
-		return hero;
+		return currentLevel.getHero();
 	}
 
 	public String getGameState() {
 		return gameState;
 	}
 
-	public int getKeyCoordX() {return this.keycoordX;}
+	public int getKeyCoordX() {return currentLevel.getKeyCoordX();}
 	
-	public int getKeyCoordY() {return this.keycoordY;}
+	public int getKeyCoordY() {return currentLevel.getKeyCoordY();}
 }
 	

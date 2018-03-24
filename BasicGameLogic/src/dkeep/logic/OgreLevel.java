@@ -7,13 +7,15 @@ public class OgreLevel implements LevelLogic{
 	Hero hero;
 	ArrayList <Ogre> ogres = new ArrayList <Ogre> ();
 	ArrayList <Club> clubs = new ArrayList <Club> ();
-	int keycoordX;
-	int keycoordY;
+	int keyCoordX;
+	int keyCoordY;
 	String levelState;
 	
 	public OgreLevel(int numberOfOgres)
 	{
 		hero = new Hero (1,7);
+		hero.setID('A');
+		
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			ogres.add( new Ogre (4,1) );
@@ -26,11 +28,14 @@ public class OgreLevel implements LevelLogic{
 		
 		levelState = "Running";	}
 
-	public OgreLevel(Hero hero, ArrayList<Ogre> ogres, ArrayList<Club> clubs)
+	public OgreLevel(Hero hero, ArrayList<Ogre> ogres, ArrayList<Club> clubs, int [] keyCoords)
 	{
 		this.hero = hero;
+		hero.setID('A');
 		this.ogres = ogres;
 		this.clubs = clubs;
+		this.keyCoordX = keyCoords[0];
+		this.keyCoordY = keyCoords[1];
 	}
 	
 	@Override
@@ -146,9 +151,9 @@ public class OgreLevel implements LevelLogic{
 				}
 			}
 
-			if (map.getmap()[keycoordY][keycoordX] == ' ' && hero.id == 'A')
+			if (map.getmap()[keyCoordY][keyCoordX] == ' ' && hero.id == 'A')
 				try {
-					map.setMap(keycoordY, keycoordX, 'k');
+					map.setMap(keyCoordY, keyCoordX, 'k');
 				} catch (IllegalMapChangeException e) {
 				}
 		}
@@ -180,6 +185,39 @@ public class OgreLevel implements LevelLogic{
 	@Override
 	public String getLevelState() {
 		return levelState;
+	}
+
+	
+	@Override
+	public Hero getHero() {
+		return hero;
+	}
+
+	
+
+	@Override
+	public int getKeyCoordX() {
+		return keyCoordX;
+	}
+
+	@Override
+	public int getKeyCoordY() {
+		return keyCoordY;
+	}
+
+	@Override
+	public Guard getGuard() {
+		return null;
+	}
+
+	@Override
+	public Ogre getOgre() {
+		return ogres.get(0);
+	}
+
+	@Override
+	public Club getClub() {
+		return clubs.get(0);
 	}
 	
 
