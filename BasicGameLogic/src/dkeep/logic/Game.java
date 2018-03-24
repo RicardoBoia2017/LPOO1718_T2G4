@@ -249,6 +249,15 @@ public class Game implements Serializable {
 
 			return map.getmap();
 		}
+		
+		else if (currentLevel.getLevelState() == "Victory")
+		{
+			System.out.println("Victory");
+
+			gameState = "Victory";
+
+			return map.getmap();
+		}
 
 		// k's position has to be k whenever the hero steps out, same for I.
 		// this is not so true for stage 2. In stage 2 hero picks k up,

@@ -20,14 +20,19 @@ public class OgreLevel implements LevelLogic, Serializable{
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			ogres.add( new Ogre (4,1) );
+			ogres.get(i).setBlocker(true);
 		}
 		
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			clubs.add( new Club(3,1) );
+			clubs.get(i).setBlocker(true);
 		}
 		
 		levelState = "Running";	
+		
+		keyCoordX = 7;
+		keyCoordY = 1;
 	}
 
 	public OgreLevel(Hero hero, ArrayList<Ogre> ogres, ArrayList<Club> clubs, int [] keyCoords)
@@ -52,6 +57,12 @@ public class OgreLevel implements LevelLogic, Serializable{
 
 		catch (IllegalMapChangeException e) {
 			System.out.println("Excecao mov hero");
+		}
+		
+		if (heroMovementReturn == 1)
+		{
+			levelState = "Victory";
+			return map.getmap();
 		}
 		
 		for (int i = 0; i < ogres.size(); i++) {
@@ -150,7 +161,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 				map.setMap(ogres.get(i).coordY, ogres.get(i).coordX, ogres.get(i).id);
 			}
 
-			if (map.getmap()[keyCoordY][keyCoordX] == ' ' && hero.id == 'H') {
+			if (map.getmap()[keyCoordY][keyCoordX] == ' ' && hero.id == 'A') {
 				map.setMap(keyCoordY, keyCoordX, 'k');
 			}
 					
