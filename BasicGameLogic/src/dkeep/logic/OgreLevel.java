@@ -20,13 +20,13 @@ public class OgreLevel implements LevelLogic, Serializable{
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			ogres.add( new Ogre (4,1) );
-			ogres.get(i).setBlocker(true);
+			//ogres.get(i).setBlocker(true);
 		}
 		
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			clubs.add( new Club(3,1) );
-			clubs.get(i).setBlocker(true);
+			//clubs.get(i).setBlocker(true);
 		}
 		
 		levelState = "Running";	
@@ -46,7 +46,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 	}
 	
 	@Override
-	public char[][] updateGame(char heroMovement, Map map) {
+	public void updateGame(char heroMovement, Map map) {
 		
 		int heroMovementReturn = 0;
 
@@ -62,7 +62,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 		if (heroMovementReturn == 1)
 		{
 			levelState = "Victory";
-			return map.getmap();
+			return;
 		}
 		
 		for (int i = 0; i < ogres.size(); i++) {
@@ -126,7 +126,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 
 				levelState = "Over";
 
-				return map.getmap();
+				return;
 			}
 
 			if (ogres.get(i).getBlocker() == false) {
@@ -153,7 +153,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 
 				levelState = "Over";
 
-				return map.getmap();
+				return;
 			}
 
 			if (ogres.get(i).id == '8' && stun == 0) {
@@ -168,7 +168,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 		}
 		// by now both the club and the ogre, also hero have moved which
 		// concludes a turn in stage2
-		return map.getmap();
+		return;
 	}
 
 	public boolean checkHeroGetsCaughtByOgre(Map map, Ogre ogre) {

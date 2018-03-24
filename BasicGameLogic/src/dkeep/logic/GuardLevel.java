@@ -28,7 +28,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 	}
 	
 	@Override
-	public char[][] updateGame(char heroMovement, Map map) {
+	public void updateGame(char heroMovement, Map map) {
 		
 		int heroMovementReturn = 0;
 
@@ -60,7 +60,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 //				stage = 2;
 //				map.setmap(2); // change to second map
 //
-//				return map.getmap();
+//				return;
 		}
 		
 		if (map.getmap()[keyCoordY][keyCoordX] == ' ') {
@@ -80,7 +80,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 				levelState = "Over";
 //				gameState = "Over";
 
-				return map.getmap();
+				return;
 			}
 
 			switch (guard.personality) {
@@ -115,14 +115,14 @@ public class GuardLevel implements LevelLogic, Serializable{
 
 				levelState = "Over";
 
-				return map.getmap();
+				return;
 			}
 
 			// end of a turn of stage 1, by now the map has the current
 			// state
 			// and hero and guard have both moved and checked for collision.
 		}
-		return map.getmap();		
+		return;		
 	}
 	
 	public boolean checkIfHeroGetsCaughtByGuard(Map map)
