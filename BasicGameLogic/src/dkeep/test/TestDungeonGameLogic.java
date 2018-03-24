@@ -411,25 +411,14 @@ public class TestDungeonGameLogic {
 		
 		game.setMap(newmap);
 		
-		try {
-			game.getMap().setMap(1, 4, ' ');
-		} catch (IllegalMapChangeException e) {
-		}
+		game.getMap().setMap(1, 4, ' ');
 		
-		try {
-			game.getMap().setMap(2, 4, 'O');
-		} catch (IllegalMapChangeException e) {
-		}
+		game.getMap().setMap(2, 4, 'O');
 		
-		try {
-			game.getMap().setMap(1, 3, ' ');
-		} catch (IllegalMapChangeException e) {
-		}
-		
-		try {
-			game.getMap().setMap(2, 3, '*');
-		} catch (IllegalMapChangeException e) {
-		}
+		game.getMap().setMap(1, 3, ' ');
+	
+		game.getMap().setMap(2, 3, '*');
+	
 		
 		game.getOgre().setcoordY(2);
 		game.getClub().setcoordY(2);
@@ -498,25 +487,14 @@ public class TestDungeonGameLogic {
 		
 		game.setMap(newmap);
 		
-		try {
-			game.getMap().setMap(1, 4, ' ');
-		} catch (IllegalMapChangeException e) {
-		}
+		game.getMap().setMap(1, 4, ' ');
 		
-		try {
-			game.getMap().setMap(1, 6, 'O');
-		} catch (IllegalMapChangeException e) {
-		}
+		game.getMap().setMap(1, 6, 'O');
 		
-		try {
-			game.getMap().setMap(1, 3, ' ');
-		} catch (IllegalMapChangeException e) {
-		}
-		
-		try {
-			game.getMap().setMap(1, 5, '*');
-		} catch (IllegalMapChangeException e) {
-		}
+		game.getMap().setMap(1, 3, ' ');
+	
+		game.getMap().setMap(1, 5, '*');
+	
 		
 		game.getOgre().setcoordX(6);
 		game.getClub().setcoordX(5);

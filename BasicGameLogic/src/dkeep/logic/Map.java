@@ -1,6 +1,8 @@
 package dkeep.logic;
 
-public class Map {
+import java.io.Serializable;
+
+public class Map implements Serializable {
 	private char [][] level1 = {
 			 {'X','X','X','X','X','X','X','X','X', 'X'}, 
 			 {'X','H',' ',' ','I',' ','X',' ','G', 'X'},
@@ -111,41 +113,22 @@ public class Map {
 		PersonalizedMap = newmap;
 	}
 	
-	public void setMap(int y, int x, char change) throws IllegalMapChangeException {
+	public void setMap(int y, int x, char change) {
 		//TODO: Make this generic
 		
 		if(currentmap == 1) {
-			
-			if(level1[y][x] == 'X') {
-				throw new IllegalMapChangeException();
-			}
-			
 			level1[y][x] = change;
 		}
 		
 		if(currentmap == 2) {
-			
-			if(level2[y][x] == 'X') {
-				throw new IllegalMapChangeException();
-			}
-			
 			level2[y][x] = change;
 		}
 		
 		if(currentmap == -1) {
-			
-			if(testLevel1[y][x] == 'X') {
-				throw new IllegalMapChangeException();
-			}
-			
 			testLevel1[y][x] = change;
 		}
 		
 		if(currentmap == 3) {
-			if(PersonalizedMap[y][x] == 'X') {
-				throw new IllegalMapChangeException();
-			}
-			
 			PersonalizedMap[y][x] = change;
 		}
 	}

@@ -1,8 +1,9 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class OgreLevel implements LevelLogic{
+public class OgreLevel implements LevelLogic, Serializable{
 
 	Hero hero;
 	ArrayList <Ogre> ogres = new ArrayList <Ogre> ();
@@ -26,7 +27,8 @@ public class OgreLevel implements LevelLogic{
 			clubs.add( new Club(3,1) );
 		}
 		
-		levelState = "Running";	}
+		levelState = "Running";	
+	}
 
 	public OgreLevel(Hero hero, ArrayList<Ogre> ogres, ArrayList<Club> clubs, int [] keyCoords)
 	{
@@ -45,7 +47,7 @@ public class OgreLevel implements LevelLogic{
 
 		// hero phase
 		try {
-			heroMovementReturn = hero.move(map, heroMovement, 1);
+			heroMovementReturn = hero.move(map, heroMovement, 2);
 		}
 
 		catch (IllegalMapChangeException e) {
@@ -145,20 +147,16 @@ public class OgreLevel implements LevelLogic{
 
 			if (ogres.get(i).id == '8' && stun == 0) {
 				ogres.get(i).id = 'O';
-				try {
-					map.setMap(ogres.get(i).coordY, ogres.get(i).coordX, ogres.get(i).id);
-				} catch (IllegalMapChangeException e) {
-				}
+				map.setMap(ogres.get(i).coordY, ogres.get(i).coordX, ogres.get(i).id);
 			}
 
-			if (map.getmap()[keyCoordY][keyCoordX] == ' ' && hero.id == 'A')
-				try {
-					map.setMap(keyCoordY, keyCoordX, 'k');
-				} catch (IllegalMapChangeException e) {
-				}
+			if (map.getmap()[keyCoordY][keyCoordX] == ' ' && hero.id == 'H') {
+				map.setMap(keyCoordY, keyCoordX, 'k');
+			}
+					
 		}
 		// by now both the club and the ogre, also hero have moved which
-		// concludes a turn in stagee2
+		// concludes a turn in stage2
 		return map.getmap();
 	}
 
@@ -187,13 +185,10 @@ public class OgreLevel implements LevelLogic{
 		return levelState;
 	}
 
-	
 	@Override
 	public Hero getHero() {
 		return hero;
 	}
-
-	
 
 	@Override
 	public int getKeyCoordX() {
@@ -219,7 +214,4 @@ public class OgreLevel implements LevelLogic{
 	public Club getClub() {
 		return clubs.get(0);
 	}
-	
-
-
 }

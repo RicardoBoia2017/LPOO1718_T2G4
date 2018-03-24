@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
 public class Ogre extends Character {

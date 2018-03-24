@@ -5,19 +5,36 @@
  */
 package dkeep.guI;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.text.NumberFormat;
 
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.text.NumberFormatter;
 
 import dkeep.logic.Game;
+import dkeep.logic.LevelLogic;
+import dkeep.logic.Map;
+
 import javax.swing.JButton;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -81,6 +98,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		exitGame = new javax.swing.JButton();
 		jLabel1 = new javax.swing.JLabel();
 		gameScreen = new SimpleGraphicsPanel();
+		saveGame = new javax.swing.JButton();
+		loadGame = new javax.swing.JButton();
 
 		gameScreen.setFocusable(true);
 
@@ -189,6 +208,22 @@ public class KeepMainFrame extends javax.swing.JFrame {
 				jButton6ActionPerformed(evt);
 			}
 		});
+		
+		saveGame.setText("Save Game");
+		saveGame.setToolTipText("");
+		saveGame.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				saveGameActionPerformed(evt);
+			}
+		});
+		
+		loadGame.setText("Load Game");
+		loadGame.setToolTipText("");
+		loadGame.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				loadGameActionPerformed(evt);
+			}
+		});
 
 		jLabel1.setText("<Game status goes here>");
 		jLabel1.setToolTipText("");
@@ -287,6 +322,17 @@ public class KeepMainFrame extends javax.swing.JFrame {
 						.addComponent(jLabel1))
 					.addContainerGap())
 		);
+		
+		
+		saveGame.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		saveGame.setBounds(400, 350, 166, 56);
+		saveGame.setEnabled(false);
+		this.add(saveGame);
+		
+		loadGame.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		loadGame.setBounds(400, 420, 166, 46);
+		this.add(loadGame);
+		
 		getContentPane().setLayout(layout);
 
 		pack();
@@ -389,6 +435,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		moveRight.setEnabled(true);
 		moveUp.setEnabled(true);
 		moveDown.setEnabled(true);
+		saveGame.setEnabled(true);
 
 		jLabel1.setText("The game is running.");
 	}
@@ -515,6 +562,109 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		// exit game button
 		System.exit(0);
 	}
+	
+	
+	//SAVE GAME
+	private void saveGameActionPerformed(ActionEvent evt) {
+		JOptionPane popup = new JOptionPane();
+		
+		String path = JOptionPane.showInputDialog("Enter a file");
+		
+		File savefile = new File(path);
+		
+		if(!savefile.exists()) {
+			try {
+				savefile.createNewFile();
+			} catch (IOException e) {
+				System.out.println("There was a problem creating the file.");
+				e.printStackTrace();
+			}
+		}
+		
+		FileOutputStream file = null;
+	    ObjectOutputStream out = null;
+	    
+	    try {
+	    	file = new FileOutputStream(savefile,false);
+	    	OutputStream buffer = new BufferedOutputStream(file);
+	    	out = new ObjectOutputStream(file);
+	    	out.writeObject(game.getGame());
+	    	out.flush();
+	    	out.close();
+	    	System.out.println("Current game saved in: "+path);
+	    	
+	     } catch (FileNotFoundException e) {
+	           popup.showMessageDialog(this, "The file you entered is invalid.");
+	    	   e.printStackTrace();
+	     } catch (IOException e) {
+	           e.printStackTrace();
+	     }
+	    
+	    gameScreen.requestFocusInWindow();
+	}
+	
+	//LOAD GAME
+	private void loadGameActionPerformed(ActionEvent evt) {
+		JOptionPane popup = new JOptionPane();
+		
+		boolean success = true;
+		
+		String path = JOptionPane.showInputDialog("Enter a file");
+		
+		Game savedGame;
+		Map savedMap = null;
+		LevelLogic savedLogic = null;
+		int numOgres = 0;
+		String gamestate = "";
+
+        FileInputStream file;
+        
+       try {
+           file = new FileInputStream(path);
+           InputStream buffer = new BufferedInputStream(file);
+           ObjectInput input = new ObjectInputStream (buffer);
+          
+           savedGame = (Game)input.readObject();
+           savedMap = savedGame.getMap();
+           savedLogic = savedGame.getLevelLogic();
+           numOgres = savedGame.getNumberOfOgres();
+           gamestate = savedGame.getGameState();
+           
+           input.close();
+           
+           System.out.println("Loaded game saved in: "+path);
+       } catch (FileNotFoundException e) {
+           popup.showMessageDialog(this, "The file you entered is invalid, select another one or cancel.");
+           success = false;
+    	   e.printStackTrace();
+       } catch (IOException e) {
+           e.printStackTrace();
+       } catch (ClassNotFoundException e) {
+           e.printStackTrace();
+       }
+       
+       if(success == false) {
+    	   return;
+       }
+       
+       Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
+       
+       game = toRun;
+       
+       gameScreen.setMap(game.getMap());
+       gameScreen.paint(gameScreen.getGraphics());
+       gameScreen.requestFocusInWindow();
+       
+       newgamestarted = true;
+       
+       moveLeft.setEnabled(true);
+       moveRight.setEnabled(true);
+       moveUp.setEnabled(true);
+       moveDown.setEnabled(true);
+       saveGame.setEnabled(true);
+       
+       jLabel1.setText("The game is running.");
+	}
 
 	//CREATE MAP
 	private void CreateNewMapActionPerformed (ActionEvent evt)
@@ -581,5 +731,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private java.awt.Label label2;
 	private JFormattedTextField nOgresBox;
 	private JButton createNewMap;
+	private JButton saveGame;
+	private JButton loadGame;
 	// End of variables declaration
 }

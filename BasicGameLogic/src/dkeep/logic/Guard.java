@@ -1,8 +1,9 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Guard extends Character{
+public class Guard extends Character {
 
 	char[] positionarray = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
 	char[] inverposition = {'s','d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s'};

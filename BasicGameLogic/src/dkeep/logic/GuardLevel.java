@@ -1,6 +1,8 @@
 package dkeep.logic;
 
-public class GuardLevel implements LevelLogic{
+import java.io.Serializable;
+
+public class GuardLevel implements LevelLogic, Serializable{
 
 	Hero hero;
 	Guard guard;
@@ -60,13 +62,9 @@ public class GuardLevel implements LevelLogic{
 //
 //				return map.getmap();
 		}
+		
 		if (map.getmap()[keyCoordY][keyCoordX] == ' ') {
-			
-			try {
-				map.setMap(keyCoordY, keyCoordX, 'k');
-			} 
-			
-			catch (IllegalMapChangeException e) {}
+			map.setMap(keyCoordY, keyCoordX, 'k');
 		}
 
 		// guard phase, he will only move in a given pattern according to

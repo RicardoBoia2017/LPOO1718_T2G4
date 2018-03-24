@@ -1,6 +1,8 @@
 package dkeep.logic;
 
-public class Character {
+import java.io.Serializable;
+
+public class Character implements Serializable {
 	protected int coordX;
 	protected int coordY;
 	protected char id;

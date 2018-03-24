@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 public class Hero extends Character {
 
 	public Hero(int x, int y) {
@@ -25,6 +27,13 @@ public class Hero extends Character {
 				 map.setMap(5, 0, 'S');
 				 map.setMap(6, 0, 'S');
 				 
+				 map.setMap(coordY, coordX-1,id);
+				 map.setMap(coordY, coordX, ' ');
+				 coordX = coordX-1;
+			 }
+			 
+			 else if(map.getmap()[coordY][coordX-1] == 'k') {
+				 id = 'K';
 				 map.setMap(coordY, coordX-1,id);
 				 map.setMap(coordY, coordX, ' ');
 				 coordX = coordX-1;
@@ -67,6 +76,17 @@ public class Hero extends Character {
 				 coordX = coordX+1;
 			 }
 			 
+			 else if(map.getmap()[coordY][coordX+1] == 'I' && stage == 2 && id == 'K') {
+				 map.setMap(coordY, coordX+1, 'S');
+			 }
+			 
+			 else if(map.getmap()[coordY][coordX+1] == 'S') {
+				 
+				 System.out.println("Victory.");
+				 
+				 return 1;
+			 }
+			 
 			 if (coordX < 7)
 			 {
 				 if(stage == 2 && ( map.getmap()[coordY][coordX+1] == 'O' || map.getmap()[coordY-1][coordX] == 'O' || map.getmap()[coordY+1][coordX] == 'O') ) 
@@ -95,6 +115,24 @@ public class Hero extends Character {
 				 coordY = coordY+1;
 			 }
 			 
+			 else if(map.getmap()[coordY+1][coordX] == 'k') {
+				 id = 'K';
+				 map.setMap(coordY+1,coordX,id);
+				 map.setMap(coordY, coordX, ' ');
+				 coordY = coordY+1;
+			 }
+			 
+			 else if(map.getmap()[coordY+1][coordX] == 'I' && stage == 2 && id == 'K') {
+				 map.setMap(coordY+1, coordX, 'S');
+			 }
+			 
+			 else if(map.getmap()[coordY+1][coordX] == 'S') {
+				 
+				 System.out.println("Victory.");
+				 
+				 return 1;
+			 }
+			 
 			 if (coordY < 7)
 			 {
 				 if(stage == 2 && (map.getmap()[coordY+1][coordX] == 'O' || map.getmap()[coordY][coordX-1] == 'O' || map.getmap()[coordY][coordX+1] == 'O') )  
@@ -117,6 +155,17 @@ public class Hero extends Character {
 				 map.setMap(coordY-1, coordX, id);
 				 map.setMap(coordY, coordX, ' ');
 				 coordY = coordY-1;
+			 }
+			 
+			 else if(map.getmap()[coordY-1][coordX] == 'I' && stage == 2 && id == 'K') {
+				 map.setMap(coordY-1, coordX, 'S');
+			 }
+			
+			 else if(map.getmap()[coordY-1][coordX] == 'S') {
+				 
+				 System.out.println("Victory.");
+				 
+				 return 1;
 			 }
 			 
 			 if (coordY > 1)

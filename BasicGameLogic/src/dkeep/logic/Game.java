@@ -1,9 +1,10 @@
 package dkeep.logic;
 
 import java.util.Random;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements Serializable {
 	//Hero hero;
 	//Guard guard;
 	//Ogre[] ogre;
@@ -15,6 +16,18 @@ public class Game {
 	int numberOfOgres;
 	LevelLogic currentLevel;
 	
+	public Game(int numbrOfOgrs, String gamStat, Map mp, LevelLogic currntLvl) {
+		numberOfOgres = numbrOfOgrs;
+		gameState = gamStat;
+		map = mp;
+		currentLevel = currntLvl;
+	}
+	
+	public Game getGame() {return this;}
+	
+	public int getNumberOfOgres() {return numberOfOgres;}
+	
+	public LevelLogic getLevelLogic() {return currentLevel;}
 	
 	public void setMap(Map map) {this.map = map;}
 	
