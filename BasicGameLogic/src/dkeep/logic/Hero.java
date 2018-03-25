@@ -105,7 +105,7 @@ public class Hero extends Character {
 				 coordY = coordY+1;
 			 }
 			 
-			 else if(map.getmap()[coordY+1][coordX] == 'k' && stage == -1) {
+			 else if(map.getmap()[coordY+1][coordX] == 'k' && map.getcurrentlevel() == -1) {
 				 
 				 map.setMap(2, 0, 'S');
 				 map.setMap(3, 0, 'S');

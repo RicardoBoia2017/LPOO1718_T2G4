@@ -195,9 +195,9 @@ public class Game implements Serializable {
 	};
 
 	public char[][] updateGame(char herocommand) {
-		int stage = map.getcurrentlevel();
+//		int stage = map.getcurrentlevel();
 
-		int hero_mov = 0;
+//		int hero_mov = 0;
 		currentLevel.updateGame(herocommand, map);
 //
 //		// hero phase
@@ -447,16 +447,6 @@ public class Game implements Serializable {
 //		}
 		return map.getmap();
 	}
-
-//	public boolean checkHeroGetsCaught(Character c) {
-//		if (c.getID() != 'g' && (map.getmap()[c.coordY - 1][c.coordX] == hero.id
-//				|| map.getmap()[c.coordY + 1][c.coordX] == hero.id
-//				|| map.getmap()[c.coordY][c.coordX - 1] == hero.id
-//				|| map.getmap()[c.coordY][c.coordX + 1] == hero.id))
-//			return true;
-//
-//		return false;
-//	}
 
 	public Hero getHero() {
 		return currentLevel.getHero();

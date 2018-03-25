@@ -6,6 +6,7 @@ import org.junit.Test;
 import dkeep.logic.Game;
 import dkeep.logic.IllegalMapChangeException;
 import dkeep.logic.Map;
+import dkeep.logic.Ogre;
 
 
 public class TestDungeonGameLogic {
@@ -125,8 +126,9 @@ public class TestDungeonGameLogic {
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
+
 		
-		assertEquals(2, game.getMap().getcurrentlevel());
+		assertEquals("Ogre", game.getLevelLogic().getLevelType());
 	}
 
 	//TASK 2
@@ -136,8 +138,6 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map; 
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -149,6 +149,8 @@ public class TestDungeonGameLogic {
 		assertEquals(7, game.getHero().getCoordY());
 		
 		//hero moves in ogre level
+		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		game.updateGame('d');
 		game.updateGame('d');
 		game.updateGame('d');
@@ -167,8 +169,6 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map;
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -180,6 +180,8 @@ public class TestDungeonGameLogic {
 		assertEquals(7, game.getHero().getCoordY());
 		
 		//hero moves in ogre level
+		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		game.updateGame('d');
 		game.updateGame('d');
 		game.updateGame('d');
@@ -200,8 +202,6 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map;
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -212,7 +212,11 @@ public class TestDungeonGameLogic {
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(7, game.getHero().getCoordY());
 		
+		
 		//hero moves in ogre level
+		game.getOgre().setBlocker(true);
+		//System.out.println(ogre.getcoordX() + " cheira " + ogre.getcoordY());
+		game.getClub().setBlocker(true);
 		game.updateGame('w');
 		game.updateGame('w');
 		game.updateGame('w');
@@ -230,8 +234,6 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map;
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -243,6 +245,8 @@ public class TestDungeonGameLogic {
 		assertEquals(7, game.getHero().getCoordY());
 		
 		//hero gets key
+		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		game.updateGame('d');
 		game.updateGame('d');
 		game.updateGame('d');
@@ -279,8 +283,6 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map;
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
 		assertEquals(1, game.getHero().getCoordX());
 		assertEquals(1, game.getHero().getCoordY());
 		
@@ -292,6 +294,8 @@ public class TestDungeonGameLogic {
 		assertEquals(7, game.getHero().getCoordY());
 		
 		//hero gets key
+		game.getOgre().setBlocker(true);
+		game.getClub().setBlocker(true);
 		game.updateGame('d');
 		game.updateGame('d');
 		game.updateGame('d');
@@ -360,30 +364,30 @@ public class TestDungeonGameLogic {
 			game.updateGame('s');
 			
 			if(game.getOgre().getRand() == 0) {
-				System.out.println(0);
+//				System.out.println(0);
 				assertEquals(coordX - 1 , game.getOgre().getcoordX());
 				assertEquals(coordY, game.getOgre().getcoordY());
 				outcome1 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 1) {
-				System.out.println(1);
+//				System.out.println(1);
 				assertEquals(coordX + 1, game.getOgre().getcoordX());
 				assertEquals(coordY, game.getOgre().getcoordY());
 				outcome2 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 3) {
-				System.out.println(2);
-				System.out.println(coordX + " " + game.getOgre().getcoordX());
-				System.out.println(coordY + " " + game.getOgre().getcoordY());
+//				System.out.println(2);
+//				System.out.println(coordX + " " + game.getOgre().getcoordX());
+//				System.out.println(coordY + " " + game.getOgre().getcoordY());
 				assertEquals(coordX, game.getOgre().getcoordX());
 				assertEquals(coordY-1, game.getOgre().getcoordY());
 				outcome3 = true;
 			}
 			
 			else if(game.getOgre().getRand() == 2) {
-				System.out.println(3);
+//				System.out.println(3);
 				assertEquals(coordX, game.getOgre().getcoordX());
 				assertEquals(coordY + 1, game.getOgre().getcoordY());
 				outcome4 = true;
@@ -395,7 +399,7 @@ public class TestDungeonGameLogic {
 		}
 	}
 	
-	@Test(timeout=1000)
+	@Test(timeout=3000)
 	public void testSomeClubBehaviour() {
 		Game game = new Game(1);
 		char [][] map;
@@ -423,6 +427,10 @@ public class TestDungeonGameLogic {
 		game.getOgre().setcoordY(2);
 		game.getClub().setcoordY(2);
 		game.getOgre().setBlocker(true);
+		
+		for(int i = 0; i < game.getmap().length; i++) {
+			 System.out.println(game.getmap()[i]);
+		 }
 		
 		//outcome1: Club moves left.
 		//outcome2: Club moves right.

@@ -25,6 +25,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 		this.guard = guard;
 		this.keyCoordX = keyCoords[0];
 		this.keyCoordY = keyCoords[1];
+		levelState = "Running";
 	}
 	
 	@Override
@@ -61,6 +62,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 //				map.setmap(2); // change to second map
 //
 //				return;
+			return;
 		}
 		
 		if (map.getmap()[keyCoordY][keyCoordX] == ' ') {
