@@ -445,7 +445,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	 */
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 
-		if (newgamestarted && game.getGameState().equals("Running")) {
+		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
 			game.updateGame('a');
 
 			gameScreen.setMap(game.getMap());
@@ -453,7 +453,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			gameScreen.paint(gameScreen.getGraphics());
 		}
 
-		if (game.getGameState().equals("Over")) {
+		if (game.getLevelLogic().getLevelState().equals("Over")) {
 			jLabel1.setText("The game is over.");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
@@ -461,7 +461,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			moveDown.setEnabled(false);
 		}
 		
-		if (game.getGameState().equals("Victory")) {
+		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			jLabel1.setText("You win!");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
@@ -475,14 +475,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	 */
 	private void jButton3ActionPerformed(ActionEvent evt) {
 
-		if (newgamestarted && game.getGameState().equals("Running")) {
+		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
 			game.updateGame('w');
 
 			gameScreen.setMap(game.getMap());
 			gameScreen.paint(gameScreen.getGraphics());
 		}
 
-		if (game.getGameState().equals("Over")) {
+		if (game.getLevelLogic().getLevelState().equals("Over")) {
 			jLabel1.setText("The game is over.");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
@@ -490,7 +490,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			moveDown.setEnabled(false);
 		}
 		
-		if (game.getGameState().equals("Victory")) {
+		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			jLabel1.setText("You win!");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
@@ -503,7 +503,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	 * HERO MOVE RIGHT
 	 **/
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-		if (newgamestarted && game.getGameState().equals("Running")) {
+		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
 			game.updateGame('d');
 			
 			gameScreen.setMap(game.getMap());
@@ -511,7 +511,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		}
 
-		if (game.getGameState().equals("Over")) {
+		if (game.getLevelLogic().getLevelState().equals("Over")) {
 			jLabel1.setText("The game is over.");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
@@ -519,7 +519,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			moveDown.setEnabled(false);
 		}
 		
-		if (game.getGameState().equals("Victory")) {
+		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			jLabel1.setText("You win!");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
@@ -532,7 +532,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	 * HERO MOVE DOWN
 	 */
 	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-		if (newgamestarted && game.getGameState().equals("Running")) {
+		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
 			game.updateGame('s');
 			
 			gameScreen.setMap(game.getMap());
@@ -540,7 +540,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		}
 
-		if (game.getGameState().equals("Over")) {
+		if (game.getLevelLogic().getLevelState().equals("Over")) {
 			jLabel1.setText("The game is over.");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
@@ -548,7 +548,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			moveDown.setEnabled(false);
 		}
 		
-		if (game.getGameState().equals("Victory")) {
+		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			jLabel1.setText("You win!");
 			moveLeft.setEnabled(false);
 			moveRight.setEnabled(false);
@@ -588,7 +588,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	    	file = new FileOutputStream(savefile,false);
 	    	OutputStream buffer = new BufferedOutputStream(file);
 	    	out = new ObjectOutputStream(file);
-	    	out.writeObject(game.getGame());
+	    	out.writeObject(game);
 	    	out.flush();
 	    	out.close();
 	    	System.out.println("Current game saved in: "+path);
@@ -628,7 +628,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
            savedMap = savedGame.getMap();
            savedLogic = savedGame.getLevelLogic();
            numOgres = savedGame.getNumberOfOgres();
-           gamestate = savedGame.getGameState();
+           gamestate = savedGame.getLevelLogic().getLevelState();
            
            input.close();
            

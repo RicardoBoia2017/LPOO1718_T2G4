@@ -36,7 +36,6 @@ public class Map implements Serializable {
 		
 	private char [][] PersonalizedMap;
 	
-	
 	private int currentmap;
 	
 	public Map() {

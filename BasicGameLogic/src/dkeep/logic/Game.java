@@ -5,32 +5,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Game implements Serializable {
-	//Hero hero;
-	//Guard guard;
-	//Ogre[] ogre;
-	//Club[] club;
+
 	Map map;
-//	int keycoordX;
-//	int keycoordY;
-	String gameState;
 	int numberOfOgres;
 	LevelLogic currentLevel;
 	
 	public Game(int numbrOfOgrs, String gamStat, Map mp, LevelLogic currntLvl) {
 		numberOfOgres = numbrOfOgrs;
-		gameState = gamStat;
 		map = mp;
 		currentLevel = currntLvl;
 	}
-	
-	public Game getGame() {return this;}
-	
-	public int getNumberOfOgres() {return numberOfOgres;}
-	
-	public LevelLogic getLevelLogic() {return currentLevel;}
-	
-	public void setMap(Map map) {this.map = map;}
-	
+			
 	public Game(char[][] custommap) {
 		
 		//1. Map must be set to the custom made map.
@@ -92,9 +77,6 @@ public class Game implements Serializable {
 		}
 		
 		currentLevel = new OgreLevel(hero,ogres,clubs, keyCoords);
-
-		//3. Declare that the game is running.
-		gameState = "Running";
 	}
 	
 	public Game(int numberOfOgres, String guardPersonality) {
@@ -124,7 +106,6 @@ public class Game implements Serializable {
 //			club[i] = new Club(3,1);
 //		}
 //		
-		gameState = "Running";
 	}
 	
 	public Game(int test) {
@@ -145,7 +126,6 @@ public class Game implements Serializable {
 //			club[0] = new Club(3, 1);
 //			keycoordX = 1;
 //			keycoordY = 3;
-			gameState = "Running";
 		}
 
 		else {
@@ -170,29 +150,18 @@ public class Game implements Serializable {
 //				club[i] = new Club(3, 1);
 //			}
 //			
-			gameState = "Running";
 		}
 	}
 
-	public char[][] getmap() {
-		return map.getmap();
-	};
-
-	public Guard getGuard() {
-		return currentLevel.getGuard();
-	};
-
+	public int getNumberOfOgres() {return numberOfOgres;}
+	
+	public LevelLogic getLevelLogic() {return currentLevel;}
+	
 	public Map getMap() {
 		return map;
 	};
 
-	public Ogre getOgre() {
-		return currentLevel.getOgre();
-	};
-
-	public Club getClub() {
-		return currentLevel.getClub();
-	};
+	public void setMap(Map map) {this.map = map;}
 
 	public char[][] updateGame(char herocommand) {
 //		int stage = map.getcurrentlevel();
@@ -235,7 +204,6 @@ public class Game implements Serializable {
 
 //			else {
 //				// he achieved the S victory door in stage 2, the game is over.
-//				gameState = "Victory";
 //				return map.getmap();
 //			}
 
@@ -245,16 +213,12 @@ public class Game implements Serializable {
 		{
 			System.out.println("Game Over.");
 
-			gameState = "Over";
-
 			return map.getmap();
 		}
 		
 		else if (currentLevel.getLevelState() == "Victory")
 		{
 			System.out.println("Victory");
-
-			gameState = "Victory";
 
 			return map.getmap();
 		}
@@ -284,7 +248,6 @@ public class Game implements Serializable {
 //
 //					System.out.println("Game Over.");
 //
-//					gameState = "Over";
 //
 //					return map.getmap();
 //				}
@@ -318,8 +281,6 @@ public class Game implements Serializable {
 //					// pass interface game over state, interface will print.
 //					System.out.println("");
 //					System.out.println("Game Over.");
-//
-//					gameState = "Over";
 //
 //					return map.getmap();
 //				}
@@ -395,7 +356,6 @@ public class Game implements Serializable {
 //
 //					System.out.println("Game Over.");
 //
-//					gameState = "Over";
 //
 //					return map.getmap();
 //				}
@@ -422,7 +382,6 @@ public class Game implements Serializable {
 //					System.out.println("");
 //					System.out.println("Game Over.");
 //
-//					gameState = "Over";
 //
 //					return map.getmap();
 //				}
@@ -448,16 +407,9 @@ public class Game implements Serializable {
 		return map.getmap();
 	}
 
-	public Hero getHero() {
-		return currentLevel.getHero();
-	}
 
-	public String getGameState() {
-		return gameState;
-	}
 
-	public int getKeyCoordX() {return currentLevel.getKeyCoordX();}
-	
-	public int getKeyCoordY() {return currentLevel.getKeyCoordY();}
+
+
 }
 	

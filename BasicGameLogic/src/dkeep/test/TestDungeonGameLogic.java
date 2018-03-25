@@ -15,25 +15,25 @@ public class TestDungeonGameLogic {
 	public void testHeroMove()
 	{
 		Game game = new Game (1);
-		game.getGuard().setMovementBlocker(true);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		game.getLevelLogic().getGuard().setMovementBlocker(true);
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		game.updateGame('s');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(2, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(2, game.getLevelLogic().getHero().getCoordY());
 		
 		game.updateGame('d');
-		assertEquals(2, game.getHero().getCoordX());
-		assertEquals(2, game.getHero().getCoordY());
+		assertEquals(2, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(2, game.getLevelLogic().getHero().getCoordY());
 		
 		game.updateGame('w');
-		assertEquals(2, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(2, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 	}
 	
 	//TASK 1
@@ -42,62 +42,62 @@ public class TestDungeonGameLogic {
 	public void testMoveHeroIntoFreeCell()
 	{
 		Game game = new Game(1);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//check if the hero moved down with 's'
 		game.updateGame('s');
 
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(2, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(2, game.getLevelLogic().getHero().getCoordY());
 	}
 	
 	@Test
 	public void testMoveHeroIntoWall()
 	{
 		Game game = new Game(1);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//check if the hero moved against the wall
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 	}
 	
 	@Test
 	public void testMoveHeroIntoGuard()
 	{
 		Game game = new Game(1);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//check if the hero moved next to guard and lost
 		char[][] map;
 		map = game.updateGame('d');
 
 		
-		assertEquals(2, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(2, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
-		assertEquals(3, game.getGuard().getcoordX());
-		assertEquals(1, game.getGuard().getcoordY());
+		assertEquals(3, game.getLevelLogic().getGuard().getcoordX());
+		assertEquals(1, game.getLevelLogic().getGuard().getcoordY());
 		
-		assertEquals("Over", game.getGameState());
+		assertEquals("Over", game.getLevelLogic().getLevelState());
 	}
 	
 	@Test
 	public void testMoveHeroIntoDoor()
 	{
 		Game game = new Game(1);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//check if the hero moved next to guard and lost
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(2, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(2, game.getLevelLogic().getHero().getCoordY());
 	}
 	
 	@Test
@@ -105,8 +105,8 @@ public class TestDungeonGameLogic {
 	{
 		char[][] map;
 		Game game = new Game(1);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//check if the hero moved next to guard and lost
 		game.updateGame('s');
@@ -119,8 +119,8 @@ public class TestDungeonGameLogic {
 	public void testMoveHeroIntoVictory()
 	{
 		Game game = new Game(1);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//check if the hero moved next to guard and lost
 		game.updateGame('s');
@@ -138,19 +138,19 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map; 
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero moves into next level
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero moves in ogre level
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
+		game.getLevelLogic().getOgre().setBlocker(true);
+		game.getLevelLogic().getClub().setBlocker(true);
 		game.updateGame('d');
 		game.updateGame('d');
 		game.updateGame('d');
@@ -159,8 +159,8 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		game.updateGame('w');
 		game.updateGame('w');
-		assertEquals('8', game.getOgre().getID());
-		assertEquals(2, game.getOgre().getStunCounter());
+		assertEquals('8', game.getLevelLogic().getOgre().getID());
+		assertEquals(2, game.getLevelLogic().getOgre().getStunCounter());
 		
 	}
 	
@@ -169,19 +169,19 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map;
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero moves into next level
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero moves in ogre level
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
+		game.getLevelLogic().getOgre().setBlocker(true);
+		game.getLevelLogic().getClub().setBlocker(true);
 		game.updateGame('d');
 		game.updateGame('d');
 		game.updateGame('d');
@@ -194,7 +194,7 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		game.updateGame('w');
 		game.updateGame('w');
-		assertEquals('K', game.getHero().getID());
+		assertEquals('K', game.getLevelLogic().getHero().getID());
 	}
 	
 	@Test
@@ -202,21 +202,20 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map;
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero moves into next level
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 		
 		
 		//hero moves in ogre level
-		game.getOgre().setBlocker(true);
-		//System.out.println(ogre.getcoordX() + " cheira " + ogre.getcoordY());
-		game.getClub().setBlocker(true);
+		game.getLevelLogic().getOgre().setBlocker(true);
+		game.getLevelLogic().getClub().setBlocker(true);
 		game.updateGame('w');
 		game.updateGame('w');
 		game.updateGame('w');
@@ -224,8 +223,8 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		game.updateGame('w');
 		map = game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		assertEquals('I', map [1][0]);
 	}
 	
@@ -234,19 +233,19 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map;
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero moves into next level
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero gets key
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
+		game.getLevelLogic().getOgre().setBlocker(true);
+		game.getLevelLogic().getClub().setBlocker(true);
 		game.updateGame('d');
 		game.updateGame('d');
 		game.updateGame('d');
@@ -259,7 +258,7 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		game.updateGame('w');
 		game.updateGame('w');
-		assertEquals('K', game.getHero().getID());
+		assertEquals('K', game.getLevelLogic().getHero().getID());
 
 		//hero goes to door
 		game.updateGame('s');
@@ -274,8 +273,8 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		map = game.updateGame('a');
 		assertEquals('S', map [1][0]);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 	}
 	
 	@Test
@@ -283,19 +282,19 @@ public class TestDungeonGameLogic {
 	{
 		Game game = new Game(1);
 		char [][] map;
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero moves into next level
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero gets key
-		game.getOgre().setBlocker(true);
-		game.getClub().setBlocker(true);
+		game.getLevelLogic().getOgre().setBlocker(true);
+		game.getLevelLogic().getClub().setBlocker(true);
 		game.updateGame('d');
 		game.updateGame('d');
 		game.updateGame('d');
@@ -308,7 +307,7 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		game.updateGame('w');
 		game.updateGame('w');
-		assertEquals('K', game.getHero().getID());
+		assertEquals('K', game.getLevelLogic().getHero().getID());
 
 		//hero goes to door
 		game.updateGame('s');
@@ -323,12 +322,12 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		map = game.updateGame('a');
 		assertEquals('S', map [1][0]);
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero wins
 		game.updateGame('a');
-		assertEquals("Victory", game.getGameState());
+		assertEquals("Victory", game.getLevelLogic().getLevelState());
 	}
 	
 	//TASK 3
@@ -338,15 +337,15 @@ public class TestDungeonGameLogic {
 		
 		Game game = new Game(1);
 		char [][] map;
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(1, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//hero moves into next level
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 		
 		//outcome1: Ogre moves left.
 		//outcome2: Ogre moves right.
@@ -358,38 +357,32 @@ public class TestDungeonGameLogic {
 		while(!outcome1 || !outcome2 || !outcome3 || !outcome4) {
 			//Hero moves into a wall for the time being
 			
-			int coordX = game.getOgre().getcoordX();
-			int coordY = game.getOgre().getcoordY();
+			int coordX = game.getLevelLogic().getOgre().getcoordX();
+			int coordY = game.getLevelLogic().getOgre().getcoordY();
 			
 			game.updateGame('s');
 			
-			if(game.getOgre().getRand() == 0) {
-//				System.out.println(0);
-				assertEquals(coordX - 1 , game.getOgre().getcoordX());
-				assertEquals(coordY, game.getOgre().getcoordY());
+			if(game.getLevelLogic().getOgre().getRand() == 0) {
+				assertEquals(coordX - 1 , game.getLevelLogic().getOgre().getcoordX());
+				assertEquals(coordY, game.getLevelLogic().getOgre().getcoordY());
 				outcome1 = true;
 			}
 			
-			else if(game.getOgre().getRand() == 1) {
-//				System.out.println(1);
-				assertEquals(coordX + 1, game.getOgre().getcoordX());
-				assertEquals(coordY, game.getOgre().getcoordY());
+			else if(game.getLevelLogic().getOgre().getRand() == 1) {
+				assertEquals(coordX + 1, game.getLevelLogic().getOgre().getcoordX());
+				assertEquals(coordY, game.getLevelLogic().getOgre().getcoordY());
 				outcome2 = true;
 			}
 			
-			else if(game.getOgre().getRand() == 3) {
-//				System.out.println(2);
-//				System.out.println(coordX + " " + game.getOgre().getcoordX());
-//				System.out.println(coordY + " " + game.getOgre().getcoordY());
-				assertEquals(coordX, game.getOgre().getcoordX());
-				assertEquals(coordY-1, game.getOgre().getcoordY());
+			else if(game.getLevelLogic().getOgre().getRand() == 3) {
+				assertEquals(coordX, game.getLevelLogic().getOgre().getcoordX());
+				assertEquals(coordY-1, game.getLevelLogic().getOgre().getcoordY());
 				outcome3 = true;
 			}
 			
-			else if(game.getOgre().getRand() == 2) {
-//				System.out.println(3);
-				assertEquals(coordX, game.getOgre().getcoordX());
-				assertEquals(coordY + 1, game.getOgre().getcoordY());
+			else if(game.getLevelLogic().getOgre().getRand() == 2) {
+				assertEquals(coordX, game.getLevelLogic().getOgre().getcoordX());
+				assertEquals(coordY + 1, game.getLevelLogic().getOgre().getcoordY());
 				outcome4 = true;
 			}
 			
@@ -410,8 +403,8 @@ public class TestDungeonGameLogic {
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 		
 		game.setMap(newmap);
 		
@@ -424,14 +417,10 @@ public class TestDungeonGameLogic {
 		game.getMap().setMap(2, 3, '*');
 	
 		
-		game.getOgre().setcoordY(2);
-		game.getClub().setcoordY(2);
-		game.getOgre().setBlocker(true);
-		
-		for(int i = 0; i < game.getmap().length; i++) {
-			 System.out.println(game.getmap()[i]);
-		 }
-		
+		game.getLevelLogic().getOgre().setcoordY(2);
+		game.getLevelLogic().getClub().setcoordY(2);
+		game.getLevelLogic().getOgre().setBlocker(true);
+
 		//outcome1: Club moves left.
 		//outcome2: Club moves right.
 		//outcome3: Club moves up.
@@ -445,30 +434,30 @@ public class TestDungeonGameLogic {
 			game.updateGame('s');
 			
 			//left
-			if(game.getClub().getRand() == 0) {
-				assertEquals(3, game.getClub().getcoordX());
-				assertEquals(2, game.getClub().getcoordY());
+			if(game.getLevelLogic().getClub().getRand() == 0) {
+				assertEquals(3, game.getLevelLogic().getClub().getcoordX());
+				assertEquals(2, game.getLevelLogic().getClub().getcoordY());
 				outcome1 = true;
 			}
 			
 			//right
-			else if(game.getClub().getRand() == 1) {
-				assertEquals(5, game.getClub().getcoordX());
-				assertEquals(2, game.getClub().getcoordY());
+			else if(game.getLevelLogic().getClub().getRand() == 1) {
+				assertEquals(5, game.getLevelLogic().getClub().getcoordX());
+				assertEquals(2, game.getLevelLogic().getClub().getcoordY());
 				outcome2 = true;
 			}
 			
 			//up
-			else if(game.getClub().getRand() == 3) {
-				assertEquals(4, game.getClub().getcoordX());
-				assertEquals(1, game.getClub().getcoordY());
+			else if(game.getLevelLogic().getClub().getRand() == 3) {
+				assertEquals(4, game.getLevelLogic().getClub().getcoordX());
+				assertEquals(1, game.getLevelLogic().getClub().getcoordY());
 				outcome3 = true;
 			}
 			
 			//down
-			else if(game.getClub().getRand() == 2) {
-				assertEquals(4, game.getClub().getcoordX());
-				assertEquals(3, game.getClub().getcoordY());
+			else if(game.getLevelLogic().getClub().getRand() == 2) {
+				assertEquals(4, game.getLevelLogic().getClub().getcoordX());
+				assertEquals(3, game.getLevelLogic().getClub().getcoordY());
 				outcome4 = true;
 			}
 			
@@ -490,8 +479,8 @@ public class TestDungeonGameLogic {
 		game.updateGame('s');
 		game.updateGame('s');
 		game.updateGame('a');
-		assertEquals(1, game.getHero().getCoordX());
-		assertEquals(7, game.getHero().getCoordY());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 		
 		game.setMap(newmap);
 		
@@ -504,9 +493,9 @@ public class TestDungeonGameLogic {
 		game.getMap().setMap(1, 5, '*');
 	
 		
-		game.getOgre().setcoordX(6);
-		game.getClub().setcoordX(5);
-		game.getOgre().setBlocker(true);
+		game.getLevelLogic().getOgre().setcoordX(6);
+		game.getLevelLogic().getClub().setcoordX(5);
+		game.getLevelLogic().getOgre().setBlocker(true);
 		
 		boolean outcome1 = false, outcome2 = false, outcome3 = false;
 		
@@ -516,29 +505,29 @@ public class TestDungeonGameLogic {
 			
 			 
 			//left
-			if(game.getClub().getRand() == 0) {
-				assertEquals(5, game.getClub().getcoordX());
-				assertEquals(1, game.getClub().getcoordY());
-				assertEquals('*', game.getClub().getID());
-				assertEquals ('k', map[game.getKeyCoordY()][game.getKeyCoordX()]);
+			if(game.getLevelLogic().getClub().getRand() == 0) {
+				assertEquals(5, game.getLevelLogic().getClub().getcoordX());
+				assertEquals(1, game.getLevelLogic().getClub().getcoordY());
+				assertEquals('*', game.getLevelLogic().getClub().getID());
+				assertEquals ('k', map[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome1 = true;
 			}
 			
 			//right
-			else if(game.getClub().getRand() == 1) {
-				assertEquals(7, game.getClub().getcoordX());
-				assertEquals(1, game.getClub().getcoordY());
-				assertEquals('$', game.getClub().getID());
-				assertEquals ('$', map[game.getKeyCoordY()][game.getKeyCoordX()]);
+			else if(game.getLevelLogic().getClub().getRand() == 1) {
+				assertEquals(7, game.getLevelLogic().getClub().getcoordX());
+				assertEquals(1, game.getLevelLogic().getClub().getcoordY());
+				assertEquals('$', game.getLevelLogic().getClub().getID());
+				assertEquals ('$', map[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome2 = true;
 			}
 			
 			//down
-			else if(game.getClub().getRand() == 2) {
-				assertEquals(6, game.getClub().getcoordX());
-				assertEquals(2, game.getClub().getcoordY());
-				assertEquals('*', game.getClub().getID());
-				assertEquals ('k', map[game.getKeyCoordY()][game.getKeyCoordX()]);
+			else if(game.getLevelLogic().getClub().getRand() == 2) {
+				assertEquals(6, game.getLevelLogic().getClub().getcoordX());
+				assertEquals(2, game.getLevelLogic().getClub().getcoordY());
+				assertEquals('*', game.getLevelLogic().getClub().getID());
+				assertEquals ('k', map[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome3 = true;
 			}
 		}
@@ -550,14 +539,14 @@ public class TestDungeonGameLogic {
 //		char [][] map;
 //		Map newmap = new Map(0);
 //		newmap.setmap(2);
-//		game.getClub().setBlocker(true);
+//		game.getLevelLogic().getClub().setBlocker(true);
 //		
 //		//hero moves into next level
 //		game.updateGame('s');
 //		game.updateGame('s');
 //		game.updateGame('a');
-//		assertEquals(1, game.getHero().getCoordX());
-//		assertEquals(7, game.getHero().getCoordY());
+//		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+//		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
 //		
 //		try {
 //			game.getMap().setMap(1, 5, 'X');
@@ -574,8 +563,8 @@ public class TestDungeonGameLogic {
 //		while (n > 0)
 //		{	
 //			game.updateGame('s');
-//			assertEquals(4 , game.getOgre().getcoordX());
-//			assertEquals(1, game.getOgre().getcoordY());
+//			assertEquals(4 , game.getLevelLogic().getOgre().getcoordX());
+//			assertEquals(1, game.getLevelLogic().getOgre().getcoordY());
 //			n--;
 //		}
 //	}

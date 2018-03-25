@@ -11,7 +11,7 @@ public class Main {
 		String game_state = "LEVEL1";
 		
 		Game game = new Game(0);
-		char [][] map = game.getmap(); 
+		char [][] map = game.getMap().getmap(); 
 		
 		while(game_state != "GAME OVER") {
 			
@@ -41,7 +41,7 @@ public class Main {
 			 
 			 map = game.updateGame(command); //TODO find a way to pass game state from game to here
 			 
-			 if(game.getGameState() == "Over" || game.getGameState() == "Victory") {
+			 if(game.getLevelLogic().getLevelState() == "Over" || game.getLevelLogic().getLevelState() == "Victory") {
 				 game_state = "GAME OVER";
 				 for(int i = 0; i < map.length; i++) {
 					 System.out.println(map[i]);
