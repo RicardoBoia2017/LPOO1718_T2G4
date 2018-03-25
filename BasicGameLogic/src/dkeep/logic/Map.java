@@ -36,18 +36,18 @@ public class Map implements Serializable {
 		
 	private char [][] PersonalizedMap;
 	
-	private int currentmap;
+	private int currentMap;
 	
 	public Map() {
-		currentmap = 0;
+		currentMap = 0;
 	}
 	
 	public Map(int test) {
 		if (test == 0) {
-			currentmap = 1;
+			currentMap = 1;
 		}
 		else {
-			currentmap = -1;
+			currentMap = -1;
 		}
 	}
 	
@@ -76,29 +76,29 @@ public class Map implements Serializable {
 			}
 		}
 		
-		currentmap = 3;
+		currentMap = 3;
 	}
 	
-	public void setmap(int current) {
-		currentmap = current;
+	public void setMap(int current) {
+		currentMap = current;
 	}
 	
-	public char [][] getmap() {
+	public char [][] getMatrix() {
 		char[][] empty = {};
 		
-		if(currentmap == 1) {
+		if(currentMap == 1) {
 			return level1;
 		}
 		
-		if(currentmap == 2) {
+		if(currentMap == 2) {
 			return level2;
 		}
 		
-		if(currentmap == -1) {
+		if(currentMap == -1) {
 			return testLevel1;
 		}
 		
-		if (currentmap == 3)
+		if (currentMap == 3)
 		{
 			return PersonalizedMap;
 		}
@@ -106,28 +106,28 @@ public class Map implements Serializable {
 		return empty;
 	}
 	
-	public int getcurrentlevel() {return currentmap;};
+	public int getCurrentMap() {return currentMap;};
 	
 	public void setCustomMapTo(char[][] newmap) {
 		PersonalizedMap = newmap;
 	}
 	
-	public void setMap(int y, int x, char change) {
+	public void updateMap(int y, int x, char change) {
 		//TODO: Make this generic
 		
-		if(currentmap == 1) {
+		if(currentMap == 1) {
 			level1[y][x] = change;
 		}
 		
-		if(currentmap == 2) {
+		if(currentMap == 2) {
 			level2[y][x] = change;
 		}
 		
-		if(currentmap == -1) {
+		if(currentMap == -1) {
 			testLevel1[y][x] = change;
 		}
 		
-		if(currentmap == 3) {
+		if(currentMap == 3) {
 			PersonalizedMap[y][x] = change;
 		}
 	}

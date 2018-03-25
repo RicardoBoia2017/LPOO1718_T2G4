@@ -159,11 +159,11 @@ public class OgreLevel implements LevelLogic, Serializable{
 
 			if (ogres.get(i).id == '8' && stun == 0) {
 				ogres.get(i).id = 'O';
-				map.setMap(ogres.get(i).coordY, ogres.get(i).coordX, ogres.get(i).id);
+				map.updateMap(ogres.get(i).coordY, ogres.get(i).coordX, ogres.get(i).id);
 			}
 
-			if (map.getmap()[keyCoordY][keyCoordX] == ' ' && hero.id == 'A') {
-				map.setMap(keyCoordY, keyCoordX, 'k');
+			if (map.getMatrix()[keyCoordY][keyCoordX] == ' ' && hero.id == 'A') {
+				map.updateMap(keyCoordY, keyCoordX, 'k');
 			}
 					
 		}
@@ -173,20 +173,20 @@ public class OgreLevel implements LevelLogic, Serializable{
 	}
 
 	public boolean checkHeroGetsCaughtByOgre(Map map, Ogre ogre) {
-		if (ogre.getID() != '8' && (map.getmap()[ogre.coordY - 1][ogre.coordX] == hero.id
-				|| map.getmap()[ogre.coordY + 1][ogre.coordX] == hero.id
-				|| map.getmap()[ogre.coordY][ogre.coordX - 1] == hero.id
-				|| map.getmap()[ogre.coordY][ogre.coordX + 1] == hero.id))
+		if (ogre.getID() != '8' && (map.getMatrix()[ogre.coordY - 1][ogre.coordX] == hero.id
+				|| map.getMatrix()[ogre.coordY + 1][ogre.coordX] == hero.id
+				|| map.getMatrix()[ogre.coordY][ogre.coordX - 1] == hero.id
+				|| map.getMatrix()[ogre.coordY][ogre.coordX + 1] == hero.id))
 			return true;
 
 		return false;
 	}
 	
 	public boolean checkHeroGetsCaughtByClub(Map map, Club club) {
-		if ((map.getmap()[club.coordY - 1][club.coordX] == hero.id
-				|| map.getmap()[club.coordY + 1][club.coordX] == hero.id
-				|| map.getmap()[club.coordY][club.coordX - 1] == hero.id
-				|| map.getmap()[club.coordY][club.coordX + 1] == hero.id))
+		if ((map.getMatrix()[club.coordY - 1][club.coordX] == hero.id
+				|| map.getMatrix()[club.coordY + 1][club.coordX] == hero.id
+				|| map.getMatrix()[club.coordY][club.coordX - 1] == hero.id
+				|| map.getMatrix()[club.coordY][club.coordX + 1] == hero.id))
 			return true;
 
 		return false;

@@ -73,9 +73,8 @@ public class TestDungeonGameLogic {
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
 		//check if the hero moved next to guard and lost
-		char[][] map;
-		map = game.updateGame('d');
-
+		
+		game.updateGame('d');
 		
 		assertEquals(2, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
@@ -103,7 +102,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testMoveHeroIntoLever()
 	{
-		char[][] map;
+		Map map;
 		Game game = new Game(1);
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
@@ -111,8 +110,8 @@ public class TestDungeonGameLogic {
 		//check if the hero moved next to guard and lost
 		game.updateGame('s');
 		map = game.updateGame('s');
-		assertEquals('S', map[2][0]);
-		assertEquals('S', map[3][0]);
+		assertEquals('S', map.getMatrix()[2][0]);
+		assertEquals('S', map.getMatrix()[3][0]);
 	} 
 	
 	@Test
@@ -168,7 +167,6 @@ public class TestDungeonGameLogic {
 	public void testMoveHeroIntoKey()
 	{
 		Game game = new Game(1);
-		char [][] map;
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
@@ -201,7 +199,7 @@ public class TestDungeonGameLogic {
 	public void testMoveHeroIntoDoor2 ()
 	{
 		Game game = new Game(1);
-		char [][] map;
+		Map map;
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
@@ -225,14 +223,14 @@ public class TestDungeonGameLogic {
 		map = game.updateGame('a');
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
-		assertEquals('I', map [1][0]);
+		assertEquals('I', map.getMatrix() [1][0]);
 	}
 	
 	@Test
 	public void testHeroOpensDoor()
 	{
 		Game game = new Game(1);
-		char [][] map;
+		Map map;
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
@@ -272,7 +270,7 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		game.updateGame('w');
 		map = game.updateGame('a');
-		assertEquals('S', map [1][0]);
+		assertEquals('S', map.getMatrix() [1][0]);
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 	}
@@ -281,7 +279,7 @@ public class TestDungeonGameLogic {
 	public void testMoveHeroIntoVictory2()
 	{
 		Game game = new Game(1);
-		char [][] map;
+		Map map;
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
@@ -321,7 +319,7 @@ public class TestDungeonGameLogic {
 		game.updateGame('w');
 		game.updateGame('w');
 		map = game.updateGame('a');
-		assertEquals('S', map [1][0]);
+		assertEquals('S', map.getMatrix() [1][0]);
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
@@ -397,7 +395,7 @@ public class TestDungeonGameLogic {
 		Game game = new Game(1);
 		char [][] map;
 		Map newmap = new Map(0);
-		newmap.setmap(2);
+		newmap.setMap(2);
 		
 		//hero moves into next level
 		game.updateGame('s');
@@ -408,13 +406,13 @@ public class TestDungeonGameLogic {
 		
 		game.setMap(newmap);
 		
-		game.getMap().setMap(1, 4, ' ');
+		game.getMap().updateMap(1, 4, ' ');
 		
-		game.getMap().setMap(2, 4, 'O');
+		game.getMap().updateMap(2, 4, 'O');
 		
-		game.getMap().setMap(1, 3, ' ');
+		game.getMap().updateMap(1, 3, ' ');
 	
-		game.getMap().setMap(2, 3, '*');
+		game.getMap().updateMap(2, 3, '*');
 	
 		
 		game.getLevelLogic().getOgre().setcoordY(2);
@@ -471,9 +469,8 @@ public class TestDungeonGameLogic {
 	public void testClubStepsintoKey()
 	{
 		Game game = new Game(1);
-		char [][] map;
 		Map newmap = new Map(0);
-		newmap.setmap(2);
+		newmap.setMap(2);
 		
 		//hero moves into next level
 		game.updateGame('s');
@@ -484,13 +481,13 @@ public class TestDungeonGameLogic {
 		
 		game.setMap(newmap);
 		
-		game.getMap().setMap(1, 4, ' ');
+		game.getMap().updateMap(1, 4, ' ');
 		
-		game.getMap().setMap(1, 6, 'O');
+		game.getMap().updateMap(1, 6, 'O');
 		
-		game.getMap().setMap(1, 3, ' ');
+		game.getMap().updateMap(1, 3, ' ');
 	
-		game.getMap().setMap(1, 5, '*');
+		game.getMap().updateMap(1, 5, '*');
 	
 		
 		game.getLevelLogic().getOgre().setcoordX(6);
@@ -498,6 +495,8 @@ public class TestDungeonGameLogic {
 		game.getLevelLogic().getOgre().setBlocker(true);
 		
 		boolean outcome1 = false, outcome2 = false, outcome3 = false;
+		
+		Map map;
 		
 		while (!outcome1 || !outcome2 || !outcome3)
 		{
@@ -509,7 +508,7 @@ public class TestDungeonGameLogic {
 				assertEquals(5, game.getLevelLogic().getClub().getcoordX());
 				assertEquals(1, game.getLevelLogic().getClub().getcoordY());
 				assertEquals('*', game.getLevelLogic().getClub().getID());
-				assertEquals ('k', map[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
+				assertEquals ('k', map.getMatrix()[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome1 = true;
 			}
 			
@@ -518,7 +517,7 @@ public class TestDungeonGameLogic {
 				assertEquals(7, game.getLevelLogic().getClub().getcoordX());
 				assertEquals(1, game.getLevelLogic().getClub().getcoordY());
 				assertEquals('$', game.getLevelLogic().getClub().getID());
-				assertEquals ('$', map[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
+				assertEquals ('$', map.getMatrix()[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome2 = true;
 			}
 			
@@ -527,7 +526,7 @@ public class TestDungeonGameLogic {
 				assertEquals(6, game.getLevelLogic().getClub().getcoordX());
 				assertEquals(2, game.getLevelLogic().getClub().getcoordY());
 				assertEquals('*', game.getLevelLogic().getClub().getID());
-				assertEquals ('k', map[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
+				assertEquals ('k', map.getMatrix()[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome3 = true;
 			}
 		}

@@ -394,7 +394,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	if(editor != null && editor.getValidMap()) {
 		//in this case it will run the custom map !IF IT IS VALID!
 			
-		game = new Game(editor.getCustomMap().getmap());
+		game = new Game(editor.getCustomMap().getMatrix());
 				
 		gameScreen.setMap(editor.getCustomMap());
 		gameScreen.paint(gameScreen.getGraphics());

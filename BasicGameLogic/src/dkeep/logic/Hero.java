@@ -15,36 +15,36 @@ public class Hero extends Character {
 		 
 		 case 'a': 
 		 {
-			 if(map.getmap()[coordY][coordX-1] == ' ') {
-				 map.setMap(coordY, coordX-1, id);
-				 map.setMap(coordY, coordX, ' ');
+			 if(map.getMatrix()[coordY][coordX-1] == ' ') {
+				 map.updateMap(coordY, coordX-1, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordX = coordX-1;
 			 } 
 			 
 			 //Checks if hero steps over the lever
-			 else if(map.getmap()[coordY][coordX-1] == 'k' && stage == 1) {
+			 else if(map.getMatrix()[coordY][coordX-1] == 'k' && stage == 1) {
 				 
-				 map.setMap(5, 0, 'S');
-				 map.setMap(6, 0, 'S');
+				 map.updateMap(5, 0, 'S');
+				 map.updateMap(6, 0, 'S');
 				 
-				 map.setMap(coordY, coordX-1,id);
-				 map.setMap(coordY, coordX, ' ');
+				 map.updateMap(coordY, coordX-1,id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordX = coordX-1;
 			 }
 			 
-			 else if(map.getmap()[coordY][coordX-1] == 'k') {
+			 else if(map.getMatrix()[coordY][coordX-1] == 'k') {
 				 id = 'K';
-				 map.setMap(coordY, coordX-1,id);
-				 map.setMap(coordY, coordX, ' ');
+				 map.updateMap(coordY, coordX-1,id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordX = coordX-1;
 			 }
 			 
 			 //to open the door you need to check if the Hero has the key, aka, is in K state.
-			 else if(map.getmap()[coordY][coordX-1] == 'I' && stage == 2 && id == 'K') {
-				 map.setMap(coordY, coordX-1, 'S');
+			 else if(map.getMatrix()[coordY][coordX-1] == 'I' && stage == 2 && id == 'K') {
+				 map.updateMap(coordY, coordX-1, 'S');
 			 }
 			 
-			 else if(map.getmap()[coordY][coordX-1] == 'S') {
+			 else if(map.getMatrix()[coordY][coordX-1] == 'S') {
 				 
 				 System.out.println("Victory.");
 				 
@@ -52,7 +52,7 @@ public class Hero extends Character {
 			 }
 					
 			 if (coordX > 1){
-				 	if(stage == 2 && (map.getmap()[coordY][coordX-1] == 'O' || map.getmap()[coordY-1][coordX] == 'O' || map.getmap()[coordY+1][coordX] == 'O' ) )  
+				 	if(stage == 2 && (map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O' ) )  
 					 	return 2;
 			}
 			 break;
@@ -61,26 +61,26 @@ public class Hero extends Character {
 		 case 'd': 
 		 {
 			 
-			 if(map.getmap()[coordY][coordX+1] == ' ') {
-				 map.setMap(coordY, coordX+1, id);
-				 map.setMap(coordY, coordX, ' ');
+			 if(map.getMatrix()[coordY][coordX+1] == ' ') {
+				 map.updateMap(coordY, coordX+1, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordX = coordX+1;
 			 }
 			 
 			 //checks if hero grabs key
-			 else if (map.getmap()[coordY][coordX+1] == 'k')
+			 else if (map.getMatrix()[coordY][coordX+1] == 'k')
 			 {
 				 id = 'K';
-				 map.setMap(coordY, coordX+1, id);
-				 map.setMap(coordY, coordX, ' ');
+				 map.updateMap(coordY, coordX+1, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordX = coordX+1;
 			 }
 			 
-			 else if(map.getmap()[coordY][coordX+1] == 'I' && stage == 2 && id == 'K') {
-				 map.setMap(coordY, coordX+1, 'S');
+			 else if(map.getMatrix()[coordY][coordX+1] == 'I' && stage == 2 && id == 'K') {
+				 map.updateMap(coordY, coordX+1, 'S');
 			 }
 			 
-			 else if(map.getmap()[coordY][coordX+1] == 'S') {
+			 else if(map.getMatrix()[coordY][coordX+1] == 'S') {
 				 
 				 System.out.println("Victory.");
 				 
@@ -89,7 +89,7 @@ public class Hero extends Character {
 			 
 			 if (coordX < 7)
 			 {
-				 if(stage == 2 && ( map.getmap()[coordY][coordX+1] == 'O' || map.getmap()[coordY-1][coordX] == 'O' || map.getmap()[coordY+1][coordX] == 'O') ) 
+				 if(stage == 2 && ( map.getMatrix()[coordY][coordX+1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O') ) 
 					 	return 2;
 			 }
 			 
@@ -99,34 +99,34 @@ public class Hero extends Character {
 		 case 's': 
 		 {
 			 
-			 if(map.getmap()[coordY+1][coordX] == ' ') {
-				 map.setMap(coordY+1, coordX, id);
-				 map.setMap(coordY, coordX, ' ');
+			 if(map.getMatrix()[coordY+1][coordX] == ' ') {
+				 map.updateMap(coordY+1, coordX, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordY = coordY+1;
 			 }
 			 
-			 else if(map.getmap()[coordY+1][coordX] == 'k' && map.getcurrentlevel() == -1) {
+			 else if(map.getMatrix()[coordY+1][coordX] == 'k' && map.getCurrentMap() == -1) {
 				 
-				 map.setMap(2, 0, 'S');
-				 map.setMap(3, 0, 'S');
+				 map.updateMap(2, 0, 'S');
+				 map.updateMap(3, 0, 'S');
 				 
-				 map.setMap(coordY+1, coordX,id);
-				 map.setMap(coordY, coordX, ' ');
+				 map.updateMap(coordY+1, coordX,id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordY = coordY+1;
 			 }
 			 
-			 else if(map.getmap()[coordY+1][coordX] == 'k') {
+			 else if(map.getMatrix()[coordY+1][coordX] == 'k') {
 				 id = 'K';
-				 map.setMap(coordY+1,coordX,id);
-				 map.setMap(coordY, coordX, ' ');
+				 map.updateMap(coordY+1,coordX,id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordY = coordY+1;
 			 }
 			 
-			 else if(map.getmap()[coordY+1][coordX] == 'I' && stage == 2 && id == 'K') {
-				 map.setMap(coordY+1, coordX, 'S');
+			 else if(map.getMatrix()[coordY+1][coordX] == 'I' && stage == 2 && id == 'K') {
+				 map.updateMap(coordY+1, coordX, 'S');
 			 }
 			 
-			 else if(map.getmap()[coordY+1][coordX] == 'S') {
+			 else if(map.getMatrix()[coordY+1][coordX] == 'S') {
 				 
 				 System.out.println("Victory.");
 				 
@@ -135,7 +135,7 @@ public class Hero extends Character {
 			 
 			 if (coordY < 7)
 			 {
-				 if(stage == 2 && (map.getmap()[coordY+1][coordX] == 'O' || map.getmap()[coordY][coordX-1] == 'O' || map.getmap()[coordY][coordX+1] == 'O') )  
+				 if(stage == 2 && (map.getMatrix()[coordY+1][coordX] == 'O' || map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY][coordX+1] == 'O') )  
 					 	return 2;
 			 }
 			 
@@ -144,24 +144,24 @@ public class Hero extends Character {
 		 
 		 case 'w': 
 		 {
-			 if(map.getmap()[coordY-1][coordX] == ' ') {
-				 map.setMap(coordY-1, coordX, id);
-				 map.setMap(coordY, coordX, ' ');
+			 if(map.getMatrix()[coordY-1][coordX] == ' ') {
+				 map.updateMap(coordY-1, coordX, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordY = coordY-1;
 			 }
 			 
-			 else if (map.getmap()[coordY-1][coordX] == 'k'){
+			 else if (map.getMatrix()[coordY-1][coordX] == 'k'){
 				 id = 'K';
-				 map.setMap(coordY-1, coordX, id);
-				 map.setMap(coordY, coordX, ' ');
+				 map.updateMap(coordY-1, coordX, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordY = coordY-1;
 			 }
 			 
-			 else if(map.getmap()[coordY-1][coordX] == 'I' && stage == 2 && id == 'K') {
-				 map.setMap(coordY-1, coordX, 'S');
+			 else if(map.getMatrix()[coordY-1][coordX] == 'I' && stage == 2 && id == 'K') {
+				 map.updateMap(coordY-1, coordX, 'S');
 			 }
 			
-			 else if(map.getmap()[coordY-1][coordX] == 'S') {
+			 else if(map.getMatrix()[coordY-1][coordX] == 'S') {
 				 
 				 System.out.println("Victory.");
 				 
@@ -170,7 +170,7 @@ public class Hero extends Character {
 			 
 			 if (coordY > 1)
 			 {
-				 if(stage == 2 && (map.getmap()[coordY-1][coordX] == 'O' || map.getmap()[coordY][coordX-1] == 'O' || map.getmap()[coordY][coordX+1] == 'O') )  
+				 if(stage == 2 && (map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY][coordX+1] == 'O') )  
 					 	return 2;
 			 }
 			 

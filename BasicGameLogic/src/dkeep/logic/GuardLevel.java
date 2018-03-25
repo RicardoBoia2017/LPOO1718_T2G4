@@ -65,8 +65,8 @@ public class GuardLevel implements LevelLogic, Serializable{
 			return;
 		}
 		
-		if (map.getmap()[keyCoordY][keyCoordX] == ' ') {
-			map.setMap(keyCoordY, keyCoordX, 'k');
+		if (map.getMatrix()[keyCoordY][keyCoordX] == ' ') {
+			map.updateMap(keyCoordY, keyCoordX, 'k');
 		}
 
 		// guard phase, he will only move in a given pattern according to
@@ -129,10 +129,10 @@ public class GuardLevel implements LevelLogic, Serializable{
 	
 	public boolean checkIfHeroGetsCaughtByGuard(Map map)
 	{
-		if (guard.getID() != 'g' && (map.getmap()[guard.coordY - 1][guard.coordX] == hero.id
-				|| map.getmap()[guard.coordY + 1][guard.coordX] == hero.id
-				|| map.getmap()[guard.coordY][guard.coordX - 1] == hero.id
-				|| map.getmap()[guard.coordY][guard.coordX + 1] == hero.id))
+		if (guard.getID() != 'g' && (map.getMatrix()[guard.coordY - 1][guard.coordX] == hero.id
+				|| map.getMatrix()[guard.coordY + 1][guard.coordX] == hero.id
+				|| map.getMatrix()[guard.coordY][guard.coordX - 1] == hero.id
+				|| map.getMatrix()[guard.coordY][guard.coordX + 1] == hero.id))
 			return true;
 
 		return false;

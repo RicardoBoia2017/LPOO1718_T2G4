@@ -66,7 +66,7 @@ public class SimpleGraphicsPanel extends JPanel {
 	public void paintComponent(Graphics g) { 
 		super.paintComponent(g); // limpa fundo ...
 		
-		char[][] mapmatrix = map.getmap();
+		char[][] mapmatrix = map.getMatrix();
 		
     	for(int i = 0; i < mapmatrix.length; i++) {
 			for(int j = 0; j < mapmatrix[i].length; j++) {

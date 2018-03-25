@@ -119,7 +119,7 @@ public class OptionsFrame extends JFrame{
         		  menuselection = ((JMenuItem) event.getSource()).getText();
         		  
                   if(menuselection != null) {
-  						map.getMap().setMap(mousecoordY, mousecoordX, selectionToId(menuselection));
+  						map.getMap().updateMap(mousecoordY, mousecoordX, selectionToId(menuselection));
                   }
                     
                     map.paint(map.getGraphics());
@@ -275,37 +275,37 @@ public class OptionsFrame extends JFrame{
 		int wallCounter = 0;
 		int clubCounter = 0;
 		
-		for(int i = 0; i < map.getMap().getmap().length; i++) {
-			for(int j = 0; j < map.getMap().getmap()[i].length; j++) {
-				if(map.getMap().getmap()[i][j] == 'H') {
+		for(int i = 0; i < map.getMap().getMatrix().length; i++) {
+			for(int j = 0; j < map.getMap().getMatrix()[i].length; j++) {
+				if(map.getMap().getMatrix()[i][j] == 'H') {
 					//counting heroes
 					heroCounter++;
 				}
 				
-				if(map.getMap().getmap()[i][j] == 'O') {
+				if(map.getMap().getMatrix()[i][j] == 'O') {
 					//counting ogres
 					
-					if(!checkIfClubNearby(map.getMap().getmap(), i, j)) {
+					if(!checkIfClubNearby(map.getMap().getMatrix(), i, j)) {
 						return false;
 					}
 					
 					ogreCounter++;
 				}
 				
-				if(map.getMap().getmap()[i][j] == 'k') {
+				if(map.getMap().getMatrix()[i][j] == 'k') {
 					//counting key
 					keyCounter++;
 				}
 				
-				if(map.getMap().getmap()[i][j] == 'X') {
+				if(map.getMap().getMatrix()[i][j] == 'X') {
 					wallCounter++;
 				}
 					
-				if(map.getMap().getmap()[i][j] == 'I') {
+				if(map.getMap().getMatrix()[i][j] == 'I') {
 					doorCounter++;
 				}
 				
-				if(map.getMap().getmap()[i][j] == '*') {
+				if(map.getMap().getMatrix()[i][j] == '*') {
 					clubCounter++;
 				}
 			}

@@ -44,11 +44,11 @@ public class Club extends Character {
 			// appears at the left adjacent cell, in relation to our character -
 			// the ogre.
 			case 0: {
-				if (map.getmap()[character.coordY][character.coordX - 1] == ' ') {
+				if (map.getMatrix()[character.coordY][character.coordX - 1] == ' ') {
 					if (id == '$')
 						id = '*';
-					map.setMap(character.coordY, character.coordX - 1, id);
-					map.setMap(coordY, coordX, ' ');
+					map.updateMap(character.coordY, character.coordX - 1, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordX = character.coordX - 1;
 					coordY = character.coordY;
 					Moved = true;
@@ -59,20 +59,20 @@ public class Club extends Character {
 
 			// .. right ...
 			case 1: {
-				if (map.getmap()[character.coordY][character.coordX + 1] == ' ') {
+				if (map.getMatrix()[character.coordY][character.coordX + 1] == ' ') {
 					if (id == '$')
 						id = '*';
-					map.setMap(character.coordY, character.coordX + 1, id);
-					map.setMap(coordY, coordX, ' ');
+					map.updateMap(character.coordY, character.coordX + 1, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordX = character.coordX + 1;
 					coordY = character.coordY;
 					Moved = true;
 				}
 
-				else if (map.getmap()[character.coordY][character.coordX + 1] == 'k') {
+				else if (map.getMatrix()[character.coordY][character.coordX + 1] == 'k') {
 					id = '$';
-					map.setMap(character.coordY, character.coordX + 1, id);
-					map.setMap(coordY, coordX, ' ');
+					map.updateMap(character.coordY, character.coordX + 1, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordX = character.coordX + 1;
 					coordY = character.coordY;
 					Moved = true;
@@ -83,11 +83,11 @@ public class Club extends Character {
 
 			// down
 			case 2: {
-				if (map.getmap()[character.coordY + 1][character.coordX] == ' ') {
+				if (map.getMatrix()[character.coordY + 1][character.coordX] == ' ') {
 					if (id == '$')
 						id = '*';
-					map.setMap(character.coordY + 1, character.coordX, id);
-					map.setMap(coordY, coordX, ' ');
+					map.updateMap(character.coordY + 1, character.coordX, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordY = character.coordY + 1;
 					coordX = character.coordX;
 					Moved = true;
@@ -98,20 +98,20 @@ public class Club extends Character {
 
 			// up
 			case 3: {
-				if (map.getmap()[character.coordY - 1][character.coordX] == ' ') {
+				if (map.getMatrix()[character.coordY - 1][character.coordX] == ' ') {
 					if (id == '$')
 						id = '*';
-					map.setMap(character.coordY - 1, character.coordX, id);
-					map.setMap(coordY, coordX, ' ');
+					map.updateMap(character.coordY - 1, character.coordX, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordY = character.coordY - 1;
 					coordX = character.coordX;
 					Moved = true;
 				}
 
-				else if (map.getmap()[character.coordY - 1][character.coordX] == 'k') {
+				else if (map.getMatrix()[character.coordY - 1][character.coordX] == 'k') {
 					id = '$';
-					map.setMap(character.coordY - 1, character.coordX, id);
-					map.setMap(coordY, coordX, ' ');
+					map.updateMap(character.coordY - 1, character.coordX, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordY = character.coordY - 1;
 					coordX = character.coordX;
 					Moved = true;

@@ -26,9 +26,9 @@ public class Guard extends Character {
 		 
 		 case 'a': 
 		 {
-			 if(map.getmap()[coordY][coordX-1] == ' ') {
-				 map.setMap(coordY, coordX-1, id);
-				 map.setMap(coordY, coordX, ' ');
+			 if(map.getMatrix()[coordY][coordX-1] == ' ') {
+				 map.updateMap(coordY, coordX-1, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordX = coordX-1;
 			 } 
 						 
@@ -38,9 +38,9 @@ public class Guard extends Character {
 		 case 'd': 
 		 {
 			 
-			 if(map.getmap()[coordY][coordX+1] == ' ') {
-				 map.setMap(coordY, coordX+1, id);
-				 map.setMap(coordY, coordX, ' ');
+			 if(map.getMatrix()[coordY][coordX+1] == ' ') {
+				 map.updateMap(coordY, coordX+1, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordX = coordX+1;
 			 }
 			 
@@ -50,9 +50,9 @@ public class Guard extends Character {
 		 case 's': 
 		 {
 			 
-			 if(map.getmap()[coordY+1][coordX] == ' ') {
-				 map.setMap(coordY+1, coordX, id);
-				 map.setMap(coordY, coordX, ' ');
+			 if(map.getMatrix()[coordY+1][coordX] == ' ') {
+				 map.updateMap(coordY+1, coordX, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordY = coordY+1;
 			 }
 			 
@@ -61,9 +61,9 @@ public class Guard extends Character {
 		 
 		 case 'w': 
 		 {
-			 if(map.getmap()[coordY-1][coordX] == ' ') {
-				 map.setMap(coordY-1, coordX, id);
-				 map.setMap(coordY, coordX, ' ');
+			 if(map.getMatrix()[coordY-1][coordX] == ' ') {
+				 map.updateMap(coordY-1, coordX, id);
+				 map.updateMap(coordY, coordX, ' ');
 				 coordY = coordY-1;
 			 }
 	
@@ -122,7 +122,7 @@ public class Guard extends Character {
 	    		//if the numbers 1 or 0 are generated, and he was asleep previously, now he is awake and following whatever his previous route was.
 	    		//1 and 0 don't reverse the route, only 3 does.
 	    		id = 'G';
-	    		map.setMap(coordY, coordX, id);
+	    		map.updateMap(coordY, coordX, id);
 	    	}
 	    }
 	    
@@ -130,9 +130,9 @@ public class Guard extends Character {
 		 
 			 case 'a': 
 			 {
-				 if(map.getmap()[coordY][coordX-1] == ' ') {
-					 map.setMap(coordY, coordX-1, id);
-					 map.setMap(coordY, coordX, ' ');
+				 if(map.getMatrix()[coordY][coordX-1] == ' ') {
+					 map.updateMap(coordY, coordX-1, id);
+					 map.updateMap(coordY, coordX, ' ');
 					 coordX = coordX-1;
 				 } 
 							 
@@ -142,9 +142,9 @@ public class Guard extends Character {
 			 case 'd': 
 			 {
 				 
-				 if(map.getmap()[coordY][coordX+1] == ' ') {
-					 map.setMap(coordY, coordX+1, id);
-					 map.setMap(coordY, coordX, ' ');
+				 if(map.getMatrix()[coordY][coordX+1] == ' ') {
+					 map.updateMap(coordY, coordX+1, id);
+					 map.updateMap(coordY, coordX, ' ');
 					 coordX = coordX+1;
 				 }
 				 
@@ -154,9 +154,9 @@ public class Guard extends Character {
 			 case 's': 
 			 {
 				 
-				 if(map.getmap()[coordY+1][coordX] == ' ') {
-					 map.setMap(coordY+1, coordX, id);
-					 map.setMap(coordY, coordX, ' ');
+				 if(map.getMatrix()[coordY+1][coordX] == ' ') {
+					 map.updateMap(coordY+1, coordX, id);
+					 map.updateMap(coordY, coordX, ' ');
 					 coordY = coordY+1;
 				 }
 				 
@@ -165,9 +165,9 @@ public class Guard extends Character {
 			 
 			 case 'w': 
 			 {
-				 if(map.getmap()[coordY-1][coordX] == ' ') {
-					 map.setMap(coordY-1, coordX, id);
-					 map.setMap(coordY, coordX, ' ');
+				 if(map.getMatrix()[coordY-1][coordX] == ' ') {
+					 map.updateMap(coordY-1, coordX, id);
+					 map.updateMap(coordY, coordX, ' ');
 					 coordY = coordY-1;
 				 }
 		
@@ -196,7 +196,7 @@ public class Guard extends Character {
 	   
 	else {
 		id = 'g';
-		map.setMap(coordY, coordX, id);
+		map.updateMap(coordY, coordX, id);
 	}
 }
 	
@@ -238,9 +238,9 @@ public class Guard extends Character {
 		 
 			 case 'a': 
 			 {
-				 if(map.getmap()[coordY][coordX-1] == ' ') {
-					 map.setMap(coordY, coordX-1, id);
-					 map.setMap(coordY, coordX, ' ');
+				 if(map.getMatrix()[coordY][coordX-1] == ' ') {
+					 map.updateMap(coordY, coordX-1, id);
+					 map.updateMap(coordY, coordX, ' ');
 					 coordX = coordX-1;
 				 } 
 							 
@@ -250,9 +250,9 @@ public class Guard extends Character {
 			 case 'd': 
 			 {
 				 
-				 if(map.getmap()[coordY][coordX+1] == ' ') {
-					 map.setMap(coordY, coordX+1, id);
-					 map.setMap(coordY, coordX, ' ');
+				 if(map.getMatrix()[coordY][coordX+1] == ' ') {
+					 map.updateMap(coordY, coordX+1, id);
+					 map.updateMap(coordY, coordX, ' ');
 					 coordX = coordX+1;
 				 }
 				 
@@ -262,9 +262,9 @@ public class Guard extends Character {
 			 case 's': 
 			 {
 				 
-				 if(map.getmap()[coordY+1][coordX] == ' ') {
-					 map.setMap(coordY+1, coordX, id);
-					 map.setMap(coordY, coordX, ' ');
+				 if(map.getMatrix()[coordY+1][coordX] == ' ') {
+					 map.updateMap(coordY+1, coordX, id);
+					 map.updateMap(coordY, coordX, ' ');
 					 coordY = coordY+1;
 				 }
 				 
@@ -273,9 +273,9 @@ public class Guard extends Character {
 			 
 			 case 'w': 
 			 {
-				 if(map.getmap()[coordY-1][coordX] == ' ') {
-					 map.setMap(coordY-1, coordX, id);
-					 map.setMap(coordY, coordX, ' ');
+				 if(map.getMatrix()[coordY-1][coordX] == ' ') {
+					 map.updateMap(coordY-1, coordX, id);
+					 map.updateMap(coordY, coordX, ' ');
 					 coordY = coordY-1;
 				 }
 		

@@ -51,9 +51,9 @@ public class Ogre extends Character {
 
 			// left
 			case 0: {
-				if (map.getmap()[coordY][coordX - 1] == ' ' || map.getmap()[coordY][coordX - 1] == 'O') {
-					map.setMap(coordY, coordX - 1, id);
-					map.setMap(coordY, coordX, ' ');
+				if (map.getMatrix()[coordY][coordX - 1] == ' ' || map.getMatrix()[coordY][coordX - 1] == 'O') {
+					map.updateMap(coordY, coordX - 1, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordX = coordX - 1;
 					Moved = true;
 				} 
@@ -63,16 +63,16 @@ public class Ogre extends Character {
 
 			// right
 			case 1: {
-				if (map.getmap()[coordY][coordX + 1] == ' ' || map.getmap()[coordY][coordX + 1] == 'O') {
-					map.setMap(coordY, coordX + 1, id);
-					map.setMap(coordY, coordX, ' ');
+				if (map.getMatrix()[coordY][coordX + 1] == ' ' || map.getMatrix()[coordY][coordX + 1] == 'O') {
+					map.updateMap(coordY, coordX + 1, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordX = coordX + 1;
 					Moved = true;
 				}
 
-				else if (map.getmap()[coordY][coordX + 1] == 'k') {
-					map.setMap(coordY, coordX + 1, '$');
-					map.setMap(coordY, coordX, ' ');
+				else if (map.getMatrix()[coordY][coordX + 1] == 'k') {
+					map.updateMap(coordY, coordX + 1, '$');
+					map.updateMap(coordY, coordX, ' ');
 					coordX = coordX + 1;
 					Moved = true;
 				}
@@ -82,9 +82,9 @@ public class Ogre extends Character {
 
 			// down
 			case 2: {
-				if (map.getmap()[coordY + 1][coordX] == ' ' || map.getmap()[coordY+1][coordX] == 'O') {
-					map.setMap(coordY + 1, coordX, id);
-					map.setMap(coordY, coordX, ' ');
+				if (map.getMatrix()[coordY + 1][coordX] == ' ' || map.getMatrix()[coordY+1][coordX] == 'O') {
+					map.updateMap(coordY + 1, coordX, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordY = coordY + 1;
 					Moved = true;
 				}
@@ -94,16 +94,16 @@ public class Ogre extends Character {
 
 			// up
 			case 3: {
-				if (map.getmap()[coordY - 1][coordX] == ' ' || map.getmap()[coordY-1][coordX] == 'O') {
-					map.setMap(coordY - 1, coordX, id);
-					map.setMap(coordY, coordX, ' ');
+				if (map.getMatrix()[coordY - 1][coordX] == ' ' || map.getMatrix()[coordY-1][coordX] == 'O') {
+					map.updateMap(coordY - 1, coordX, id);
+					map.updateMap(coordY, coordX, ' ');
 					coordY = coordY - 1;
 					Moved = true;
 				}
 
-				else if (map.getmap()[coordY - 1][coordX] == 'k') {
-					map.setMap(coordY - 1, coordX, '$');
-					map.setMap(coordY, coordX, ' ');
+				else if (map.getMatrix()[coordY - 1][coordX] == 'k') {
+					map.updateMap(coordY - 1, coordX, '$');
+					map.updateMap(coordY, coordX, ' ');
 					coordY = coordY - 1;
 					Moved = true;
 				}
@@ -123,7 +123,7 @@ public class Ogre extends Character {
 	public void stun(Map map) throws IllegalMapChangeException{
 		stun_counter = 2;
 		id = '8';
-		map.setMap(coordY, coordX, id);
+		map.updateMap(coordY, coordX, id);
 	}
 	
 	public void setId (char newId) {id = newId;}

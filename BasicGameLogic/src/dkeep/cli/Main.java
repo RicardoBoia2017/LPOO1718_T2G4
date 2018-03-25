@@ -2,6 +2,7 @@ package dkeep.cli;
 
 import java.util.Scanner;
 import dkeep.logic.Game;
+import dkeep.logic.Map;
 
 public class Main {
 
@@ -11,12 +12,12 @@ public class Main {
 		String game_state = "LEVEL1";
 		
 		Game game = new Game(0);
-		char [][] map = game.getMap().getmap(); 
+		Map map = game.getMap();
 		
 		while(game_state != "GAME OVER") {
 			
-			for(int i = 0; i < map.length; i++) {
-				 System.out.println(map[i]);
+			for(int i = 0; i < map.getMatrix().length; i++) {
+				 System.out.println(map.getMatrix()[i]);
 			 }
 			
 			 System.out.println(" ");
@@ -43,8 +44,9 @@ public class Main {
 			 
 			 if(game.getLevelLogic().getLevelState() == "Over" || game.getLevelLogic().getLevelState() == "Victory") {
 				 game_state = "GAME OVER";
-				 for(int i = 0; i < map.length; i++) {
-					 System.out.println(map[i]);
+				 
+				 for(int i = 0; i < map.getMatrix().length; i++) {
+					 System.out.println(map.getMatrix()[i]);
 				 }
 			 }
 		}
