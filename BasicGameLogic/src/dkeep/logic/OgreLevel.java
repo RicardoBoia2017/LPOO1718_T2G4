@@ -225,4 +225,9 @@ public class OgreLevel implements LevelLogic, Serializable{
 	public Club getClub() {
 		return clubs.get(0);
 	}
+
+	@Override
+	public String getLevelType() {
+		return "Ogre";
+	}
 }

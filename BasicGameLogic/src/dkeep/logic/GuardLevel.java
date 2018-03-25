@@ -154,19 +154,21 @@ public class GuardLevel implements LevelLogic, Serializable{
 	public int getKeyCoordY() {
 		return keyCoordY;
 	}
-
 	@Override
 	public Guard getGuard() {
 		return guard;
 	}
-
 	@Override
 	public Ogre getOgre() {
 		return null;
 	}
-
 	@Override
 	public Club getClub() {
 		return null;
+	}
+
+	@Override
+	public String getLevelType() {
+		return "Guard";
 	}
 }
