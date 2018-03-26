@@ -94,7 +94,6 @@ public class GuardLevel implements LevelLogic, Serializable{
 		return false;
 	}
 
-	
 	public void manageLeverVisibility (Map map)
 	{
 		if (map.getMatrix()[keyCoordY][keyCoordX] == ' ') {

@@ -18,14 +18,7 @@ public class Ogre extends Character {
 	}
 	
 	public void move(Map map) throws IllegalMapChangeException {
-		
-		//Random randomnum = new Random();
-		
-		//randholder = ogreplace;
-		
-		//if (nTries <= 0)
-			//return;
-		
+				
 		if (stun_counter == 2){
 			stun_counter--;
 			return;

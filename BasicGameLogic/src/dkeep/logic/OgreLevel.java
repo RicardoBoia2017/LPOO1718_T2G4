@@ -91,6 +91,8 @@ public class OgreLevel implements LevelLogic, Serializable{
 				}
 			}
 
+			manageKeyVisibility(map);
+			
 			if (clubs.get(i).getBlocker() == false) {
 
 				try {
@@ -101,7 +103,6 @@ public class OgreLevel implements LevelLogic, Serializable{
 
 			if ((stun == 0 && (checkHeroGetsCaughtByOgre(map, ogres.get(i)) )
 					|| checkHeroGetsCaughtByClub(map,clubs.get(i)) ) ) {
-				// interface
 				System.out.println("");
 				System.out.println("Game Over.");
 
@@ -115,9 +116,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 				map.updateMap(ogres.get(i).coordY, ogres.get(i).coordX, ogres.get(i).id);
 			}
 
-			if (map.getMatrix()[keyCoordY][keyCoordX] == ' ' && hero.id == 'A') {
-				map.updateMap(keyCoordY, keyCoordX, 'k');
-			}
+			manageKeyVisibility(map);
 					
 		}
 		// by now both the club and the ogre, also hero have moved which
@@ -143,6 +142,13 @@ public class OgreLevel implements LevelLogic, Serializable{
 			return true;
 
 		return false;
+	}
+	
+	public void manageKeyVisibility (Map map)
+	{
+		if (map.getMatrix()[keyCoordY][keyCoordX] == ' ' && hero.id == 'A') {
+			map.updateMap(keyCoordY, keyCoordX, 'k');
+		}
 	}
 	
 	public void manageOgreStun (char heroMovement, Ogre ogre, Map map)
