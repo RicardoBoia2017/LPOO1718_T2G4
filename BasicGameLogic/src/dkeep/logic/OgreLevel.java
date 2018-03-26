@@ -29,10 +29,10 @@ public class OgreLevel implements LevelLogic, Serializable{
 //			clubs.get(i).setBlocker(true);
 		}
 		
-		levelState = "Running";	
-		
 		keyCoordX = 7;
 		keyCoordY = 1;
+		
+		levelState = "Running";	
 	}
 
 	public OgreLevel(Hero hero, ArrayList<Ogre> ogres, ArrayList<Club> clubs, int [] keyCoords)
@@ -67,56 +67,9 @@ public class OgreLevel implements LevelLogic, Serializable{
 		}
 		
 		for (int i = 0; i < ogres.size(); i++) {
-			if (heroMovementReturn == 2 && ogres.get(i).getStunCounter() == 0 && hero.getID() == 'A') {
-				switch (heroMovement) {
-				case 'a': {
-					if ((ogres.get(i).coordY == hero.coordY && ogres.get(i).coordX == hero.coordX - 1)
-							|| (ogres.get(i).coordY == hero.coordY - 1 && ogres.get(i).coordX == hero.coordX)
-							|| (ogres.get(i).coordY == hero.coordY + 1 && ogres.get(i).coordX == hero.coordX - 1))
-						try {
-							ogres.get(i).stun(map);
-						} catch (IllegalMapChangeException e) {
-						}
+			if (heroMovementReturn == 2 && ogres.get(i).getStunCounter() == 0 && ( hero.getID() == 'A' || hero.getID() == 'K') ) {
+				manageOgreStun (heroMovement, ogres.get(i), map);
 
-					break;
-				}
-
-				case 'd': {
-					if ((ogres.get(i).coordY == hero.coordY && ogres.get(i).coordX == hero.coordX + 1)
-							|| (ogres.get(i).coordY == hero.coordY + 1 && ogres.get(i).coordX == hero.coordX)
-							|| (ogres.get(i).coordY == hero.coordY - 1 && ogres.get(i).coordX == hero.coordX))
-						try {
-							ogres.get(i).stun(map);
-						} catch (IllegalMapChangeException e) {
-						}
-
-					break;
-				}
-
-				case 's': {
-					if ((ogres.get(i).coordY == hero.coordY + 1 && ogres.get(i).coordX == hero.coordX)
-							|| (ogres.get(i).coordY == hero.coordY && ogres.get(i).coordX == hero.coordX + 1)
-							|| (ogres.get(i).coordY == hero.coordY && ogres.get(i).coordX == hero.coordX - 1))
-						try {
-							ogres.get(i).stun(map);
-						} catch (IllegalMapChangeException e) {
-						}
-
-					break;
-				}
-
-				case 'w': {
-					if ((ogres.get(i).coordY == hero.coordY - 1 && ogres.get(i).coordX == hero.coordX)
-							|| (ogres.get(i).coordY == hero.coordY && ogres.get(i).coordX == hero.coordX + 1)
-							|| (ogres.get(i).coordY == hero.coordY && ogres.get(i).coordX == hero.coordX - 1))
-						try {
-							ogres.get(i).stun(map);
-						} catch (IllegalMapChangeException e) {
-						}
-
-					break;
-				}
-				}
 			}
 
 			int stun = ogres.get(i).getStunCounter();
@@ -192,41 +145,88 @@ public class OgreLevel implements LevelLogic, Serializable{
 		return false;
 	}
 	
+	public void manageOgreStun (char heroMovement, Ogre ogre, Map map)
+	{
+		switch (heroMovement) {
+		case 'a': {
+			if ((ogre.coordY == hero.coordY && ogre.coordX == hero.coordX - 1)
+					|| (ogre.coordY == hero.coordY - 1 && ogre.coordX == hero.coordX)
+					|| (ogre.coordY == hero.coordY + 1 && ogre.coordX == hero.coordX - 1))
+				try {
+					ogre.stun(map);
+				} catch (IllegalMapChangeException e) {
+				}
+
+			break;
+		}
+
+		case 'd': {
+			if ((ogre.coordY == hero.coordY && ogre.coordX == hero.coordX + 1)
+					|| (ogre.coordY == hero.coordY + 1 && ogre.coordX == hero.coordX)
+					|| (ogre.coordY == hero.coordY - 1 && ogre.coordX == hero.coordX))
+				try {
+					ogre.stun(map);
+				} catch (IllegalMapChangeException e) {
+				}
+
+			break;
+		}
+
+		case 's': {
+			if ((ogre.coordY == hero.coordY + 1 && ogre.coordX == hero.coordX)
+					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX + 1)
+					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX - 1))
+				try {
+					ogre.stun(map);
+				} catch (IllegalMapChangeException e) {
+				}
+
+			break;
+		}
+
+		case 'w': {
+			if ((ogre.coordY == hero.coordY - 1 && ogre.coordX == hero.coordX)
+					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX + 1)
+					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX - 1))
+				try {
+					System.out.println("Stun");
+					ogre.stun(map);
+				} catch (IllegalMapChangeException e) {
+				}
+
+			break;
+		}
+		}
+	}
+	
 	@Override
 	public String getLevelState() {
 		return levelState;
 	}
-
 	@Override
 	public Hero getHero() {
 		return hero;
 	}
-
 	@Override
 	public int getKeyCoordX() {
 		return keyCoordX;
 	}
-
 	@Override
 	public int getKeyCoordY() {
 		return keyCoordY;
 	}
-
 	@Override
 	public Guard getGuard() {
 		return null;
 	}
-
 	@Override
 	public Ogre getOgre() {
 		return ogres.get(0);
 	}
-
 	@Override
 	public Club getClub() {
 		return clubs.get(0);
 	}
-
 	@Override
 	public String getLevelType() {
 		return "Ogre";

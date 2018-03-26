@@ -1,28 +1,28 @@
 package dkeep.logic;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 import java.util.Random;
 
 public class Guard extends Character {
 
-	char[] positionarray = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
-	char[] inverposition = {'s','d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s'};
-	int currentposition;
+	char[] pathArray = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
+	char[] invertedPath = {'s','d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s'};
+	int currentPosition;
 	String personality;
-	boolean reversedroute; //tells you whether he reversed the route
+	boolean reversedRoute; //tells you whether he reversed the route
 	boolean movementBlocker;
 	
 	public Guard(int x, int y, String persona) {
 		// TODO Auto-generated constructor stub
 		super(x, y, 'G');
-		currentposition = 0;
+		currentPosition = 0;
 		personality = persona;
-		reversedroute = false;
+		reversedRoute = false;
 		this.movementBlocker = false;
 	}
 	
 	public void rookieMove(Map map) throws IllegalMapChangeException {
-		switch(positionarray[currentposition]) {
+		switch(pathArray[currentPosition]) {
 		 
 		 case 'a': 
 		 {
@@ -71,10 +71,10 @@ public class Guard extends Character {
 		 }
 		}
     
-    if(currentposition == positionarray.length-1) {
-    	currentposition = 0;
+    if(currentPosition == pathArray.length-1) {
+    	currentPosition = 0;
     } else {
-    	currentposition++;
+    	currentPosition++;
     }
     
    }
@@ -96,25 +96,25 @@ public class Guard extends Character {
 	    	id = 'G';
 		    
 	    	//if he woke up, and hadn't inverted, he inverts.
-	    	if(reversedroute == false) {
-	    		reversedroute = true;
+	    	if(reversedRoute == false) {
+	    		reversedRoute = true;
 		    	
-		    	temp = positionarray.clone();
+		    	temp = pathArray.clone();
 		    	
-		    	positionarray = inverposition.clone();
+		    	pathArray = invertedPath.clone();
 		    	
-		    	inverposition = temp;
+		    	invertedPath = temp;
 		    }
 	    	
 	    	//if he woke up, and inverted previously, he goes back to normal.
 	    	else {
-	    		reversedroute = false;
+	    		reversedRoute = false;
 	    		
-				temp = inverposition.clone();
+				temp = invertedPath.clone();
 				
-				inverposition = positionarray.clone();
+				invertedPath = pathArray.clone();
 				
-				positionarray = temp;
+				pathArray = temp;
 	    	}
 		    
 	    } else {
@@ -126,7 +126,7 @@ public class Guard extends Character {
 	    	}
 	    }
 	    
-		switch(positionarray[currentposition]) {
+		switch(pathArray[currentPosition]) {
 		 
 			 case 'a': 
 			 {
@@ -176,20 +176,20 @@ public class Guard extends Character {
 		}
 		
 		//if he didn't invert
-		if(reversedroute == false) {
-			if(currentposition == positionarray.length-1) {
-				currentposition = 0;
+		if(reversedRoute == false) {
+			if(currentPosition == pathArray.length-1) {
+				currentPosition = 0;
 			} else {
-				currentposition++;
+				currentPosition++;
 			}
 		}
 		
 		//if he inverted
 		else {
-			if(currentposition == 0) {
-				currentposition = positionarray.length-1;
+			if(currentPosition == 0) {
+				currentPosition = pathArray.length-1;
 			} else {
-				currentposition--;
+				currentPosition--;
 			}
 		}
 	  } 
@@ -211,30 +211,30 @@ public class Guard extends Character {
 	    if(paranoid == 2) {
 	    	
 	    	//if he hadn't inverted, he inverts.
-	    	if(reversedroute == false) {
-	    		reversedroute = true;
+	    	if(reversedRoute == false) {
+	    		reversedRoute = true;
 		    	
-		    	temp = positionarray.clone();
+		    	temp = pathArray.clone();
 		    	
-		    	positionarray = inverposition.clone();
+		    	pathArray = invertedPath.clone();
 		    	
-		    	inverposition = temp;
+		    	invertedPath = temp;
 		    }
 	    	
 	    	//if he inverted previously, he goes back to normal.
 	    	else {
-	    		reversedroute = false;
+	    		reversedRoute = false;
 	    		
-				temp = inverposition.clone();
+				temp = invertedPath.clone();
 				
-				inverposition = positionarray.clone();
+				invertedPath = pathArray.clone();
 				
-				positionarray = temp;
+				pathArray = temp;
 	    	}
 	    	
 	    }
 	    
-		switch(positionarray[currentposition]) {
+		switch(pathArray[currentPosition]) {
 		 
 			 case 'a': 
 			 {
@@ -284,20 +284,20 @@ public class Guard extends Character {
 		}
 		
 		//if he didn't invert
-		if(reversedroute == false) {
-			if(currentposition == positionarray.length-1) {
-				currentposition = 0;
+		if(reversedRoute == false) {
+			if(currentPosition == pathArray.length-1) {
+				currentPosition = 0;
 			} else {
-				currentposition++;
+				currentPosition++;
 			}
 		}
 		
 		//if he inverted
 		else {
-			if(currentposition == 0) {
-				currentposition = positionarray.length-1;
+			if(currentPosition == 0) {
+				currentPosition = pathArray.length-1;
 			} else {
-				currentposition--;
+				currentPosition--;
 			}
 		}
 	}

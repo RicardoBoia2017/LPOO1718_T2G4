@@ -1,34 +1,26 @@
 package dkeep.logic;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 import java.util.Random;
 
 public class Club extends Character {
 	
 	boolean movementBlocker;
-	int clubrand;
+	int clubRand;
 
 	public Club(int x, int y) {
-		// TODO Auto-generated constructor stub
 		super(x, y, '*');
 		movementBlocker = false;
 	}
 	
-	public int getRand() {return clubrand;}
+	public int getRand() {return clubRand;}
 	
 	public boolean getBlocker() {return movementBlocker;}
 	
 	public void setBlocker(boolean truefalse) {movementBlocker = truefalse;}
 	
 	public void move(Map map,Ogre character) throws IllegalMapChangeException {
-		
-//		if (nTries <= 0)
-//			return;
-		
-//		Random randomnum = new Random();
-		
-//		clubrand = clubplace;
-		
+				
 		int nTries = 8;
 		boolean Moved = false;
 		
@@ -36,10 +28,10 @@ public class Club extends Character {
 			
 			Random randomnum = new Random();
 			
-			clubrand = randomnum.nextInt(4);
+			clubRand = randomnum.nextInt(4);
 
 			
-			switch (clubrand) {
+			switch (clubRand) {
 
 			// appears at the left adjacent cell, in relation to our character -
 			// the ogre.
@@ -127,4 +119,5 @@ public class Club extends Character {
 			nTries--;		
 		}
 	}
+
 }

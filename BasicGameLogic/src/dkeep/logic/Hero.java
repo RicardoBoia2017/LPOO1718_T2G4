@@ -87,7 +87,7 @@ public class Hero extends Character {
 				 return 1;
 			 }
 			 
-			 if (coordX < 7)
+			 if (coordX <= map.getMatrix().length-2)
 			 {
 				 if(stage == 2 && ( map.getMatrix()[coordY][coordX+1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O') ) 
 					 	return 2;
@@ -133,7 +133,7 @@ public class Hero extends Character {
 				 return 1;
 			 }
 			 
-			 if (coordY < 7)
+			 if (coordY <= map.getMatrix().length-2)
 			 {
 				 if(stage == 2 && (map.getMatrix()[coordY+1][coordX] == 'O' || map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY][coordX+1] == 'O') )  
 					 	return 2;
@@ -168,7 +168,7 @@ public class Hero extends Character {
 				 return 1;
 			 }
 			 
-			 if (coordY > 1)
+			 if (coordY >= 1)
 			 {
 				 if(stage == 2 && (map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY][coordX+1] == 'O') )  
 					 	return 2;

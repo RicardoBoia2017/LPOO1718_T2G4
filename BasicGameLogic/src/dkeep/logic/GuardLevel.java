@@ -45,29 +45,10 @@ public class GuardLevel implements LevelLogic, Serializable{
 		if (heroMovementReturn == 1) {
 
 			levelState = "Passed";
-//				System.out.println(" ");
-//				System.out.println("Now you went up the stairs, new stage.");  FOR LEVEL2
-//				System.out.println(ogre.length + " ogre(s).");
-//				System.out.println(" ");
-
-				// you went up the stairs, now a new level must begin.
-
-				// update game stage
-//				hero.setcoordY(7);
-//				hero.setid('A');
-//				keycoordX = 7;
-//				keycoordY = 1;
-//
-//				stage = 2;
-//				map.setmap(2); // change to second map
-//
-//				return;
 			return;
 		}
 		
-		if (map.getMatrix()[keyCoordY][keyCoordX] == ' ') {
-			map.updateMap(keyCoordY, keyCoordX, 'k');
-		}
+		manageLeverVisibility(map);
 
 		// guard phase, he will only move in a given pattern according to
 		// the array guardpositon.
@@ -80,35 +61,11 @@ public class GuardLevel implements LevelLogic, Serializable{
 
 				System.out.println("Game Over.");
 				levelState = "Over";
-//				gameState = "Over";
-
 				return;
 			}
 
-			switch (guard.personality) {
-
-			case "Rookie":
-				try {
-					guard.rookieMove(map);
-				} catch (IllegalMapChangeException e) {
-				}
-				break;
-
-			case "Drunken":
-				try {
-					guard.drunkenMove(map);
-				} catch (IllegalMapChangeException e) {
-				}
-				break;
-
-			case "Suspicious":
-				try {
-					guard.suspiciousMove(map);
-				} catch (IllegalMapChangeException e) {
-				}
-				break;
-			}
-
+			callGuardMovement (map);
+			
 			if (checkIfHeroGetsCaughtByGuard(map)) {
 
 				// pass interface game over state, interface will print.
@@ -116,7 +73,6 @@ public class GuardLevel implements LevelLogic, Serializable{
 				System.out.println("Game Over.");
 
 				levelState = "Over";
-
 				return;
 			}
 
@@ -126,7 +82,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 		}
 		return;		
 	}
-	
+
 	public boolean checkIfHeroGetsCaughtByGuard(Map map)
 	{
 		if (guard.getID() != 'g' && (map.getMatrix()[guard.coordY - 1][guard.coordX] == hero.id
@@ -139,11 +95,44 @@ public class GuardLevel implements LevelLogic, Serializable{
 	}
 
 	
+	public void manageLeverVisibility (Map map)
+	{
+		if (map.getMatrix()[keyCoordY][keyCoordX] == ' ') {
+			map.updateMap(keyCoordY, keyCoordX, 'k');
+		}
+	}
+	
+	public void callGuardMovement (Map map)
+	{
+		switch (guard.personality) {
+
+		case "Rookie":
+			try {
+				guard.rookieMove(map);
+			} catch (IllegalMapChangeException e) {
+			}
+			break;
+
+		case "Drunken":
+			try {
+				guard.drunkenMove(map);
+			} catch (IllegalMapChangeException e) {
+			}
+			break;
+
+		case "Suspicious":
+			try {
+				guard.suspiciousMove(map);
+			} catch (IllegalMapChangeException e) {
+			}
+			break;
+		}
+	}
+	
 	@Override
 	public String getLevelState() {
 		return levelState;
 	}
-
 	@Override
 	public Hero getHero() {
 		return hero;
@@ -168,7 +157,6 @@ public class GuardLevel implements LevelLogic, Serializable{
 	public Club getClub() {
 		return null;
 	}
-
 	@Override
 	public String getLevelType() {
 		return "Guard";

@@ -10,17 +10,17 @@ public class Game implements Serializable {
 	int numberOfOgres;
 	LevelLogic currentLevel;
 	
-	public Game(int numbrOfOgrs, String gamStat, Map mp, LevelLogic currntLvl) {
+	public Game(int numbrOfOgrs, String gamStat, Map map, LevelLogic currentLevel) {
 		numberOfOgres = numbrOfOgrs;
-		map = mp;
-		currentLevel = currntLvl;
+		this.map = map;
+		this.currentLevel = currentLevel;
 	}
 			
-	public Game(char[][] custommap) {
+	public Game(char[][] customMap) {
 		
 		//1. Map must be set to the custom made map.
 		map = new Map(0);
-		map.setCustomMapTo(custommap);
+		map.setCustomMapTo(customMap);
 		map.setMap(3);
 		
 		//2. Must create Hero and Ogres depending on the edited map, also must find key.
@@ -44,9 +44,7 @@ public class Game implements Serializable {
 		
 		ArrayList <Ogre> ogres = new ArrayList <Ogre> ();
 		ArrayList <Club> clubs = new ArrayList <Club> ();
-		
-//		int ogreindex = 0;
-		
+				
 		for(int i = 0; i < map.getMatrix().length; i++) {
 			for(int j = 0; j < map.getMatrix()[i].length; j++) {
 				if(map.getMatrix()[i][j] == 'O') {
@@ -55,9 +53,7 @@ public class Game implements Serializable {
 				}
 			}
 		}
-				
-		int clubindex = 0;
-		
+						
 		for(int i = 0; i < map.getMatrix().length; i++) {
 			for(int j = 0; j < map.getMatrix()[i].length; j++) {
 				if(map.getMatrix()[i][j] == '*') {
@@ -71,7 +67,6 @@ public class Game implements Serializable {
 	
 	public Game(int numberOfOgres, String guardPersonality) {
 		
-
 		map = new Map(0);
 		int [] keyCoords = new int [2];
 		keyCoords [0] = 7;

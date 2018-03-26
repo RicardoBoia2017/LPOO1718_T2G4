@@ -331,7 +331,7 @@ public class TestDungeonGameLogic {
 	//TASK 3
 	
 	@Test(timeout=1000)
-	public void testSomeRandomBehaviour() {
+	public void testOgreRandomBehaviour() {
 		
 		Game game = new Game(1);
 		char [][] map;
@@ -391,7 +391,7 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test(timeout=3000)
-	public void testSomeClubBehaviour() {
+	public void testClubRandomBehaviour() {
 		Game game = new Game(1);
 		char [][] map;
 		Map newmap = new Map(0);
