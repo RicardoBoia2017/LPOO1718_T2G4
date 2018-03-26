@@ -383,15 +383,31 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	 * NEW GAME BUTTON
 	 */
 	private void jButton1ActionPerformed(ActionEvent evt) {
-		// to make a new game we need to know the number of ogres and
-		// guardPersonaility
-
-		// guard personality has already been selected in the combobox (by
-		// omittion it will be rookie)
-
-		// as for number of ogres?
 		
-	if(editor != null && editor.getValidMap()) {
+		JOptionPane popup = new JOptionPane();
+		
+		String answer = JOptionPane.showInputDialog("Default map or custom map? (type custom or default)");
+		
+		if(answer == null) {
+			return;
+		}
+		
+		boolean normalmap = true;
+		
+		if(answer.equals("custom")) {
+			normalmap = false;
+		} 
+		
+		else if(answer.equals("default")) {
+			normalmap = true;
+		}
+		
+		else {
+			popup.showMessageDialog(this, "Invalid, please type custom or default.");
+			return;
+		}
+		
+	if(editor != null && editor.getValidMap() && normalmap == false) {
 		//in this case it will run the custom map !IF IT IS VALID!
 			
 		game = new Game(editor.getCustomMap().getMatrix());
@@ -405,7 +421,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	} 
 
 	else {
-		//in this case it will run default maps
+		
+		if(normalmap == false) {
+			popup.showMessageDialog(this, "The editor had no valid custom map made, so we're running default.");
+		}
 		
 		if (nOgresBox.getValue() != null) {
 			// if the text field is empty, it will by omission be 1 ogre
@@ -570,6 +589,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		String path = JOptionPane.showInputDialog("Enter a file");
 		
+		if(path == null) {
+			return;
+		}
+		
 		File savefile = new File(path);
 		
 		if(!savefile.exists()) {
@@ -610,6 +633,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		boolean success = true;
 		
 		String path = JOptionPane.showInputDialog("Enter a file");
+		
+		if(path == null) {
+			return;
+		}
 		
 		Game savedGame;
 		Map savedMap = null;
