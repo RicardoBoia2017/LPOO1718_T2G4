@@ -114,12 +114,20 @@ public class OptionsFrame extends JFrame{
 	public void createMenu() {
         menu = new JPopupMenu("Menu");
         
+        JOptionPane popup = new JOptionPane();
+        
         ActionListener menuListener = new ActionListener() {
         	  public void actionPerformed(ActionEvent event) {
         		  menuselection = ((JMenuItem) event.getSource()).getText();
         		  
                   if(menuselection != null) {
-  						map.getMap().updateMap(mousecoordY, mousecoordX, selectionToId(menuselection));
+                	  	
+                	    if((mousecoordY == 0 || mousecoordY == height-1 || mousecoordX == 0 || mousecoordX == width-1) && (selectionToId(menuselection) != 'I') && selectionToId(menuselection) != 'X'){
+                	  		popup.showMessageDialog(frame, "You cannot place anything but doors in here, also you cannot erase.");
+                	  		return;
+                	  	}
+  						
+                	  	map.getMap().updateMap(mousecoordY, mousecoordX, selectionToId(menuselection));
                   }
                     
                     map.paint(map.getGraphics());
