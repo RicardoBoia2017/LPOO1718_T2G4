@@ -139,38 +139,38 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 
 		// KEY LISTENER
-		gameScreen.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-
-				case KeyEvent.VK_LEFT:
-					moveLeftButton.doClick();
-					break;
-
-				case KeyEvent.VK_RIGHT:
-					moveRightButton.doClick();
-					break;
-
-				case KeyEvent.VK_UP:
-					moveUpButton.doClick();
-					break;
-
-				case KeyEvent.VK_DOWN:
-					moveDownButton.doClick();
-					break;
-				}
-			}
-		});
+//		gameScreen.addKeyListener(new KeyListener() {
+//
+//			@Override
+//			public void keyTyped(KeyEvent e) {
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent e) {
+//			}
+//
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				switch (e.getKeyCode()) {
+//
+//				case KeyEvent.VK_LEFT:
+//					moveLeftButton.doClick();
+//					break;
+//
+//				case KeyEvent.VK_RIGHT:
+//					moveRightButton.doClick();
+//					break;
+//
+//				case KeyEvent.VK_UP:
+//					moveUpButton.doClick();
+//					break;
+//
+//				case KeyEvent.VK_DOWN:
+//					moveDownButton.doClick();
+//					break;
+//				}
+//			}
+//		});
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setPreferredSize(new java.awt.Dimension(600, 550));
@@ -242,25 +242,27 @@ public class KeepMainFrame extends javax.swing.JFrame {
 //			}
 //		});
 		
-		loadGameButton.setText("Load Game");
-		loadGameButton.setToolTipText("");
-		loadGameButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				loadGameActionPerformed(evt);
-			}
-		});
+//		loadGameButton.setText("Load Game");
+//		loadGameButton.setToolTipText("");
+//		loadGameButton.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				loadGameActionPerformed(evt);
+//			}
+//		});
 
 //		gameStatusLabel.setText("<Game status goes here>");
 //		gameStatusLabel.setToolTipText("");
 
-		createNewMap = new JButton();
-		createNewMap.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				CreateNewMapActionPerformed(evt);
-			}
-		});
-		createNewMap.setToolTipText("");
-		createNewMap.setText("Create New Map");
+		this.initcreateNewMapButton();
+		
+//		createNewMap = new JButton();
+//		createNewMap.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent evt) {
+//				CreateNewMapActionPerformed(evt);
+//			}
+//		});
+//		createNewMap.setToolTipText("");
+//		createNewMap.setText("Create New Map");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		layout.setHorizontalGroup(
@@ -349,13 +351,13 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		);
 		
 		
-		saveGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		saveGameButton.setBounds(400, 350, 166, 56);
-		saveGameButton.setEnabled(false);
+//		saveGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//		saveGameButton.setBounds(400, 350, 166, 56);
+//		saveGameButton.setEnabled(false);
 		getContentPane().add(saveGameButton);
 		
-		loadGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		loadGameButton.setBounds(400, 420, 166, 46);
+//		loadGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//		loadGameButton.setBounds(400, 420, 166, 46);
 		getContentPane().add(loadGameButton);
 		
 		getContentPane().setLayout(layout);
@@ -484,6 +486,39 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	{
 		gameScreen = new SimpleGraphicsPanel();
 		gameScreen.setFocusable(true);
+		
+		gameScreen.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch (e.getKeyCode()) {
+
+				case KeyEvent.VK_LEFT:
+					moveLeftButton.doClick();
+					break;
+
+				case KeyEvent.VK_RIGHT:
+					moveRightButton.doClick();
+					break;
+
+				case KeyEvent.VK_UP:
+					moveUpButton.doClick();
+					break;
+
+				case KeyEvent.VK_DOWN:
+					moveDownButton.doClick();
+					break;
+				}
+			}
+		});
 	}
 	
 	private void initsaveGameButton()
@@ -496,6 +531,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 				saveGameActionPerformed(evt);
 			}
 		});
+	
+		saveGameButton.setBounds(400, 350, 166, 56);
+		saveGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		saveGameButton.setEnabled(false);
 	}
 	
 	private void initloadGameButton()
@@ -508,6 +547,21 @@ public class KeepMainFrame extends javax.swing.JFrame {
 				loadGameActionPerformed(evt);
 			}
 		});
+	
+		loadGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		loadGameButton.setBounds(400, 420, 166, 46);
+	}
+	
+	private void initcreateNewMapButton()
+	{
+		createNewMap = new JButton();
+		createNewMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				CreateNewMapActionPerformed(evt);
+			}
+		});
+		createNewMap.setToolTipText("");
+		createNewMap.setText("Create New Map");
 	}
 	
 	/*
