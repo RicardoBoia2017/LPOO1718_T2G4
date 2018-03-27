@@ -112,6 +112,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 				gameScreen.requestFocusInWindow();
 			}
 		});
+		
 
 		// KEY LISTENER
 		gameScreen.addKeyListener(new KeyListener() {
@@ -409,15 +410,95 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 	if(editor != null && editor.getValidMap() && normalmap == false) {
 		//in this case it will run the custom map !IF IT IS VALID!
-			
-		game = new Game(editor.getCustomMap().getMatrix());
-				
-		gameScreen.setMap(editor.getCustomMap());
-		gameScreen.paint(gameScreen.getGraphics());
 		
-		gameScreen.requestFocusInWindow();
-				
-		customMapMade = false;
+		File savefile = new File("save");
+		
+		if(customMapMade == false) {
+			
+			game = new Game(editor.getCustomMap().getMatrix());
+					
+			gameScreen.setMap(editor.getCustomMap());
+			gameScreen.paint(gameScreen.getGraphics());
+			
+			gameScreen.requestFocusInWindow();
+			
+			if(!savefile.exists()) {
+				try {
+					savefile.createNewFile();
+				} catch (IOException e) {
+					System.out.println("There was a problem creating the file.");
+					e.printStackTrace();
+				}
+			}
+			
+			FileOutputStream file = null;
+		    ObjectOutputStream out = null;
+		    
+		    try {
+		    	file = new FileOutputStream(savefile,false);
+		    	OutputStream buffer = new BufferedOutputStream(file);
+		    	out = new ObjectOutputStream(buffer);
+		    	out.writeObject(game);
+		    	out.flush();
+		    	out.close();
+		    	System.out.println("Current game saved");
+		    	
+		     } catch (FileNotFoundException e) {
+		    	   e.printStackTrace();
+		     } catch (IOException e) {
+		           e.printStackTrace();
+		     }
+		    
+		    customMapMade = true;
+		}
+		
+		Game savedGame;
+		Map savedMap = null;
+		LevelLogic savedLogic = null;
+		int numOgres = 0;
+		String gamestate = "";
+
+        FileInputStream file;
+        
+       try {
+           file = new FileInputStream("save");
+           InputStream buffer = new BufferedInputStream(file);
+           ObjectInput input = new ObjectInputStream (buffer);
+          
+           savedGame = (Game)input.readObject();
+           savedMap = savedGame.getMap();
+           savedLogic = savedGame.getLevelLogic();
+           numOgres = savedGame.getNumberOfOgres();
+           gamestate = savedGame.getLevelLogic().getLevelState();
+           
+           input.close();
+           
+           System.out.println("Loaded game");
+       } catch (FileNotFoundException e) {
+    	   e.printStackTrace();
+       } catch (IOException e) {
+           e.printStackTrace();
+       } catch (ClassNotFoundException e) {
+           e.printStackTrace();
+       }
+       
+       Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
+       
+       game = toRun;
+       
+       gameScreen.setMap(game.getMap());
+       gameScreen.paint(gameScreen.getGraphics());
+       gameScreen.requestFocusInWindow();
+       
+       newgamestarted = true;
+       
+       moveLeft.setEnabled(true);
+       moveRight.setEnabled(true);
+       moveUp.setEnabled(true);
+       moveDown.setEnabled(true);
+       saveGame.setEnabled(true);
+       
+       jLabel1.setText("The game is running.");
 	} 
 
 	else {
@@ -610,7 +691,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	    try {
 	    	file = new FileOutputStream(savefile,false);
 	    	OutputStream buffer = new BufferedOutputStream(file);
-	    	out = new ObjectOutputStream(file);
+	    	out = new ObjectOutputStream(buffer);
 	    	out.writeObject(game);
 	    	out.flush();
 	    	out.close();
@@ -697,6 +778,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private void CreateNewMapActionPerformed (ActionEvent evt)
 	{
 		editor = new OptionsFrame();
+		customMapMade = false;
 	}
 	
 	/**
