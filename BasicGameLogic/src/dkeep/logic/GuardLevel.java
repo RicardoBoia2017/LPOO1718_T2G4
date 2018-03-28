@@ -6,16 +6,15 @@ public class GuardLevel implements LevelLogic, Serializable{
 
 	Hero hero;
 	Guard guard;
-	int keyCoordX;
-	int keyCoordY;
+	int []keyCoords = new int[2];
 	String levelState;
 	
 	public GuardLevel(String guardPersonality)
 	{
 		hero = new Hero(1,1);
 		guard = new Guard (8,1,guardPersonality);
-		keyCoordX = 7;
-		keyCoordY = 8;	
+		keyCoords[0] = 7;
+		keyCoords[1] = 8;	
 		levelState = "Running";
 	}
 	
@@ -23,8 +22,8 @@ public class GuardLevel implements LevelLogic, Serializable{
 	{
 		this.hero = hero;
 		this.guard = guard;
-		this.keyCoordX = keyCoords[0];
-		this.keyCoordY = keyCoords[1];
+		this.keyCoords[0] = keyCoords[0];
+		this.keyCoords[1] = keyCoords[1];
 		levelState = "Running";
 	}
 	
@@ -35,7 +34,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 
 		// hero phase
 		try {
-			heroMovementReturn = hero.move(map, heroMovement, 1);
+			heroMovementReturn = hero.move(map, heroMovement, getLevelType());
 		}
 
 		catch (IllegalMapChangeException e) {
@@ -96,8 +95,8 @@ public class GuardLevel implements LevelLogic, Serializable{
 
 	public void manageLeverVisibility (Map map)
 	{
-		if (map.getMatrix()[keyCoordY][keyCoordX] == ' ') {
-			map.updateMap(keyCoordY, keyCoordX, 'k');
+		if (map.getMatrix()[keyCoords[1]][keyCoords[0]] == ' ') {
+			map.updateMap(keyCoords[1], keyCoords[0], 'k');
 		}
 	}
 	
@@ -138,11 +137,11 @@ public class GuardLevel implements LevelLogic, Serializable{
 	}
 	@Override
 	public int getKeyCoordX() {
-		return keyCoordX;
+		return keyCoords[0];
 	}
 	@Override
 	public int getKeyCoordY() {
-		return keyCoordY;
+		return keyCoords[1];
 	}
 	@Override
 	public Guard getGuard() {

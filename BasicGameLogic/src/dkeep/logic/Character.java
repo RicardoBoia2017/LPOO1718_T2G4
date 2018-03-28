@@ -17,8 +17,8 @@ public class Character implements Serializable {
 		//abstract movement method
 	}
 	
-	public int getcoordX() {return coordX;};
-	public int getcoordY() {return coordY;};
+	public int getCoordX() {return coordX;};
+	public int getCoordY() {return coordY;};
 	public int getID() {return id;};
 	public void setcoordX(int x) {coordX = x;};
 	public void setcoordY(int y) {coordY = y;};

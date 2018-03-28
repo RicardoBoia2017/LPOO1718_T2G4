@@ -79,8 +79,8 @@ public class TestDungeonGameLogic {
 		assertEquals(2, game.getLevelLogic().getHero().getCoordX());
 		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
 		
-		assertEquals(3, game.getLevelLogic().getGuard().getcoordX());
-		assertEquals(1, game.getLevelLogic().getGuard().getcoordY());
+		assertEquals(3, game.getLevelLogic().getGuard().getCoordX());
+		assertEquals(1, game.getLevelLogic().getGuard().getCoordY());
 		
 		assertEquals("Over", game.getLevelLogic().getLevelState());
 	}
@@ -355,32 +355,32 @@ public class TestDungeonGameLogic {
 		while(!outcome1 || !outcome2 || !outcome3 || !outcome4) {
 			//Hero moves into a wall for the time being
 			
-			int coordX = game.getLevelLogic().getOgre().getcoordX();
-			int coordY = game.getLevelLogic().getOgre().getcoordY();
+			int coordX = game.getLevelLogic().getOgre().getCoordX();
+			int coordY = game.getLevelLogic().getOgre().getCoordY();
 			
 			game.updateGame('s');
 			
 			if(game.getLevelLogic().getOgre().getRand() == 0) {
-				assertEquals(coordX - 1 , game.getLevelLogic().getOgre().getcoordX());
-				assertEquals(coordY, game.getLevelLogic().getOgre().getcoordY());
+				assertEquals(coordX - 1 , game.getLevelLogic().getOgre().getCoordX());
+				assertEquals(coordY, game.getLevelLogic().getOgre().getCoordY());
 				outcome1 = true;
 			}
 			
 			else if(game.getLevelLogic().getOgre().getRand() == 1) {
-				assertEquals(coordX + 1, game.getLevelLogic().getOgre().getcoordX());
-				assertEquals(coordY, game.getLevelLogic().getOgre().getcoordY());
+				assertEquals(coordX + 1, game.getLevelLogic().getOgre().getCoordX());
+				assertEquals(coordY, game.getLevelLogic().getOgre().getCoordY());
 				outcome2 = true;
 			}
 			
 			else if(game.getLevelLogic().getOgre().getRand() == 3) {
-				assertEquals(coordX, game.getLevelLogic().getOgre().getcoordX());
-				assertEquals(coordY-1, game.getLevelLogic().getOgre().getcoordY());
+				assertEquals(coordX, game.getLevelLogic().getOgre().getCoordX());
+				assertEquals(coordY-1, game.getLevelLogic().getOgre().getCoordY());
 				outcome3 = true;
 			}
 			
 			else if(game.getLevelLogic().getOgre().getRand() == 2) {
-				assertEquals(coordX, game.getLevelLogic().getOgre().getcoordX());
-				assertEquals(coordY + 1, game.getLevelLogic().getOgre().getcoordY());
+				assertEquals(coordX, game.getLevelLogic().getOgre().getCoordX());
+				assertEquals(coordY + 1, game.getLevelLogic().getOgre().getCoordY());
 				outcome4 = true;
 			}
 			
@@ -433,29 +433,29 @@ public class TestDungeonGameLogic {
 			
 			//left
 			if(game.getLevelLogic().getClub().getRand() == 0) {
-				assertEquals(3, game.getLevelLogic().getClub().getcoordX());
-				assertEquals(2, game.getLevelLogic().getClub().getcoordY());
+				assertEquals(3, game.getLevelLogic().getClub().getCoordX());
+				assertEquals(2, game.getLevelLogic().getClub().getCoordY());
 				outcome1 = true;
 			}
 			
 			//right
 			else if(game.getLevelLogic().getClub().getRand() == 1) {
-				assertEquals(5, game.getLevelLogic().getClub().getcoordX());
-				assertEquals(2, game.getLevelLogic().getClub().getcoordY());
+				assertEquals(5, game.getLevelLogic().getClub().getCoordX());
+				assertEquals(2, game.getLevelLogic().getClub().getCoordY());
 				outcome2 = true;
 			}
 			
 			//up
 			else if(game.getLevelLogic().getClub().getRand() == 3) {
-				assertEquals(4, game.getLevelLogic().getClub().getcoordX());
-				assertEquals(1, game.getLevelLogic().getClub().getcoordY());
+				assertEquals(4, game.getLevelLogic().getClub().getCoordX());
+				assertEquals(1, game.getLevelLogic().getClub().getCoordY());
 				outcome3 = true;
 			}
 			
 			//down
 			else if(game.getLevelLogic().getClub().getRand() == 2) {
-				assertEquals(4, game.getLevelLogic().getClub().getcoordX());
-				assertEquals(3, game.getLevelLogic().getClub().getcoordY());
+				assertEquals(4, game.getLevelLogic().getClub().getCoordX());
+				assertEquals(3, game.getLevelLogic().getClub().getCoordY());
 				outcome4 = true;
 			}
 			
@@ -505,8 +505,8 @@ public class TestDungeonGameLogic {
 			 
 			//left
 			if(game.getLevelLogic().getClub().getRand() == 0) {
-				assertEquals(5, game.getLevelLogic().getClub().getcoordX());
-				assertEquals(1, game.getLevelLogic().getClub().getcoordY());
+				assertEquals(5, game.getLevelLogic().getClub().getCoordX());
+				assertEquals(1, game.getLevelLogic().getClub().getCoordY());
 				assertEquals('*', game.getLevelLogic().getClub().getID());
 				assertEquals ('k', map.getMatrix()[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome1 = true;
@@ -514,8 +514,8 @@ public class TestDungeonGameLogic {
 			
 			//right
 			else if(game.getLevelLogic().getClub().getRand() == 1) {
-				assertEquals(7, game.getLevelLogic().getClub().getcoordX());
-				assertEquals(1, game.getLevelLogic().getClub().getcoordY());
+				assertEquals(7, game.getLevelLogic().getClub().getCoordX());
+				assertEquals(1, game.getLevelLogic().getClub().getCoordY());
 				assertEquals('$', game.getLevelLogic().getClub().getID());
 				assertEquals ('$', map.getMatrix()[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome2 = true;
@@ -523,8 +523,8 @@ public class TestDungeonGameLogic {
 			
 			//down
 			else if(game.getLevelLogic().getClub().getRand() == 2) {
-				assertEquals(6, game.getLevelLogic().getClub().getcoordX());
-				assertEquals(2, game.getLevelLogic().getClub().getcoordY());
+				assertEquals(6, game.getLevelLogic().getClub().getCoordX());
+				assertEquals(2, game.getLevelLogic().getClub().getCoordY());
 				assertEquals('*', game.getLevelLogic().getClub().getID());
 				assertEquals ('k', map.getMatrix()[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
 				outcome3 = true;
