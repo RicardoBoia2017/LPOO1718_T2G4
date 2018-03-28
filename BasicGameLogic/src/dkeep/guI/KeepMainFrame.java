@@ -75,194 +75,19 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">
 	private void initComponents() {
 
-		// formating the textfield for integer number of ogres
-//		NumberFormat format = NumberFormat.getInstance();
-//		NumberFormatter formatter = new NumberFormatter(format);
-//		formatter.setValueClass(Integer.class);
-//		formatter.setMinimum(1);
-//		formatter.setMaximum(5);
-//		formatter.setAllowsInvalid(false);
-		
-		//the editor will only be properly initialized once the create new map button is pressed
-		editor = null;
-		
-//		numberOfOgresLabel = new java.awt.Label();
-		initNumberOfOgresLabel();
-//		numberOfOgresBox = new JFormattedTextField(formatter);
-		initNumberOfOgresBox();
-//		guardPersonalityLabel = new java.awt.Label();
-		initguardPersonalityLabel();
-//		guardPersonalityBox = new javax.swing.JComboBox<>();
-		initguardPersonalityBox();
-		
-//		newGameButton = new javax.swing.JButton();
-		initnewGameButton();
-		
-//		moveLeftButton = new javax.swing.JButton();
-		initmoveLeftButton ();
-		
-//		moveUpButton = new javax.swing.JButton();
-		initmoveUpButton();
-		
-//		moveRightButton = new javax.swing.JButton();
-		initmoveRightButton();
-		
-//		moveDownButton = new javax.swing.JButton();
-		initmoveDownButton();
-		
-//		exitGameButton = new javax.swing.JButton();
-		initexitGameButton();
-		
-//		gameStatusLabelButton = new javax.swing.JLabel();
-		initgameStateLabel ();
-		
-//		gameScreenButton = new SimpleGraphicsPanel();
-		initgameScreen ();
-		
-//		saveGameButton = new javax.swing.JButton();
-		initsaveGameButton ();
-		
-//		loadGameButton = new javax.swing.JButton();
-		initloadGameButton ();
+		callInitFunctions();
 
-//		gameScreen.setFocusable(true);
-
-		// (The key listener won't activate if the element isn't focused ..)
-
-		// MOUSE LISTENER FOR FOCUS
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				gameScreen.requestFocusInWindow();
 			}
 		});
-		
 
-		// KEY LISTENER
-//		gameScreen.addKeyListener(new KeyListener() {
-//
-//			@Override
-//			public void keyTyped(KeyEvent e) {
-//			}
-//
-//			@Override
-//			public void keyReleased(KeyEvent e) {
-//			}
-//
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				switch (e.getKeyCode()) {
-//
-//				case KeyEvent.VK_LEFT:
-//					moveLeftButton.doClick();
-//					break;
-//
-//				case KeyEvent.VK_RIGHT:
-//					moveRightButton.doClick();
-//					break;
-//
-//				case KeyEvent.VK_UP:
-//					moveUpButton.doClick();
-//					break;
-//
-//				case KeyEvent.VK_DOWN:
-//					moveDownButton.doClick();
-//					break;
-//				}
-//			}
-//		});
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setPreferredSize(new java.awt.Dimension(600, 550));
 
-//		numberOfOgresLabel.setText("Number of ogres:");
-
-//		numberOfOgresBox.setName(""); 
-//		numberOfOgresBox.setSelectionEnd(-1);
-
-//		guardPersonalityLabel.setText("Guard personality");
-
-//		guardPersonalityBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rookie", "Drunken", "Suspicious" }));
-//		guardPersonalityBox.setToolTipText("");
-//		guardPersonalityBox.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				jComboBox1ActionPerformed(evt);
-//			}
-//		});
-
-//		newGameButton.setText("New Game");
-//		newGameButton.setToolTipText("");
-//		newGameButton.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				jButton1ActionPerformed(evt);
-//			}
-//		});
-
-//		moveLeftButton.setText("Left");
-//		moveLeftButton.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				jButton2ActionPerformed(evt);
-//			}
-//		});
-
-//		moveUpButton.setText("Up");
-//		moveUpButton.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				jButton3ActionPerformed(evt);
-//			}
-//		});
-
-//		moveRightButton.setText("Right");
-//		moveRightButton.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				jButton4ActionPerformed(evt);
-//			}
-//		});
-
-//		moveDownButton.setText("Down");
-//		moveDownButton.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				jButton5ActionPerformed(evt);
-//			}
-//		});
-
-//		exitGameButton.setText("Exit Game");
-//		exitGameButton.setToolTipText("");
-//		exitGameButton.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				jButton6ActionPerformed(evt);
-//			}
-//		});
-		
-//		saveGameButton.setText("Save Game");
-//		saveGameButton.setToolTipText("");
-//		saveGameButton.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				saveGameActionPerformed(evt);
-//			}
-//		});
-		
-//		loadGameButton.setText("Load Game");
-//		loadGameButton.setToolTipText("");
-//		loadGameButton.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				loadGameActionPerformed(evt);
-//			}
-//		});
-
-//		gameStatusLabel.setText("<Game status goes here>");
-//		gameStatusLabel.setToolTipText("");
-
-		this.initcreateNewMapButton();
-		
-//		createNewMap = new JButton();
-//		createNewMap.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent evt) {
-//				CreateNewMapActionPerformed(evt);
-//			}
-//		});
-//		createNewMap.setToolTipText("");
-//		createNewMap.setText("Create New Map");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		layout.setHorizontalGroup(
@@ -351,13 +176,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		);
 		
 		
-//		saveGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		saveGameButton.setBounds(400, 350, 166, 56);
-//		saveGameButton.setEnabled(false);
 		getContentPane().add(saveGameButton);
-		
-//		loadGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		loadGameButton.setBounds(400, 420, 166, 46);
 		getContentPane().add(loadGameButton);
 		
 		getContentPane().setLayout(layout);
@@ -365,6 +184,28 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>
 
+	private void callInitFunctions()
+	{
+		editor = null;
+		
+		initNumberOfOgresLabel();
+		initNumberOfOgresBox();
+		initGuardPersonalityLabel();
+		initGuardPersonalityBox();
+		initNewGameButton();
+		initMoveLeftButton ();
+		initMoveUpButton();
+		initMoveRightButton();
+		initMoveDownButton();
+		initExitGameButton();
+		initGameStatusLabel ();
+		initGameScreen ();
+		initSaveGameButton ();
+		initLoadGameButton ();
+
+		initCreateNewMapButton();
+	}
+	
 	private void initNumberOfOgresLabel()
 	{
 		numberOfOgresLabel = new java.awt.Label();
@@ -387,13 +228,13 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		numberOfOgresBox.setSelectionEnd(-1);
 	}
 	
-	private void initguardPersonalityLabel ()
+	private void initGuardPersonalityLabel ()
 	{
 		guardPersonalityLabel = new java.awt.Label();
 		guardPersonalityLabel.setText("Guard personality");
 	}
 	
-	private void initguardPersonalityBox ()
+	private void initGuardPersonalityBox ()
 	{
 		guardPersonalityBox = new javax.swing.JComboBox<>();
 		
@@ -406,7 +247,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 	}
 	
-	private void initnewGameButton()
+	private void initNewGameButton()
 	{
 		newGameButton = new javax.swing.JButton();
 		newGameButton.setText("New Game");
@@ -418,10 +259,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});	
 	}
 
-	private void initmoveLeftButton ()
+	private void initMoveLeftButton ()
 	{
 		moveLeftButton = new javax.swing.JButton();
 		moveLeftButton.setText("Left");
+		moveLeftButton.setEnabled(false);
 		moveLeftButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton2ActionPerformed(evt);
@@ -429,10 +271,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 	}
 	
-	private void initmoveRightButton ()
+	private void initMoveRightButton ()
 	{
 		moveRightButton = new javax.swing.JButton();
 		moveRightButton.setText("Right");
+		moveRightButton.setEnabled(false);
 		moveRightButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton4ActionPerformed(evt);
@@ -440,10 +283,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 	}
 
-	private void initmoveUpButton ()
+	private void initMoveUpButton ()
 	{
 		moveUpButton = new javax.swing.JButton();
 		moveUpButton.setText("Up");
+		moveUpButton.setEnabled(false);
 		moveUpButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton3ActionPerformed(evt);
@@ -452,10 +296,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	}
 
-	private void initmoveDownButton ()
+	private void initMoveDownButton ()
 	{
 		moveDownButton = new javax.swing.JButton();
 		moveDownButton.setText("Down");
+		moveDownButton.setEnabled(false);
 		moveDownButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton5ActionPerformed(evt);
@@ -463,7 +308,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 	}
 
-	private void initexitGameButton ()
+	private void initExitGameButton ()
 	{
 		exitGameButton = new javax.swing.JButton();
 		exitGameButton.setText("Exit Game");
@@ -475,14 +320,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 	}
 	
-	private void initgameStateLabel()
+	private void initGameStatusLabel()
 	{
 		gameStatusLabel = new javax.swing.JLabel();
 		gameStatusLabel.setText("<Game status goes here>");
 		gameStatusLabel.setToolTipText("");
 	}
 	
-	private void initgameScreen()
+	private void initGameScreen()
 	{
 		gameScreen = new SimpleGraphicsPanel();
 		gameScreen.setFocusable(true);
@@ -521,7 +366,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 	}
 	
-	private void initsaveGameButton()
+	private void initSaveGameButton()
 	{
 		saveGameButton = new javax.swing.JButton();
 		saveGameButton.setText("Save Game");
@@ -537,7 +382,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		saveGameButton.setEnabled(false);
 	}
 	
-	private void initloadGameButton()
+	private void initLoadGameButton()
 	{
 		loadGameButton = new javax.swing.JButton();
 		loadGameButton.setText("Load Game");
@@ -552,7 +397,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		loadGameButton.setBounds(400, 420, 166, 46);
 	}
 	
-	private void initcreateNewMapButton()
+	private void initCreateNewMapButton()
 	{
 		createNewMap = new JButton();
 		createNewMap.addActionListener(new ActionListener() {
