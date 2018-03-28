@@ -178,7 +178,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		getContentPane().add(saveGameButton);
 		getContentPane().add(loadGameButton);
-		
 		getContentPane().setLayout(layout);
 
 		pack();
@@ -449,6 +448,103 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			guardPersonality = "Suspicious";
 		}
 	}
+	
+	private void saveFile(String path) {
+		JOptionPane popup = new JOptionPane();
+		
+		File savefile = new File(path);
+		
+		if(!savefile.exists()) {
+			try {
+				savefile.createNewFile();
+			} catch (IOException e) {
+				System.out.println("There was a problem creating the file.");
+				e.printStackTrace();
+			}
+		}
+		
+		FileOutputStream file = null;
+	    ObjectOutputStream out = null;
+	    
+	    try {
+	    	file = new FileOutputStream(savefile,false);
+	    	OutputStream buffer = new BufferedOutputStream(file);
+	    	out = new ObjectOutputStream(buffer);
+	    	out.writeObject(game);
+	    	out.flush();
+	    	out.close();
+	    	System.out.println("Current game saved in: "+path);
+	    	
+	     } catch (FileNotFoundException e) {
+	    	   popup.showMessageDialog(this, "The file you entered is invalid.");
+	    	   
+	    	   e.printStackTrace();
+	     } catch (IOException e) {
+	    	   popup.showMessageDialog(this, "Could not create file.");
+	           e.printStackTrace();
+	     }
+	}
+	
+	private void loadFile(String path) {
+		JOptionPane popup = new JOptionPane();
+		
+		Game savedGame;
+		Map savedMap = null;
+		LevelLogic savedLogic = null;
+		int numOgres = 0;
+		String gamestate = "";
+
+        FileInputStream file;
+        
+       try {  	   
+           file = new FileInputStream(path);
+           InputStream buffer = new BufferedInputStream(file);
+           ObjectInput input = new ObjectInputStream (buffer);
+          
+           savedGame = (Game)input.readObject();
+           savedMap = savedGame.getMap();
+           savedLogic = savedGame.getLevelLogic();
+           numOgres = savedGame.getNumberOfOgres();
+           gamestate = savedGame.getLevelLogic().getLevelState();
+           
+           input.close();
+           
+           System.out.println("Loaded game from: "+path);
+       } catch (FileNotFoundException e) {
+           popup.showMessageDialog(this, "The file you entered is invalid, select another one or cancel.");
+           e.printStackTrace();
+           gameScreen.requestFocusInWindow();
+           return;
+       } catch (IOException e) {
+    	   popup.showMessageDialog(this, "Could not create file.");
+           e.printStackTrace();
+       } catch (ClassNotFoundException e) {
+    	   popup.showMessageDialog(this, "Could not load the file's contents, it is corrupted or empty.");
+           e.printStackTrace();
+       }
+       
+       Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
+       
+       game = toRun;
+       
+       gameScreen.setMap(game.getMap());
+       gameScreen.paint(gameScreen.getGraphics());
+       gameScreen.requestFocusInWindow();
+       
+       startNewGame();
+	}
+	
+	private void startNewGame() {
+	       newgamestarted = true;
+	       
+	       moveLeftButton.setEnabled(true);
+	       moveRightButton.setEnabled(true);
+	       moveUpButton.setEnabled(true);
+	       moveDownButton.setEnabled(true);
+	       saveGameButton.setEnabled(true);
+	       
+	       gameStatusLabel.setText("The game is running.");
+	}
 
 	/*
 	 * NEW GAME BUTTON
@@ -481,8 +577,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	if(editor != null && editor.getValidMap() && normalmap == false) {
 		//in this case it will run the custom map !IF IT IS VALID!
 		
-		File savefile = new File("save");
-		
 		if(customMapMade == false) {
 			
 			game = new Game(editor.getCustomMap().getMatrix());
@@ -491,84 +585,13 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			gameScreen.paint(gameScreen.getGraphics());
 			
 			gameScreen.requestFocusInWindow();
-			
-			if(!savefile.exists()) {
-				try {
-					savefile.createNewFile();
-				} catch (IOException e) {
-					System.out.println("There was a problem creating the file.");
-					e.printStackTrace();
-				}
-			}
-			
-			FileOutputStream file = null;
-		    ObjectOutputStream out = null;
 		    
-		    try {
-		    	file = new FileOutputStream(savefile,false);
-		    	OutputStream buffer = new BufferedOutputStream(file);
-		    	out = new ObjectOutputStream(buffer);
-		    	out.writeObject(game);
-		    	out.flush();
-		    	out.close();
-		    	System.out.println("Current game saved");
-		    	
-		     } catch (FileNotFoundException e) {
-		    	   e.printStackTrace();
-		     } catch (IOException e) {
-		           e.printStackTrace();
-		     }
-		    
+			saveFile("save");
+			
 		    customMapMade = true;
 		}
 		
-		Game savedGame;
-		Map savedMap = null;
-		LevelLogic savedLogic = null;
-		int numOgres = 0;
-		String gamestate = "";
-
-        FileInputStream file;
-        
-       try {
-           file = new FileInputStream("save");
-           InputStream buffer = new BufferedInputStream(file);
-           ObjectInput input = new ObjectInputStream (buffer);
-          
-           savedGame = (Game)input.readObject();
-           savedMap = savedGame.getMap();
-           savedLogic = savedGame.getLevelLogic();
-           numOgres = savedGame.getNumberOfOgres();
-           gamestate = savedGame.getLevelLogic().getLevelState();
-           
-           input.close();
-           
-           System.out.println("Loaded game");
-       } catch (FileNotFoundException e) {
-    	   e.printStackTrace();
-       } catch (IOException e) {
-           e.printStackTrace();
-       } catch (ClassNotFoundException e) {
-           e.printStackTrace();
-       }
-       
-       Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
-       
-       game = toRun;
-       
-       gameScreen.setMap(game.getMap());
-       gameScreen.paint(gameScreen.getGraphics());
-       gameScreen.requestFocusInWindow();
-       
-       newgamestarted = true;
-       
-       moveLeftButton.setEnabled(true);
-       moveRightButton.setEnabled(true);
-       moveUpButton.setEnabled(true);
-       moveDownButton.setEnabled(true);
-       saveGameButton.setEnabled(true);
-       
-       gameStatusLabel.setText("The game is running.");
+       loadFile("save");
 	} 
 
 	else {
@@ -597,17 +620,16 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		gameScreen.paint(gameScreen.getGraphics());
 		gameScreen.requestFocusInWindow();
 	}
-		
-		newgamestarted = true;
-
-		// reactivate the buttons just in case they were shutdown previously
-		moveLeftButton.setEnabled(true);
-		moveRightButton.setEnabled(true);
-		moveUpButton.setEnabled(true);
-		moveDownButton.setEnabled(true);
-		saveGameButton.setEnabled(true);
-
-		gameStatusLabel.setText("The game is running.");
+	
+	startNewGame();
+	
+	}
+	
+	private void turnOffButtons() {
+		moveLeftButton.setEnabled(false);
+		moveRightButton.setEnabled(false);
+		moveUpButton.setEnabled(false);
+		moveDownButton.setEnabled(false);
 	}
 
 	/*
@@ -625,19 +647,15 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		if (game.getLevelLogic().getLevelState().equals("Over")) {
 			gameStatusLabel.setText("The game is over.");
-			moveLeftButton.setEnabled(false);
-			moveRightButton.setEnabled(false);
-			moveUpButton.setEnabled(false);
-			moveDownButton.setEnabled(false);
+			turnOffButtons();
 		}
 		
 		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			gameStatusLabel.setText("You win!");
-			moveLeftButton.setEnabled(false);
-			moveRightButton.setEnabled(false);
-			moveUpButton.setEnabled(false);
-			moveDownButton.setEnabled(false);
+			turnOffButtons();
 		}
+		
+		gameScreen.requestFocusInWindow();
 	}
 
 	/*
@@ -654,19 +672,15 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		if (game.getLevelLogic().getLevelState().equals("Over")) {
 			gameStatusLabel.setText("The game is over.");
-			moveLeftButton.setEnabled(false);
-			moveRightButton.setEnabled(false);
-			moveUpButton.setEnabled(false);
-			moveDownButton.setEnabled(false);
+			turnOffButtons();
 		}
 		
 		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			gameStatusLabel.setText("You win!");
-			moveLeftButton.setEnabled(false);
-			moveRightButton.setEnabled(false);
-			moveUpButton.setEnabled(false);
-			moveDownButton.setEnabled(false);
+			turnOffButtons();
 		}
+		
+		gameScreen.requestFocusInWindow();
 	}
 
 	/*
@@ -683,19 +697,15 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		if (game.getLevelLogic().getLevelState().equals("Over")) {
 			gameStatusLabel.setText("The game is over.");
-			moveLeftButton.setEnabled(false);
-			moveRightButton.setEnabled(false);
-			moveUpButton.setEnabled(false);
-			moveDownButton.setEnabled(false);
+			turnOffButtons();
 		}
 		
 		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			gameStatusLabel.setText("You win!");
-			moveLeftButton.setEnabled(false);
-			moveRightButton.setEnabled(false);
-			moveUpButton.setEnabled(false);
-			moveDownButton.setEnabled(false);
+			turnOffButtons();
 		}
+		
+		gameScreen.requestFocusInWindow();
 	}
 
 	/*
@@ -712,19 +722,15 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		if (game.getLevelLogic().getLevelState().equals("Over")) {
 			gameStatusLabel.setText("The game is over.");
-			moveLeftButton.setEnabled(false);
-			moveRightButton.setEnabled(false);
-			moveUpButton.setEnabled(false);
-			moveDownButton.setEnabled(false);
+			turnOffButtons();
 		}
 		
 		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			gameStatusLabel.setText("You win!");
-			moveLeftButton.setEnabled(false);
-			moveRightButton.setEnabled(false);
-			moveUpButton.setEnabled(false);
-			moveDownButton.setEnabled(false);
+			turnOffButtons();
 		}
+		
+		gameScreen.requestFocusInWindow();
 	}
 
 	//EXIT GAME
@@ -744,36 +750,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			return;
 		}
 		
-		File savefile = new File(path);
+		saveFile(path);
 		
-		if(!savefile.exists()) {
-			try {
-				savefile.createNewFile();
-			} catch (IOException e) {
-				System.out.println("There was a problem creating the file.");
-				e.printStackTrace();
-			}
-		}
-		
-		FileOutputStream file = null;
-	    ObjectOutputStream out = null;
-	    
-	    try {
-	    	file = new FileOutputStream(savefile,false);
-	    	OutputStream buffer = new BufferedOutputStream(file);
-	    	out = new ObjectOutputStream(buffer);
-	    	out.writeObject(game);
-	    	out.flush();
-	    	out.close();
-	    	System.out.println("Current game saved in: "+path);
-	    	
-	     } catch (FileNotFoundException e) {
-	           popup.showMessageDialog(this, "The file you entered is invalid.");
-	    	   e.printStackTrace();
-	     } catch (IOException e) {
-	           e.printStackTrace();
-	     }
-	    
 	    gameScreen.requestFocusInWindow();
 	}
 	
@@ -789,59 +767,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			return;
 		}
 		
-		Game savedGame;
-		Map savedMap = null;
-		LevelLogic savedLogic = null;
-		int numOgres = 0;
-		String gamestate = "";
-
-        FileInputStream file;
-        
-       try {
-           file = new FileInputStream(path);
-           InputStream buffer = new BufferedInputStream(file);
-           ObjectInput input = new ObjectInputStream (buffer);
-          
-           savedGame = (Game)input.readObject();
-           savedMap = savedGame.getMap();
-           savedLogic = savedGame.getLevelLogic();
-           numOgres = savedGame.getNumberOfOgres();
-           gamestate = savedGame.getLevelLogic().getLevelState();
-           
-           input.close();
-           
-           System.out.println("Loaded game saved in: "+path);
-       } catch (FileNotFoundException e) {
-           popup.showMessageDialog(this, "The file you entered is invalid, select another one or cancel.");
-           success = false;
-    	   e.printStackTrace();
-       } catch (IOException e) {
-           e.printStackTrace();
-       } catch (ClassNotFoundException e) {
-           e.printStackTrace();
-       }
-       
-       if(success == false) {
-    	   return;
-       }
-       
-       Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
-       
-       game = toRun;
-       
-       gameScreen.setMap(game.getMap());
-       gameScreen.paint(gameScreen.getGraphics());
-       gameScreen.requestFocusInWindow();
-       
-       newgamestarted = true;
-       
-       moveLeftButton.setEnabled(true);
-       moveRightButton.setEnabled(true);
-       moveUpButton.setEnabled(true);
-       moveDownButton.setEnabled(true);
-       saveGameButton.setEnabled(true);
-       
-       gameStatusLabel.setText("The game is running.");
+		loadFile(path);
 	}
 
 	//CREATE MAP
