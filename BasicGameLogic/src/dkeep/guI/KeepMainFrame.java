@@ -56,7 +56,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private Game game;
 
 	private boolean newgamestarted = false;
-	
+
 	private boolean customMapMade = false;
 
 	/**
@@ -84,160 +84,143 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			}
 		});
 
-
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setPreferredSize(new java.awt.Dimension(600, 550));
 
-
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(Alignment.LEADING)
+		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(1)
+						.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(357, Short.MAX_VALUE))
 				.addGroup(layout.createSequentialGroup()
-					.addGap(1)
-					.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(357, Short.MAX_VALUE))
-				.addGroup(layout.createSequentialGroup()
-					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(gameScreen, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE))
-						.addGroup(layout.createSequentialGroup()
-							.addGap(34)
-							.addComponent(guardPersonalityLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(guardPersonalityBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(layout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(gameStatusLabel)))
-					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup()
-							.addGap(24)
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addGroup(layout.createSequentialGroup()
-									.addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								layout.createParallelGroup(Alignment.LEADING)
+										.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(
+												gameScreen, GroupLayout.PREFERRED_SIZE, 340,
+												GroupLayout.PREFERRED_SIZE))
+										.addGroup(layout.createSequentialGroup().addGap(34)
+												.addComponent(guardPersonalityLabel, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(guardPersonalityBox, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(layout.createSequentialGroup().addContainerGap()
+												.addComponent(gameStatusLabel)))
+						.addGroup(
+								layout.createParallelGroup(Alignment.LEADING)
+										.addGroup(layout.createSequentialGroup().addGap(24).addGroup(layout
+												.createParallelGroup(Alignment.LEADING)
+												.addGroup(layout.createSequentialGroup()
+														.addGroup(layout.createParallelGroup(Alignment.LEADING)
+																.addGroup(layout.createSequentialGroup().addGap(24)
+																		.addComponent(moveDownButton))
+																.addGroup(layout.createSequentialGroup()
+																		.addComponent(moveLeftButton).addGap(18)
+																		.addComponent(moveRightButton)))
+														.addContainerGap(23, Short.MAX_VALUE))
+												.addGroup(layout.createSequentialGroup()
+														.addGap(30).addComponent(moveUpButton).addContainerGap(100,
+																Short.MAX_VALUE))
+												.addGroup(layout.createSequentialGroup().addGap(8)
+														.addComponent(newGameButton, GroupLayout.DEFAULT_SIZE, 173,
+																Short.MAX_VALUE)
+														.addGap(27))))
 										.addGroup(layout.createSequentialGroup()
-											.addGap(24)
-											.addComponent(moveDownButton))
-										.addGroup(layout.createSequentialGroup()
-											.addComponent(moveLeftButton)
-											.addGap(18)
-											.addComponent(moveRightButton)))
-									.addContainerGap(23, Short.MAX_VALUE))
-								.addGroup(layout.createSequentialGroup()
-									.addGap(30)
-									.addComponent(moveUpButton)
-									.addContainerGap(100, Short.MAX_VALUE))
-								.addGroup(layout.createSequentialGroup()
-									.addGap(8)
-									.addComponent(newGameButton, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-									.addGap(27))))
-						.addGroup(layout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(createNewMap, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-								.addComponent(exitGameButton, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
-							.addContainerGap())))
-		);
-		layout.setVerticalGroup(
-			layout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(layout.createSequentialGroup()
-					.addGap(22)
-					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(16)
-					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(layout.createParallelGroup(Alignment.LEADING)
+														.addComponent(createNewMap, GroupLayout.DEFAULT_SIZE, 199,
+																Short.MAX_VALUE)
+														.addComponent(exitGameButton, GroupLayout.DEFAULT_SIZE, 199,
+																Short.MAX_VALUE))
+												.addContainerGap()))));
+		layout.setVerticalGroup(layout.createParallelGroup(Alignment.TRAILING).addGroup(layout.createSequentialGroup()
+				.addGap(22)
+				.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+				.addGap(16)
+				.addGroup(layout.createParallelGroup(Alignment.LEADING)
 						.addComponent(guardPersonalityLabel, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-						.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(newGameButton)
-							.addComponent(guardPersonalityBox, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup()
-							.addComponent(createNewMap)
-							.addGap(54)
-							.addComponent(moveUpButton)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(moveLeftButton)
-								.addComponent(moveRightButton))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(moveDownButton))
+						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(newGameButton)
+								.addComponent(guardPersonalityBox, GroupLayout.PREFERRED_SIZE, 27,
+										GroupLayout.PREFERRED_SIZE)))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup().addComponent(createNewMap).addGap(54)
+								.addComponent(moveUpButton).addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(moveLeftButton)
+										.addComponent(moveRightButton))
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(moveDownButton))
 						.addComponent(gameScreen, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))
-					.addGap(56))
-				.addGroup(layout.createSequentialGroup()
-					.addContainerGap(438, Short.MAX_VALUE)
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(exitGameButton)
-						.addComponent(gameStatusLabel))
-					.addContainerGap())
-		);
-		
-		
+				.addGap(56))
+				.addGroup(layout.createSequentialGroup().addContainerGap(438, Short.MAX_VALUE)
+						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(exitGameButton)
+								.addComponent(gameStatusLabel))
+						.addContainerGap()));
+
 		getContentPane().add(saveGameButton);
 		getContentPane().add(loadGameButton);
+
 		getContentPane().setLayout(layout);
 
 		pack();
 	}// </editor-fold>
 
-	private void callInitFunctions()
-	{
+	private void callInitFunctions() {
 		editor = null;
-		
+
 		initNumberOfOgresLabel();
 		initNumberOfOgresBox();
 		initGuardPersonalityLabel();
 		initGuardPersonalityBox();
 		initNewGameButton();
-		initMoveLeftButton ();
+		initMoveLeftButton();
 		initMoveUpButton();
 		initMoveRightButton();
 		initMoveDownButton();
 		initExitGameButton();
-		initGameStatusLabel ();
-		initGameScreen ();
-		initSaveGameButton ();
-		initLoadGameButton ();
-
+		initGameStatusLabel();
+		initGameScreen();
+		initSaveGameButton();
+		initLoadGameButton();
 		initCreateNewMapButton();
 	}
-	
-	private void initNumberOfOgresLabel()
-	{
+
+	private void initNumberOfOgresLabel() {
 		numberOfOgresLabel = new java.awt.Label();
 		numberOfOgresLabel.setText("Number of ogres:");
 
 	}
-	
-	private void initNumberOfOgresBox ()
-	{
+
+	private void initNumberOfOgresBox() {
 		NumberFormat format = NumberFormat.getInstance();
 		NumberFormatter formatter = new NumberFormatter(format);
 		formatter.setValueClass(Integer.class);
 		formatter.setMinimum(1);
 		formatter.setMaximum(5);
 		formatter.setAllowsInvalid(false);
-		
+
 		numberOfOgresBox = new JFormattedTextField(formatter);
 
-		numberOfOgresBox.setName(""); 
+		numberOfOgresBox.setName("");
 		numberOfOgresBox.setSelectionEnd(-1);
 	}
-	
-	private void initGuardPersonalityLabel ()
-	{
+
+	private void initGuardPersonalityLabel() {
 		guardPersonalityLabel = new java.awt.Label();
 		guardPersonalityLabel.setText("Guard personality");
 	}
-	
-	private void initGuardPersonalityBox ()
-	{
+
+	private void initGuardPersonalityBox() {
 		guardPersonalityBox = new javax.swing.JComboBox<>();
-		
-		guardPersonalityBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rookie", "Drunken", "Suspicious" }));
+
+		guardPersonalityBox
+				.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rookie", "Drunken", "Suspicious" }));
 		guardPersonalityBox.setToolTipText("");
 		guardPersonalityBox.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,9 +228,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			}
 		});
 	}
-	
-	private void initNewGameButton()
-	{
+
+	private void initNewGameButton() {
 		newGameButton = new javax.swing.JButton();
 		newGameButton.setText("New Game");
 		newGameButton.setToolTipText("");
@@ -255,11 +237,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton1ActionPerformed(evt);
 			}
-		});	
+		});
 	}
 
-	private void initMoveLeftButton ()
-	{
+	private void initMoveLeftButton() {
 		moveLeftButton = new javax.swing.JButton();
 		moveLeftButton.setText("Left");
 		moveLeftButton.setEnabled(false);
@@ -269,9 +250,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			}
 		});
 	}
-	
-	private void initMoveRightButton ()
-	{
+
+	private void initMoveRightButton() {
 		moveRightButton = new javax.swing.JButton();
 		moveRightButton.setText("Right");
 		moveRightButton.setEnabled(false);
@@ -282,8 +262,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 	}
 
-	private void initMoveUpButton ()
-	{
+	private void initMoveUpButton() {
 		moveUpButton = new javax.swing.JButton();
 		moveUpButton.setText("Up");
 		moveUpButton.setEnabled(false);
@@ -295,8 +274,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	}
 
-	private void initMoveDownButton ()
-	{
+	private void initMoveDownButton() {
 		moveDownButton = new javax.swing.JButton();
 		moveDownButton.setText("Down");
 		moveDownButton.setEnabled(false);
@@ -307,8 +285,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 	}
 
-	private void initExitGameButton ()
-	{
+	private void initExitGameButton() {
 		exitGameButton = new javax.swing.JButton();
 		exitGameButton.setText("Exit Game");
 		exitGameButton.setToolTipText("");
@@ -318,19 +295,17 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			}
 		});
 	}
-	
-	private void initGameStatusLabel()
-	{
+
+	private void initGameStatusLabel() {
 		gameStatusLabel = new javax.swing.JLabel();
 		gameStatusLabel.setText("<Game status goes here>");
 		gameStatusLabel.setToolTipText("");
 	}
-	
-	private void initGameScreen()
-	{
+
+	private void initGameScreen() {
 		gameScreen = new SimpleGraphicsPanel();
 		gameScreen.setFocusable(true);
-		
+
 		gameScreen.addKeyListener(new KeyListener() {
 
 			@Override
@@ -364,9 +339,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			}
 		});
 	}
-	
-	private void initSaveGameButton()
-	{
+
+	private void initSaveGameButton() {
 		saveGameButton = new javax.swing.JButton();
 		saveGameButton.setText("Save Game");
 		saveGameButton.setToolTipText("");
@@ -375,14 +349,13 @@ public class KeepMainFrame extends javax.swing.JFrame {
 				saveGameActionPerformed(evt);
 			}
 		});
-	
+
 		saveGameButton.setBounds(400, 350, 166, 56);
 		saveGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		saveGameButton.setEnabled(false);
 	}
-	
-	private void initLoadGameButton()
-	{
+
+	private void initLoadGameButton() {
 		loadGameButton = new javax.swing.JButton();
 		loadGameButton.setText("Load Game");
 		loadGameButton.setToolTipText("");
@@ -391,13 +364,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 				loadGameActionPerformed(evt);
 			}
 		});
-	
+
 		loadGameButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		loadGameButton.setBounds(400, 420, 166, 46);
 	}
-	
-	private void initCreateNewMapButton()
-	{
+
+	private void initCreateNewMapButton() {
 		createNewMap = new JButton();
 		createNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -407,7 +379,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		createNewMap.setToolTipText("");
 		createNewMap.setText("Create New Map");
 	}
-	
+
 	/*
 	 * CONVERT MAP TO STRING
 	 */
@@ -550,79 +522,161 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	 * NEW GAME BUTTON
 	 */
 	private void jButton1ActionPerformed(ActionEvent evt) {
-		
+
 		JOptionPane popup = new JOptionPane();
-		
+
 		String answer = JOptionPane.showInputDialog("Default map or custom map? (type custom or default)");
-		
-		if(answer == null) {
+
+		if (answer == null) {
 			return;
 		}
-		
+
 		boolean normalmap = true;
-		
-		if(answer.equals("custom")) {
+
+		if (answer.equals("custom")) {
 			normalmap = false;
-		} 
-		
-		else if(answer.equals("default")) {
+		}
+
+		else if (answer.equals("default")) {
 			normalmap = true;
 		}
-		
+
 		else {
 			popup.showMessageDialog(this, "Invalid, please type custom or default.");
 			return;
 		}
-		
-	if(editor != null && editor.getValidMap() && normalmap == false) {
-		//in this case it will run the custom map !IF IT IS VALID!
-		
-		if(customMapMade == false) {
-			
-			game = new Game(editor.getCustomMap().getMatrix());
-					
-			gameScreen.setMap(editor.getCustomMap());
+
+		if (editor != null && editor.getValidMap() && normalmap == false) {
+			// in this case it will run the custom map !IF IT IS VALID!
+
+			File savefile = new File("save");
+
+			if (customMapMade == false) {
+
+				game = new Game(editor.getCustomMap().getMatrix());
+
+				gameScreen.setMap(editor.getCustomMap());
+				gameScreen.paint(gameScreen.getGraphics());
+
+				gameScreen.requestFocusInWindow();
+
+				if (!savefile.exists()) {
+					try {
+						savefile.createNewFile();
+					} catch (IOException e) {
+						System.out.println("There was a problem creating the file.");
+						e.printStackTrace();
+					}
+				}
+
+				FileOutputStream file = null;
+				ObjectOutputStream out = null;
+
+				try {
+					file = new FileOutputStream(savefile, false);
+					OutputStream buffer = new BufferedOutputStream(file);
+					out = new ObjectOutputStream(buffer);
+					out.writeObject(game);
+					out.flush();
+					out.close();
+					System.out.println("Current game saved");
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				customMapMade = true;
+			}
+
+			Game savedGame;
+			Map savedMap = null;
+			LevelLogic savedLogic = null;
+			int numOgres = 0;
+			String gamestate = "";
+
+			FileInputStream file;
+
+			try {
+				file = new FileInputStream("save");
+				InputStream buffer = new BufferedInputStream(file);
+				ObjectInput input = new ObjectInputStream(buffer);
+
+				savedGame = (Game) input.readObject();
+				savedMap = savedGame.getMap();
+				savedLogic = savedGame.getLevelLogic();
+				numOgres = savedGame.getNumberOfOgres();
+				gamestate = savedGame.getLevelLogic().getLevelState();
+
+				input.close();
+
+				System.out.println("Loaded game");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
+
+			game = toRun;
+
+			gameScreen.setMap(game.getMap());
 			gameScreen.paint(gameScreen.getGraphics());
-			
 			gameScreen.requestFocusInWindow();
-		    
-			saveFile("save");
-			
-		    customMapMade = true;
+
+			newgamestarted = true;
+
+			moveLeftButton.setEnabled(true);
+			moveRightButton.setEnabled(true);
+			moveUpButton.setEnabled(true);
+			moveDownButton.setEnabled(true);
+			saveGameButton.setEnabled(true);
+
+			gameStatusLabel.setText("The game is running.");
 		}
-		
-       loadFile("save");
-	} 
 
-	else {
-		
-		if(normalmap == false) {
-			popup.showMessageDialog(this, "The editor had no valid custom map made, so we're running default.");
+		else {
+
+			if (normalmap == false) {
+				popup.showMessageDialog(this, "The editor had no valid custom map made, so we're running default.");
+			}
+
+			if (numberOfOgresBox.getValue() != null) {
+				// if the text field is empty, it will by omission be 1 ogre
+
+				// otherwise ..
+				String s = numberOfOgresBox.getText();
+
+				numberOfOgres = Integer.parseInt(s);
+			}
+
+			game = new Game(numberOfOgres, guardPersonality);
+			// game.getGuard().setMovementBlocker(true);
+			numberOfOgresBox.setValue(null);
+
+			// printing out the current map using a custom function that
+			// converts it
+			// to string first
+
+			gameScreen.setMap(game.getMap());
+			gameScreen.paint(gameScreen.getGraphics());
+			gameScreen.requestFocusInWindow();
 		}
-		
-		if (numberOfOgresBox.getValue() != null) {
-			// if the text field is empty, it will by omission be 1 ogre
 
-			// otherwise ..
-			String s = numberOfOgresBox.getText();
+		newgamestarted = true;
 
-			numberOfOgres = Integer.parseInt(s);
-		}
-		
-		game = new Game(numberOfOgres, guardPersonality);
-		// game.getGuard().setMovementBlocker(true);
-		numberOfOgresBox.setValue(null);
+		// reactivate the buttons just in case they were shutdown previously
+		moveLeftButton.setEnabled(true);
+		moveRightButton.setEnabled(true);
+		moveUpButton.setEnabled(true);
+		moveDownButton.setEnabled(true);
+		saveGameButton.setEnabled(true);
 
-		// printing out the current map using a custom function that converts it
-		// to string first
-
-		gameScreen.setMap(game.getMap());
-		gameScreen.paint(gameScreen.getGraphics());
-		gameScreen.requestFocusInWindow();
-	}
-	
-	startNewGame();
-	
+		gameStatusLabel.setText("The game is running.");
 	}
 	
 	private void turnOffButtons() {
@@ -641,7 +695,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			game.updateGame('a');
 
 			gameScreen.setMap(game.getMap());
-			 
+
 			gameScreen.paint(gameScreen.getGraphics());
 		}
 
@@ -649,7 +703,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			gameStatusLabel.setText("The game is over.");
 			turnOffButtons();
 		}
-		
+
 		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			gameStatusLabel.setText("You win!");
 			turnOffButtons();
@@ -674,7 +728,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			gameStatusLabel.setText("The game is over.");
 			turnOffButtons();
 		}
-		
+
 		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			gameStatusLabel.setText("You win!");
 			turnOffButtons();
@@ -689,7 +743,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
 			game.updateGame('d');
-			
+
 			gameScreen.setMap(game.getMap());
 			gameScreen.paint(gameScreen.getGraphics());
 
@@ -699,7 +753,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			gameStatusLabel.setText("The game is over.");
 			turnOffButtons();
 		}
-		
+
 		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			gameStatusLabel.setText("You win!");
 			turnOffButtons();
@@ -714,7 +768,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
 		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
 			game.updateGame('s');
-			
+
 			gameScreen.setMap(game.getMap());
 			gameScreen.paint(gameScreen.getGraphics());
 
@@ -724,7 +778,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			gameStatusLabel.setText("The game is over.");
 			turnOffButtons();
 		}
-		
+
 		if (game.getLevelLogic().getLevelState().equals("Victory")) {
 			gameStatusLabel.setText("You win!");
 			turnOffButtons();
@@ -733,50 +787,128 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		gameScreen.requestFocusInWindow();
 	}
 
-	//EXIT GAME
+	// EXIT GAME
 	private void jButton6ActionPerformed(ActionEvent evt) {
 		// exit game button
 		System.exit(0);
 	}
-	
-	
-	//SAVE GAME
+
+	// SAVE GAME
 	private void saveGameActionPerformed(ActionEvent evt) {
 		JOptionPane popup = new JOptionPane();
-		
+
 		String path = JOptionPane.showInputDialog("Enter a file");
-		
-		if(path == null) {
+
+		if (path == null) {
 			return;
 		}
-		
-		saveFile(path);
-		
-	    gameScreen.requestFocusInWindow();
-	}
-	
-	//LOAD GAME
-	private void loadGameActionPerformed(ActionEvent evt) {
-		JOptionPane popup = new JOptionPane();
-		
-		boolean success = true;
-		
-		String path = JOptionPane.showInputDialog("Enter a file");
-		
-		if(path == null) {
-			return;
+
+		File savefile = new File(path);
+
+		if (!savefile.exists()) {
+			try {
+				savefile.createNewFile();
+			} catch (IOException e) {
+				System.out.println("There was a problem creating the file.");
+				e.printStackTrace();
+			}
 		}
-		
-		loadFile(path);
+
+		FileOutputStream file = null;
+		ObjectOutputStream out = null;
+
+		try {
+			file = new FileOutputStream(savefile, false);
+			OutputStream buffer = new BufferedOutputStream(file);
+			out = new ObjectOutputStream(buffer);
+			out.writeObject(game);
+			out.flush();
+			out.close();
+			System.out.println("Current game saved in: " + path);
+
+		} catch (FileNotFoundException e) {
+			popup.showMessageDialog(this, "The file you entered is invalid.");
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		gameScreen.requestFocusInWindow();
 	}
 
-	//CREATE MAP
-	private void CreateNewMapActionPerformed (ActionEvent evt)
-	{
+	// LOAD GAME
+	private void loadGameActionPerformed(ActionEvent evt) {
+		JOptionPane popup = new JOptionPane();
+
+		boolean success = true;
+
+		String path = JOptionPane.showInputDialog("Enter a file");
+
+		if (path == null) {
+			return;
+		}
+
+		Game savedGame;
+		Map savedMap = null;
+		LevelLogic savedLogic = null;
+		int numOgres = 0;
+		String gamestate = "";
+
+		FileInputStream file;
+
+		try {
+			file = new FileInputStream(path);
+			InputStream buffer = new BufferedInputStream(file);
+			ObjectInput input = new ObjectInputStream(buffer);
+
+			savedGame = (Game) input.readObject();
+			savedMap = savedGame.getMap();
+			savedLogic = savedGame.getLevelLogic();
+			numOgres = savedGame.getNumberOfOgres();
+			gamestate = savedGame.getLevelLogic().getLevelState();
+
+			input.close();
+
+			System.out.println("Loaded game saved in: " + path);
+		} catch (FileNotFoundException e) {
+			popup.showMessageDialog(this, "The file you entered is invalid, select another one or cancel.");
+			success = false;
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		if (success == false) {
+			return;
+		}
+
+		Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
+
+		game = toRun;
+
+		gameScreen.setMap(game.getMap());
+		gameScreen.paint(gameScreen.getGraphics());
+		gameScreen.requestFocusInWindow();
+
+		newgamestarted = true;
+
+		moveLeftButton.setEnabled(true);
+		moveRightButton.setEnabled(true);
+		moveUpButton.setEnabled(true);
+		moveDownButton.setEnabled(true);
+		saveGameButton.setEnabled(true);
+
+		gameStatusLabel.setText("The game is running.");
+	}
+
+	// CREATE MAP
+	private void CreateNewMapActionPerformed(ActionEvent evt) {
 		editor = new OptionsFrame();
 		customMapMade = false;
 	}
-	
+
 	/**
 	 * @param args
 	 *            the command line arguments
