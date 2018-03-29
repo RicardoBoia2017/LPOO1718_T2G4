@@ -21,58 +21,13 @@ public class Guard extends Character {
 	}
 	
 	public void rookieMove(Map map) throws IllegalMapChangeException {
-		switch(pathArray[currentPosition]) {
-		 
-		 case 'a': 
-		 {
-			 if(map.getMatrix()[coordY][coordX-1] == ' ') {
-				 map.updateMap(coordY, coordX-1, id);
-				 map.updateMap(coordY, coordX, ' ');
-				 coordX = coordX-1;
-			 } 
-						 
-			 break;
-		 }
-		 
-		 case 'd': 
-		 {
-			 
-			 if(map.getMatrix()[coordY][coordX+1] == ' ') {
-				 map.updateMap(coordY, coordX+1, id);
-				 map.updateMap(coordY, coordX, ' ');
-				 coordX = coordX+1;
-			 }
-			 
-			 break;
-		 }
-		 
-		 case 's': 
-		 {
-			 
-			 if(map.getMatrix()[coordY+1][coordX] == ' ') {
-				 map.updateMap(coordY+1, coordX, id);
-				 map.updateMap(coordY, coordX, ' ');
-				 coordY = coordY+1;
-			 }
-			 
-			 break;
-		 }
-		 
-		 case 'w': 
-		 {
-			 if(map.getMatrix()[coordY-1][coordX] == ' ') {
-				 map.updateMap(coordY-1, coordX, id);
-				 map.updateMap(coordY, coordX, ' ');
-				 coordY = coordY-1;
-			 }
-	
-			 break;
-		 }
-		}
+
+	callMoveByCommand(map);
     
     if(currentPosition == pathArray.length-1) {
     	currentPosition = 0;
-    } else {
+    } 
+    else {
     	currentPosition++;
     }
     
@@ -125,54 +80,7 @@ public class Guard extends Character {
 	    	}
 	    }
 	    
-		switch(pathArray[currentPosition]) {
-		 
-			 case 'a': 
-			 {
-				 if(map.getMatrix()[coordY][coordX-1] == ' ') {
-					 map.updateMap(coordY, coordX-1, id);
-					 map.updateMap(coordY, coordX, ' ');
-					 coordX = coordX-1;
-				 } 
-							 
-				 break;
-			 }
-			 
-			 case 'd': 
-			 {
-				 
-				 if(map.getMatrix()[coordY][coordX+1] == ' ') {
-					 map.updateMap(coordY, coordX+1, id);
-					 map.updateMap(coordY, coordX, ' ');
-					 coordX = coordX+1;
-				 }
-				 
-				 break;
-			 }
-			 
-			 case 's': 
-			 {
-				 
-				 if(map.getMatrix()[coordY+1][coordX] == ' ') {
-					 map.updateMap(coordY+1, coordX, id);
-					 map.updateMap(coordY, coordX, ' ');
-					 coordY = coordY+1;
-				 }
-				 
-				 break;
-			 }
-			 
-			 case 'w': 
-			 {
-				 if(map.getMatrix()[coordY-1][coordX] == ' ') {
-					 map.updateMap(coordY-1, coordX, id);
-					 map.updateMap(coordY, coordX, ' ');
-					 coordY = coordY-1;
-				 }
-		
-				 break;
-			 }
-		}
+	    callMoveByCommand(map);
 		
 		//if he didn't invert
 		if(reversedRoute == false) {
@@ -233,54 +141,7 @@ public class Guard extends Character {
 	    	
 	    }
 	    
-		switch(pathArray[currentPosition]) {
-		 
-			 case 'a': 
-			 {
-				 if(map.getMatrix()[coordY][coordX-1] == ' ') {
-					 map.updateMap(coordY, coordX-1, id);
-					 map.updateMap(coordY, coordX, ' ');
-					 coordX = coordX-1;
-				 } 
-							 
-				 break;
-			 }
-			 
-			 case 'd': 
-			 {
-				 
-				 if(map.getMatrix()[coordY][coordX+1] == ' ') {
-					 map.updateMap(coordY, coordX+1, id);
-					 map.updateMap(coordY, coordX, ' ');
-					 coordX = coordX+1;
-				 }
-				 
-				 break;
-			 }
-			 
-			 case 's': 
-			 {
-				 
-				 if(map.getMatrix()[coordY+1][coordX] == ' ') {
-					 map.updateMap(coordY+1, coordX, id);
-					 map.updateMap(coordY, coordX, ' ');
-					 coordY = coordY+1;
-				 }
-				 
-				 break;
-			 }
-			 
-			 case 'w': 
-			 {
-				 if(map.getMatrix()[coordY-1][coordX] == ' ') {
-					 map.updateMap(coordY-1, coordX, id);
-					 map.updateMap(coordY, coordX, ' ');
-					 coordY = coordY-1;
-				 }
-		
-				 break;
-			 }
-		}
+	    callMoveByCommand(map);
 		
 		//if he didn't invert
 		if(reversedRoute == false) {
@@ -301,6 +162,44 @@ public class Guard extends Character {
 		}
 	}
 
+	public void callMoveByCommand (Map map)
+	{
+		switch(pathArray[currentPosition]) {
+		 
+		 case 'a': 
+		 {
+			 this.moveIntoCell(map, coordY, coordX-1);			 
+			 break;
+		 }
+		 
+		 case 'd': 
+		 {
+			 this.moveIntoCell(map, coordY, coordX+1);			 
+			 break;
+		 }
+		 
+		 case 's': 
+		 {
+			 this.moveIntoCell(map, coordY+1, coordX);			 
+			 break;
+		 }
+		 
+		 case 'w': 
+		 {
+			 this.moveIntoCell(map, coordY-1, coordX);			 
+			 break;
+		 }
+		}
+	}
+	
+	private void moveIntoCell (Map map, int newY, int newX)
+	{
+		 map.updateMap(newY, newX, id);
+		 map.updateMap(this.coordY, this.coordX, ' ');
+		 this.coordX = newX;
+		 this.coordY = newY;
+	}
+	
 	public void setMovementBlocker(boolean newValue)
 	{
 		this.movementBlocker = newValue;
