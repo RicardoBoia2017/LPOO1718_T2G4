@@ -49,18 +49,19 @@ public class Hero extends Character {
 			 moveIntoCell (map, coordY, coordX);
 		 } 
 		 
-		 //Checks if hero steps over the lever
-		 else if(map.getMatrix()[coordY][coordX] == 'k' && level.getLevelType() == "Guard") {
+		 //Checks if hero steps over the lever/key
+		 else if(map.getMatrix()[coordY][coordX] == 'k') {
+			 
+			 if (level.getLevelType() == "Guard")
+				 level.openExitDoor(map);
+			 
+			 else if (level.getLevelType() == "Ogre")
+				 id ='K';
 			 
 			 moveIntoCell (map, coordY, coordX);
-			 level.openExitDoor(map);
+
 		 }
-		 
-		 else if(map.getMatrix()[coordY][coordX] == 'k' && level.getLevelType() == "Ogre") {
-			 id = 'K';
-			 moveIntoCell (map, coordY, coordX);
-		 }
-		 
+
 		 //to open the door you need to check if the Hero has the key, aka, is in K state.
 		 else if(map.getMatrix()[coordY][coordX] == 'I' && level.getLevelType() == "Ogre" && id == 'K') {
 			 level.openExitDoor(map);
@@ -74,6 +75,7 @@ public class Hero extends Character {
 		 
 		 return 0;
 	}
+	
 
 	private void moveIntoCell (Map map, int newY, int newX)
 	{
