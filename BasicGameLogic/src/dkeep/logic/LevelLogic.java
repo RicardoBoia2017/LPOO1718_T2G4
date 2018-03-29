@@ -1,8 +1,13 @@
 package dkeep.logic;
 
+import java.util.ArrayList;
+import java.awt.Point;
+
 public interface LevelLogic {
 
 	void updateGame (char heroMovement, Map map);
+	
+	void openExitDoor (Map map);
 	
 	public String getLevelType();
 	public String getLevelState();
@@ -12,5 +17,5 @@ public interface LevelLogic {
 	public Club getClub();
 	public int getKeyCoordX();
 	public int getKeyCoordY();
-	
+	public ArrayList <Point> getExitDoors ();
 }

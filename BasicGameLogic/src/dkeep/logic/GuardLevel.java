@@ -1,29 +1,34 @@
 package dkeep.logic;
 
 import java.io.Serializable;
+import java.awt.Point;
+import java.util.ArrayList;
 
 public class GuardLevel implements LevelLogic, Serializable{
 
 	Hero hero;
 	Guard guard;
-	int []keyCoords = new int[2];
+	Point keyCoords;
+	ArrayList <Point> exitDoors;
 	String levelState;
 	
-	public GuardLevel(String guardPersonality)
+	public GuardLevel(String guardPersonality, ArrayList <Point> exitDoors)
 	{
 		hero = new Hero(1,1);
 		guard = new Guard (8,1,guardPersonality);
-		keyCoords[0] = 7;
-		keyCoords[1] = 8;	
+		keyCoords = new Point (7,8);
+//		keyCoords[0] = 7;
+//		keyCoords[1] = 8;	
+		this.exitDoors = exitDoors;
 		levelState = "Running";
 	}
 	
-	public GuardLevel(Hero hero, Guard guard, int [] keyCoords)
+	public GuardLevel(Hero hero, Guard guard, Point keyCoords, ArrayList <Point> exitDoors)
 	{
 		this.hero = hero;
 		this.guard = guard;
-		this.keyCoords[0] = keyCoords[0];
-		this.keyCoords[1] = keyCoords[1];
+		this.keyCoords = keyCoords;
+		this.exitDoors = exitDoors;
 		levelState = "Running";
 	}
 	
@@ -34,7 +39,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 
 		// hero phase
 		try {
-			heroMovementReturn = hero.move(map, heroMovement, getLevelType());
+			heroMovementReturn = hero.move(map, heroMovement, this);
 		}
 
 		catch (IllegalMapChangeException e) {
@@ -95,8 +100,8 @@ public class GuardLevel implements LevelLogic, Serializable{
 
 	public void manageLeverVisibility (Map map)
 	{
-		if (map.getMatrix()[keyCoords[1]][keyCoords[0]] == ' ') {
-			map.updateMap(keyCoords[1], keyCoords[0], 'k');
+		if (map.getMatrix()[(int) keyCoords.getY()][(int) keyCoords.getX()] == ' ') {
+			map.updateMap( (int)keyCoords.getY(), (int)keyCoords.getX(), 'k');
 		}
 	}
 	
@@ -128,6 +133,15 @@ public class GuardLevel implements LevelLogic, Serializable{
 	}
 	
 	@Override
+	public void openExitDoor(Map map)
+	{
+		for (Point elem: exitDoors)
+		{
+			map.updateMap ( (int)elem.getY(), (int) elem.getX(), 'S');
+		}
+	}
+	
+	@Override
 	public String getLevelState() {
 		return levelState;
 	}
@@ -137,11 +151,12 @@ public class GuardLevel implements LevelLogic, Serializable{
 	}
 	@Override
 	public int getKeyCoordX() {
-		return keyCoords[0];
+		return (int) keyCoords.getX();
 	}
 	@Override
-	public int getKeyCoordY() {
-		return keyCoords[1];
+	public int getKeyCoordY()
+	{
+		return (int) keyCoords.getY();
 	}
 	@Override
 	public Guard getGuard() {
@@ -159,4 +174,10 @@ public class GuardLevel implements LevelLogic, Serializable{
 	public String getLevelType() {
 		return "Guard";
 	}
+
+	public ArrayList<Point> getExitDoors() {
+		return exitDoors;
+	}
+
+
 }

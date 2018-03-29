@@ -2,13 +2,15 @@ package dkeep.logic;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.awt.Point;
 
 public class OgreLevel implements LevelLogic, Serializable{
 
 	Hero hero;
 	ArrayList <Ogre> ogres = new ArrayList <Ogre> ();
 	ArrayList <Club> clubs = new ArrayList <Club> ();
-	int [] keyCoords = new int [2];
+	Point keyCoords;
+	ArrayList <Point> exitDoors;
 	String levelState;
 	
 	public OgreLevel(int numberOfOgres)
@@ -19,29 +21,31 @@ public class OgreLevel implements LevelLogic, Serializable{
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			ogres.add( new Ogre (4,1) );
-//			ogres.get(i).setBlocker(true);
+			ogres.get(i).setBlocker(true);
 		}
 		
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			clubs.add( new Club(3,1) );
-//			clubs.get(i).setBlocker(true);
+			clubs.get(i).setBlocker(true);
 		}
 		
-		keyCoords[0] = 7;
-		keyCoords[1] = 1;
+		this.keyCoords = new Point (7,1);
+		
+		exitDoors = new ArrayList < Point> ();
+		exitDoors.add(new Point (0,1));
 		
 		levelState = "Running";	
 	}
 
-	public OgreLevel(Hero hero, ArrayList<Ogre> ogres, ArrayList<Club> clubs, int [] keyCoords)
+	public OgreLevel(Hero hero, ArrayList<Ogre> ogres, ArrayList<Club> clubs, Point keyCoords, ArrayList<Point> exitDoors)
 	{
 		this.hero = hero;
 		hero.setID('A');
 		this.ogres = ogres;
 		this.clubs = clubs;
-		this.keyCoords[0] = keyCoords[0];
-		this.keyCoords[1] = keyCoords[1];
+		this.keyCoords = keyCoords;
+		this.exitDoors = exitDoors;
 		this.levelState = "Running";
 	}
 	
@@ -52,7 +56,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 
 		// hero phase
 		try {
-			heroMovementReturn = hero.move(map, heroMovement, getLevelType());
+			heroMovementReturn = hero.move(map, heroMovement, this);
 		}
 
 		catch (IllegalMapChangeException e) {
@@ -145,8 +149,8 @@ public class OgreLevel implements LevelLogic, Serializable{
 	
 	public void manageKeyVisibility (Map map)
 	{
-		if (map.getMatrix()[keyCoords[1]][keyCoords[0]] == ' ' && hero.id == 'A') {
-			map.updateMap(keyCoords[1], keyCoords[0], 'k');
+		if (map.getMatrix()[(int) keyCoords.getY()][(int) keyCoords.getX()] == ' ' && hero.id == 'A') {
+			map.updateMap((int)keyCoords.getY(),(int) keyCoords.getX(), 'k');
 		}
 	}
 	
@@ -205,6 +209,15 @@ public class OgreLevel implements LevelLogic, Serializable{
 	}
 	
 	@Override
+	public void openExitDoor (Map map)
+	{
+		for (Point elem: exitDoors)
+		{
+			map.updateMap ( (int)elem.getY(), (int) elem.getX(), 'S');
+		}
+	}
+	
+	@Override
 	public String getLevelState() {
 		return levelState;
 	}
@@ -214,11 +227,11 @@ public class OgreLevel implements LevelLogic, Serializable{
 	}
 	@Override
 	public int getKeyCoordX() {
-		return keyCoords[0];
+		return (int) keyCoords.getX();
 	}
 	@Override
 	public int getKeyCoordY() {
-		return keyCoords[1];
+		return (int) keyCoords.getY();
 	}
 	@Override
 	public Guard getGuard() {
@@ -235,5 +248,10 @@ public class OgreLevel implements LevelLogic, Serializable{
 	@Override
 	public String getLevelType() {
 		return "Ogre";
+	}
+	@Override
+	public ArrayList<Point> getExitDoors()
+	{
+		return exitDoors;
 	}
 }

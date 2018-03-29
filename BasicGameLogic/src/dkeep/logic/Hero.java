@@ -9,7 +9,7 @@ public class Hero extends Character {
 		super(x, y, 'H');
 	}
 	
-	public int move(Map map, char command, String levelType) throws IllegalMapChangeException {
+	public int move(Map map, char command, LevelLogic level) throws IllegalMapChangeException {
 		//abstract movement method
 		 switch(command) {
 		 
@@ -50,12 +50,15 @@ public class Hero extends Character {
 //				 
 //				 return 1;
 //			 }
-//					
-//			 if (coordX > 1){
-//				 	if(stage == 2 && (map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O' ) )  
-//					 	return 2;
-//			}
-			 return moveLeft(map,levelType);
+//				
+			 int Auxreturn = moveAux(map,coordX - 1, coordY, level);
+
+			 if (coordX > 1){
+				 	if(level.getLevelType() == "Ogre" && (map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O' ) )  
+					 	return 2;
+			 }
+			 
+			 return Auxreturn;
 		 }
 		 
 		 case 'd': 
@@ -76,7 +79,7 @@ public class Hero extends Character {
 				 coordX = coordX+1;
 			 }
 			 
-			 else if(map.getMatrix()[coordY][coordX+1] == 'I' && levelType == "Ogre" && id == 'K') {
+			 else if(map.getMatrix()[coordY][coordX+1] == 'I' && level.getLevelType() == "Ogre" && id == 'K') {
 				 map.updateMap(coordY, coordX+1, 'S');
 			 }
 			 
@@ -89,7 +92,7 @@ public class Hero extends Character {
 			 
 			 if (coordX <= map.getMatrix().length-2)
 			 {
-				 if(levelType == "Ogre" && ( map.getMatrix()[coordY][coordX+1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O') ) 
+				 if(level.getLevelType() == "Ogre" && ( map.getMatrix()[coordY][coordX+1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O') ) 
 					 	return 2;
 			 }
 			 
@@ -122,7 +125,7 @@ public class Hero extends Character {
 				 coordY = coordY+1;
 			 }
 			 
-			 else if(map.getMatrix()[coordY+1][coordX] == 'I' && levelType == "Ogre" && id == 'K') {
+			 else if(map.getMatrix()[coordY+1][coordX] == 'I' && level.getLevelType() == "Ogre" && id == 'K') {
 				 map.updateMap(coordY+1, coordX, 'S');
 			 }
 			 
@@ -135,7 +138,7 @@ public class Hero extends Character {
 			 
 			 if (coordY <= map.getMatrix().length-2)
 			 {
-				 if(levelType == "Ogre" && (map.getMatrix()[coordY+1][coordX] == 'O' || map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY][coordX+1] == 'O') )  
+				 if(level.getLevelType() == "Ogre" && (map.getMatrix()[coordY+1][coordX] == 'O' || map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY][coordX+1] == 'O') )  
 					 	return 2;
 			 }
 			 
@@ -157,7 +160,7 @@ public class Hero extends Character {
 				 coordY = coordY-1;
 			 }
 			 
-			 else if(map.getMatrix()[coordY-1][coordX] == 'I' && levelType == "Ogre" && id == 'K') {
+			 else if(map.getMatrix()[coordY-1][coordX] == 'I' && level.getLevelType() == "Ogre" && id == 'K') {
 				 map.updateMap(coordY-1, coordX, 'S');
 			 }
 			
@@ -170,7 +173,7 @@ public class Hero extends Character {
 			 
 			 if (coordY >= 1)
 			 {
-				 if(levelType == "Ogre" && (map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY][coordX+1] == 'O') )  
+				 if(level.getLevelType() == "Ogre" && (map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY][coordX+1] == 'O') )  
 					 	return 2;
 			 }
 			 
@@ -182,40 +185,37 @@ public class Hero extends Character {
 		 return 0;
 	}
 
-	public int moveLeft (Map map, String levelType)
+	public int moveAux(Map map,int coordX, int coordY, LevelLogic level)
 	{
-		 if(map.getMatrix()[coordY][coordX-1] == ' ') {
-			 moveIntoCell (map, coordY, coordX-1);
+		 if(map.getMatrix()[coordY][coordX] == ' ') {
+			 moveIntoCell (map, coordY, coordX);
 		 } 
 		 
 		 //Checks if hero steps over the lever
-		 else if(map.getMatrix()[coordY][coordX-1] == 'k' && levelType == "Guard") {
+		 else if(map.getMatrix()[coordY][coordX] == 'k' && level.getLevelType() == "Guard") {
 			 
-			 moveIntoCell (map, coordY, coordX-1);
-
-			 map.updateMap(5, 0, 'S');
-			 map.updateMap(6, 0, 'S');	 
+			 moveIntoCell (map, coordY, coordX);
+			 level.openExitDoor(map);
 		 }
 		 
-		 else if(map.getMatrix()[coordY][coordX-1] == 'k') {
+		 else if(map.getMatrix()[coordY][coordX] == 'k' && level.getLevelType() == "Ogre") {
 			 id = 'K';
-			 moveIntoCell (map, coordY, coordX-1);
+			 moveIntoCell (map, coordY, coordX);
 		 }
 		 
 		 //to open the door you need to check if the Hero has the key, aka, is in K state.
-		 else if(map.getMatrix()[coordY][coordX-1] == 'I' && levelType == "Ogre" && id == 'K') {
-			 map.updateMap(coordY, coordX-1, 'S');
+		 else if(map.getMatrix()[coordY][coordX] == 'I' && level.getLevelType() == "Ogre" && id == 'K') {
+			 level.openExitDoor(map);
 		 }
 		 
-		 else if(map.getMatrix()[coordY][coordX-1] == 'S') {
+		 else if(map.getMatrix()[coordY][coordX] == 'S') {
 			 
 			 System.out.println("Victory.");
-			 
 			 return 1;
 		 }
 				
 		 if (coordX >= 1){
-			 	if(levelType == "Ogre"  && (map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O' ) )  
+			 	if(level.getLevelType() == "Ogre"  && (map.getMatrix()[coordY][coordX-1] == 'O' || map.getMatrix()[coordY-1][coordX] == 'O' || map.getMatrix()[coordY+1][coordX] == 'O' ) )  
 				 	return 2;
 		}
 		 
