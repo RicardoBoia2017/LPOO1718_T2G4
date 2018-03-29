@@ -93,8 +93,8 @@ public class Game implements Serializable {
 			map = new Map(-1);
 			Point keyCoords = new Point (1,3); 
 			ArrayList <Point> exitDoors = new ArrayList <Point> ();
-			exitDoors.add(new Point(0,5) );
-			exitDoors.add(new Point(0,6) );
+			exitDoors.add(new Point(0,2) );
+			exitDoors.add(new Point(0,3) );
 			
 			currentLevel = new GuardLevel (new Hero(1,1), new Guard (3,1,"Rookie"), keyCoords, exitDoors);
 			numberOfOgres = 1;
