@@ -10,7 +10,6 @@ public class Ogre extends Character {
 	boolean movementBlocker;
 	
 	public Ogre(int x, int y) {
-		// TODO Auto-generated constructor stub
 		super(x, y, 'O');
 		stun_counter = 0;
 		randholder = 0;

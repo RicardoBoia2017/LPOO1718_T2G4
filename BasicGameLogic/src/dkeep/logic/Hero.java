@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Hero extends Character {
 
 	public Hero(int x, int y) {
-		// TODO Auto-generated constructor stub
 		super(x, y, 'H');
 	}
 	
@@ -16,56 +15,31 @@ public class Hero extends Character {
 		switch (command) {
 
 		case 'a': {
-			System.out.println(coordX + "   " + coordY);
 			auxReturn = moveAux(map, coordX - 1, coordY, level);
-
-			if (coordX > 1) {
-				if (level.getLevelType() == "Ogre" && (map.getMatrix()[coordY][coordX - 1] == 'O'
-						|| map.getMatrix()[coordY - 1][coordX] == 'O' || map.getMatrix()[coordY + 1][coordX] == 'O'))
-					return 2;
-			}
-			
 			break;
 		}
 
 		case 'd': {
 			auxReturn = moveAux(map, coordX + 1, coordY, level);
-
-			if (coordX <= map.getMatrix().length - 2) {
-				if (level.getLevelType() == "Ogre" && (map.getMatrix()[coordY][coordX + 1] == 'O'
-						|| map.getMatrix()[coordY - 1][coordX] == 'O' || map.getMatrix()[coordY + 1][coordX] == 'O'))
-					return 2;
-			}
-			
 			break;
 		}
 
 		case 's': {
-			System.out.println(coordX + "   " + coordY);
 			auxReturn = moveAux(map, coordX, coordY + 1, level);
-
-			if (coordY <= map.getMatrix().length - 2) {
-				if (level.getLevelType() == "Ogre" && (map.getMatrix()[coordY + 1][coordX] == 'O'
-						|| map.getMatrix()[coordY][coordX - 1] == 'O' || map.getMatrix()[coordY][coordX + 1] == 'O'))
-					return 2;
-			}
-			
 			break;
 		}
 
 		case 'w': {
 			auxReturn = moveAux(map, coordX, coordY - 1, level);
-
-			if (coordY >= 1) {
-				if (level.getLevelType() == "Ogre" && (map.getMatrix()[coordY - 1][coordX] == 'O'
-						|| map.getMatrix()[coordY][coordX - 1] == 'O' || map.getMatrix()[coordY][coordX + 1] == 'O'))
-					return 2;
-			}
 			break;
 		}
 
 		}
 
+		if (level.getLevelType() == "Ogre")
+			if (this.checkIfOgreNearby(map))
+				return 2;
+		
 		return auxReturn;
 	}
 
@@ -101,11 +75,22 @@ public class Hero extends Character {
 		 return 0;
 	}
 
-	public void moveIntoCell (Map map, int newY, int newX)
+	private void moveIntoCell (Map map, int newY, int newX)
 	{
 		 map.updateMap(newY, newX, id);
 		 map.updateMap(this.coordY, this.coordX, ' ');
 		 this.coordX = newX;
 		 this.coordY = newY;
+	}
+
+	public boolean checkIfOgreNearby (Map map)
+	{
+		if (map.getMatrix()[coordY-1][coordX] == 'O' || 
+			map.getMatrix()[coordY+1][coordX] == 'O' ||
+			map.getMatrix()[coordY][coordX-1] == 'O' ||
+			map.getMatrix()[coordY][coordX+1] == 'O' )
+			return true;
+		
+		return false;
 	}
 }

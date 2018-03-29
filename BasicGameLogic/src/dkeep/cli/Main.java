@@ -40,7 +40,7 @@ public class Main {
 				 System.exit(0);
 			 }
 			 
-			 map = game.updateGame(command); //TODO find a way to pass game state from game to here
+			 map = game.updateGame(command); 
 			 
 			 if(game.getLevelLogic().getLevelState() == "Over" || game.getLevelLogic().getLevelState() == "Victory") {
 				 game_state = "GAME OVER";

@@ -13,7 +13,6 @@ public class Guard extends Character {
 	boolean movementBlocker;
 	
 	public Guard(int x, int y, String persona) {
-		// TODO Auto-generated constructor stub
 		super(x, y, 'G');
 		currentPosition = 0;
 		personality = persona;

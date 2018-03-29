@@ -404,7 +404,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	 * GUARD PERSONALITY
 	 */
 	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
 
 		Object selected = guardPersonalityBox.getSelectedItem();
 

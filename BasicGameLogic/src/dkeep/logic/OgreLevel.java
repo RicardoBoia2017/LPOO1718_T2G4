@@ -21,13 +21,13 @@ public class OgreLevel implements LevelLogic, Serializable{
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			ogres.add( new Ogre (4,1) );
-//			ogres.get(i).setBlocker(true);
+	//		ogres.get(i).setBlocker(true);
 		}
 		
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			clubs.add( new Club(3,1) );
-//			clubs.get(i).setBlocker(true);
+	//		clubs.get(i).setBlocker(true);
 		}
 		
 		this.keyCoords = new Point (7,1);
@@ -198,7 +198,6 @@ public class OgreLevel implements LevelLogic, Serializable{
 					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX + 1)
 					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX - 1))
 				try {
-					System.out.println("Stun");
 					ogre.stun(map);
 				} catch (IllegalMapChangeException e) {
 				}
