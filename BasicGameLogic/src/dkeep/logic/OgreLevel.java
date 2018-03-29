@@ -21,13 +21,13 @@ public class OgreLevel implements LevelLogic, Serializable{
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			ogres.add( new Ogre (4,1) );
-	//		ogres.get(i).setBlocker(true);
+//			ogres.get(i).setBlocker(true);
 		}
 		
 		for (int i = 0; i < numberOfOgres; i++)
 		{
 			clubs.add( new Club(3,1) );
-	//		clubs.get(i).setBlocker(true);
+//			clubs.get(i).setBlocker(true);
 		}
 		
 		this.keyCoords = new Point (7,1);
@@ -156,54 +156,18 @@ public class OgreLevel implements LevelLogic, Serializable{
 	
 	public void manageOgreStun (char heroMovement, Ogre ogre, Map map)
 	{
-		switch (heroMovement) {
-		case 'a': {
-			if ((ogre.coordY == hero.coordY && ogre.coordX == hero.coordX - 1)
-					|| (ogre.coordY == hero.coordY - 1 && ogre.coordX == hero.coordX)
-					|| (ogre.coordY == hero.coordY + 1 && ogre.coordX == hero.coordX - 1))
-				try {
-					ogre.stun(map);
-				} catch (IllegalMapChangeException e) {
-				}
-
-			break;
+		
+		if ( (ogre.getCoordY() == hero.getCoordY() && ogre.getCoordX() == hero.getCoordX() + 1) || 
+			 (ogre.getCoordY() == hero.getCoordY() && ogre.getCoordX() == hero.getCoordX() - 1) ||
+			 (ogre.getCoordY() == hero.getCoordY() - 1 && ogre.getCoordX() == hero.getCoordX() ) ||
+			 (ogre.getCoordY() == hero.getCoordY() + 1 && ogre.getCoordX() == hero.getCoordX() ) )
+			
+		try {
+			ogre.stun(map);
 		}
-
-		case 'd': {
-			if ((ogre.coordY == hero.coordY && ogre.coordX == hero.coordX + 1)
-					|| (ogre.coordY == hero.coordY + 1 && ogre.coordX == hero.coordX)
-					|| (ogre.coordY == hero.coordY - 1 && ogre.coordX == hero.coordX))
-				try {
-					ogre.stun(map);
-				} catch (IllegalMapChangeException e) {
-				}
-
-			break;
-		}
-
-		case 's': {
-			if ((ogre.coordY == hero.coordY + 1 && ogre.coordX == hero.coordX)
-					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX + 1)
-					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX - 1))
-				try {
-					ogre.stun(map);
-				} catch (IllegalMapChangeException e) {
-				}
-
-			break;
-		}
-
-		case 'w': {
-			if ((ogre.coordY == hero.coordY - 1 && ogre.coordX == hero.coordX)
-					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX + 1)
-					|| (ogre.coordY == hero.coordY && ogre.coordX == hero.coordX - 1))
-				try {
-					ogre.stun(map);
-				} catch (IllegalMapChangeException e) {
-				}
-
-			break;
-		}
+		catch (IllegalMapChangeException e)
+		{	
+		
 		}
 	}
 	
