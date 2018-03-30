@@ -194,7 +194,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private void initNumberOfOgresLabel() {
 		numberOfOgresLabel = new java.awt.Label();
 		numberOfOgresLabel.setText("Number of ogres:");
-
 	}
 
 	private void initNumberOfOgresBox() {
@@ -235,7 +234,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		newGameButton.setToolTipText("");
 		newGameButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton1ActionPerformed(evt);
+				newGameActionPerformed(evt);
 			}
 		});
 	}
@@ -246,7 +245,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		moveLeftButton.setEnabled(false);
 		moveLeftButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton2ActionPerformed(evt);
+				moveLeftActionPerformed(evt);
 			}
 		});
 	}
@@ -257,7 +256,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		moveRightButton.setEnabled(false);
 		moveRightButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton4ActionPerformed(evt);
+				moveRightActionPerformed(evt);
 			}
 		});
 	}
@@ -268,7 +267,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		moveUpButton.setEnabled(false);
 		moveUpButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton3ActionPerformed(evt);
+				moveUpActionPerformed(evt);
 			}
 		});
 
@@ -280,7 +279,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		moveDownButton.setEnabled(false);
 		moveDownButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton5ActionPerformed(evt);
+				moveDownActionPerformed(evt);
 			}
 		});
 	}
@@ -291,7 +290,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		exitGameButton.setToolTipText("");
 		exitGameButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton6ActionPerformed(evt);
+				exitGameActionPerformed(evt);
 			}
 		});
 	}
@@ -373,31 +372,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		createNewMap = new JButton();
 		createNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				CreateNewMapActionPerformed(evt);
+				createNewMapActionPerformed(evt);
 			}
 		});
 		createNewMap.setToolTipText("");
 		createNewMap.setText("Create New Map");
-	}
-
-	/*
-	 * CONVERT MAP TO STRING
-	 */
-	private String convertmaptoString(char[][] mapprint) {
-
-		String s = "";
-
-		for (int i = 0; i < mapprint.length; i++) {
-			for (int j = 0; j < mapprint[i].length; j++) {
-				s += mapprint[i][j];
-
-				if (j == mapprint[i].length - 1) {
-					s += "\n";
-				}
-			}
-		}
-
-		return s;
 	}
 
 	/*
@@ -516,12 +495,57 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	       
 	       gameStatusLabel.setText("The game is running.");
 	}
+	
+	private void startCustomGame() {
+		
+		if (customMapMade == false) {
+
+			game = new Game(editor.getCustomMap().getMatrix());
+
+			gameScreen.setMap(editor.getCustomMap());
+			gameScreen.paint(gameScreen.getGraphics());
+
+			gameScreen.requestFocusInWindow();
+
+			saveFile(" ");
+
+			customMapMade = true;
+		}
+		
+		loadFile(" ");
+		
+		startNewGame();
+	}
+	
+	private void startDefaultGame() {
+
+		if (numberOfOgresBox.getValue() != null) {
+			// if the text field is empty, it will by omission be 1 ogre
+
+			// otherwise ..
+			String s = numberOfOgresBox.getText();
+
+			numberOfOgres = Integer.parseInt(s);
+		}
+
+		game = new Game(numberOfOgres, guardPersonality);
+		// game.getGuard().setMovementBlocker(true);
+		numberOfOgresBox.setValue(null);
+
+		gameScreen.setMap(game.getMap());
+		gameScreen.paint(gameScreen.getGraphics());
+		gameScreen.requestFocusInWindow();
+		
+		startNewGame();
+	}
 
 	/*
 	 * NEW GAME BUTTON
 	 */
-	private void jButton1ActionPerformed(ActionEvent evt) {
+	private void newGameActionPerformed(ActionEvent evt) {
 
+		boolean normalmap = true;
+		
 		JOptionPane popup = new JOptionPane();
 
 		String answer = JOptionPane.showInputDialog("Default map or Custom map? (type custom (or c) or default (or d))");
@@ -529,8 +553,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		if (answer == null) {
 			return;
 		}
-
-		boolean normalmap = true;
 
 		if (answer.equals("custom") || answer.equals("c")) {
 			normalmap = false;
@@ -547,95 +569,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		if (editor != null && editor.getValidMap() && normalmap == false) {
 			// in this case it will run the custom map !IF IT IS VALID!
-
-			File savefile = new File("save");
-
-			if (customMapMade == false) {
-
-				game = new Game(editor.getCustomMap().getMatrix());
-
-				gameScreen.setMap(editor.getCustomMap());
-				gameScreen.paint(gameScreen.getGraphics());
-
-				gameScreen.requestFocusInWindow();
-
-				if (!savefile.exists()) {
-					try {
-						savefile.createNewFile();
-					} catch (IOException e) {
-						System.out.println("There was a problem creating the file.");
-						e.printStackTrace();
-					}
-				}
-
-				FileOutputStream file = null;
-				ObjectOutputStream out = null;
-
-				try {
-					file = new FileOutputStream(savefile, false);
-					OutputStream buffer = new BufferedOutputStream(file);
-					out = new ObjectOutputStream(buffer);
-					out.writeObject(game);
-					out.flush();
-					out.close();
-					System.out.println("Current game saved");
-
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				customMapMade = true;
-			}
-
-			Game savedGame;
-			Map savedMap = null;
-			LevelLogic savedLogic = null;
-			int numOgres = 0;
-			String gamestate = "";
-
-			FileInputStream file;
-
-			try {
-				file = new FileInputStream("save");
-				InputStream buffer = new BufferedInputStream(file);
-				ObjectInput input = new ObjectInputStream(buffer);
-
-				savedGame = (Game) input.readObject();
-				savedMap = savedGame.getMap();
-				savedLogic = savedGame.getLevelLogic();
-				numOgres = savedGame.getNumberOfOgres();
-				gamestate = savedGame.getLevelLogic().getLevelState();
-
-				input.close();
-
-				System.out.println("Loaded game");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
-
-			game = toRun;
-
-			gameScreen.setMap(game.getMap());
-			gameScreen.paint(gameScreen.getGraphics());
-			gameScreen.requestFocusInWindow();
-
-			newgamestarted = true;
-
-			moveLeftButton.setEnabled(true);
-			moveRightButton.setEnabled(true);
-			moveUpButton.setEnabled(true);
-			moveDownButton.setEnabled(true);
-			saveGameButton.setEnabled(true);
-
-			gameStatusLabel.setText("The game is running.");
+			startCustomGame();
 		}
 
 		else {
@@ -643,39 +577,10 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			if (normalmap == false) {
 				popup.showMessageDialog(this, "The editor had no valid custom map made, so we're running default.");
 			}
-
-			if (numberOfOgresBox.getValue() != null) {
-				// if the text field is empty, it will by omission be 1 ogre
-
-				// otherwise ..
-				String s = numberOfOgresBox.getText();
-
-				numberOfOgres = Integer.parseInt(s);
-			}
-
-			game = new Game(numberOfOgres, guardPersonality);
-			// game.getGuard().setMovementBlocker(true);
-			numberOfOgresBox.setValue(null);
-
-			// printing out the current map using a custom function that
-			// converts it
-			// to string first
-
-			gameScreen.setMap(game.getMap());
-			gameScreen.paint(gameScreen.getGraphics());
-			gameScreen.requestFocusInWindow();
+			
+			startDefaultGame();
 		}
-
-		newgamestarted = true;
-
-		// reactivate the buttons just in case they were shutdown previously
-		moveLeftButton.setEnabled(true);
-		moveRightButton.setEnabled(true);
-		moveUpButton.setEnabled(true);
-		moveDownButton.setEnabled(true);
-		saveGameButton.setEnabled(true);
-
-		gameStatusLabel.setText("The game is running.");
+		
 	}
 	
 	private void turnOffButtons() {
@@ -684,17 +589,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		moveUpButton.setEnabled(false);
 		moveDownButton.setEnabled(false);
 	}
-
-	/*
-	 * HERO MOVE LEFT
-	 */
-	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-
+	
+	private void moveByChar(char movementKey) {
+		
 		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
-			game.updateGame('a');
-
+			game.updateGame(movementKey);
 			gameScreen.setMap(game.getMap());
-
 			gameScreen.paint(gameScreen.getGraphics());
 		}
 
@@ -708,88 +608,55 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			turnOffButtons();
 		}
 		
+	}
+
+	/*
+	 * HERO MOVE LEFT
+	 */
+	private void moveLeftActionPerformed(java.awt.event.ActionEvent evt) {
+		moveByChar('a');
 		gameScreen.requestFocusInWindow();
 	}
 
 	/*
 	 * HERO MOVE UP
 	 */
-	private void jButton3ActionPerformed(ActionEvent evt) {
-
-		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
-			game.updateGame('w');
-
-			gameScreen.setMap(game.getMap());
-			gameScreen.paint(gameScreen.getGraphics());
-		}
-
-		if (game.getLevelLogic().getLevelState().equals("Over")) {
-			gameStatusLabel.setText("The game is over.");
-			turnOffButtons();
-		}
-
-		if (game.getLevelLogic().getLevelState().equals("Victory")) {
-			gameStatusLabel.setText("You win!");
-			turnOffButtons();
-		}
-		
+	private void moveUpActionPerformed(ActionEvent evt) {
+		moveByChar('w');
 		gameScreen.requestFocusInWindow();
 	}
 
 	/*
 	 * HERO MOVE RIGHT
 	 **/
-	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
-			game.updateGame('d');
-
-			gameScreen.setMap(game.getMap());
-			gameScreen.paint(gameScreen.getGraphics());
-
-		}
-
-		if (game.getLevelLogic().getLevelState().equals("Over")) {
-			gameStatusLabel.setText("The game is over.");
-			turnOffButtons();
-		}
-
-		if (game.getLevelLogic().getLevelState().equals("Victory")) {
-			gameStatusLabel.setText("You win!");
-			turnOffButtons();
-		}
-		
+	private void moveRightActionPerformed(java.awt.event.ActionEvent evt) {
+		moveByChar('d');
 		gameScreen.requestFocusInWindow();
 	}
 
 	/*
 	 * HERO MOVE DOWN
 	 */
-	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-		if (newgamestarted && game.getLevelLogic().getLevelState().equals("Running")) {
-			game.updateGame('s');
-
-			gameScreen.setMap(game.getMap());
-			gameScreen.paint(gameScreen.getGraphics());
-
-		}
-
-		if (game.getLevelLogic().getLevelState().equals("Over")) {
-			gameStatusLabel.setText("The game is over.");
-			turnOffButtons();
-		}
-
-		if (game.getLevelLogic().getLevelState().equals("Victory")) {
-			gameStatusLabel.setText("You win!");
-			turnOffButtons();
-		}
-		
+	private void moveDownActionPerformed(java.awt.event.ActionEvent evt) {
+		moveByChar('s');
 		gameScreen.requestFocusInWindow();
 	}
 
 	// EXIT GAME
-	private void jButton6ActionPerformed(ActionEvent evt) {
+	private void exitGameActionPerformed(ActionEvent evt) {
 		// exit game button
 		System.exit(0);
+	}
+	
+	private boolean checkIfSpaces(String path) {
+		
+		for(int i = 0; i < path.length(); i++) {
+			if(path.charAt(i) == ' ') {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	// SAVE GAME
@@ -801,36 +668,13 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		if (path == null) {
 			return;
 		}
-
-		File savefile = new File(path);
-
-		if (!savefile.exists()) {
-			try {
-				savefile.createNewFile();
-			} catch (IOException e) {
-				System.out.println("There was a problem creating the file.");
-				e.printStackTrace();
-			}
+		
+		if(checkIfSpaces(path)) {
+			popup.showMessageDialog(this, "Your savefile cannot have spaces, or be empty.");
+			return;
 		}
 
-		FileOutputStream file = null;
-		ObjectOutputStream out = null;
-
-		try {
-			file = new FileOutputStream(savefile, false);
-			OutputStream buffer = new BufferedOutputStream(file);
-			out = new ObjectOutputStream(buffer);
-			out.writeObject(game);
-			out.flush();
-			out.close();
-			System.out.println("Current game saved in: " + path);
-
-		} catch (FileNotFoundException e) {
-			popup.showMessageDialog(this, "The file you entered is invalid.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		saveFile(path);
 
 		gameScreen.requestFocusInWindow();
 	}
@@ -839,71 +683,19 @@ public class KeepMainFrame extends javax.swing.JFrame {
 	private void loadGameActionPerformed(ActionEvent evt) {
 		JOptionPane popup = new JOptionPane();
 
-		boolean success = true;
-
 		String path = JOptionPane.showInputDialog("Enter a file");
 
 		if (path == null) {
 			return;
 		}
-
-		Game savedGame;
-		Map savedMap = null;
-		LevelLogic savedLogic = null;
-		int numOgres = 0;
-		String gamestate = "";
-
-		FileInputStream file;
-
-		try {
-			file = new FileInputStream(path);
-			InputStream buffer = new BufferedInputStream(file);
-			ObjectInput input = new ObjectInputStream(buffer);
-
-			savedGame = (Game) input.readObject();
-			savedMap = savedGame.getMap();
-			savedLogic = savedGame.getLevelLogic();
-			numOgres = savedGame.getNumberOfOgres();
-			gamestate = savedGame.getLevelLogic().getLevelState();
-
-			input.close();
-
-			System.out.println("Loaded game saved in: " + path);
-		} catch (FileNotFoundException e) {
-			popup.showMessageDialog(this, "The file you entered is invalid, select another one or cancel.");
-			success = false;
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		if (success == false) {
-			return;
-		}
-
-		Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
-
-		game = toRun;
-
-		gameScreen.setMap(game.getMap());
-		gameScreen.paint(gameScreen.getGraphics());
-		gameScreen.requestFocusInWindow();
-
-		newgamestarted = true;
-
-		moveLeftButton.setEnabled(true);
-		moveRightButton.setEnabled(true);
-		moveUpButton.setEnabled(true);
-		moveDownButton.setEnabled(true);
-		saveGameButton.setEnabled(true);
-
-		gameStatusLabel.setText("The game is running.");
+		
+		loadFile(path);
+		
+		startNewGame();
 	}
 
 	// CREATE MAP
-	private void CreateNewMapActionPerformed(ActionEvent evt) {
+	private void createNewMapActionPerformed(ActionEvent evt) {
 		editor = new OptionsFrame();
 		customMapMade = false;
 	}

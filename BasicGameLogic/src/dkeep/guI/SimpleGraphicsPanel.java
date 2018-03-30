@@ -25,12 +25,9 @@ public class SimpleGraphicsPanel extends JPanel {
 	private BufferedImage stunnedpic;
 	private BufferedImage superheropic;
 	private BufferedImage emptypic;
-	private boolean editmode;
 	private Map map;
 	  
-	// Constructor, adding mouse and keyboard listeneres 
-	public SimpleGraphicsPanel() { 
-		
+	private void loadImages() {
 		int i = 0;
 		
 	       try {                
@@ -51,10 +48,12 @@ public class SimpleGraphicsPanel extends JPanel {
 	    	   System.out.println("ERROR: Image " + i + " not found.");
 	    	   System.exit(1);
 		     }
-	       
-	       char[][] emptymap = {{' '}};
-	       
-	       map = new Map();
+	}
+	
+	// Constructor, adding mouse and keyboard listeneres 
+	public SimpleGraphicsPanel() { 
+		loadImages();
+	    map = new Map();
 	} 
 	
 	public void setMap(Map mapprint) {
@@ -62,6 +61,68 @@ public class SimpleGraphicsPanel extends JPanel {
 	}
 	
 	public Map getMap(){return map;}
+	
+	private void drawCharacterByChar(char determinant, int i, int j, Graphics g) {
+		switch(determinant) {
+		
+		case 'H':
+			g.drawImage(heropic, j*34, i*32, this);
+			break;
+			
+		case 'g':
+			g.drawImage(sleepic, j*34, i*32, this);
+			break;
+		
+		case '8':
+			g.drawImage(stunnedpic, j*34, i*32, this);
+			break;
+		
+		case 'A':
+			g.drawImage(heropic, j*34, i*32, this);
+			break;
+			
+		case 'O':
+			g.drawImage(ogrepic, j*34, i*32, this);
+			break;
+			
+		case 'G':
+			g.drawImage(guardpic, j*34, i*32, this);
+			break;
+			
+		case '*':
+			g.drawImage(clubpic, j*34, i*32, this);
+			break;
+			
+		case '$':
+			g.drawImage(dollarpic, j*34, i*32, this);
+			break;
+			
+		case 'k':
+			g.drawImage(keypic, j*34, i*32, this);
+			break;
+		
+		case 'X':
+			g.drawImage(wallpic, j*34, i*32, this);
+			break;
+			
+		case 'I':
+			g.drawImage(doorpic, j*34, i*32, this);
+			break;
+			
+		case 'S':
+			g.drawImage(stairspic, j*34, i*32, this);
+			break;
+		
+		case 'K':
+			g.drawImage(superheropic, j*34, i*32, this);
+			break;
+		
+		case ' ':
+			g.drawImage(emptypic, j*34, i*32, this);
+			break;
+			
+		}
+	}
 	
 	// Redraws the panel, only when requested by SWING
 	@Override
@@ -72,65 +133,7 @@ public class SimpleGraphicsPanel extends JPanel {
 		
     	for(int i = 0; i < mapmatrix.length; i++) {
 			for(int j = 0; j < mapmatrix[i].length; j++) {
-				switch(mapmatrix[i][j]) {
-				
-				case 'H':
-					g.drawImage(heropic, j*34, i*32, this);
-					break;
-					
-				case 'g':
-					g.drawImage(sleepic, j*34, i*32, this);
-					break;
-				
-				case '8':
-					g.drawImage(stunnedpic, j*34, i*32, this);
-					break;
-				
-				case 'A':
-					g.drawImage(heropic, j*34, i*32, this);
-					break;
-					
-				case 'O':
-					g.drawImage(ogrepic, j*34, i*32, this);
-					break;
-					
-				case 'G':
-					g.drawImage(guardpic, j*34, i*32, this);
-					break;
-					
-				case '*':
-					g.drawImage(clubpic, j*34, i*32, this);
-					break;
-					
-				case '$':
-					g.drawImage(dollarpic, j*34, i*32, this);
-					break;
-					
-				case 'k':
-					g.drawImage(keypic, j*34, i*32, this);
-					break;
-				
-				case 'X':
-					g.drawImage(wallpic, j*34, i*32, this);
-					break;
-					
-				case 'I':
-					g.drawImage(doorpic, j*34, i*32, this);
-					break;
-					
-				case 'S':
-					g.drawImage(stairspic, j*34, i*32, this);
-					break;
-				
-				case 'K':
-					g.drawImage(superheropic, j*34, i*32, this);
-					break;
-				
-				case ' ':
-					g.drawImage(emptypic, j*34, i*32, this);
-					break;
-				
-				}
+				drawCharacterByChar(mapmatrix[i][j], i, j, g);
 			}
 		}
 	}

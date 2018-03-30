@@ -49,6 +49,13 @@ public class OptionsFrame extends JFrame{
 	
 	private int height;
 	private int width;
+	
+	int heroCounter;
+	int ogreCounter;
+	int keyCounter;
+	int doorCounter;
+	int wallCounter;
+	int clubCounter;
 
 	/**
 	 * Launch the application.
@@ -70,7 +77,7 @@ public class OptionsFrame extends JFrame{
 	/**
 	 * Add to popup menu.
 	 */	
-	public void addtoPopupMenu(String nome, ActionListener menuListener) {
+	private void addtoPopupMenu(String nome, ActionListener menuListener) {
 		 JMenuItem object = new JMenuItem(nome);
 	     object.addActionListener(menuListener);
 	     menu.add(object);
@@ -79,7 +86,7 @@ public class OptionsFrame extends JFrame{
 	/**
 	 * Set map cell to the popup selection.
 	 */
-	public char selectionToId(String menuselection) {
+	 private char selectionToId(String menuselection) {
 		
 		if(menuselection.equals("wall")) {
 			return 'X';
@@ -107,11 +114,21 @@ public class OptionsFrame extends JFrame{
 		
 		return ' ';
 	}
+	 
+	private void addNecessaryComponents(ActionListener menuListener) {
+    	addtoPopupMenu("wall", menuListener);
+	    addtoPopupMenu("exit door", menuListener);
+	    addtoPopupMenu("key", menuListener);
+	    addtoPopupMenu("ogre", menuListener);
+	    addtoPopupMenu("hero", menuListener);
+	    addtoPopupMenu("club", menuListener);
+	    addtoPopupMenu("delete", menuListener);
+	}
 	
 	/**
 	 * Create the popup menu for the mouse, including instructions on how to change the map.
 	 */
-	public void createMenu() {
+	private void createMenu() {
         menu = new JPopupMenu("Menu");
         
         JOptionPane popup = new JOptionPane();
@@ -134,13 +151,7 @@ public class OptionsFrame extends JFrame{
                   }
         	};
         	
-        addtoPopupMenu("wall", menuListener);
-        addtoPopupMenu("exit door", menuListener);
-        addtoPopupMenu("key", menuListener);
-        addtoPopupMenu("ogre", menuListener);
-        addtoPopupMenu("hero", menuListener);
-        addtoPopupMenu("club", menuListener);
-        addtoPopupMenu("delete", menuListener);
+        addNecessaryComponents(menuListener);
 	}
 
 	/**
@@ -155,16 +166,56 @@ public class OptionsFrame extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		initFrame();
+		
+		JPanel panel = initPanel();
+		
+		NumberFormatter formatter = initNumberFormatter();
+	
+		JLabel WidthLabel = initWidthLabel();
+		
+		initWidthValue(formatter);
+		
+		JLabel HeightLabel = initHeightLabel();
+		
+		initHeightValue(formatter);
+		
+	    JButton btnCreateMap = initButtonCreateMap();
+	    
+	    JButton btnEndEdition = initButtonEndEdition();
+	    
+		createMenu();
+		
+		createMap();
+
+	    panel.setLayout(null);
+	    panel.add(WidthLabel);
+	    panel.add(HeightLabel);
+	    panel.add(heightValue);
+	    panel.add(widthValue);
+		panel.add(btnCreateMap);
+		panel.add(btnEndEdition);
+		panel.add(map);
+	}
+	
+	private void initFrame() {
 		frame = new JFrame();
 		frame.setPreferredSize(new Dimension(600, 500));
 		frame.setBounds(100, 100, 742, 653);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
-		
+	}
+	
+	private JPanel initPanel() {
 		JPanel panel = new JPanel();
 		panel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		frame.getContentPane().add(panel);
 		
+		return panel;
+	}
+	
+	private NumberFormatter initNumberFormatter() {
 		NumberFormat format = NumberFormat.getInstance();
 		NumberFormatter formatter = new NumberFormatter(format);
 		formatter.setValueClass(Integer.class);
@@ -172,6 +223,10 @@ public class OptionsFrame extends JFrame{
 		formatter.setMaximum(10);
 		formatter.setAllowsInvalid(true);
 		
+		return formatter;
+	}
+	
+	private JLabel initWidthLabel() {
 		JLabel WidthLabel = new JLabel("Width : ");
 		WidthLabel.setBounds(262, 21, 107, 37);
 		WidthLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -179,55 +234,67 @@ public class OptionsFrame extends JFrame{
 		WidthLabel.setAlignmentY(Component.TOP_ALIGNMENT);
 		WidthLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 		
+		return WidthLabel;
+	}
+	
+	private void initWidthValue(NumberFormatter formatter) {
 		widthValue = new JFormattedTextField(formatter);
 		widthValue.setBounds(399, 25, 111, 32);
 		widthValue.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		widthValue.setPreferredSize(new Dimension(10, 32));
 		widthValue.setColumns(5);
 		widthValue.setName("");
-		
+	}
+	
+	private JLabel initHeightLabel() {
 		JLabel HeightLabel = new JLabel("Height : ");
 		HeightLabel.setBounds(253, 79, 116, 37);
 		HeightLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
+		return HeightLabel;
+	}
+	
+	private void initHeightValue(NumberFormatter formatter) {
 		heightValue = new JFormattedTextField(formatter);
 		heightValue.setBounds(399, 78, 111, 32);
 		heightValue.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		heightValue.setPreferredSize(new Dimension(10, 32));
 		heightValue.setColumns(5);
-		panel.setLayout(null);
-		panel.add(WidthLabel);
-		panel.add(widthValue);
-		panel.add(HeightLabel);
-		panel.add(heightValue);
-		
+	}
+	
+	private JButton initButtonCreateMap() {
 		JButton btnCreateMap = new JButton("Create Map");
+		
+		btnCreateMap.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnCreateMap.setBounds(306, 137, 166, 56);
+		
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnCreateMapActionPerformed(e);
 			}
 		});
 		
+		return btnCreateMap;
+	}
+	
+	private JButton initButtonEndEdition() {
 		JButton btnEndEdition = new JButton("End Edition");
+		
+		btnEndEdition.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnEndEdition.setBounds(500, 137, 166, 56);
+		
 		btnEndEdition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnEndEditionActionPerformed(e);
 			}
 		});
 		
-		btnCreateMap.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnCreateMap.setBounds(306, 137, 166, 56);
-		panel.add(btnCreateMap);
-		
-		btnEndEdition.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnEndEdition.setBounds(500, 137, 166, 56);
-		panel.add(btnEndEdition);
-		
-		createMenu();
-		
+		return btnEndEdition;
+	}
+	
+	private void createMap() {
 		map = new SimpleGraphicsPanel();
 		map.setBounds(102, 241, 523, 341);
-		panel.add(map);
 		
 		map.addMouseListener(new MouseAdapter() {
 			@Override
@@ -239,9 +306,10 @@ public class OptionsFrame extends JFrame{
 		});
 	}
 
-	public void btnCreateMapActionPerformed(ActionEvent e)
+	private void btnCreateMapActionPerformed(ActionEvent e)
 	{
 		String s;
+		
 		if (!widthValue.getText().trim().isEmpty())
 		{
 			s = widthValue.getText();
@@ -262,7 +330,7 @@ public class OptionsFrame extends JFrame{
 		map.paint(map.getGraphics());
 	}
 	
-	public boolean checkIfClubNearby(char[][] map, int i, int j) {
+	private boolean checkIfClubNearby(char[][] map, int i, int j) {
 		if(!(map[i+1][j] == '*'|| map[i-1][j] == '*'|| map[i][j+1] == '*' || map[i][j-1] == '*')) {
 			return false;
 		} else {
@@ -274,47 +342,63 @@ public class OptionsFrame extends JFrame{
 	 * Checking for amount of heroes, ogres ..
 	 */
 	
-	public boolean checkMapIsValid() {
+	private boolean incrementCounterByCharacter(char iden, int i, int j) {
 		
-		int heroCounter = 0;
-		int ogreCounter = 0;
-		int keyCounter = 0;
-		int doorCounter = 0;
-		int wallCounter = 0;
-		int clubCounter = 0;
+		if(iden == 'H') {
+			//counting heroes
+			heroCounter++;
+			return true;
+		}
+		
+		if(iden == 'O') {
+			//counting ogres
+			
+			if(!checkIfClubNearby(map.getMap().getMatrix(), i, j)) {
+				return false;
+			}
+			
+			ogreCounter++;
+			
+			return true;
+		}
+		
+		if(iden == 'k') {
+			//counting key
+			keyCounter++;
+			return true;
+		}
+		
+		if(iden == 'X') {
+			wallCounter++;
+			return true;
+		}
+			
+		if(iden == 'I') {
+			doorCounter++;
+			return true;
+		}
+		
+		if(iden == '*') {
+			clubCounter++;
+			return true;
+		}
+		
+		return true;
+	}
+	
+	private boolean checkMapIsValid() {
+		
+		heroCounter = 0;
+		ogreCounter = 0;
+		keyCounter = 0;
+		doorCounter = 0;
+		wallCounter = 0;
+		clubCounter = 0;
 		
 		for(int i = 0; i < map.getMap().getMatrix().length; i++) {
 			for(int j = 0; j < map.getMap().getMatrix()[i].length; j++) {
-				if(map.getMap().getMatrix()[i][j] == 'H') {
-					//counting heroes
-					heroCounter++;
-				}
-				
-				if(map.getMap().getMatrix()[i][j] == 'O') {
-					//counting ogres
-					
-					if(!checkIfClubNearby(map.getMap().getMatrix(), i, j)) {
-						return false;
-					}
-					
-					ogreCounter++;
-				}
-				
-				if(map.getMap().getMatrix()[i][j] == 'k') {
-					//counting key
-					keyCounter++;
-				}
-				
-				if(map.getMap().getMatrix()[i][j] == 'X') {
-					wallCounter++;
-				}
-					
-				if(map.getMap().getMatrix()[i][j] == 'I') {
-					doorCounter++;
-				}
-				
-				if(map.getMap().getMatrix()[i][j] == '*') {
-					clubCounter++;
+				if(incrementCounterByCharacter(map.getMap().getMatrix()[i][j], i, j) == false) {
+					return false;
 				}
 			}
 		}
