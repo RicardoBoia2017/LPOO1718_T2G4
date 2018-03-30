@@ -24,6 +24,7 @@ public class SimpleGraphicsPanel extends JPanel {
 	private BufferedImage sleepic;
 	private BufferedImage stunnedpic;
 	private BufferedImage superheropic;
+	private BufferedImage emptypic;
 	private boolean editmode;
 	private Map map;
 	  
@@ -43,11 +44,12 @@ public class SimpleGraphicsPanel extends JPanel {
 	           dollarpic = ImageIO.read(new File("Images/dollar.gif")); i++; 		//#7
 	           stairspic = ImageIO.read(new File("Images/stairs.gif")); i++; 		//#8
 	           sleepic = ImageIO.read(new File("Images/sleep.gif")); i++;  			//#9
-	           stunnedpic = ImageIO.read(new File("Images/stunned.gif")); 	
-	           superheropic = ImageIO.read(new File("Images/superhero.gif"));
+	           stunnedpic = ImageIO.read(new File("Images/stunned.gif")); i++;      //#10			
+	           superheropic = ImageIO.read(new File("Images/superhero.gif")); i++;	//#11
 		     } 
 	       catch (IOException ex) {
 	    	   System.out.println("ERROR: Image " + i + " not found.");
+	    	   System.exit(1);
 		     }
 	       
 	       char[][] emptymap = {{' '}};
@@ -122,6 +124,10 @@ public class SimpleGraphicsPanel extends JPanel {
 				
 				case 'K':
 					g.drawImage(superheropic, j*34, i*32, this);
+					break;
+				
+				case ' ':
+					g.drawImage(emptypic, j*34, i*32, this);
 					break;
 				
 				}

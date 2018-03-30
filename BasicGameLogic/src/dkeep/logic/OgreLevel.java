@@ -146,14 +146,14 @@ public class OgreLevel implements LevelLogic, Serializable{
 		return false;
 	}
 	
-	public void manageKeyVisibility (Map map)
+	private void manageKeyVisibility (Map map)
 	{
 		if (map.getMatrix()[(int) keyCoords.getY()][(int) keyCoords.getX()] == ' ' && hero.id == 'A') {
 			map.updateMap((int)keyCoords.getY(),(int) keyCoords.getX(), 'k');
 		}
 	}
 	
-	public void manageOgreStun (char heroMovement, Ogre ogre, Map map)
+	private void manageOgreStun (char heroMovement, Ogre ogre, Map map)
 	{
 		
 		if ( (ogre.getCoordY() == hero.getCoordY() && ogre.getCoordX() == hero.getCoordX() + 1) || 
@@ -178,6 +178,8 @@ public class OgreLevel implements LevelLogic, Serializable{
 			map.updateMap ( (int)elem.getY(), (int) elem.getX(), 'S');
 		}
 	}
+	
+	
 	
 	@Override
 	public String getLevelState() {

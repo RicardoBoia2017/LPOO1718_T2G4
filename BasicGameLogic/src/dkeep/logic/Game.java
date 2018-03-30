@@ -111,7 +111,7 @@ public class Game implements Serializable {
 			currentLevel = new GuardLevel ("Rookie",exitDoors);
 
 			Random randomnumber = new Random();
-			numberOfOgres = randomnumber.nextInt(3); //0-2
+			numberOfOgres = randomnumber.nextInt(3) + 1; //1-3
 		}
 	}
 	
