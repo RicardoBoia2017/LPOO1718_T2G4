@@ -16,7 +16,7 @@ public class Ogre extends Character {
 		movementBlocker = false;
 	}
 	
-	public void move(Map map) throws IllegalMapChangeException {
+	public void move(Map map, LevelLogic level) throws IllegalMapChangeException {
 				
 		
 		if (manageStun())
@@ -74,12 +74,10 @@ public class Ogre extends Character {
 			nTries--;
 		}
 		
-		if (id =='$' && (coordX != 7 || coordY != 1) )
-			id = 'O';
+		checkIfOgreIsInKey(map, level);
+		
 	}
-
-	
-	
+		
 	private boolean manageStun ()
 	{
 		if (stun_counter == 2){
@@ -115,6 +113,15 @@ public class Ogre extends Character {
 		}
 		
 		return false;
+	}
+	
+	private void checkIfOgreIsInKey(Map map, LevelLogic level)
+	{
+		if (id =='$' && (coordX != level.getKeyCoordX() || coordY != level.getKeyCoordY()) )
+		{
+			id = 'O';
+			map.updateMap(coordY, coordX, id);
+		}
 	}
 	
 	public void stun(Map map) throws IllegalMapChangeException{

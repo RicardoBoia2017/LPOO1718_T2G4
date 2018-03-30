@@ -524,7 +524,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		JOptionPane popup = new JOptionPane();
 
-		String answer = JOptionPane.showInputDialog("Default map or custom map? (type custom or default)");
+		String answer = JOptionPane.showInputDialog("Default map or Custom map? (type custom (or c) or default (or d))");
 
 		if (answer == null) {
 			return;
@@ -532,11 +532,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 		boolean normalmap = true;
 
-		if (answer.equals("custom")) {
+		if (answer.equals("custom") || answer.equals("c")) {
 			normalmap = false;
 		}
 
-		else if (answer.equals("default")) {
+		else if (answer.equals("default") || answer.equals("d")) {
 			normalmap = true;
 		}
 

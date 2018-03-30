@@ -87,9 +87,8 @@ public class OgreLevel implements LevelLogic, Serializable{
 			}
 
 			if (ogres.get(i).getBlocker() == false) {
-				// ogre moves
 				try {
-					ogres.get(i).move(map);
+					ogres.get(i).move(map,this);
 				} catch (IllegalMapChangeException e) {
 				}
 			}
@@ -99,7 +98,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 			if (clubs.get(i).getBlocker() == false) {
 
 				try {
-					clubs.get(i).move(map, ogres.get(i));
+					clubs.get(i).move(map, ogres.get(i),this);
 				} catch (IllegalMapChangeException e) {
 				}
 			}

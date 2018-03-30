@@ -17,9 +17,9 @@ public class Club extends Character {
 	
 	public boolean getBlocker() {return movementBlocker;}
 	
-	public void setBlocker(boolean truefalse) {movementBlocker = truefalse;}
+	public void setBlocker(boolean b) {movementBlocker = b;}
 	
-	public void move(Map map,Ogre character) throws IllegalMapChangeException {
+	public void move(Map map,Ogre ogre, LevelLogic level) throws IllegalMapChangeException {
 				
 		int nTries = 8;
 		boolean Moved = false;
@@ -36,79 +36,37 @@ public class Club extends Character {
 			// appears at the left adjacent cell, in relation to our character -
 			// the ogre.
 			case 0: {
-				if (map.getMatrix()[character.coordY][character.coordX - 1] == ' ') {
-					if (id == '$')
-						id = '*';
-					map.updateMap(character.coordY, character.coordX - 1, id);
-					map.updateMap(coordY, coordX, ' ');
-					coordX = character.coordX - 1;
-					coordY = character.coordY;
-					Moved = true;
-				} 
 
+				if (moveAux (map,ogre.getCoordX() - 1, ogre.getCoordY() ) )
+					Moved = true;
+				
 				break;
 			}
 
-			// .. right ...
+			//right 
 			case 1: {
-				if (map.getMatrix()[character.coordY][character.coordX + 1] == ' ') {
-					if (id == '$')
-						id = '*';
-					map.updateMap(character.coordY, character.coordX + 1, id);
-					map.updateMap(coordY, coordX, ' ');
-					coordX = character.coordX + 1;
-					coordY = character.coordY;
+				
+				if (moveAux (map,ogre.getCoordX() + 1, ogre.getCoordY()) )
 					Moved = true;
-				}
-
-				else if (map.getMatrix()[character.coordY][character.coordX + 1] == 'k') {
-					id = '$';
-					map.updateMap(character.coordY, character.coordX + 1, id);
-					map.updateMap(coordY, coordX, ' ');
-					coordX = character.coordX + 1;
-					coordY = character.coordY;
-					Moved = true;
-				} 
 				
 				break;
 			}
 
 			// down
 			case 2: {
-				if (map.getMatrix()[character.coordY + 1][character.coordX] == ' ') {
-					if (id == '$')
-						id = '*';
-					map.updateMap(character.coordY + 1, character.coordX, id);
-					map.updateMap(coordY, coordX, ' ');
-					coordY = character.coordY + 1;
-					coordX = character.coordX;
-					Moved = true;
-				} 
 
+				if (moveAux (map,ogre.getCoordX(), ogre.getCoordY() + 1) )
+					Moved = true;
+				
 				break;
 			}
 
 			// up
 			case 3: {
-				if (map.getMatrix()[character.coordY - 1][character.coordX] == ' ') {
-					if (id == '$')
-						id = '*';
-					map.updateMap(character.coordY - 1, character.coordX, id);
-					map.updateMap(coordY, coordX, ' ');
-					coordY = character.coordY - 1;
-					coordX = character.coordX;
-					Moved = true;
-				}
 
-				else if (map.getMatrix()[character.coordY - 1][character.coordX] == 'k') {
-					id = '$';
-					map.updateMap(character.coordY - 1, character.coordX, id);
-					map.updateMap(coordY, coordX, ' ');
-					coordY = character.coordY - 1;
-					coordX = character.coordX;
+				if (moveAux (map,ogre.getCoordX(), ogre.getCoordY() - 1) )
 					Moved = true;
-				} 
-
+				
 				break;
 			}
 
@@ -118,6 +76,39 @@ public class Club extends Character {
 						
 			nTries--;		
 		}
+		
+		checkIfClubIsInKey(map, level);
 	}
+
+	private boolean moveAux (Map map, int valueX, int valueY)
+	{
+		if (map.getMatrix()[valueY][valueX] == ' ') {
+			map.updateMap(valueY, valueX, id);
+			map.updateMap(this.coordY, this.coordX, ' ');
+			coordY = valueY;
+			coordX = valueX;
+			return true;
+		}
+
+		else if (map.getMatrix()[valueY][valueX] == 'k') {
+			id = '$';
+			map.updateMap(valueY, valueX, id);
+			map.updateMap(coordY, coordX, ' ');
+			coordY = valueY;
+			coordX = valueX;
+			return true;
+		} 
+		return false;
+	}
+	
+	private void checkIfClubIsInKey(Map map, LevelLogic level) {
+		if (id =='$' && (coordX != level.getKeyCoordX() || coordY != level.getKeyCoordY()) )
+		{	
+			id = '*';
+			map.updateMap(coordY, coordX, id);
+		}
+	}
+	
+	
 
 }
