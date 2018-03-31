@@ -76,7 +76,6 @@ public class Hero extends Character {
 		 return 0;
 	}
 	
-
 	private void moveIntoCell (Map map, int newY, int newX)
 	{
 		 map.updateMap(newY, newX, id);

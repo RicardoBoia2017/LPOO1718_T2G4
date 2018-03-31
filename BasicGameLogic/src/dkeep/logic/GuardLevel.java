@@ -12,23 +12,17 @@ public class GuardLevel implements LevelLogic, Serializable{
 	ArrayList <Point> exitDoors;
 	String levelState;
 	
-	public GuardLevel(String guardPersonality, ArrayList <Point> exitDoors)
+	public GuardLevel(String guardPersonality)
 	{
 		hero = new Hero(1,1);
 		guard = new Guard (8,1,guardPersonality);
 		keyCoords = new Point (7,8);
-//		keyCoords[0] = 7;
-//		keyCoords[1] = 8;	
-		this.exitDoors = exitDoors;
 		levelState = "Running";
 	}
 	
-	public GuardLevel(Hero hero, Guard guard, Point keyCoords, ArrayList <Point> exitDoors)
+	public GuardLevel(Guard guard)
 	{
-		this.hero = hero;
 		this.guard = guard;
-		this.keyCoords = keyCoords;
-		this.exitDoors = exitDoors;
 		levelState = "Running";
 	}
 	
@@ -140,6 +134,21 @@ public class GuardLevel implements LevelLogic, Serializable{
 			map.updateMap ( (int)elem.getY(), (int) elem.getX(), 'S');
 		}
 	}
+
+	@Override
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+
+	@Override
+	public void setKeyCoords(Point keyCoords) {	
+		this.keyCoords = keyCoords;
+	}
+
+	@Override
+	public void setExitDoors(ArrayList<Point> exitDoors) {
+		this.exitDoors = exitDoors;
+	}
 	
 	@Override
 	public String getLevelState() {
@@ -178,6 +187,8 @@ public class GuardLevel implements LevelLogic, Serializable{
 	public ArrayList<Point> getExitDoors() {
 		return exitDoors;
 	}
+
+
 
 
 }

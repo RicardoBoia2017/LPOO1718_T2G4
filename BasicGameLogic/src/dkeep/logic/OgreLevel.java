@@ -38,14 +38,10 @@ public class OgreLevel implements LevelLogic, Serializable{
 		levelState = "Running";	
 	}
 
-	public OgreLevel(Hero hero, ArrayList<Ogre> ogres, ArrayList<Club> clubs, Point keyCoords, ArrayList<Point> exitDoors)
+	public OgreLevel(ArrayList<Ogre> ogres, ArrayList<Club> clubs)
 	{
-		this.hero = hero;
-		hero.setID('A');
 		this.ogres = ogres;
 		this.clubs = clubs;
-		this.keyCoords = keyCoords;
-		this.exitDoors = exitDoors;
 		this.levelState = "Running";
 	}
 	
@@ -179,7 +175,20 @@ public class OgreLevel implements LevelLogic, Serializable{
 		}
 	}
 	
-	
+	@Override
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+
+	@Override
+	public void setKeyCoords(Point keyCoords) {	
+		this.keyCoords = keyCoords;
+	}
+
+	@Override
+	public void setExitDoors(ArrayList<Point> exitDoors) {
+		this.exitDoors = exitDoors;
+	}
 	
 	@Override
 	public String getLevelState() {

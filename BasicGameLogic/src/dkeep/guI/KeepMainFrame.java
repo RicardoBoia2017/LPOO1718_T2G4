@@ -455,7 +455,6 @@ public class KeepMainFrame extends javax.swing.JFrame {
            savedMap = savedGame.getMap();
            savedLogic = savedGame.getLevelLogic();
            numOgres = savedGame.getNumberOfOgres();
-           gamestate = savedGame.getLevelLogic().getLevelState();
            
            input.close();
            
@@ -473,7 +472,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
            e.printStackTrace();
        }
        
-       Game toRun = new Game(numOgres, gamestate, savedMap, savedLogic);
+       Game toRun = new Game(numOgres,savedMap, savedLogic);
        
        game = toRun;
        

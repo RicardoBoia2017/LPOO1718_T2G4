@@ -11,7 +11,7 @@ public class Game implements Serializable {
 	int numberOfOgres;
 	LevelLogic currentLevel;
 	
-	public Game(int numbrOfOgrs, String gamStat, Map map, LevelLogic currentLevel) {
+	public Game(int numbrOfOgrs, Map map, LevelLogic currentLevel) {
 		numberOfOgres = numbrOfOgrs;
 		this.map = map;
 		this.currentLevel = currentLevel;
@@ -34,6 +34,7 @@ public class Game implements Serializable {
 				if(map.getMatrix()[i][j] == 'H') {
 					//getting the hero
 					hero = new Hero(j, i);
+					hero.setID('A');
 				}
 				
 				if(map.getMatrix()[i][j] == 'k') {
@@ -70,7 +71,10 @@ public class Game implements Serializable {
 			}
 		}
 		
-		currentLevel = new OgreLevel(hero,ogres,clubs, keyCoords, exitDoors);
+		currentLevel = new OgreLevel(ogres, clubs);
+		currentLevel.setHero(hero);
+		currentLevel.setKeyCoords(keyCoords);
+		currentLevel.setExitDoors(exitDoors);
 	}
 	
 	public Game(int numberOfOgres, String guardPersonality) {
@@ -82,7 +86,10 @@ public class Game implements Serializable {
 		exitDoors.add(new Point(0,5) );
 		exitDoors.add(new Point(0,6) );
 		
-		currentLevel = new GuardLevel(new Hero (1,1), new Guard (8,1,guardPersonality), keyCoords, exitDoors);
+		currentLevel = new GuardLevel(new Guard (8,1,guardPersonality) );
+		currentLevel.setHero(new Hero (1,1));
+		currentLevel.setKeyCoords(keyCoords);
+		currentLevel.setExitDoors(exitDoors);
 		
 		this.numberOfOgres = numberOfOgres;
 	
@@ -98,18 +105,29 @@ public class Game implements Serializable {
 			exitDoors.add(new Point(0,2) );
 			exitDoors.add(new Point(0,3) );
 			
-			currentLevel = new GuardLevel (new Hero(1,1), new Guard (3,1,"Rookie"), keyCoords, exitDoors);
+			currentLevel = new GuardLevel (new Guard (3,1,"Rookie"));
+			currentLevel.setHero(new Hero (1,1));
+			currentLevel.setKeyCoords(keyCoords);
+			currentLevel.setExitDoors(exitDoors);
 			numberOfOgres = 1;
 		}
 
 		else {
 			//NORMAL MAP
 			map = new Map(0);
+			
 			ArrayList <Point> exitDoors = new ArrayList <Point> ();
 			exitDoors.add(new Point(0,5) );
 			exitDoors.add(new Point(0,6) );
-			currentLevel = new GuardLevel ("Rookie",exitDoors);
+			
+			Point keyCoords = new Point (7,8);
 
+			currentLevel = new GuardLevel ("Rookie");
+			
+			currentLevel.setHero(new Hero (1,1));
+			currentLevel.setKeyCoords(keyCoords);
+			currentLevel.setExitDoors(exitDoors);
+			
 			Random randomnumber = new Random();
 			numberOfOgres = randomnumber.nextInt(3) + 1; //1-3
 		}

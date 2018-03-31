@@ -9,6 +9,11 @@ public interface LevelLogic {
 	
 	void openExitDoor (Map map);
 	
+	public void setHero (Hero hero);
+	public void setKeyCoords (Point keyCoords);
+	public void setExitDoors (ArrayList <Point> exitDoors);
+	
+	
 	public String getLevelType();
 	public String getLevelState();
 	public Hero getHero();
