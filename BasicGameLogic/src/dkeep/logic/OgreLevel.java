@@ -67,7 +67,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 		
 		for (int i = 0; i < ogres.size(); i++) {
 			if (heroMovementReturn == 2 && ogres.get(i).getStunCounter() == 0 && ( hero.getID() == 'A' || hero.getID() == 'K') ) {
-				manageOgreStun (heroMovement, ogres.get(i), map);
+				manageOgreStun (ogres.get(i), map);
 
 			}
 
@@ -149,7 +149,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 		}
 	}
 	
-	private void manageOgreStun (char heroMovement, Ogre ogre, Map map)
+	private void manageOgreStun (Ogre ogre, Map map)
 	{
 		
 		if ( (ogre.getCoordY() == hero.getCoordY() && ogre.getCoordX() == hero.getCoordX() + 1) || 
