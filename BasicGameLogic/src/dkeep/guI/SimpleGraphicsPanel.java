@@ -62,66 +62,51 @@ public class SimpleGraphicsPanel extends JPanel {
 	
 	public Map getMap(){return map;}
 	
-	private void drawCharacterByChar(char determinant, int i, int j, Graphics g) {
+	private BufferedImage getImageByChar(char determinant) {
 		switch(determinant) {
 		
 		case 'H':
-			g.drawImage(heropic, j*34, i*32, this);
-			break;
+			return heropic;
 			
 		case 'g':
-			g.drawImage(sleepic, j*34, i*32, this);
-			break;
+			return sleepic;
 		
 		case '8':
-			g.drawImage(stunnedpic, j*34, i*32, this);
-			break;
+			return stunnedpic;
 		
 		case 'A':
-			g.drawImage(heropic, j*34, i*32, this);
-			break;
+			return heropic;
 			
 		case 'O':
-			g.drawImage(ogrepic, j*34, i*32, this);
-			break;
+			return ogrepic;
 			
 		case 'G':
-			g.drawImage(guardpic, j*34, i*32, this);
-			break;
+			return guardpic;
 			
 		case '*':
-			g.drawImage(clubpic, j*34, i*32, this);
-			break;
+			return clubpic;
 			
 		case '$':
-			g.drawImage(dollarpic, j*34, i*32, this);
-			break;
+			return dollarpic;
 			
 		case 'k':
-			g.drawImage(keypic, j*34, i*32, this);
-			break;
+			return keypic;
 		
 		case 'X':
-			g.drawImage(wallpic, j*34, i*32, this);
-			break;
+			return wallpic;
 			
 		case 'I':
-			g.drawImage(doorpic, j*34, i*32, this);
-			break;
+			return doorpic;
 			
 		case 'S':
-			g.drawImage(stairspic, j*34, i*32, this);
-			break;
+			return stairspic;
 		
 		case 'K':
-			g.drawImage(superheropic, j*34, i*32, this);
-			break;
-		
-		case ' ':
-			g.drawImage(emptypic, j*34, i*32, this);
-			break;
-			
+			return superheropic;
+
 		}
+		
+		return null;
 	}
 	
 	// Redraws the panel, only when requested by SWING
@@ -133,7 +118,8 @@ public class SimpleGraphicsPanel extends JPanel {
 		
     	for(int i = 0; i < mapmatrix.length; i++) {
 			for(int j = 0; j < mapmatrix[i].length; j++) {
-				drawCharacterByChar(mapmatrix[i][j], i, j, g);
+				BufferedImage bi = getImageByChar (mapmatrix[i][j]);
+				g.drawImage(bi, j*34, i*32, this);
 			}
 		}
 	}
