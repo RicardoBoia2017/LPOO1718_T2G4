@@ -20,6 +20,10 @@ public class Guard extends Character {
 		this.movementBlocker = false;
 	}
 	
+	public String getPersonality() {
+		return personality;
+	}
+	
 	public void rookieMove(Map map) throws IllegalMapChangeException {
 
 	callMoveByCommand(map);

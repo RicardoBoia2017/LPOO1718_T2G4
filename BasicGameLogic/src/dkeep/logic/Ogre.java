@@ -12,12 +12,10 @@ public class Ogre extends Character {
 	public Ogre(int x, int y) {
 		super(x, y, 'O');
 		stun_counter = 0;
-		randholder = 0;
 		movementBlocker = false;
 	}
 	
 	public void move(Map map, LevelLogic level) throws IllegalMapChangeException {
-				
 		
 		if (manageStun())
 			return;
@@ -28,15 +26,18 @@ public class Ogre extends Character {
 		while (nTries > 0) {
 			Random randomnum = new Random();
 			
-			randholder = randomnum.nextInt(4);
+			int random = randomnum.nextInt(4);
 			
-			switch (randholder) {
+			switch (random) {
 
 			// left
 			case 0: {
 
-				if ( moveAux (map, coordX-1,coordY) )
+				if ( moveAux (map, coordX-1,coordY) ) {
+					System.out.println("valid 0");
 					Moved = true;
+					randholder = 0;
+				}
 				
 				break;
 			}
@@ -44,8 +45,11 @@ public class Ogre extends Character {
 			// right
 			case 1: {
 
-				if ( moveAux (map, coordX+1,coordY) )
+				if ( moveAux (map, coordX+1,coordY) ) {
+					System.out.println("valid 1");
 					Moved = true;
+					randholder = 1;
+				}
 			
 				break;
 			}
@@ -53,8 +57,11 @@ public class Ogre extends Character {
 			// down
 			case 2: {
 
-				if ( moveAux (map, coordX,coordY + 1) )	
+				if ( moveAux (map, coordX,coordY + 1) )	{
+					System.out.println("valid 2");
 					Moved = true;
+					randholder = 2;
+				}
 				
 				break;
 			}
@@ -62,12 +69,17 @@ public class Ogre extends Character {
 			// up
 			case 3: {
 				
-				if ( moveAux (map, coordX,coordY - 1) )
+				if ( moveAux (map, coordX,coordY - 1) ) {
+					System.out.println("valid 3");
 					Moved = true;
+					randholder = 3;
+				}
 				
 				break;
 			}
+			
 			}
+			
 			if (Moved)
 				break;
 		
@@ -75,7 +87,6 @@ public class Ogre extends Character {
 		}
 		
 		checkIfOgreIsInKey(map, level);
-		
 	}
 		
 	private boolean manageStun ()
@@ -94,9 +105,14 @@ public class Ogre extends Character {
 		return false;
 	}
 	
-	private boolean moveAux(Map map, int valueX, int valueY)
+	public boolean moveAux(Map map, int valueX, int valueY)
 	{
 		if (map.getMatrix()[valueY][valueX] == ' ' || map.getMatrix()[valueY][valueX] == 'O') {
+			
+			if(id == '$') {
+				id = 'O';
+			}
+			
 			map.updateMap(valueY, valueX, id);
 			map.updateMap(this.coordY, this.coordX, ' ');
 			coordY = valueY;
@@ -109,6 +125,7 @@ public class Ogre extends Character {
 			map.updateMap(this.coordY, this.coordX, ' ');
 			coordY = valueY;
 			coordX = valueX;
+			id = '$';
 			return true;
 		}
 		

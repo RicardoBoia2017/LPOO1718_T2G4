@@ -57,7 +57,6 @@ public class Game implements Serializable {
 				if(map.getMatrix()[i][j] == 'O') {
 					//adding ogres to the array
 					ogres.add(new Ogre (j,i) );
-//					ogres.get(0).setBlocker(true);
 				}
 			}
 		}
@@ -66,7 +65,6 @@ public class Game implements Serializable {
 			for(int j = 0; j < map.getMatrix()[i].length; j++) {
 				if(map.getMatrix()[i][j] == '*') {
 					clubs.add(new Club (j,i));
-//					clubs.get(0).setBlocker(true);
 				}
 			}
 		}
@@ -112,7 +110,7 @@ public class Game implements Serializable {
 			numberOfOgres = 1;
 		}
 
-		else {
+		else if (test == 0){
 			//NORMAL MAP
 			map = new Map(0);
 			

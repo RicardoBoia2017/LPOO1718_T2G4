@@ -1,9 +1,16 @@
 package dkeep.test;
 
 import static org.junit.Assert.*;
+
+import java.awt.Point;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import dkeep.logic.Game;
+import dkeep.logic.Guard;
+import dkeep.logic.GuardLevel;
+import dkeep.logic.Hero;
 import dkeep.logic.IllegalMapChangeException;
 import dkeep.logic.Map;
 import dkeep.logic.Ogre;
@@ -333,6 +340,8 @@ public class TestDungeonGameLogic {
 	@Test(timeout=1000)
 	public void testOgreRandomBehaviour() {
 		
+		int coordX, coordY;
+		
 		Game game = new Game(1);
 		char [][] map;
 		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
@@ -355,13 +364,13 @@ public class TestDungeonGameLogic {
 		while(!outcome1 || !outcome2 || !outcome3 || !outcome4) {
 			//Hero moves into a wall for the time being
 			
-			int coordX = game.getLevelLogic().getOgre().getCoordX();
-			int coordY = game.getLevelLogic().getOgre().getCoordY();
+			coordX = game.getLevelLogic().getOgre().getCoordX();
+			coordY = game.getLevelLogic().getOgre().getCoordY();
 			
 			game.updateGame('s');
 			
 			if(game.getLevelLogic().getOgre().getRand() == 0) {
-				assertEquals(coordX - 1 , game.getLevelLogic().getOgre().getCoordX());
+				assertEquals(coordX - 1, game.getLevelLogic().getOgre().getCoordX());
 				assertEquals(coordY, game.getLevelLogic().getOgre().getCoordY());
 				outcome1 = true;
 			}
@@ -374,7 +383,7 @@ public class TestDungeonGameLogic {
 			
 			else if(game.getLevelLogic().getOgre().getRand() == 3) {
 				assertEquals(coordX, game.getLevelLogic().getOgre().getCoordX());
-				assertEquals(coordY-1, game.getLevelLogic().getOgre().getCoordY());
+				assertEquals(coordY - 1, game.getLevelLogic().getOgre().getCoordY());
 				outcome3 = true;
 			}
 			
@@ -464,6 +473,7 @@ public class TestDungeonGameLogic {
 			}
 		}
 	}
+	
 
 	@Test (timeout = 1000)
 	public void testClubStepsintoKey()
@@ -531,7 +541,318 @@ public class TestDungeonGameLogic {
 			}
 		}
 	}
+	
+	
+	@Test
+	public void testRookieGuardFollowsPath() {
+		Game game = new Game(0);
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(1, game.getLevelLogic().getHero().getCoordY());
+		assertEquals(8, game.getLevelLogic().getGuard().getCoordX());
+		assertEquals(1, game.getLevelLogic().getGuard().getCoordY());
+		
+ 		int i = 0;
+	
+		while(i < 20) {
+			game.updateGame('a');
+			assertEquals(7, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(1, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(7, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(2, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(7, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(3, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(7, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(4, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(7, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(4, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(3, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(2, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(1, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(1, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(2, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(3, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(4, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(7, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(8, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(6, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(8, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(5, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(8, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(4, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(8, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(3, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(8, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(2, game.getLevelLogic().getGuard().getCoordY());
+			game.updateGame('a');
+			assertEquals(8, game.getLevelLogic().getGuard().getCoordX());
+			assertEquals(1, game.getLevelLogic().getGuard().getCoordY());
+			
+			i++;
+		}
+	}
+	
 
+	@Test
+	public void testDrunkenGuardFallAsleep() {
+		Game game = new Game(1, "Drunken");
+		assertEquals("Drunken", game.getLevelLogic().getGuard().getPersonality());
+		
+		int oldcoordX, oldcoordY, newcoordX, newcoordY;
+		
+		while(true) {
+			oldcoordX =  game.getLevelLogic().getGuard().getCoordX();
+			oldcoordY = game.getLevelLogic().getGuard().getCoordY();
+			
+			game.updateGame('a');
+			
+			newcoordX = game.getLevelLogic().getGuard().getCoordX();
+			newcoordY = game.getLevelLogic().getGuard().getCoordY();
+			
+			if(newcoordX == oldcoordX && newcoordY == oldcoordY) {
+				assertEquals('g', game.getLevelLogic().getGuard().getID());
+				break;
+			} 
+			
+			else {
+				assertEquals('G', game.getLevelLogic().getGuard().getID());
+			}
+		}
+	}
+	
+	@Test
+	public void testOgreStepsintoKey() {
+		Game game = new Game(1);
+		Map newmap = new Map(0);
+		newmap.setMap(2);
+		
+		game.updateGame('s');
+		game.updateGame('s');
+		game.updateGame('a');
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
+		
+		game.getLevelLogic().getClub().setBlocker(true);
+		
+		Map map;
+		
+		int  coordX, coordY;
+		
+		
+		while (true)
+		{
+			map =  game.updateGame('s');
+			
+			if(game.getLevelLogic().getOgre().getCoordX() == game.getLevelLogic().getKeyCoordX() && game.getLevelLogic().getOgre().getCoordY() == game.getLevelLogic().getKeyCoordY()) {
+				assertEquals('$', game.getLevelLogic().getOgre().getID());
+				assertEquals ('$', map.getMatrix()[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
+				break;
+			} 
+			
+			else {
+				assertEquals ('k', map.getMatrix()[game.getLevelLogic().getKeyCoordY()][game.getLevelLogic().getKeyCoordX()]);
+			}
+		}
+	}
+	
+	@Test
+	public void testifHeroLoosesNextoSleepingGuard() {
+		Game game = new Game(0);
+		
+		game.getLevelLogic().getGuard().setID('g');
+		
+		game.updateGame('d');
+		game.updateGame('d');
+		game.updateGame('s');
+		game.updateGame('s');
+		game.updateGame('s');
+		game.updateGame('s');
+		
+		while(true) {
+			
+			game.updateGame('a');
+			
+			if(game.getMap().getMatrix()[game.getLevelLogic().getGuard().getCoordY()][game.getLevelLogic().getGuard().getCoordX() - 1] == game.getLevelLogic().getHero().getID()) {
+				assertEquals("Running", game.getLevelLogic().getLevelState());
+				break;
+			}
+		}
+	}
+	
+	/*@Test
+	public void testOgremoveintoOgre() {
+		//TODO:
+		fail("not done yet");
+	}
+	
+	@Test
+	public void testInvertPath() {
+		//TODO:
+		fail("not done yet");
+	}
+	
+	@Test
+	public void testGuardAwake() {
+		//TODO:
+		fail("not done yet");
+	}
+	
+	@Test
+	public void testifUpdateGame(){
+		//TODO:
+		fail("not done yet");
+	}
+	*/
+	
+	@Test
+	public void testMakesTestGame() {
+		Game game = new Game(1);
+		
+		assertEquals(game.getMap().getCurrentMap(), -1);
+		
+		assertEquals(game.getLevelLogic().getExitDoors().get(0).x, 0);
+		assertEquals(game.getLevelLogic().getExitDoors().get(0).y, 2);
+		
+		assertEquals(game.getLevelLogic().getExitDoors().get(1).x, 0);
+		assertEquals(game.getLevelLogic().getExitDoors().get(1).y, 3);
+		
+		assertEquals(game.getLevelLogic().getHero().getCoordX(), 1);
+		assertEquals(game.getLevelLogic().getHero().getCoordY(), 1);
+		
+		assertEquals(game.getLevelLogic().getLevelState(), "Running");
+		
+		assertEquals(game.getLevelLogic().getGuard().getPersonality(), "Rookie");
+		assertEquals(game.getLevelLogic().getGuard().getCoordX(), 3);
+		assertEquals(game.getLevelLogic().getGuard().getCoordY(), 1);
+		assertEquals(game.getLevelLogic().getKeyCoordX(), 1);
+		assertEquals(game.getLevelLogic().getKeyCoordY(), 3);
+		
+		assertEquals(game.getNumberOfOgres(), 1);
+	}
+	
+	@Test
+	public void testMakesNormalGame() {
+		Game game = new Game(0);
+		
+		assertEquals(game.getMap().getCurrentMap(), 1);
+		
+		assertEquals(game.getLevelLogic().getExitDoors().get(0).x, 0);
+		assertEquals(game.getLevelLogic().getExitDoors().get(0).y, 5);
+		
+		assertEquals(game.getLevelLogic().getExitDoors().get(1).x, 0);
+		assertEquals(game.getLevelLogic().getExitDoors().get(1).y, 6);
+		
+		assertEquals(game.getLevelLogic().getHero().getCoordX(), 1);
+		assertEquals(game.getLevelLogic().getHero().getCoordY(), 1);
+		
+		assertEquals(game.getLevelLogic().getGuard().getPersonality(), "Rookie");
+		assertEquals(game.getLevelLogic().getGuard().getCoordX(), 8);
+		assertEquals(game.getLevelLogic().getGuard().getCoordY(), 1);
+		assertEquals(game.getLevelLogic().getKeyCoordX(), 7);
+		assertEquals(game.getLevelLogic().getKeyCoordY(), 8);
+		
+		assertEquals(game.getLevelLogic().getLevelState(), "Running");
+		
+		assert(game.getNumberOfOgres() >= 1 && game.getNumberOfOgres() <= 3);
+	}
+	
+	@Test
+	public void testMakesCustomGame() {
+		char[][] empty = {{'H', 'k', 'I', 'O', '*'}};
+		
+		Game game = new Game(empty);
+		
+		assertEquals(game.getMap().getCurrentMap(), 3);
+		assertEquals(game.getMap().getMatrix().length, empty.length);
+		
+		for(int i = 0; i < game.getMap().getMatrix().length; i++) {
+			for(int j = 0; j < game.getMap().getMatrix().length; j++) {
+				assertEquals(game.getMap().getMatrix()[i][j], empty[i][j]);
+			}
+		}
+		
+		assertEquals(game.getLevelLogic().getOgre().getCoordX(), 3);
+		assertEquals(game.getLevelLogic().getOgre().getCoordY(), 0);
+		
+		assertEquals(game.getLevelLogic().getHero().getCoordX(), 0);
+		assertEquals(game.getLevelLogic().getHero().getCoordY(), 0);
+		
+		assertEquals(game.getLevelLogic().getKeyCoordX(), 1);
+		assertEquals(game.getLevelLogic().getKeyCoordY(), 0);
+		
+		assertEquals(game.getLevelLogic().getClub().getCoordX(), 4);
+		assertEquals(game.getLevelLogic().getClub().getCoordY(), 0);
+		
+		assertEquals(game.getLevelLogic().getExitDoors().get(0).x, 2);
+		assertEquals(game.getLevelLogic().getExitDoors().get(0).y, 0);
+	}
+	
+	@Test
+	public void testMakesGameWithInput() {
+		
+		Game game = new Game(3, "Drunken");
+		
+		assertEquals(game.getMap().getCurrentMap(), 1);
+		
+		assertEquals(game.getLevelLogic().getKeyCoordX(), 7);
+		assertEquals(game.getLevelLogic().getKeyCoordY(), 8);
+		
+		assertEquals(game.getLevelLogic().getExitDoors().get(0).x, 0);
+		assertEquals(game.getLevelLogic().getExitDoors().get(0).y, 5);
+		
+		assertEquals(game.getLevelLogic().getExitDoors().get(1).x, 0);
+		assertEquals(game.getLevelLogic().getExitDoors().get(1).y, 6);
+		
+		assertEquals(game.getLevelLogic().getHero().getCoordX(), 1);
+		assertEquals(game.getLevelLogic().getHero().getCoordY(), 1);
+		
+		assertEquals(game.getLevelLogic().getGuard().getCoordX(), 8);
+		assertEquals(game.getLevelLogic().getGuard().getCoordY(), 1);
+		
+		assertEquals(game.getLevelLogic().getGuard().getPersonality(), "Drunken");
+		
+		assertEquals(game.getNumberOfOgres(), 3);
+	}
+	
 //	public void testOgre()
 //	{
 //		Game game = new Game(1);
@@ -567,5 +888,7 @@ public class TestDungeonGameLogic {
 //			n--;
 //		}
 //	}
+	
+	//FALTA -> OGRE STEPS INTO KEY, GUARD INVERTS(Suspicious and drunken), GUARD FALLS ASLEEP(Drunken).
 }
 
