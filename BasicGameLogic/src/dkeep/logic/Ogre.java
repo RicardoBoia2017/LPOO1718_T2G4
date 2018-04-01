@@ -6,7 +6,7 @@ import java.util.Random;
 public class Ogre extends Character {
 
 	private int stun_counter;
-	private int randholder;
+	private int randHolder;
 	boolean movementBlocker;
 	
 	public Ogre(int x, int y) {
@@ -36,7 +36,7 @@ public class Ogre extends Character {
 				if ( moveAux (map, coordX-1,coordY) ) {
 					System.out.println("valid 0");
 					Moved = true;
-					randholder = 0;
+					randHolder = 0;
 				}
 				
 				break;
@@ -48,7 +48,7 @@ public class Ogre extends Character {
 				if ( moveAux (map, coordX+1,coordY) ) {
 					System.out.println("valid 1");
 					Moved = true;
-					randholder = 1;
+					randHolder = 1;
 				}
 			
 				break;
@@ -60,7 +60,7 @@ public class Ogre extends Character {
 				if ( moveAux (map, coordX,coordY + 1) )	{
 					System.out.println("valid 2");
 					Moved = true;
-					randholder = 2;
+					randHolder = 2;
 				}
 				
 				break;
@@ -72,7 +72,7 @@ public class Ogre extends Character {
 				if ( moveAux (map, coordX,coordY - 1) ) {
 					System.out.println("valid 3");
 					Moved = true;
-					randholder = 3;
+					randHolder = 3;
 				}
 				
 				break;
@@ -149,7 +149,7 @@ public class Ogre extends Character {
 	
 	public void setId (char newId) {id = newId;}
 	
-	public int getRand() {return randholder;};
+	public int getRand() {return randHolder;};
 	
 	public int getStunCounter () {return stun_counter;}
 	

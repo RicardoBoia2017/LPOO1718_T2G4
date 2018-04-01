@@ -710,7 +710,6 @@ public class TestDungeonGameLogic {
 		while(true) {
 			
 			game.updateGame('a');
-			
 			if(game.getMap().getMatrix()[game.getLevelLogic().getGuard().getCoordY()][game.getLevelLogic().getGuard().getCoordX() - 1] == game.getLevelLogic().getHero().getID()) {
 				assertEquals("Running", game.getLevelLogic().getLevelState());
 				break;
@@ -718,13 +717,69 @@ public class TestDungeonGameLogic {
 		}
 	}
 	
-	/*@Test
+	@Test
 	public void testOgremoveintoOgre() {
-		//TODO:
-		fail("not done yet");
+		Game game = new Game(1);
+		
+		game.updateGame('s');
+		game.updateGame('s');
+		game.updateGame('a');
+		assertEquals(1, game.getLevelLogic().getHero().getCoordX());
+		assertEquals(7, game.getLevelLogic().getHero().getCoordY());
+		
+		game.getMap().updateMap(1, 5, 'O');
+		game.getMap().updateMap(2, 4, 'O');
+		
+		game.updateGame('s');
+		
+		switch (game.getLevelLogic().getOgre().getRand())
+		{
+			case 1:
+			{
+				assertEquals(5, game.getLevelLogic().getOgre().getCoordX());
+				assertEquals(1, game.getLevelLogic().getOgre().getCoordY());
+				break;
+			}
+			
+			case 2:
+			{
+				assertEquals(4, game.getLevelLogic().getOgre().getCoordX());
+				assertEquals(2, game.getLevelLogic().getOgre().getCoordY());
+				break;
+			}
+		}
 	}
 	
 	@Test
+	public void testPersonalizedMapConstructor()
+	{
+		int width = 10;
+		int height = 10;
+		
+		Map map = new Map (width,height);
+		
+		for (int i = 0; i < width; i++)
+		{
+			for (int j = 0; j < height; j++)
+			{
+				if (i == 0 || i == width -1)
+				{
+					assertEquals ('X', map.getMatrix() [j][i]);
+				}
+				
+				else if (j == 0 || j == height - 1)
+				{
+					assertEquals ('X', map.getMatrix() [j][i]);
+				}
+				
+				else
+				{
+					assertEquals (' ', map.getMatrix() [j][i]);
+				}
+			}
+		}
+	}
+/*	@Test
 	public void testInvertPath() {
 		//TODO:
 		fail("not done yet");
