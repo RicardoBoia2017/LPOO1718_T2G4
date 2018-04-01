@@ -34,7 +34,6 @@ public class Ogre extends Character {
 			case 0: {
 
 				if ( moveAux (map, coordX-1,coordY) ) {
-					System.out.println("valid 0");
 					Moved = true;
 					randHolder = 0;
 				}
@@ -46,7 +45,6 @@ public class Ogre extends Character {
 			case 1: {
 
 				if ( moveAux (map, coordX+1,coordY) ) {
-					System.out.println("valid 1");
 					Moved = true;
 					randHolder = 1;
 				}
@@ -58,7 +56,6 @@ public class Ogre extends Character {
 			case 2: {
 
 				if ( moveAux (map, coordX,coordY + 1) )	{
-					System.out.println("valid 2");
 					Moved = true;
 					randHolder = 2;
 				}
@@ -70,7 +67,6 @@ public class Ogre extends Character {
 			case 3: {
 				
 				if ( moveAux (map, coordX,coordY - 1) ) {
-					System.out.println("valid 3");
 					Moved = true;
 					randHolder = 3;
 				}
@@ -86,6 +82,9 @@ public class Ogre extends Character {
 			nTries--;
 		}
 		
+		if (!Moved)
+			randHolder = -1;
+				
 		checkIfOgreIsInKey(map, level);
 	}
 		

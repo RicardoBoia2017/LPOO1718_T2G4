@@ -57,7 +57,6 @@ public class GuardLevel implements LevelLogic, Serializable{
 
 				// pass interface game over state, interface will print.
 
-				System.out.println("Game Over.");
 				levelState = "Over";
 				return;
 			}
@@ -67,8 +66,6 @@ public class GuardLevel implements LevelLogic, Serializable{
 			if (checkIfHeroGetsCaughtByGuard(map)) {
 
 				// pass interface game over state, interface will print.
-				System.out.println("");
-				System.out.println("Game Over.");
 
 				levelState = "Over";
 				return;

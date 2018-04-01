@@ -359,38 +359,57 @@ public class TestDungeonGameLogic {
 		//outcome3: Ogre moves up.
 		//outcome4: Ogre moves down.
 		
-		boolean outcome1 = false, outcome2 = false, outcome3 = false, outcome4 = false;
+		boolean outcome1 = false, outcome2 = false, outcome3 = false, outcome4 = false, outcome5 = false;
 		
-		while(!outcome1 || !outcome2 || !outcome3 || !outcome4) {
+		while(!outcome1 || !outcome2 || !outcome3 || !outcome4 || !outcome5) {
 			//Hero moves into a wall for the time being
 			
 			coordX = game.getLevelLogic().getOgre().getCoordX();
 			coordY = game.getLevelLogic().getOgre().getCoordY();
 			
 			game.updateGame('s');
-			
-			if(game.getLevelLogic().getOgre().getRand() == 0) {
-				assertEquals(coordX - 1, game.getLevelLogic().getOgre().getCoordX());
-				assertEquals(coordY, game.getLevelLogic().getOgre().getCoordY());
-				outcome1 = true;
+						
+			if(game.getLevelLogic().getOgre().getRand() == 0 ) {
+				if (game.getLevelLogic().getOgre().getID() != '8')
+					assertEquals(coordX - 1, game.getLevelLogic().getOgre().getCoordX());
+					assertEquals(coordY, game.getLevelLogic().getOgre().getCoordY());
+					outcome1 = true;
 			}
 			
-			else if(game.getLevelLogic().getOgre().getRand() == 1) {
-				assertEquals(coordX + 1, game.getLevelLogic().getOgre().getCoordX());
-				assertEquals(coordY, game.getLevelLogic().getOgre().getCoordY());
-				outcome2 = true;
+			else if(game.getLevelLogic().getOgre().getRand() == 1 ) {
+				if (game.getLevelLogic().getOgre().getID() != '8')
+				{
+					assertEquals(coordX + 1, game.getLevelLogic().getOgre().getCoordX());
+					assertEquals(coordY, game.getLevelLogic().getOgre().getCoordY());
+					outcome2 = true;
+				}
 			}
 			
 			else if(game.getLevelLogic().getOgre().getRand() == 3) {
-				assertEquals(coordX, game.getLevelLogic().getOgre().getCoordX());
-				assertEquals(coordY - 1, game.getLevelLogic().getOgre().getCoordY());
-				outcome3 = true;
+				if (game.getLevelLogic().getOgre().getID() != '8')
+				{
+					assertEquals(coordX, game.getLevelLogic().getOgre().getCoordX());
+					assertEquals(coordY - 1, game.getLevelLogic().getOgre().getCoordY());
+					outcome3 = true;
+				}
 			}
 			
 			else if(game.getLevelLogic().getOgre().getRand() == 2) {
-				assertEquals(coordX, game.getLevelLogic().getOgre().getCoordX());
-				assertEquals(coordY + 1, game.getLevelLogic().getOgre().getCoordY());
-				outcome4 = true;
+				if (game.getLevelLogic().getOgre().getID() != '8')
+				{
+					assertEquals(coordX, game.getLevelLogic().getOgre().getCoordX());
+					assertEquals(coordY + 1, game.getLevelLogic().getOgre().getCoordY());
+					outcome4 = true;
+				}
+			}
+			
+			else if(game.getLevelLogic().getOgre().getRand() == -1) {
+				if (game.getLevelLogic().getOgre().getID() != '8')
+				{
+					assertEquals(coordX, game.getLevelLogic().getOgre().getCoordX());
+					assertEquals(coordY, game.getLevelLogic().getOgre().getCoordY());
+					outcome5 = true;
+				}
 			}
 			
 			else {
@@ -731,7 +750,7 @@ public class TestDungeonGameLogic {
 		game.getMap().updateMap(2, 4, 'O');
 		
 		game.updateGame('s');
-		
+			
 		switch (game.getLevelLogic().getOgre().getRand())
 		{
 			case 1:

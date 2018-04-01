@@ -74,9 +74,6 @@ public class OgreLevel implements LevelLogic, Serializable{
 			int stun = ogres.get(i).getStunCounter();
 			
 			if (stun == 0 && checkHeroGetsCaughtByOgre(map,ogres.get(i)) ) {
-
-				System.out.println("Game Over.");
-
 				levelState = "Over";
 
 				return;
@@ -101,8 +98,6 @@ public class OgreLevel implements LevelLogic, Serializable{
 
 			if ((stun == 0 && (checkHeroGetsCaughtByOgre(map, ogres.get(i)) )
 					|| checkHeroGetsCaughtByClub(map,clubs.get(i)) ) ) {
-				System.out.println("");
-				System.out.println("Game Over.");
 
 				levelState = "Over";
 
