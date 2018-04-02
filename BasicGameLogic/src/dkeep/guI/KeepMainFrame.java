@@ -506,12 +506,12 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 			gameScreen.requestFocusInWindow();
 
-			saveFile(" ");
+			saveFile("custom ");
 
 			customMapMade = true;
 		}
 		
-		loadFile(" ");
+		loadFile("custom ");
 		
 		startNewGame();
 	}
