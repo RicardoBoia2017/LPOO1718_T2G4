@@ -312,11 +312,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			}
 
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyPressed(KeyEvent e) {
 			}
 
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyReleased(KeyEvent e) {
 				switch (e.getKeyCode()) {
 
 				case KeyEvent.VK_LEFT:
@@ -670,6 +670,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		
 		if(checkIfSpaces(path)) {
 			popup.showMessageDialog(this, "Your savefile cannot have spaces, or be empty.");
+			gameScreen.requestFocusInWindow();
 			return;
 		}
 
