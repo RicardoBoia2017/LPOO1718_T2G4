@@ -84,7 +84,7 @@ public class Map implements Serializable {
 	}
 	
 	public char [][] getMatrix() {
-		char[][] empty = {};
+		char[][] empty = {{' '}};
 		
 		if(currentMap == 1) {
 			return level1;

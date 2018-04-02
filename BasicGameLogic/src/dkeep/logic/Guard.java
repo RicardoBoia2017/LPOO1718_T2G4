@@ -11,6 +11,29 @@ public class Guard extends Character {
 	String personality;
 	boolean reversedRoute; //tells you whether he reversed the route
 	boolean movementBlocker;
+	int awake;
+	int paranoid;
+	
+	public boolean getReversedRoute() {
+		return reversedRoute;
+	}
+	
+	public char[] getPathArray() {
+		return pathArray;
+	}
+	
+	public char[] getInvertedPathArray() {
+		return invertedPath;
+	}
+	
+	public int getAwake()
+	{
+		return awake;
+	}
+	
+	public int getParanoid() {
+		return paranoid;
+	}
 	
 	public Guard(int x, int y, String persona) {
 		super(x, y, 'G');
@@ -41,7 +64,7 @@ public class Guard extends Character {
 	    Random passout = new Random();
 	    char[] temp;
 	    
-	    int awake; //he has 25% chance to be asleep, (if the random number generator generates 2 going from 0 to 3)
+	    //he has 25% chance to be asleep, (if the random number generator generates 2 going from 0 to 3)
 		
 	    awake = passout.nextInt(4);
 	    
@@ -115,8 +138,8 @@ public class Guard extends Character {
 	    Random check = new Random();
 	    char[] temp;
 	    
-	    int paranoid; //he has 25% chance to go backwards (if the random number generator generates 2 going from 0 to 3)
-		
+	   //he has 25% chance to go backwards (if the random number generator generates 2 going from 0 to 3)
+	    
 	    paranoid = check.nextInt(4);
 	    
 	    if(paranoid == 2) {

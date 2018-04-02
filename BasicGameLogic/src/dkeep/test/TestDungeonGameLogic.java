@@ -530,7 +530,6 @@ public class TestDungeonGameLogic {
 		while (!outcome1 || !outcome2 || !outcome3)
 		{
 			map =  game.updateGame('s');
-			
 			 
 			//left
 			if(game.getLevelLogic().getClub().getRand() == 0) {
@@ -798,24 +797,129 @@ public class TestDungeonGameLogic {
 			}
 		}
 	}
-/*	@Test
-	public void testInvertPath() {
-		//TODO:
-		fail("not done yet");
-	}
 	
 	@Test
-	public void testGuardAwake() {
-		//TODO:
-		fail("not done yet");
+	public void testInvertPathSuspicious() {
+		Game game = new Game(1, "Suspicious");
+		
+		char[] oldPositionArray, oldInvertedArray, newPositionArray, newInvertedArray;
+		
+		while(true) {
+			
+			oldPositionArray = game.getLevelLogic().getGuard().getPathArray();
+			oldInvertedArray = game.getLevelLogic().getGuard().getInvertedPathArray();
+			
+			assertEquals(oldPositionArray.length, oldInvertedArray.length);
+			
+			game.updateGame('a');
+			
+			newPositionArray = game.getLevelLogic().getGuard().getPathArray();
+			newInvertedArray = game.getLevelLogic().getGuard().getInvertedPathArray();
+			
+			if(game.getLevelLogic().getGuard().getParanoid() == 2) {
+				
+				if(game.getLevelLogic().getGuard().getReversedRoute() == false) {
+					assertEquals(oldPositionArray.length, newPositionArray.length);
+					assertEquals(oldInvertedArray.length, newInvertedArray.length);
+					
+					for(int i = 0; i < oldPositionArray.length; i++) {
+						assertEquals(oldPositionArray[i], newPositionArray[i]);
+						assertEquals(oldInvertedArray[i], newInvertedArray[i]);
+					}
+					
+				}
+				
+				if(game.getLevelLogic().getGuard().getReversedRoute() == true) {
+					assertEquals(oldPositionArray.length, newPositionArray.length);
+					assertEquals(oldInvertedArray.length, newInvertedArray.length);
+					
+					for(int i = 0; i < oldPositionArray.length; i++) {
+						assertEquals(oldInvertedArray[i], newPositionArray[i]);
+						assertEquals(oldPositionArray[i], newInvertedArray[i]);
+					}
+					
+					break;
+				}
+				
+			}
+		}
 	}
-	
+
 	@Test
-	public void testifUpdateGame(){
-		//TODO:
-		fail("not done yet");
+	public void testInvertPathDrunken() {
+		Game game = new Game(1, "Drunken");
+		
+		char[] oldPositionArray, oldInvertedArray, newPositionArray, newInvertedArray;
+		int oldcoordX, oldcoordY, newcoordX, newcoordY;
+		int oldID;
+		
+		while(true) {
+			
+			oldcoordX = game.getLevelLogic().getGuard().getCoordX();
+			oldcoordY = game.getLevelLogic().getGuard().getCoordY();
+			
+			oldPositionArray = game.getLevelLogic().getGuard().getPathArray();
+			oldInvertedArray = game.getLevelLogic().getGuard().getInvertedPathArray();
+			
+			assertEquals(oldPositionArray.length, oldInvertedArray.length);
+			
+			oldID = game.getLevelLogic().getGuard().getID();
+			
+			game.updateGame('a');
+			
+			newPositionArray = game.getLevelLogic().getGuard().getPathArray();
+			newInvertedArray = game.getLevelLogic().getGuard().getInvertedPathArray();
+			
+			newcoordX = game.getLevelLogic().getGuard().getCoordX();
+			newcoordY = game.getLevelLogic().getGuard().getCoordY();
+			
+			if(game.getLevelLogic().getGuard().getAwake() == 2) {
+				assertEquals(newcoordX, oldcoordX);
+				assertEquals(newcoordY, oldcoordY);
+				assertEquals(game.getLevelLogic().getGuard().getID(), 'g');
+			}
+			
+			if(game.getLevelLogic().getGuard().getAwake() == 3 && oldID == 'g') {
+				
+				if(game.getLevelLogic().getGuard().getReversedRoute() == false) {
+					assertEquals(oldPositionArray.length, newPositionArray.length);
+					assertEquals(oldInvertedArray.length, newInvertedArray.length);
+					
+					for(int i = 0; i < oldPositionArray.length; i++) {
+						assertEquals(oldPositionArray[i], newPositionArray[i]);
+						assertEquals(oldInvertedArray[i], newInvertedArray[i]);
+					}
+					
+				}
+				
+				if(game.getLevelLogic().getGuard().getReversedRoute() == true) {
+					assertEquals(oldPositionArray.length, newPositionArray.length);
+					assertEquals(oldInvertedArray.length, newInvertedArray.length);
+					
+					for(int i = 0; i < oldPositionArray.length; i++) {
+						assertEquals(oldInvertedArray[i], newPositionArray[i]);
+						assertEquals(oldPositionArray[i], newInvertedArray[i]);
+					}
+					
+					break;
+				}
+				
+			}
+			
+			else if(game.getLevelLogic().getGuard().getAwake() == 0 || game.getLevelLogic().getGuard().getAwake() == 1){
+				assertEquals(game.getLevelLogic().getGuard().getID(), 'G');
+				
+				assertEquals(oldPositionArray.length, newPositionArray.length);
+				assertEquals(oldInvertedArray.length, newInvertedArray.length);
+				
+				for(int i = 0; i < oldPositionArray.length; i++) {
+					assertEquals(oldPositionArray[i], newPositionArray[i]);
+					assertEquals(oldInvertedArray[i], newInvertedArray[i]);
+				}
+			}
+			
+		}
 	}
-	*/
 	
 	@Test
 	public void testMakesTestGame() {
@@ -925,6 +1029,56 @@ public class TestDungeonGameLogic {
 		assertEquals(game.getLevelLogic().getGuard().getPersonality(), "Drunken");
 		
 		assertEquals(game.getNumberOfOgres(), 3);
+	}
+	
+	@Test
+	public void testIfMakesMap() {
+		char [][] testLevel1 = {
+				{'X','X','X','X','X'},
+				{'X','H',' ','G','X'},
+				{'I',' ',' ',' ','X'},
+				{'I','k',' ',' ','X'},
+				{'X','X','X','X','X'},
+		};
+		
+		char [][] level1 = {
+				 {'X','X','X','X','X','X','X','X','X', 'X'}, 
+				 {'X','H',' ',' ','I',' ','X',' ','G', 'X'},
+				 {'X','X','X',' ','X','X','X',' ',' ', 'X'},
+				 {'X',' ','I',' ','I',' ','X',' ',' ', 'X'},
+				 {'X','X','X',' ','X','X','X',' ',' ', 'X'},
+				 {'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},
+				 {'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},
+				 {'X','X','X',' ','X','X','X','X',' ', 'X'},
+				 {'X',' ','I',' ','I',' ','X','k',' ', 'X'},
+				 {'X','X','X','X','X','X','X','X','X', 'X'}};
+		
+		Map defaultmap = new Map();
+		assertEquals(defaultmap.getCurrentMap(), 0);
+		assertEquals(defaultmap.getMatrix().length, 1);
+		assertEquals(defaultmap.getMatrix()[0].length, 1);
+		assertEquals(defaultmap.getMatrix()[0][0], ' ');
+		
+		
+		Map level1map = new Map(0);
+		assertEquals(level1map.getCurrentMap(), 1);
+		assertEquals(level1map.getMatrix().length, level1.length);
+		
+		for(int i = 0; i < level1.length; i++) {
+			for(int j = 0; j < level1[i].length; j++) {
+				assertEquals(level1map.getMatrix()[i][j], level1[i][j]);
+			}
+		}
+		
+		Map testlevelmap = new Map(1);
+		assertEquals(testlevelmap.getCurrentMap(), -1);
+		assertEquals(testlevelmap.getMatrix().length, testLevel1.length);
+		
+		for(int i = 0; i < testlevelmap.getMatrix().length; i++) {
+			for(int j = 0; j < testlevelmap.getMatrix()[i].length; j++) {
+				assertEquals(testlevelmap.getMatrix()[i][j], testLevel1[i][j]);
+			}
+		}
 	}
 	
 //	public void testOgre()

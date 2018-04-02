@@ -184,8 +184,4 @@ public class GuardLevel implements LevelLogic, Serializable{
 	public ArrayList<Point> getExitDoors() {
 		return exitDoors;
 	}
-
-
-
-
 }
