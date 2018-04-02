@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Hero extends Character {
 
+	char lastMovement;
+	
 	public Hero(int x, int y) {
 		super(x, y, 'H');
 	}
@@ -11,7 +13,8 @@ public class Hero extends Character {
 	public int move(Map map, char command, LevelLogic level) throws IllegalMapChangeException {
 
 		int auxReturn = 0;
-
+		lastMovement = command;
+		
 		switch (command) {
 
 		case 'a': {
@@ -94,4 +97,6 @@ public class Hero extends Character {
 		
 		return false;
 	}
+
+	public char getLastMovement() {return lastMovement;}
 }

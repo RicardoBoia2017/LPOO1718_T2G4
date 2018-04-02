@@ -36,18 +36,22 @@ public class Map implements Serializable {
 		
 	private char [][] PersonalizedMap;
 	
-	private int currentMap;
+	private char [][] currentMap;
+	
+	private int currentLevel;
 	
 	public Map() {
-		currentMap = 0;
+		currentLevel = 0;
 	}
 	
 	public Map(int test) {
 		if (test == 0) {
-			currentMap = 1;
+			currentLevel = 1;
+			currentMap = level1;
 		}
 		else {
-			currentMap = -1;
+			currentLevel = -1;
+			currentMap = testLevel1;
 		}
 	}
 	
@@ -76,59 +80,47 @@ public class Map implements Serializable {
 			}
 		}
 		
-		currentMap = 3;
+		currentLevel = 3;
+		currentMap = PersonalizedMap;
 	}
 	
 	public void setMap(int current) {
-		currentMap = current;
+		currentLevel = current;
+		
+		if(current == 1) {
+			this.currentMap = level1;
+		}
+		
+		if(current == 2) {
+			this.currentMap = level2;
+		}
+		
+		if(current == -1) {
+			this.currentMap = testLevel1;
+		}
+		
+		if(current == 3) {
+			this.currentMap = PersonalizedMap;
+		}
 	}
 	
 	public char [][] getMatrix() {
 		char[][] empty = {{' '}};
 		
-		if(currentMap == 1) {
-			return level1;
-		}
+		if (currentMap == null)
+			return empty;
 		
-		if(currentMap == 2) {
-			return level2;
-		}
-		
-		if(currentMap == -1) {
-			return testLevel1;
-		}
-		
-		if (currentMap == 3)
-		{
-			return PersonalizedMap;
-		}
-		
-		return empty;
+		return currentMap;
 	}
 	
-	public int getCurrentMap() {return currentMap;};
+	public int getCurrentMap() {return currentLevel;};
 	
-	public void setCustomMapTo(char[][] newmap) {
-		PersonalizedMap = newmap;
+	public void setCustomMapTo(char[][] newMap) {
+		PersonalizedMap = newMap;
+		currentMap = PersonalizedMap;
 	}
 	
 	public void updateMap(int y, int x, char change) {
-		//TODO: Make this generic
-		
-		if(currentMap == 1) {
-			level1[y][x] = change;
-		}
-		
-		if(currentMap == 2) {
-			level2[y][x] = change;
-		}
-		
-		if(currentMap == -1) {
-			testLevel1[y][x] = change;
-		}
-		
-		if(currentMap == 3) {
-			PersonalizedMap[y][x] = change;
-		}
+		currentMap [y][x] = change;
 	}
 }

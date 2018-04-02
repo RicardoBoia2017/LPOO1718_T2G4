@@ -164,9 +164,19 @@ public class OgreLevel implements LevelLogic, Serializable{
 	@Override
 	public void openExitDoor (Map map)
 	{
-		for (Point elem: exitDoors)
-		{
-			map.updateMap ( (int)elem.getY(), (int) elem.getX(), 'S');
+		switch (hero.getLastMovement()) {
+		case 'a':
+			map.updateMap(hero.getCoordY(), hero.getCoordX() - 1, 'S');
+			break;
+		case 'd':
+			map.updateMap(hero.getCoordY(), hero.getCoordX() + 1, 'S');
+			break;
+		case 's':
+			map.updateMap(hero.getCoordY() + 1, hero.getCoordX(), 'S');
+			break;
+		case 'w':
+			map.updateMap(hero.getCoordY() - 1, hero.getCoordX(), 'S');
+			break;
 		}
 	}
 	
