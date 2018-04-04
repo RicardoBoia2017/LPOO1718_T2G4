@@ -454,7 +454,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
            savedGame = (Game)input.readObject();
            savedMap = savedGame.getMap();
            savedLogic = savedGame.getLevelLogic();
-           numOgres = savedGame.getNumberOfOgres();
+           numOgres = savedGame.getNumberOfEnemies();
            
            input.close();
            

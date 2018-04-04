@@ -944,7 +944,7 @@ public class TestDungeonGameLogic {
 		assertEquals(game.getLevelLogic().getKeyCoordX(), 1);
 		assertEquals(game.getLevelLogic().getKeyCoordY(), 3);
 		
-		assertEquals(game.getNumberOfOgres(), 1);
+		assertEquals(game.getNumberOfEnemies(), 1);
 	}
 	
 	@Test
@@ -970,7 +970,7 @@ public class TestDungeonGameLogic {
 		
 		assertEquals(game.getLevelLogic().getLevelState(), "Running");
 		
-		assert(game.getNumberOfOgres() >= 1 && game.getNumberOfOgres() <= 3);
+		assert(game.getNumberOfEnemies() >= 1 && game.getNumberOfEnemies() <= 3);
 	}
 	
 	@Test
@@ -1028,7 +1028,7 @@ public class TestDungeonGameLogic {
 		
 		assertEquals(game.getLevelLogic().getGuard().getPersonality(), "Drunken");
 		
-		assertEquals(game.getNumberOfOgres(), 3);
+		assertEquals(game.getNumberOfEnemies(), 3);
 	}
 	
 	@Test
