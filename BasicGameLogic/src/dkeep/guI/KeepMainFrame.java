@@ -40,6 +40,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Label;
+import java.awt.Rectangle;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -85,83 +89,100 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setPreferredSize(new java.awt.Dimension(600, 550));
+		setPreferredSize(new Dimension(700, 650));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(1)
-						.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(357, Short.MAX_VALUE))
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
-						.addGroup(
-								layout.createParallelGroup(Alignment.LEADING)
-										.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(
-												gameScreen, GroupLayout.PREFERRED_SIZE, 340,
-												GroupLayout.PREFERRED_SIZE))
-										.addGroup(layout.createSequentialGroup().addGap(34)
-												.addComponent(guardPersonalityLabel, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(guardPersonalityBox, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGroup(layout.createSequentialGroup().addContainerGap()
-												.addComponent(gameStatusLabel)))
-						.addGroup(
-								layout.createParallelGroup(Alignment.LEADING)
-										.addGroup(layout.createSequentialGroup().addGap(24).addGroup(layout
-												.createParallelGroup(Alignment.LEADING)
-												.addGroup(layout.createSequentialGroup()
-														.addGroup(layout.createParallelGroup(Alignment.LEADING)
-																.addGroup(layout.createSequentialGroup().addGap(24)
-																		.addComponent(moveDownButton))
-																.addGroup(layout.createSequentialGroup()
-																		.addComponent(moveLeftButton).addGap(18)
-																		.addComponent(moveRightButton)))
-														.addContainerGap(23, Short.MAX_VALUE))
-												.addGroup(layout.createSequentialGroup()
-														.addGap(30).addComponent(moveUpButton).addContainerGap(100,
-																Short.MAX_VALUE))
-												.addGroup(layout.createSequentialGroup().addGap(8)
-														.addComponent(newGameButton, GroupLayout.DEFAULT_SIZE, 173,
-																Short.MAX_VALUE)
-														.addGap(27))))
-										.addGroup(layout.createSequentialGroup()
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addGroup(layout.createParallelGroup(Alignment.LEADING)
-														.addComponent(createNewMap, GroupLayout.DEFAULT_SIZE, 199,
-																Short.MAX_VALUE)
-														.addComponent(exitGameButton, GroupLayout.DEFAULT_SIZE, 199,
-																Short.MAX_VALUE))
-												.addContainerGap()))));
-		layout.setVerticalGroup(layout.createParallelGroup(Alignment.TRAILING).addGroup(layout.createSequentialGroup()
-				.addGap(22)
-				.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(16)
-				.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(guardPersonalityLabel, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(newGameButton)
-								.addComponent(guardPersonalityBox, GroupLayout.PREFERRED_SIZE, 27,
-										GroupLayout.PREFERRED_SIZE)))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup().addComponent(createNewMap).addGap(54)
-								.addComponent(moveUpButton).addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(moveLeftButton)
-										.addComponent(moveRightButton))
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(moveDownButton))
-						.addComponent(gameScreen, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))
-				.addGap(56))
-				.addGroup(layout.createSequentialGroup().addContainerGap(438, Short.MAX_VALUE)
-						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(exitGameButton)
+					.addGap(1)
+					.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(457, Short.MAX_VALUE))
+				.addGroup(layout.createSequentialGroup()
+					.addGap(1)
+					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(gameScreen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(gameStatusLabel)
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(guardPersonalityLabel, GroupLayout.PREFERRED_SIZE, 165, Short.MAX_VALUE)
+							.addGap(1)
+							.addComponent(guardPersonalityBox, 0, 132, Short.MAX_VALUE)
+							.addGap(37)))
+					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(layout.createSequentialGroup()
+							.addGap(64)
+							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+								.addGroup(layout.createSequentialGroup()
+									.addGap(20)
+									.addComponent(moveLeftButton, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+									.addGap(60)
+									.addComponent(moveRightButton, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+									.addContainerGap())
+								.addGroup(layout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(exitGameButton, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+									.addContainerGap())
+								.addGroup(layout.createSequentialGroup()
+									.addGap(73)
+									.addComponent(moveDownButton, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+									.addGap(91))))
+						.addGroup(layout.createSequentialGroup()
+							.addGap(151)
+							.addComponent(moveUpButton, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+							.addGap(103))
+						.addGroup(layout.createSequentialGroup()
+							.addGap(111)
+							.addComponent(newGameButton, GroupLayout.PREFERRED_SIZE, 175, Short.MAX_VALUE)
+							.addGap(35))))
+				.addGroup(layout.createSequentialGroup()
+					.addGap(437)
+					.addComponent(createNewMap, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+					.addGap(9))
+		);
+		layout.setVerticalGroup(
+			layout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(layout.createSequentialGroup()
+					.addGap(22)
+					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(40)
+					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(newGameButton, 0, 0, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(createNewMap))
+						.addGroup(layout.createSequentialGroup()
+							.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(guardPersonalityBox, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(guardPersonalityLabel, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+							.addGap(31)))
+					.addGap(26)
+					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(layout.createSequentialGroup()
+							.addGap(2)
+							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+								.addGroup(layout.createSequentialGroup()
+									.addGap(57)
+									.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(moveRightButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(moveLeftButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(moveDownButton)
+									.addGap(181))
+								.addComponent(gameScreen, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
+							.addGap(56))
+						.addGroup(layout.createSequentialGroup()
+							.addGap(12)
+							.addComponent(moveUpButton, GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
+							.addGap(286)
+							.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(exitGameButton)
 								.addComponent(gameStatusLabel))
-						.addContainerGap()));
+							.addGap(19))))
+		);
 
 		getContentPane().add(saveGameButton);
 		getContentPane().add(loadGameButton);
