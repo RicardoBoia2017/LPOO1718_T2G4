@@ -5,36 +5,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.awt.Point;
 
-/**
- * Class where is stored the current {@link Map} and the current type of level.
- *
- * Used to call the function responsible for updating each type of level, to change the level when asked by the {@LevelLogic}, and to return the updated Map to the classes that print it.
- * 
- */
 public class Game implements Serializable {
 
 	Map map;
-	int numberOfEnemies;
+	int numberOfOgres;
 	LevelLogic currentLevel;
 	
-	/**
-	 * Constructor used to load a saved game
-	 * 
-	 * @param numbrOfEnemies number of ogres the hero has to deal with in the ogre level
-	 * @param map object of {@link Map} where the game is simulated
-	 * @param currentLevel - {@link LevelLogic} of the ssaved game
-	 */
-	public Game(int numbrOfEnemies, Map map, LevelLogic currentLevel) {
-		this.numberOfEnemies = numbrOfEnemies;
+	public Game(int numbrOfOgrs, Map map, LevelLogic currentLevel) {
+		numberOfOgres = numbrOfOgrs;
 		this.map = map;
 		this.currentLevel = currentLevel;
 	}
 			
-	/**
-	 * Constructor used to build a game with a custom map
-	 * 
-	 * @param customMap object of {@link Map} built by the user
-	 */
 	public Game(char[][] customMap) {
 		
 		//1. Map must be set to the custom made map.
@@ -93,13 +75,7 @@ public class Game implements Serializable {
 		currentLevel.setExitDoors(exitDoors);
 	}
 	
-	/**
-	 * Constructor used to build a game with user chosen settings
-	 *
-	 * @param numberOfEnemies number of {@link Ogre}s the hero has to deal with in the ogre level
-	 * @param guardPersonality personality of the {@link Guard} in the guard level
-	 */
-	public Game(int numberOfEnemies, String guardPersonality) {
+	public Game(int numberOfOgres, String guardPersonality) {
 		
 		map = new Map(0);
 		Point keyCoords = new Point (7,8);
@@ -113,15 +89,10 @@ public class Game implements Serializable {
 		currentLevel.setKeyCoords(keyCoords);
 		currentLevel.setExitDoors(exitDoors);
 		
-		this.numberOfEnemies = numberOfEnemies;
+		this.numberOfOgres = numberOfOgres;
 	
 	}
 	
-	/**
-	 * Constructor used to build a game with the test map or with the default map
-	 * 
-	 * @param test used as a boolean. Game uses the test map if true, otherwise uses default map 
-	 */
 	public Game(int test) {
 
 		if (test == 1) {
@@ -136,7 +107,7 @@ public class Game implements Serializable {
 			currentLevel.setHero(new Hero (1,1));
 			currentLevel.setKeyCoords(keyCoords);
 			currentLevel.setExitDoors(exitDoors);
-			numberOfEnemies = 1;
+			numberOfOgres = 1;
 		}
 
 		else if (test == 0){
@@ -149,57 +120,35 @@ public class Game implements Serializable {
 			
 			Point keyCoords = new Point (7,8);
 
-			currentLevel = new GuardLevel (new Guard(8,1,"Rookie"));
+			currentLevel = new GuardLevel ("Rookie");
 			
 			currentLevel.setHero(new Hero (1,1));
 			currentLevel.setKeyCoords(keyCoords);
 			currentLevel.setExitDoors(exitDoors);
 			
 			Random randomnumber = new Random();
-			numberOfEnemies = randomnumber.nextInt(3) + 1; //1-3
+			numberOfOgres = randomnumber.nextInt(3) + 1; //1-3
 		}
 	}
 	
-	/** 
-	 * 
-	 * @return Number of [@link Ogre}s and {@link Club}s in ogre level 
-	 */
-	public int getNumberOfEnemies() {return numberOfEnemies;}
+	public int getNumberOfOgres() {return numberOfOgres;}
 	
-	/**
-	 * 
-	 * @return Current {@link LevelLogic}
-	 */
 	public LevelLogic getLevelLogic() {return currentLevel;}
 	
-	/**
-	 * 
-	 * @return Current {@link Map}
-	 */
 	public Map getMap() {
 		return map;
 	};
 
-	/**
-	 * Changes the current map 
-	 * 
-	 * @param map new {@link Map} 
-	 */
 	public void setMap(Map map) {this.map = map;}
 
-	/**
-	 * 
-	 * @param heroCommand char which represents the hero's movement direction in this shift
-	 * @return Updated map after all characters moved
-	 */
-	public Map updateGame(char heroCommand) {
+	public Map updateGame(char herocommand) {
 
-		currentLevel.updateGame(heroCommand, map);
+		currentLevel.updateGame(herocommand, map);
 
 		if (currentLevel.getLevelState() == "Passed") 
 		{
 			map.setMap(2);
-			currentLevel = new OgreLevel(numberOfEnemies);
+			currentLevel = new OgreLevel(numberOfOgres);
 		}
 		
 		else if (currentLevel.getLevelState() == "Over")

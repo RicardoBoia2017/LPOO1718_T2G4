@@ -4,11 +4,6 @@ import java.io.Serializable;
 import java.awt.Point;
 import java.util.ArrayList;
 
-/**
- * Class responsible for updating guard level.
- * 
- * Calls hero's and guard's movement functions, checks if hero gets caught by the guard and updates the game map
- */
 public class GuardLevel implements LevelLogic, Serializable{
 
 	Hero hero;
@@ -16,12 +11,15 @@ public class GuardLevel implements LevelLogic, Serializable{
 	Point keyCoords;
 	ArrayList <Point> exitDoors;
 	String levelState;
-		
-	/**
-	 * Constructor
-	 * 
-	 * @param guard {@link Guard}
-	 */
+	
+	public GuardLevel(String guardPersonality)
+	{
+		hero = new Hero(1,1);
+		guard = new Guard (8,1,guardPersonality);
+		keyCoords = new Point (7,8);
+		levelState = "Running";
+	}
+	
 	public GuardLevel(Guard guard)
 	{
 		this.guard = guard;
@@ -33,6 +31,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 		
 		int heroMovementReturn = 0;
 
+		// hero phase
 		try {
 			heroMovementReturn = hero.move(map, heroMovement, this);
 		}
@@ -49,9 +48,14 @@ public class GuardLevel implements LevelLogic, Serializable{
 		
 		manageLeverVisibility(map);
 
+		// guard phase, he will only move in a given pattern according to
+		// the array guardpositon.
+
 		if (guard.getMovementBlocker() == false) {
 
 			if (checkIfHeroGetsCaughtByGuard(map)) {
+
+				// pass interface game over state, interface will print.
 
 				levelState = "Over";
 				return;
@@ -61,19 +65,19 @@ public class GuardLevel implements LevelLogic, Serializable{
 			
 			if (checkIfHeroGetsCaughtByGuard(map)) {
 
+				// pass interface game over state, interface will print.
+
 				levelState = "Over";
 				return;
 			}
+
+			// end of a turn of stage 1, by now the map has the current
+			// state
+			// and hero and guard have both moved and checked for collision.
 		}
 		return;		
 	}
 
-	/**
-	 * Checks if hero gets caught by guard. If he does, the game ends
-	 * 
-	 * @param map current {@link Map}
-	 * @return true if hero gets caught, otherwise returns false
-	 */
 	public boolean checkIfHeroGetsCaughtByGuard(Map map)
 	{
 		if (guard.getID() != 'g' && (map.getMatrix()[guard.coordY - 1][guard.coordX] == hero.id
@@ -85,11 +89,6 @@ public class GuardLevel implements LevelLogic, Serializable{
 		return false;
 	}
 
-	/**
-	 * Makes lever visible when no character is on top of it
-	 * 
-	 * @param map current {@link Map}
-	 */
 	public void manageLeverVisibility (Map map)
 	{
 		if (map.getMatrix()[(int) keyCoords.getY()][(int) keyCoords.getX()] == ' ') {
@@ -97,11 +96,6 @@ public class GuardLevel implements LevelLogic, Serializable{
 		}
 	}
 	
-	/**
-	 * Calls the correct guard movement function according to his personality
-	 * 
-	 * @param map current {@link Map}
-	 */
 	public void callGuardMovement (Map map)
 	{
 		switch (guard.personality) {
@@ -174,16 +168,10 @@ public class GuardLevel implements LevelLogic, Serializable{
 	public Guard getGuard() {
 		return guard;
 	}
-	/**
-	 * @return null
-	 */
 	@Override
 	public Ogre getOgre() {
 		return null;
 	}
-	/**
-	 * @return null
-	 */
 	@Override
 	public Club getClub() {
 		return null;
@@ -192,6 +180,7 @@ public class GuardLevel implements LevelLogic, Serializable{
 	public String getLevelType() {
 		return "Guard";
 	}
+
 	public ArrayList<Point> getExitDoors() {
 		return exitDoors;
 	}
