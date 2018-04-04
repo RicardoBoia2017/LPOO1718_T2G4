@@ -2,6 +2,13 @@ package dkeep.logic;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * Map class, manages all the map related events. Includes default maps, a test map for unit testing, and auxiliary
+ * functions for a Personalized Map.
+ *
+ */
+
 public class Map implements Serializable {
 	private char [][] level1 = {
 			 {'X','X','X','X','X','X','X','X','X', 'X'}, 
@@ -40,10 +47,17 @@ public class Map implements Serializable {
 	
 	private int currentLevel;
 	
+	/**
+	 * Creates an empty Map with nothing.
+	 */
 	public Map() {
 		currentLevel = 0;
 	}
 	
+	/**
+	 * Creates a map according to the number within test.
+	 * @param test If it is 0, creates level1 Map, any other value will be used to create a unit testing map.
+	 */
 	public Map(int test) {
 		if (test == 0) {
 			currentLevel = 1;
@@ -55,6 +69,11 @@ public class Map implements Serializable {
 		}
 	}
 	
+	/**
+	 * Creates a Personalized map "skeleton" (only the outline with walls).
+	 * @param width Width of the map.
+	 * @param height Height of the map.
+	 */
 	public Map (int width, int height)
 	{
 		PersonalizedMap = new char [height] [width];
@@ -84,6 +103,10 @@ public class Map implements Serializable {
 		currentMap = PersonalizedMap;
 	}
 	
+	/**
+	 * Associates an actual char matrix to the current Map object depending on the level.
+	 * @param current The level.
+	 */
 	public void setMap(int current) {
 		currentLevel = current;
 		
@@ -104,6 +127,9 @@ public class Map implements Serializable {
 		}
 	}
 	
+	/**
+	 * @return The char matrix associated with this map.
+	 */
 	public char [][] getMatrix() {
 		char[][] empty = {{' '}};
 		
@@ -113,13 +139,27 @@ public class Map implements Serializable {
 		return currentMap;
 	}
 	
+	/**
+	 * 
+	 * @return The current level.
+	 */
 	public int getCurrentMap() {return currentLevel;};
 	
+	/**
+	 * 	Sets the char matrix of a Personalized map to something else.
+	 * @param newMap The char matrix.
+	 */
 	public void setCustomMapTo(char[][] newMap) {
 		PersonalizedMap = newMap;
 		currentMap = PersonalizedMap;
 	}
 	
+	/**
+	 * Changes the cell inside the char matrix of the Map object.
+	 * @param y Y coordinate of that cell in the matrix.
+	 * @param x X coordinate.
+	 * @param change What you want to change it to.
+	 */
 	public void updateMap(int y, int x, char change) {
 		currentMap [y][x] = change;
 	}
