@@ -91,103 +91,24 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(700, 650));
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-					.addGap(1)
-					.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(457, Short.MAX_VALUE))
-				.addGroup(layout.createSequentialGroup()
-					.addGap(1)
-					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(gameScreen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(gameStatusLabel)
-						.addGroup(layout.createSequentialGroup()
-							.addComponent(guardPersonalityLabel, GroupLayout.PREFERRED_SIZE, 165, Short.MAX_VALUE)
-							.addGap(1)
-							.addComponent(guardPersonalityBox, 0, 132, Short.MAX_VALUE)
-							.addGap(37)))
-					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(layout.createSequentialGroup()
-							.addGap(64)
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addGroup(layout.createSequentialGroup()
-									.addGap(20)
-									.addComponent(moveLeftButton, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-									.addGap(60)
-									.addComponent(moveRightButton, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-									.addContainerGap())
-								.addGroup(layout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(exitGameButton, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-									.addContainerGap())
-								.addGroup(layout.createSequentialGroup()
-									.addGap(73)
-									.addComponent(moveDownButton, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-									.addGap(91))))
-						.addGroup(layout.createSequentialGroup()
-							.addGap(151)
-							.addComponent(moveUpButton, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-							.addGap(103))
-						.addGroup(layout.createSequentialGroup()
-							.addGap(111)
-							.addComponent(newGameButton, GroupLayout.PREFERRED_SIZE, 175, Short.MAX_VALUE)
-							.addGap(35))))
-				.addGroup(layout.createSequentialGroup()
-					.addGap(437)
-					.addComponent(createNewMap, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-					.addGap(9))
-		);
-		layout.setVerticalGroup(
-			layout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(layout.createSequentialGroup()
-					.addGap(22)
-					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(numberOfOgresBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(numberOfOgresLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(40)
-					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(layout.createSequentialGroup()
-							.addComponent(newGameButton, 0, 0, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(createNewMap))
-						.addGroup(layout.createSequentialGroup()
-							.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(guardPersonalityBox, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-								.addComponent(guardPersonalityLabel, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-							.addGap(31)))
-					.addGap(26)
-					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(layout.createSequentialGroup()
-							.addGap(2)
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addGroup(layout.createSequentialGroup()
-									.addGap(57)
-									.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(moveRightButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(moveLeftButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(moveDownButton)
-									.addGap(181))
-								.addComponent(gameScreen, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
-							.addGap(56))
-						.addGroup(layout.createSequentialGroup()
-							.addGap(12)
-							.addComponent(moveUpButton, GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
-							.addGap(286)
-							.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(exitGameButton)
-								.addComponent(gameStatusLabel))
-							.addGap(19))))
-		);
-
 		getContentPane().add(saveGameButton);
 		getContentPane().add(loadGameButton);
-
-		getContentPane().setLayout(layout);
+		getContentPane().setLayout(null);
+		getContentPane().add(saveGameButton);
+		getContentPane().add(loadGameButton);
+		getContentPane().add(numberOfOgresLabel);
+		getContentPane().add(numberOfOgresBox);
+		getContentPane().add(gameScreen);
+		getContentPane().add(gameStatusLabel);
+		getContentPane().add(guardPersonalityLabel);
+		getContentPane().add(guardPersonalityBox);
+		getContentPane().add(moveLeftButton);
+		getContentPane().add(moveRightButton);
+		getContentPane().add(exitGameButton);
+		getContentPane().add(moveDownButton);
+		getContentPane().add(moveUpButton);
+		getContentPane().add(newGameButton);
+		getContentPane().add(createNewMap);
 
 		pack();
 	}// </editor-fold>
@@ -214,6 +135,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initNumberOfOgresLabel() {
 		numberOfOgresLabel = new java.awt.Label();
+		numberOfOgresLabel.setBounds(1, 22, 174, 33);
 		numberOfOgresLabel.setText("Number of ogres:");
 	}
 
@@ -226,6 +148,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		formatter.setAllowsInvalid(false);
 
 		numberOfOgresBox = new JFormattedTextField(formatter);
+		numberOfOgresBox.setBounds(185, 23, 32, 32);
 
 		numberOfOgresBox.setName("");
 		numberOfOgresBox.setSelectionEnd(-1);
@@ -233,11 +156,13 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initGuardPersonalityLabel() {
 		guardPersonalityLabel = new java.awt.Label();
+		guardPersonalityLabel.setBounds(1, 95, 171, 37);
 		guardPersonalityLabel.setText("Guard personality");
 	}
 
 	private void initGuardPersonalityBox() {
 		guardPersonalityBox = new javax.swing.JComboBox<>();
+		guardPersonalityBox.setBounds(173, 105, 138, 27);
 
 		guardPersonalityBox
 				.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rookie", "Drunken", "Suspicious" }));
@@ -251,6 +176,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initNewGameButton() {
 		newGameButton = new javax.swing.JButton();
+		newGameButton.setBounds(459, 95, 180, 21);
 		newGameButton.setText("New Game");
 		newGameButton.setToolTipText("");
 		newGameButton.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +188,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initMoveLeftButton() {
 		moveLeftButton = new javax.swing.JButton();
+		moveLeftButton.setBounds(432, 248, 74, 35);
 		moveLeftButton.setText("Left");
 		moveLeftButton.setEnabled(false);
 		moveLeftButton.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +200,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initMoveRightButton() {
 		moveRightButton = new javax.swing.JButton();
+		moveRightButton.setBounds(566, 248, 87, 35);
 		moveRightButton.setText("Right");
 		moveRightButton.setEnabled(false);
 		moveRightButton.addActionListener(new java.awt.event.ActionListener() {
@@ -284,6 +212,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initMoveUpButton() {
 		moveUpButton = new javax.swing.JButton();
+		moveUpButton.setBounds(499, 201, 72, 38);
 		moveUpButton.setText("Up");
 		moveUpButton.setEnabled(false);
 		moveUpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -296,6 +225,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initMoveDownButton() {
 		moveDownButton = new javax.swing.JButton();
+		moveDownButton.setBounds(485, 295, 98, 35);
 		moveDownButton.setText("Down");
 		moveDownButton.setEnabled(false);
 		moveDownButton.addActionListener(new java.awt.event.ActionListener() {
@@ -307,6 +237,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initExitGameButton() {
 		exitGameButton = new javax.swing.JButton();
+		exitGameButton.setBounds(412, 525, 241, 35);
 		exitGameButton.setText("Exit Game");
 		exitGameButton.setToolTipText("");
 		exitGameButton.addActionListener(new java.awt.event.ActionListener() {
@@ -318,12 +249,14 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initGameStatusLabel() {
 		gameStatusLabel = new javax.swing.JLabel();
+		gameStatusLabel.setBounds(1, 529, 245, 26);
 		gameStatusLabel.setText("<Game status goes here>");
 		gameStatusLabel.setToolTipText("");
 	}
 
 	private void initGameScreen() {
 		gameScreen = new SimpleGraphicsPanel();
+		gameScreen.setBounds(1, 191, 347, 332);
 		gameScreen.setFocusable(true);
 
 		gameScreen.addKeyListener(new KeyListener() {
@@ -391,6 +324,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 
 	private void initCreateNewMapButton() {
 		createNewMap = new JButton();
+		createNewMap.setBounds(437, 128, 228, 35);
 		createNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				createNewMapActionPerformed(evt);
