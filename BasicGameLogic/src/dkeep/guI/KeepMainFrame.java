@@ -89,12 +89,8 @@ public class KeepMainFrame extends javax.swing.JFrame {
 		});
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-<<<<<<< HEAD
-		setPreferredSize(new Dimension(700, 650));
-
-		getContentPane().add(saveGameButton);
-=======
-		setPreferredSize(new java.awt.Dimension(600, 550));
+		
+		setPreferredSize(new java.awt.Dimension(680, 620));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -171,10 +167,7 @@ public class KeepMainFrame extends javax.swing.JFrame {
 						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(exitGameButton)
 								.addComponent(gameStatusLabel))
 						.addContainerGap()));
-	
-	    getContentPane().add(saveGameButton);
-		
->>>>>>> 81b1e06e81af477278377547babcfc71f2262cfd
+
 		getContentPane().add(loadGameButton);
 		getContentPane().setLayout(null);
 		getContentPane().add(saveGameButton);
