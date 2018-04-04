@@ -162,8 +162,9 @@ public class KeepMainFrame extends javax.swing.JFrame {
 						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(exitGameButton)
 								.addComponent(gameStatusLabel))
 						.addContainerGap()));
-
-		getContentPane().add(saveGameButton);
+	
+	    getContentPane().add(saveGameButton);
+		
 		getContentPane().add(loadGameButton);
 
 		getContentPane().setLayout(layout);
