@@ -689,6 +689,11 @@ public class KeepMainFrame extends javax.swing.JFrame {
 			return;
 		}
 		
+		else if(path.equals("custom ")) {
+			popup.showMessageDialog(this, "You cannot load this file.");
+			return;
+		}
+		
 		loadFile(path);
 		
 		startNewGame();

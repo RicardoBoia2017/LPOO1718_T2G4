@@ -3,6 +3,16 @@ package dkeep.logic;
 //import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * 
+ * This represents the Guard Character class, as in this project we do not include custom guards, he will
+ * only have the ability to move in the first stage, his path to follow (and consequently the inverse path) will
+ * always be hard-locked to the ones followed in the first stage.
+ * 
+ * Includes movement methods for a Drunken, Suspicious and Rookie guard, gets and sets.
+ *
+ */
+
 public class Guard extends Character {
 
 	char[] pathArray = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
@@ -14,27 +24,53 @@ public class Guard extends Character {
 	int awake;
 	int paranoid;
 	
+	/**
+	 * 
+	 * @return Boolean that represents whether the Guard reversed his route.
+	 */	
 	public boolean getReversedRoute() {
 		return reversedRoute;
 	}
 	
+	/**
+	 * 
+	 * @return The array of positions the guard normally follows.
+	 */	
 	public char[] getPathArray() {
 		return pathArray;
 	}
 	
+	/**
+	 * 
+	 * @return The inverted array of positions the guard normally follows.
+	 */
 	public char[] getInvertedPathArray() {
 		return invertedPath;
 	}
 	
+	/**
+	 * 
+	 * @return A number that represents whether the Guard is awake.
+	 */
 	public int getAwake()
 	{
 		return awake;
 	}
 	
+	/**
+	 * 
+	 * @return A number that represents whether the Suspicious guard inverted his path.
+	 */
 	public int getParanoid() {
 		return paranoid;
 	}
 	
+	/**
+	 * Creates a Guard.
+	 * @param x X coordinate of the Guard.
+	 * @param y Y coordinate of the Guard.
+	 * @param persona Guard's personality (Drunken, Suspicious, Rookie).
+	 */
 	public Guard(int x, int y, String persona) {
 		super(x, y, 'G');
 		currentPosition = 0;
@@ -43,10 +79,19 @@ public class Guard extends Character {
 		this.movementBlocker = false;
 	}
 	
+	/**
+	 * 
+	 * @return The Guard's personality.
+	 */
 	public String getPersonality() {
 		return personality;
 	}
 	
+	/**
+	 * Movement for the Rookie guard, simply follows the normal path.
+	 * @param map Map to move in.
+	 * @throws IllegalMapChangeException Exception to prevent going through walls.
+	 */
 	public void rookieMove(Map map) throws IllegalMapChangeException {
 
 	callMoveByCommand(map);
@@ -60,6 +105,11 @@ public class Guard extends Character {
     
    }
 	
+	/**
+	 * Movement for the Drunken guard, follows the normal path but sometimes sleeps and may sometimes invert once he awakes.
+	 * @param map Map to move in.
+	 * @throws IllegalMapChangeException Exception to prevent going through walls.
+	 */
 	public void drunkenMove(Map map) throws IllegalMapChangeException {
 	    Random passout = new Random();
 	    char[] temp;
@@ -133,7 +183,12 @@ public class Guard extends Character {
 		map.updateMap(coordY, coordX, id);
 	}
 }
-	
+
+	/**
+	 * Suspicious guard movement, sometimes inverts his path.
+	 * @param map Map to move in.
+	 * @throws IllegalMapChangeException Exception to prevent going through walls.
+	 */
 	public void suspiciousMove(Map map) throws IllegalMapChangeException {
 	    Random check = new Random();
 	    char[] temp;
@@ -188,7 +243,11 @@ public class Guard extends Character {
 			}
 		}
 	}
-
+	
+	/**
+	 * Auxiliary move function that moves according to a given char.
+	 * @param map Map to move in.
+	 */
 	public void callMoveByCommand (Map map)
 	{
 		switch(pathArray[currentPosition]) {
@@ -219,6 +278,12 @@ public class Guard extends Character {
 		}
 	}
 	
+	/**
+	 * Auxiliary function for the auxiliary movement function that handles the movement into an actual cell.
+	 * @param map Map to move in.
+	 * @param newY New X Coordinate of the Guard.
+	 * @param newX New Y Coordinate of the Guard.
+	 */
 	private void moveIntoCell (Map map, int newY, int newX)
 	{
 		 map.updateMap(newY, newX, id);
@@ -227,10 +292,18 @@ public class Guard extends Character {
 		 this.coordY = newY;
 	}
 	
+	/**
+	 * 
+	 * @param newValue Value to set the blocker to.
+	 */
 	public void setMovementBlocker(boolean newValue)
 	{
 		this.movementBlocker = newValue;
 	}
 	
+	/**
+	 * 
+	 * @return The Guard's movement blocker.
+	 */
 	public boolean getMovementBlocker(){return this.movementBlocker;}
 }
