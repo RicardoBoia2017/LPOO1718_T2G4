@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.awt.Point;
 
+/**
+ * Class responsible for updating ogre level.
+ * 
+ * Calls hero's, ogres' and clubs' movement functions, checks if hero gets caught and updates the game map
+ *
+ */
+
 public class OgreLevel implements LevelLogic, Serializable{
 
 	Hero hero;
@@ -13,21 +20,24 @@ public class OgreLevel implements LevelLogic, Serializable{
 	ArrayList <Point> exitDoors;
 	String levelState;
 	
-	public OgreLevel(int numberOfOgres)
+	/**
+	 * Constructor which creates a level with a specified number of ogres and clubs
+	 * 
+	 * @param numberOfEnemies number of {@Ogre}s and {@Club}s in the level
+	 */
+	public OgreLevel(int numberOfEnemies)
 	{
 		hero = new Hero (1,7);
 		hero.setID('A');
 		
-		for (int i = 0; i < numberOfOgres; i++)
+		for (int i = 0; i < numberOfEnemies; i++)
 		{
 			ogres.add( new Ogre (4,1) );
-//			ogres.get(i).setBlocker(true);
 		}
 		
-		for (int i = 0; i < numberOfOgres; i++)
+		for (int i = 0; i < numberOfEnemies; i++)
 		{
 			clubs.add( new Club(3,1) );
-//			clubs.get(i).setBlocker(true);
 		}
 		
 		this.keyCoords = new Point (7,1);
@@ -37,7 +47,13 @@ public class OgreLevel implements LevelLogic, Serializable{
 		
 		levelState = "Running";	
 	}
-
+	
+	/**
+	 * Constructor which created a game with the given ogres and clubs
+	 * 
+	 * @param ogres ArrayList of ogres
+	 * @param clubs ArrayList of clubs
+	 */
 	public OgreLevel(ArrayList<Ogre> ogres, ArrayList<Club> clubs)
 	{
 		this.ogres = ogres;
@@ -117,6 +133,13 @@ public class OgreLevel implements LevelLogic, Serializable{
 		return;
 	}
 
+	/**
+	 * Checks if hero gets caught by a specific ogre
+	 * 
+	 * @param map current {@link Map}
+	 * @param ogre {@link Ogre}
+	 * @return true if hero gets caught, otherwise return false
+	 */
 	public boolean checkHeroGetsCaughtByOgre(Map map, Ogre ogre) {
 		if (ogre.getID() != '8' && (map.getMatrix()[ogre.coordY - 1][ogre.coordX] == hero.id
 				|| map.getMatrix()[ogre.coordY + 1][ogre.coordX] == hero.id
@@ -127,6 +150,13 @@ public class OgreLevel implements LevelLogic, Serializable{
 		return false;
 	}
 	
+	/**
+	 * Checks if hero gets caught by a specific club
+	 * 
+	 * @param map current {@link Map}
+	 * @param club {@link Club}
+	 * @return true if hero gets caught, otherwise returns false
+	 */
 	public boolean checkHeroGetsCaughtByClub(Map map, Club club) {
 		if ((map.getMatrix()[club.coordY - 1][club.coordX] == hero.id
 				|| map.getMatrix()[club.coordY + 1][club.coordX] == hero.id
@@ -137,6 +167,11 @@ public class OgreLevel implements LevelLogic, Serializable{
 		return false;
 	}
 	
+	/**
+	 * Makes key visible when no enemy is on top of it and hero doesn't have it
+	 * 
+	 * @param map current {@link Map}
+	 */
 	private void manageKeyVisibility (Map map)
 	{
 		if (map.getMatrix()[(int) keyCoords.getY()][(int) keyCoords.getX()] == ' ' && hero.id == 'A') {
@@ -144,6 +179,12 @@ public class OgreLevel implements LevelLogic, Serializable{
 		}
 	}
 	
+	/**
+	 * Checks if ogre needs to be stunned and if affirmative, calls function
+	 * 
+	 * @param ogre {@link Ogre}
+	 * @param map current {@link Map}
+	 */
 	private void manageOgreStun (Ogre ogre, Map map)
 	{
 		
