@@ -1,6 +1,5 @@
 package dkeep.guI;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -12,15 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-//import net.miginfocom.swing.MigLayout;
-import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.NumberFormatter;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
