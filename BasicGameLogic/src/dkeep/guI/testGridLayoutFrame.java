@@ -3,6 +3,7 @@ package dkeep.guI;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -77,11 +78,13 @@ public class testGridLayoutFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{200};
-		gbl_contentPane.rowHeights = new int[]{200};
+		gbl_contentPane.columnWidths = new int[]{20};
+		gbl_contentPane.rowHeights = new int[]{20};
 		gbl_contentPane.columnWeights = new double[]{Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+		
+		GridBagConstraints c = new GridBagConstraints();
 		
 
 		callInitFunctions();
@@ -93,7 +96,13 @@ public class testGridLayoutFrame extends JFrame {
 			}
 		});
 		
-		getContentPane().add(loadGameButton);
+		c.ipadx = 347;
+		c.ipady = 332;
+		contentPane.add(gameScreen,c);
+		
+		contentPane.add(newGameButton);
+		
+		/*getContentPane().add(loadGameButton);
 		getContentPane().add(saveGameButton);
 		getContentPane().add(loadGameButton);
 		getContentPane().add(numberOfOgresLabel);
@@ -108,7 +117,7 @@ public class testGridLayoutFrame extends JFrame {
 		getContentPane().add(moveDownButton);
 		getContentPane().add(moveUpButton);
 		getContentPane().add(newGameButton);
-		getContentPane().add(createNewMap);
+		getContentPane().add(createNewMap);*/
 	}
 	
 	private void callInitFunctions() {
