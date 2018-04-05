@@ -212,7 +212,7 @@ public class OptionsFrame extends JFrame{
 		NumberFormatter formatter = new NumberFormatter(format);
 		formatter.setValueClass(Integer.class);
 		formatter.setMinimum(4);
-		formatter.setMaximum(12);
+		formatter.setMaximum(10);
 		formatter.setAllowsInvalid(true);
 		
 		return formatter;
