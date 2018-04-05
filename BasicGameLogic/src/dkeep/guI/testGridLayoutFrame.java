@@ -102,22 +102,22 @@ public class testGridLayoutFrame extends JFrame {
 		
 		contentPane.add(newGameButton);
 		
-		/*getContentPane().add(loadGameButton);
-		getContentPane().add(saveGameButton);
-		getContentPane().add(loadGameButton);
-		getContentPane().add(numberOfOgresLabel);
-		getContentPane().add(numberOfOgresBox);
-		getContentPane().add(gameScreen);
-		getContentPane().add(gameStatusLabel);
-		getContentPane().add(guardPersonalityLabel);
-		getContentPane().add(guardPersonalityBox);
-		getContentPane().add(moveLeftButton);
-		getContentPane().add(moveRightButton);
-		getContentPane().add(exitGameButton);
-		getContentPane().add(moveDownButton);
-		getContentPane().add(moveUpButton);
-		getContentPane().add(newGameButton);
-		getContentPane().add(createNewMap);*/
+		/*contentPane().add(loadGameButton);
+		contentPane().add(saveGameButton);
+		contentPane().add(loadGameButton);
+		contentPane().add(numberOfOgresLabel);
+		contentPane().add(numberOfOgresBox);
+		contentPane().add(gameScreen);
+		contentPane().add(gameStatusLabel);
+		contentPane().add(guardPersonalityLabel);
+		contentPane().add(guardPersonalityBox);
+		contentPane().add(moveLeftButton);
+		contentPane().add(moveRightButton);
+		contentPane().add(exitGameButton);
+		contentPane().add(moveDownButton);
+		contentPane().add(moveUpButton);
+		contentPane().add(newGameButton);
+		contentPane().add(createNewMap);*/
 	}
 	
 	private void callInitFunctions() {
