@@ -25,6 +25,7 @@ import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
 import dkeep.logic.*;
+import java.awt.Color;
 
 public class OptionsFrame extends JFrame{
 
@@ -192,8 +193,8 @@ public class OptionsFrame extends JFrame{
 	
 	private void initFrame() {
 		frame = new JFrame();
-		frame.setPreferredSize(new Dimension(600, 500));
-		frame.setBounds(100, 100, 742, 653);
+		frame.setPreferredSize(new Dimension(600, 550));
+		frame.setBounds(100, 100, 732, 706);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 	}
@@ -211,7 +212,7 @@ public class OptionsFrame extends JFrame{
 		NumberFormatter formatter = new NumberFormatter(format);
 		formatter.setValueClass(Integer.class);
 		formatter.setMinimum(4);
-		formatter.setMaximum(10);
+		formatter.setMaximum(12);
 		formatter.setAllowsInvalid(true);
 		
 		return formatter;
@@ -219,7 +220,7 @@ public class OptionsFrame extends JFrame{
 	
 	private JLabel initWidthLabel() {
 		JLabel WidthLabel = new JLabel("Width : ");
-		WidthLabel.setBounds(262, 21, 107, 37);
+		WidthLabel.setBounds(235, 21, 107, 37);
 		WidthLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		WidthLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		WidthLabel.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -230,7 +231,7 @@ public class OptionsFrame extends JFrame{
 	
 	private void initWidthValue(NumberFormatter formatter) {
 		widthValue = new JFormattedTextField(formatter);
-		widthValue.setBounds(399, 25, 111, 32);
+		widthValue.setBounds(390, 25, 100, 37);
 		widthValue.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		widthValue.setPreferredSize(new Dimension(10, 32));
 		widthValue.setColumns(5);
@@ -239,7 +240,7 @@ public class OptionsFrame extends JFrame{
 	
 	private JLabel initHeightLabel() {
 		JLabel HeightLabel = new JLabel("Height : ");
-		HeightLabel.setBounds(253, 79, 116, 37);
+		HeightLabel.setBounds(235, 79, 116, 37);
 		HeightLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		return HeightLabel;
@@ -247,7 +248,7 @@ public class OptionsFrame extends JFrame{
 	
 	private void initHeightValue(NumberFormatter formatter) {
 		heightValue = new JFormattedTextField(formatter);
-		heightValue.setBounds(399, 78, 111, 32);
+		heightValue.setBounds(390, 79, 100, 37);
 		heightValue.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		heightValue.setPreferredSize(new Dimension(10, 32));
 		heightValue.setColumns(5);
@@ -257,7 +258,7 @@ public class OptionsFrame extends JFrame{
 		JButton btnCreateMap = new JButton("Create Map");
 		
 		btnCreateMap.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnCreateMap.setBounds(306, 137, 166, 56);
+		btnCreateMap.setBounds(175, 137, 166, 56);
 		
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -272,7 +273,7 @@ public class OptionsFrame extends JFrame{
 		JButton btnEndEdition = new JButton("End Edition");
 		
 		btnEndEdition.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnEndEdition.setBounds(500, 137, 166, 56);
+		btnEndEdition.setBounds(415, 137, 166, 56);
 		
 		btnEndEdition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -285,7 +286,8 @@ public class OptionsFrame extends JFrame{
 	
 	private void createMap() {
 		map = new SimpleGraphicsPanel();
-		map.setBounds(102, 241, 523, 341);
+		map.setBackground(Color.LIGHT_GRAY);
+		map.setBounds(102, 230, 523, 394);
 		
 		map.addMouseListener(new MouseAdapter() {
 			@Override
