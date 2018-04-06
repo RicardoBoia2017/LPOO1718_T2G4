@@ -204,6 +204,11 @@ public class OptionsFrame extends JFrame{
 		panel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		frame.getContentPane().add(panel);
 		
+		JLabel label = new JLabel("(4-10)");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		label.setBounds(511, 57, 92, 26);
+		panel.add(label);
+		
 		return panel;
 	}
 	
