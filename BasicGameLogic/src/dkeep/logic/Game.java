@@ -8,7 +8,7 @@ import java.awt.Point;
 /**
  * Class where is stored the current {@link Map} and the current type of level.
  *
- * Used to call the function responsible for updating each type of level, to change the level when asked by the {@LevelLogic}, and to return the updated Map to the classes that print it.
+ * Used to call the function responsible for updating each type of level, to change the level when asked by the {@link LevelLogic}, and to return the updated Map to the classes that print it.
  * 
  */
 public class Game implements Serializable {

@@ -51,6 +51,8 @@ public class OptionsFrame extends JFrame{
 
 	/**
 	 * Launch the application.
+	 * 
+	 * @param args arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

@@ -23,7 +23,7 @@ public class OgreLevel implements LevelLogic, Serializable{
 	/**
 	 * Constructor which creates a level with a specified number of ogres and clubs
 	 * 
-	 * @param numberOfEnemies number of {@Ogre}s and {@Club}s in the level
+	 * @param numberOfEnemies number of {@link Ogre}s and {@link Club}s in the level
 	 */
 	public OgreLevel(int numberOfEnemies)
 	{
