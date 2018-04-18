@@ -37,12 +37,16 @@ public class Monopoly extends ApplicationAdapter {
         newGameButton = new TextButton("New Game", skin);
         exitGameButton = new TextButton("Exit Game", skin);
      
-        exitGameButton.setPosition(Gdx.graphics.getWidth() /2 - 100f, Gdx.graphics.getHeight()/2 - 10f);
+        newGameButton.setPosition(20, 20);
+        newGameButton.setWidth(400);
+        
+        exitGameButton.setPosition(580, 20);
+        exitGameButton.setWidth(400);
         
         newGameButton.addListener(new ClickListener(){
             @Override 
             public void clicked(InputEvent event, float x, float y){
-               
+            img = new Texture ("Board.png");   
             }
         });
         
@@ -62,10 +66,10 @@ public class Monopoly extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0, 400, 400, 0, 1, 1, 0);
+		batch.draw(img, 0, 0, 1000, 1000, 0, 1, 1, 0);
 		batch.end();
 		stage.draw();
 	}
