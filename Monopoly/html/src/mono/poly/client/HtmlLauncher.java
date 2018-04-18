@@ -3,7 +3,8 @@ package mono.poly.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import mono.poly.Monopoly;
+
+import mono.view.Monopoly;
 
 public class HtmlLauncher extends GwtApplication {
 

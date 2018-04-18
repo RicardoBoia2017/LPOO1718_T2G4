@@ -1,4 +1,4 @@
-package mono.poly;
+package mono.view;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -37,7 +37,7 @@ public class Monopoly extends ApplicationAdapter {
         newGameButton = new TextButton("New Game", skin);
         exitGameButton = new TextButton("Exit Game", skin);
      
-        newGameButton.setPosition(Gdx.graphics.getWidth() /2 - 100f, Gdx.graphics.getHeight()/2 - 10f);
+        exitGameButton.setPosition(Gdx.graphics.getWidth() /2 - 100f, Gdx.graphics.getHeight()/2 - 10f);
         
         newGameButton.addListener(new ClickListener(){
             @Override 
@@ -66,8 +66,8 @@ public class Monopoly extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(img, 0, 0, 400, 400, 0, 1, 1, 0);
-		stage.draw();
 		batch.end();
+		stage.draw();
 	}
 	
 	@Override
