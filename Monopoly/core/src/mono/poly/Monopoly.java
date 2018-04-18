@@ -8,16 +8,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Monopoly extends ApplicationAdapter {
 	SpriteBatch batch;
     Stage stage;
 	Texture img;
-    TextButton button;
+    TextButton newGameButton;
+    TextButton exitGameButton;
     TextButtonStyle textButtonStyle;
     BitmapFont font;
     Skin skin;
@@ -27,23 +30,34 @@ public class Monopoly extends ApplicationAdapter {
 	public void create () {
 		stage = new Stage();
 		batch = new SpriteBatch();
-		img = new Texture("/home/luis/git/LPOO1718_T2G4/Monopoly/Monopoly/core/assets/Monopoly.png");
+		img = new Texture("Monopoly.png");
         font = new BitmapFont();
-        skin = new Skin();
+        skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
         
-        AssetManager am = new AssetManager();
-        am.load("buttons.pack", TextureAtlas.class);
-        am.finishLoading();
-        buttonAtlas = am.get("buttons.pack");
+        newGameButton = new TextButton("New Game", skin);
+        exitGameButton = new TextButton("Exit Game", skin);
+     
+        newGameButton.setPosition(Gdx.graphics.getWidth() /2 - 100f, Gdx.graphics.getHeight()/2 - 10f);
         
-        skin.addRegions(buttonAtlas);
-        textButtonStyle = new TextButtonStyle();
-        textButtonStyle.font = font;
-        textButtonStyle.up = skin.getDrawable("up-button");
-        textButtonStyle.down = skin.getDrawable("down-button");
-        textButtonStyle.checked = skin.getDrawable("checked-button");
-        button = new TextButton("Button1", textButtonStyle);
-        stage.addActor(button);
+        newGameButton.addListener(new ClickListener(){
+            @Override 
+            public void clicked(InputEvent event, float x, float y){
+               
+            }
+        });
+        
+        exitGameButton.addListener(new ClickListener(){
+            @Override 
+            public void clicked(InputEvent event, float x, float y){
+               System.exit(0);
+            }
+        });
+        
+        stage.addActor(newGameButton);
+        
+        stage.addActor(exitGameButton);
+        
+        Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
