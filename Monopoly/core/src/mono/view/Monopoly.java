@@ -46,7 +46,7 @@ public class Monopoly extends ApplicationAdapter {
         newGameButton.addListener(new ClickListener(){
             @Override 
             public void clicked(InputEvent event, float x, float y){
-            img = new Texture ("finalBoard.png");   
+            img = new Texture ("Board.png");   
             }
         });
         
