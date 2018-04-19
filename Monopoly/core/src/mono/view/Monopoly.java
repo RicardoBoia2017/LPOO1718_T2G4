@@ -46,7 +46,7 @@ public class Monopoly extends ApplicationAdapter {
         newGameButton.addListener(new ClickListener(){
             @Override 
             public void clicked(InputEvent event, float x, float y){
-            img = new Texture ("Board.png");   
+            img = new Texture ("finalBoard.png");   
             }
         });
         
@@ -69,7 +69,7 @@ public class Monopoly extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0, 1000, 1000, 0, 1, 1, 0);
+		batch.draw(img, 0, 0, 700, 700, 0, 1, 1, 0);
 		batch.end();
 		stage.draw();
 	}
