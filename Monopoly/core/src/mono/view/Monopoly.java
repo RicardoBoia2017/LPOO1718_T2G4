@@ -19,6 +19,8 @@ public class Monopoly extends ApplicationAdapter {
 	SpriteBatch batch;
     Stage stage;
 	Texture img;
+	Texture board;
+	Texture boot;
     TextButton newGameButton;
     TextButton exitGameButton;
     TextButtonStyle textButtonStyle;
@@ -31,6 +33,9 @@ public class Monopoly extends ApplicationAdapter {
 		stage = new Stage();
 		batch = new SpriteBatch();
 		img = new Texture("Monopoly.png");
+		board = new Texture ("Board.png");
+		boot = new Texture ("Boot.png");
+		
         font = new BitmapFont();
         skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
         
@@ -46,7 +51,7 @@ public class Monopoly extends ApplicationAdapter {
         newGameButton.addListener(new ClickListener(){
             @Override 
             public void clicked(InputEvent event, float x, float y){
-            img = new Texture ("Board.png");   
+           
             }
         });
         
@@ -69,7 +74,9 @@ public class Monopoly extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0, 700, 700, 0, 1, 1, 0);
+//		batch.draw(img, 0, 0, 700, 700, 0, 1, 1, 0);
+		batch.draw (board, 0, 0, 700, 700, 0 ,1, 1, 0);
+		batch.draw (boot, 0, 660, 40, 40, 0 ,1, 1, 0);
 		batch.end();
 		stage.draw();
 	}
