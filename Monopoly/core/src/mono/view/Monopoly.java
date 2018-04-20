@@ -21,6 +21,9 @@ public class Monopoly extends ApplicationAdapter {
 	Texture img;
 	Texture board;
 	Texture boot;
+	Texture car;
+	Texture hat;
+	Texture thimble;
     TextButton newGameButton;
     TextButton exitGameButton;
     TextButtonStyle textButtonStyle;
@@ -35,6 +38,9 @@ public class Monopoly extends ApplicationAdapter {
 		img = new Texture("Monopoly.png");
 		board = new Texture ("Board.png");
 		boot = new Texture ("Boot.png");
+		car = new Texture ("Car.png");
+		hat = new Texture ("Hat.png");
+		thimble = new Texture ("Thimble.png");
 		
         font = new BitmapFont();
         skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
@@ -77,6 +83,9 @@ public class Monopoly extends ApplicationAdapter {
 //		batch.draw(img, 0, 0, 700, 700, 0, 1, 1, 0);
 		batch.draw (board, 0, 0, 700, 700, 0 ,1, 1, 0);
 		batch.draw (boot, 0, 660, 40, 40, 0 ,1, 1, 0);
+		batch.draw (car, 50, 660, 40, 40, 0 ,1, 1, 0);
+		batch.draw (hat, 0, 610, 40, 40, 0 ,1, 1, 0);
+		batch.draw (thimble, 50, 610, 40, 40, 0 ,1, 1, 0);
 		batch.end();
 		stage.draw();
 	}
