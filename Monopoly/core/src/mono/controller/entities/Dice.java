@@ -1,9 +1,20 @@
 package mono.controller.entities;
 
+import java.util.Random;
+
 public class Dice {
 
+	int number;
+	
 	public Dice() {
-		// TODO Auto-generated constructor stub
+		number = 0;
 	}
-
+	
+	public int getNumber() {
+		Random rand = new Random();
+		
+		number = 1+rand.nextInt(6);
+		
+		return number;
+	}
 }

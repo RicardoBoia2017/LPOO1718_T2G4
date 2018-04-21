@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import mono.view.Monopoly;
+import mono.view.MonopolyGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -11,6 +12,6 @@ public class DesktopLauncher {
 		config.title = "Monopoly";
 		config.width = 1000;
 		config.height = 1000;
-		new LwjglApplication(new Monopoly(), config);
+		new LwjglApplication(new MonopolyGame(), config);
 	}
 }
