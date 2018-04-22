@@ -41,48 +41,48 @@ public class Monopoly extends ApplicationAdapter {
         
         startScreen = new Texture("Monopoly.png");
         
-        createNewGameButton();
-        createExitGameButton();
+//        createNewGameButton();
+//        createExitGameButton();
         
         Gdx.input.setInputProcessor(stage);
 	}
 	
-	public void createNewGameButton() {
-		newGameButton = new TextButton("New Game", skin);
-        newGameButton.setPosition(20, 20);
-        newGameButton.setWidth(400);
-        newGameButton.addListener(new ClickListener(){
-            @Override 
-            public void clicked(InputEvent event, float x, float y){
-            	createSelectPieceScreen();
-            	swapToSelectPieceScreen();
-            }
-        });
-        stage.addActor(newGameButton);
-	}
-	
-	public void createExitGameButton() {
-        exitGameButton = new TextButton("Exit Game", skin);
-        exitGameButton.setPosition(580, 20);
-        exitGameButton.setWidth(400);
-        exitGameButton.addListener(new ClickListener(){
-            @Override 
-            public void clicked(InputEvent event, float x, float y){
-               System.exit(0);
-            }
-        });
-        stage.addActor(exitGameButton);
-	}
+//	public void createNewGameButton() {
+//		newGameButton = new TextButton("New Game", skin);
+//        newGameButton.setPosition(20, 20);
+//        newGameButton.setWidth(400);
+//        newGameButton.addListener(new ClickListener(){
+//            @Override 
+//            public void clicked(InputEvent event, float x, float y){
+//            	createSelectPieceScreen();
+//            	swapToSelectPieceScreen();
+//            }
+//        });
+//        stage.addActor(newGameButton);
+//	}
+//	
+//	public void createExitGameButton() {
+//        exitGameButton = new TextButton("Exit Game", skin);
+//        exitGameButton.setPosition(680, 20);
+//        exitGameButton.setWidth(200);
+//        exitGameButton.addListener(new ClickListener(){
+//            @Override 
+//            public void clicked(InputEvent event, float x, float y){
+//               System.exit(0);
+//            }
+//        });
+//        stage.addActor(exitGameButton);
+//	}
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(startScreen, 0, 0, 700, 700, 0, 1, 1, 0);
-		batch.end();
-		stage.draw();
-	}
+//	@Override
+//	public void render () {
+//		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
+//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		batch.begin();
+//		batch.draw(startScreen, 0, 0, 700, 700, 0, 1, 1, 0);
+//		batch.end();
+//		stage.draw();
+//	}
 	
 	public void createSelectPieceScreen() {
 		stage = new Stage();

@@ -22,7 +22,7 @@ public class GameScreen extends AbstractScreen {
 		// Adding actors
 
 		Image boardImage = new Image(board);
-		boardImage.setSize(200, 200);
+		boardImage.setSize(1000, 1000);
 		boardImage.setPosition(getWidth() / 2, getHeight() / 2, Align.center);
 		addActor(boardImage);
 		

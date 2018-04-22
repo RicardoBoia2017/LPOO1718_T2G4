@@ -30,8 +30,8 @@ public class MainMenuScreen extends AbstractScreen {
 	public void buildStage() {
 		// Adding actors
 		Image bg = new Image(startScreen);
-		bg.setSize(200, 200);
-		bg.setPosition(150.f, 150.f, Align.center);
+		bg.setSize(1000, 1000);
+		bg.setPosition(0, 0);
 		addActor(bg);
 		
 		createNewGameButton();
@@ -43,13 +43,15 @@ public class MainMenuScreen extends AbstractScreen {
 	
 	public void createNewGameButton() {
 		newGameButton = new TextButton("New Game", skin);
-        newGameButton.setPosition(20, 20);
+		newGameButton.setPosition(20, 20);
+	    newGameButton.setWidth(400);
         newGameButton.addListener(UIFactory.createListener(ScreenEnum.LEVEL_SELECT));
 	}
 	
 	public void createExitGameButton() {
         exitGameButton = new TextButton("Exit Game", skin);
-        exitGameButton.setPosition(40, 20);
+        exitGameButton.setPosition(580, 20);
+        exitGameButton.setWidth(400);
         exitGameButton.addListener(
 				new InputListener() {
 					@Override

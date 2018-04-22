@@ -30,23 +30,23 @@ public class PieceSelectScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		ImageButton btnBoot = UIFactory.createButton(boot);
-		btnBoot.setSize(70, 70);
-		btnBoot.setPosition(100.f, 150.f, Align.center);
+		btnBoot.setSize(500, 500);
+		btnBoot.setPosition(250.f, 750.f, Align.center);
 		addActor(btnBoot);
 		
 		ImageButton btnCar = UIFactory.createButton(car);
-		btnCar.setSize(70, 70);
-		btnCar.setPosition(220.f, 150.f, Align.center);
+		btnCar.setSize(500, 500);
+		btnCar.setPosition(750.f, 750.f, Align.center);
 		addActor(btnCar);
 		
 		ImageButton btnHat = UIFactory.createButton(hat);
-		btnHat.setSize(70, 70);
-		btnHat.setPosition(220.f, 40.f, Align.center);
+		btnHat.setSize(500, 500);
+		btnHat.setPosition(250.f, 250.f, Align.center);
 		addActor(btnHat);
 		
 		ImageButton btnThimble = UIFactory.createButton(thimble);
-		btnThimble.setSize(70, 70);
-		btnThimble.setPosition(100.f, 40.f, Align.center);
+		btnThimble.setSize(500, 500);
+		btnThimble.setPosition(750.f, 250.f, Align.center);
 		addActor(btnThimble);
 		
 		btnBoot.addListener(UIFactory.createListener(ScreenEnum.GAME, 1));
