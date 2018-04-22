@@ -21,4 +21,24 @@ public class Player {
 	public int getAmountToWalk() {
 		return toWalk;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getBoardPiece() {
+		return boardPiece;
+	}
+	
+	public int getPosition() {
+		return position;
+	}
+	
+	public void updatePosition(int diceSum) {
+		position = position + diceSum;
+		
+		if(position >= 40) {
+			position = position - 40;
+		}
+	}
 }

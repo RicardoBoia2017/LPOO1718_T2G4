@@ -1,15 +1,15 @@
 package mono.controller.entities;
 
+import java.util.ArrayList;
+
 public class Square {
 	String name; //name of the square
 	int position;
-	Player[] playersOnTopOfSquare;
-	int numPlayersOnTopOfSquare;
+	ArrayList<Player> playersOnTopOfSquare = new ArrayList<Player>();
 
 	public Square(String s, int position) {
 		name = s;
 		this.position = position;
-		numPlayersOnTopOfSquare = 0;
 	}
 	
 	public String getName() {
@@ -17,7 +17,14 @@ public class Square {
 	}
 	
 	public void setPlayerOnTopOfSquare(Player p1) {
-		playersOnTopOfSquare[numPlayersOnTopOfSquare] = p1;
-		numPlayersOnTopOfSquare++;
+		playersOnTopOfSquare.add(p1);
+	}
+	
+	public int getNumPlayersOnTopOfSquare() {
+		return playersOnTopOfSquare.size();
+	}
+	
+	public ArrayList<Player> getplayersOnTopOfSquareArray() {
+		return playersOnTopOfSquare;
 	}
 }

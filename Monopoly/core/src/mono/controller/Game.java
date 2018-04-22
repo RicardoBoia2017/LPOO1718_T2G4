@@ -18,12 +18,13 @@ import mono.controller.entities.StartSquare;
 public class Game {
 	private static Game instance;
 	Board board;
-	Player[] players;
+	Player[] players = new Player[4];
 	String player1Piece;
 	
 	private Game()
 	{
 		board = new Board();
+		
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -36,25 +37,48 @@ public class Game {
 			players[3] = new Player("Bot", "Boot");
 		}
 		
-		if(player1Piece.equals("Thimble")) {
+		else if(player1Piece.equals("Thimble")) {
 			players[1] = new Player("Bot", "Hat");
 			players[2] = new Player("Bot", "Car");
 			players[3] = new Player("Bot", "Boot");
 		}
 		
-		if(player1Piece.equals("Boot")) {
+		else if(player1Piece.equals("Boot")) {
 			players[1] = new Player("Bot", "Thimble");
 			players[2] = new Player("Bot", "Hat");
 			players[3] = new Player("Bot", "Car");
 		}
 		
-		if(player1Piece.equals("Boot")) {
+		else if(player1Piece.equals("Hat")) {
 			players[1] = new Player("Bot", "Thimble");
-			players[2] = new Player("Bot", "Hat");
+			players[2] = new Player("Bot", "Boot");
 			players[3] = new Player("Bot", "Car");
 		}
 		
 		this.player1Piece = player1Piece;
+		
+		addAllPlayersToGoSquare();
+	}
+	
+	public void addAllPlayersToGoSquare() {
+		addPlayerToBoardSquare(0, 0);
+		addPlayerToBoardSquare(0, 1);
+		addPlayerToBoardSquare(0, 2);
+		addPlayerToBoardSquare(0, 3);
+	}
+	
+	public void addPlayerToBoardSquare(int squareIndex, int playerIndex) {
+		board.getBoardArray().get(squareIndex).setPlayerOnTopOfSquare(players[playerIndex]);
+	}
+	
+	public void takePlayerFromBoardSquare(int squareIndex, int playerIndex) {
+		board.getBoardArray().get(squareIndex).getplayersOnTopOfSquareArray().remove(playerIndex);
+	}
+	
+	public void movePlayer(int playerIndex, int diceSum) {
+		takePlayerFromBoardSquare(players[playerIndex].getPosition(), playerIndex);
+		players[playerIndex].updatePosition(diceSum);
+		addPlayerToBoardSquare(players[playerIndex].getPosition(), playerIndex);
 	}
 
 	public static synchronized Game getInstance()
@@ -67,12 +91,15 @@ public class Game {
 
 	public void updateGame(int diceSum)
 	{
-		(players[0]).setAmountToWalk(diceSum);
-		board.getBoardArray().get(diceSum).setPlayerOnTopOfSquare(players[0]);
+		movePlayer(0, diceSum);
 	}
 	
 	public Player[] getPlayers() {
 		return players;
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 
 }
