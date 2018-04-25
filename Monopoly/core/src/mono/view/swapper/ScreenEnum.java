@@ -22,7 +22,7 @@ public enum ScreenEnum {
 	
 	GAME {
 		public AbstractScreen getScreen(Object... params) {
-			return new GameScreen((Integer) params[0], Monopoly.getInstance());
+			return new GameScreen((Integer) params[0]);
 		}
 	};
 	

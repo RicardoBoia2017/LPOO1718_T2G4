@@ -17,19 +17,27 @@ public class MainMenuScreen extends AbstractScreen {
 	
     TextButton newGameButton;
     TextButton exitGameButton;
-    Texture startScreen;
     Skin skin;
 	
 	public MainMenuScreen() {
 		super();
+		this.game = this.game.getInstance();
 		skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
-        startScreen = new Texture("Monopoly.png");
+		loadAssets();
 	}
 
+	private void loadAssets()
+	{
+		this.game.getAssetManager().load ("Monopoly.png", Texture.class);
+
+		this.game.getAssetManager().finishLoading();
+	}
+	
 	@Override
 	public void buildStage() {
 		// Adding actors
-		Image bg = new Image(startScreen);
+		Texture monopolyLogo = this.game.getAssetManager().get("Monopoly.png");
+		Image bg = new Image(monopolyLogo);
 		bg.setSize(1000, 1000);
 		bg.setPosition(0, 0);
 		addActor(bg);
@@ -65,7 +73,6 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
-		startScreen.dispose();
 		skin.dispose();
 	}
 }

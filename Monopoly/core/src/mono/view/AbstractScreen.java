@@ -7,7 +7,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
+import singleton.Monopoly;
+
 public abstract class AbstractScreen extends Stage implements Screen {
+	
+	static Monopoly game;
 	
 	protected AbstractScreen() {
 		super( new StretchViewport(1000.0f, 1000.0f, new OrthographicCamera()) );
