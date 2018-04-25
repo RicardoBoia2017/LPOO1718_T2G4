@@ -3,6 +3,7 @@ package mono.view.swapper;
 import mono.view.AbstractScreen;
 import mono.view.GameScreen;
 import mono.view.PieceSelectScreen;
+import singleton.Monopoly;
 import mono.view.MainMenuScreen;
 
 public enum ScreenEnum {
@@ -21,7 +22,7 @@ public enum ScreenEnum {
 	
 	GAME {
 		public AbstractScreen getScreen(Object... params) {
-			return new GameScreen((Integer) params[0]);
+			return new GameScreen((Integer) params[0], Monopoly.getInstance());
 		}
 	};
 	

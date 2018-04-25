@@ -3,8 +3,7 @@ package mono.poly.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-import mono.view.Monopoly;
-import mono.view.MonopolyGame;
+import singleton.Monopoly;;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -12,6 +11,6 @@ public class DesktopLauncher {
 		config.title = "Monopoly";
 		config.width = 1000;
 		config.height = 1000;
-		new LwjglApplication(new MonopolyGame(), config);
+		new LwjglApplication(new Monopoly(), config);
 	}
 }
