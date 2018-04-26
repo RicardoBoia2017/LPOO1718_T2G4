@@ -26,11 +26,12 @@ public class MainMenuScreen extends AbstractScreen {
 		loadAssets();
 	}
 
-	private void loadAssets()
+	private static void loadAssets()
 	{
-		this.game.getAssetManager().load ("Monopoly.png", Texture.class);
-
-		this.game.getAssetManager().finishLoading();
+		game.getAssetManager().load ("Monopoly.png", Texture.class);
+		game.getAssetManager().load ("House.png", Texture.class);
+		
+		game.getAssetManager().finishLoading();
 	}
 	
 	@Override

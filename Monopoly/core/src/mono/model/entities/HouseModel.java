@@ -2,8 +2,8 @@ package mono.model.entities;
 
 public class HouseModel extends EntityModel {
 
-	public HouseModel() {
-		// TODO Auto-generated constructor stub
+	public HouseModel(float x, float y, float rotation) {
+		super (x,y, rotation);
 	}
 
 }
