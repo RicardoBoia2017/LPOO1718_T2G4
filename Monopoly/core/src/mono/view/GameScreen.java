@@ -57,7 +57,7 @@ public class GameScreen extends AbstractScreen {
 		
 		Image piece = new Image (player1Model);
 		piece.setSize(60, 60);
-		piece.setPosition(x, 930);
+		piece.setPosition(0, 930);
 		addActor(piece);
 	}
 	
