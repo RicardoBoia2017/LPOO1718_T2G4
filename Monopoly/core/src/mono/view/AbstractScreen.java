@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import singleton.Monopoly;
+import mono.game.Monopoly;
 
 public abstract class AbstractScreen extends Stage implements Screen {
 	

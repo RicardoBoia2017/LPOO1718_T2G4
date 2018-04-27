@@ -5,15 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
-public class BoardView extends EntityView{
+public class HatView extends EntityView{
 
-	public BoardView(Monopoly game) {
+	public HatView(Monopoly game) {
 		super (game);
 	}
 
     public Sprite createSprite(Monopoly game) {
-        Texture board = game.getAssetManager().get("Board.png");
+        Texture hat = game.getAssetManager().get("Hat.png");
 
-        return new Sprite(board, board.getWidth(), board.getHeight());
+        return new Sprite(hat, hat.getWidth(), hat.getHeight());
     }
 }

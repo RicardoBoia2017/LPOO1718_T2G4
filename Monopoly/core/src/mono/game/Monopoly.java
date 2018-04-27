@@ -1,4 +1,4 @@
-package singleton;
+package mono.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;

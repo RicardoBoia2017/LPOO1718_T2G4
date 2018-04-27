@@ -5,15 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
-public class BoardView extends EntityView{
+public class CarView extends EntityView{
 
-	public BoardView(Monopoly game) {
+	public CarView(Monopoly game) {
 		super (game);
 	}
 
     public Sprite createSprite(Monopoly game) {
-        Texture board = game.getAssetManager().get("Board.png");
+        Texture car = game.getAssetManager().get("Car.png");
 
-        return new Sprite(board, board.getWidth(), board.getHeight());
+        return new Sprite(car, car.getWidth(), car.getHeight());
     }
 }

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import mono.controller.Game;
+import mono.controller.GameController;
 import mono.controller.entities.Player;
 import mono.controller.entities.Square;
 
@@ -12,7 +12,7 @@ public class MonopolyTests {
 	
 	@Test
 	public void testIfGameCreatesAndAddsPlayersProperly() {
-		Game g1 = null; 
+		GameController g1 = null; 
 		
 		g1.getInstance().addPlayers("Hat");
 		
@@ -37,7 +37,7 @@ public class MonopolyTests {
 
 	@Test
 	public void testIfPlayerMoves() {
-		Game g1 = null; 
+		GameController g1 = null; 
 				
 		g1.getInstance().addPlayers("Hat");
 		
@@ -66,7 +66,7 @@ public class MonopolyTests {
 	
 	@Test
 	public void testIfPlayerMovesBeyond40() {
-		Game g1 = null; 
+		GameController g1 = null; 
 		
 		g1.getInstance().addPlayers("Hat");
 		

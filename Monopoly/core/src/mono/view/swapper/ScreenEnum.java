@@ -1,9 +1,9 @@
 package mono.view.swapper;
 
+import mono.game.Monopoly;
 import mono.view.AbstractScreen;
 import mono.view.GameScreen;
 import mono.view.PieceSelectScreen;
-import singleton.Monopoly;
 import mono.view.MainMenuScreen;
 
 public enum ScreenEnum {

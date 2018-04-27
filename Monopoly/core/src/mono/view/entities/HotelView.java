@@ -5,15 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
-public class BoardView extends EntityView{
+public class HotelView extends EntityView{
 
-	public BoardView(Monopoly game) {
+	public HotelView(Monopoly game) {
 		super (game);
 	}
 
     public Sprite createSprite(Monopoly game) {
-        Texture board = game.getAssetManager().get("Board.png");
+        Texture hotel = game.getAssetManager().get("Hotel.png");
 
-        return new Sprite(board, board.getWidth(), board.getHeight());
+        return new Sprite(hotel, hotel.getWidth(), hotel.getHeight());
     }
 }

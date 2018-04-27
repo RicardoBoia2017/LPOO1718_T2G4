@@ -1,9 +1,28 @@
 package mono.view.entities;
 
-public class EntityView {
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-	public EntityView() {
-		// TODO Auto-generated constructor stub
+import mono.game.Monopoly;
+import mono.model.entities.EntityModel;
+
+public abstract class EntityView {
+
+	Sprite sprite;
+	
+	public EntityView (Monopoly game) {
+		sprite = createSprite (game);
 	}
 
+	public void draw (SpriteBatch batch)
+	{
+		sprite.draw(batch);
+	}
+	
+    public abstract Sprite createSprite(Monopoly game);
+
+    public void update(EntityModel model) {
+        sprite.setCenter(model.getX(), model.getY());
+        sprite.setRotation((float) Math.toDegrees(model.getRotation()));
+    }
 }

@@ -15,13 +15,13 @@ import mono.controller.entities.StartSquare;
  * @author luis
  *
  */
-public class Game {
-	private static Game instance;
+public class GameController {
+	private static GameController instance;
 	Board board;
 	Player[] players = new Player[4];
 	String player1Piece;
 	
-	private Game()
+	private GameController()
 	{
 		board = new Board();
 		
@@ -81,10 +81,10 @@ public class Game {
 		addPlayerToBoardSquare(players[playerIndex].getPosition(), playerIndex);
 	}
 
-	public static synchronized Game getInstance()
+	public static synchronized GameController getInstance()
 	{
 		if (instance == null)
-			instance = new Game();
+			instance = new GameController();
 
 		return instance;
 	}
