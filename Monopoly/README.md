@@ -10,6 +10,26 @@
 
 #### Expected Design Patterns
 
+- MVC - Model, View and Controller.
+
+  **Model** - the central component of this pattern. Responsible for storing the data and updating the game according with the inputs.
+ 
+  **View** - responsible for the output of the information. 
+ 
+  **Controller** - responsible for the handling of the inputs. Accepts and converts them into commands to be send to the other 2 components.
+  
+  **Model** and **Controller** have two packages created for them: one for the *singleton* instance of each one, and another for all the entities (board, player, cards, etc..)
+  
+  **View** also has two packages: one for all the screens that are going to be showed during the game (Main menu, piece selection, board screen, etc.) and another for all the entities (board, player, cards, etc..).
+  
+  This pattern is used to separate internal information in different areas and allow to develop the code parallelly.
+  
+- Singleton - used to ensure there only one instance of a class.
+
+  There are 3 classes that use this pattern: Monopoly.java, GameController.java and GameModel.java.
+  
+    This pattern is used to allow us to keep a global point of access to these classes.
+
 ### GUI Design
 
 #### Main Functionalities
