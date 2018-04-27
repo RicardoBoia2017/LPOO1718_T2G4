@@ -16,6 +16,14 @@
 
 #### GUI Mock-up
 
+Board Screen
+
+![boardscreen](https://user-images.githubusercontent.com/25772346/39356333-abcecc3c-4a07-11e8-86fd-45ded9980f84.png)
+
+Property Screen
+
+![propertyscreen](https://user-images.githubusercontent.com/25772346/39356395-d2152422-4a07-11e8-9415-609c6b48d4eb.png)
+
 ### Test Design
 
 #### List of expected final test cases
