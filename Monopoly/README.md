@@ -14,6 +14,15 @@
 
 #### Main Functionalities
 
+- Load game
+- Select the desired piece to play with
+- Show each player's money and piece, as well as the current tax money (money to be awarded to the next player to end up in the Free Parking square.
+- View all proporties and who owns each one
+- Build houses/hotels
+- Negotiate properties
+- Mortgate proporties
+- Save current game
+
 #### GUI Mock-up
 
 Board Screen
@@ -38,3 +47,4 @@ Property Screen
 - Go (test if the player collects 200€ when he passes the go square)
 - Proporties negotiation (test if the negotiation between players goes as expected)
 - Proporties mortgage (test if the player receives the right amount of money when he morgages a property and if the houses/hotels get collected)
+- Bankruptcy (test if a player goes bankrupt when the amount he has to pay is bigger than the amount he has) 
