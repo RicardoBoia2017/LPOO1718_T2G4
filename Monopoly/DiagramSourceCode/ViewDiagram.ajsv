@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2018-abr-29 16:02" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" populationMethod="manual" version="1.9.1.v20170319-1519">
+        <filterScript>
+
+// no filter script yet defined for this class diagram
+// use CTRL+SPACE for completion suggestions
+
+</filterScript>
+        <class className="mono.view.swapper.ScreenManager" modelMemberId="mono.view.swapper.ScreenManager" project="Monopoly-core" xLocation="1003" yLocation="2232"/>
+        <class className="mono.view.MainMenuScreen" modelMemberId="mono.view.MainMenuScreen" project="Monopoly-core" xLocation="1776" yLocation="568"/>
+        <class className="mono.view.AbstractScreen" modelMemberId="mono.view.AbstractScreen" project="Monopoly-core" xLocation="934" yLocation="196"/>
+        <class className="mono.view.PieceSelectScreen" modelMemberId="mono.view.PieceSelectScreen" project="Monopoly-core" xLocation="1029" yLocation="869"/>
+        <class className="mono.view.swapper.ScreenEnum" modelMemberId="mono.view.swapper.ScreenEnum" project="Monopoly-core" xLocation="1682" yLocation="1082"/>
+        <class className="mono.view.entities.EntityView" modelMemberId="mono.view.entities.EntityView" project="Monopoly-core" xLocation="531" yLocation="1421"/>
+        <class className="mono.view.GameScreen" modelMemberId="mono.view.GameScreen" project="Monopoly-core" xLocation="1514" yLocation="73"/>
+        <class className="mono.view.entities.DiceView" modelMemberId="mono.view.entities.DiceView" project="Monopoly-core" xLocation="173" yLocation="1848"/>
+        <class className="mono.view.swapper.UIFactory" modelMemberId="mono.view.swapper.UIFactory" project="Monopoly-core" xLocation="1652" yLocation="2056"/>
+        <class className="mono.view.entities.ThimbleView" modelMemberId="mono.view.entities.ThimbleView" project="Monopoly-core" xLocation="174" yLocation="2237"/>
+        <class className="mono.view.entities.MoneyView" modelMemberId="mono.view.entities.MoneyView" project="Monopoly-core" xLocation="965" yLocation="1435"/>
+        <class className="mono.view.entities.HouseView" modelMemberId="mono.view.entities.HouseView" project="Monopoly-core" xLocation="956" yLocation="1785"/>
+        <class className="mono.view.entities.BoardView" modelMemberId="mono.view.entities.BoardView" project="Monopoly-core" xLocation="482" yLocation="298"/>
+        <class className="mono.view.entities.HotelView" modelMemberId="mono.view.entities.HotelView" project="Monopoly-core" xLocation="615" yLocation="1941"/>
+        <class className="mono.view.entities.CardView" modelMemberId="mono.view.entities.CardView" project="Monopoly-core" xLocation="181" yLocation="296"/>
+        <class className="mono.view.entities.BootView" modelMemberId="mono.view.entities.BootView" project="Monopoly-core" xLocation="116" yLocation="794"/>
+        <class className="mono.view.entities.CarView" modelMemberId="mono.view.entities.CarView" project="Monopoly-core" xLocation="716" yLocation="750"/>
+        <class className="mono.view.entities.HatView" modelMemberId="mono.view.entities.HatView" project="Monopoly-core" xLocation="100" yLocation="1322"/>
+    </diagram>
+</ajsv>
