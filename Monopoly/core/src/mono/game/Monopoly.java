@@ -10,7 +10,6 @@ import mono.view.swapper.ScreenManager;
 
 public class Monopoly extends Game {
 	
-	
 	private static Monopoly instance;
 
 	private SpriteBatch batch;
