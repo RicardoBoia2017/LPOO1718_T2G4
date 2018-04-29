@@ -12,7 +12,7 @@
  
 - MVC - Model, View and Controller.
  
-  **Controller** - Handles the data in an abstract form (AKA, for example, sees the game Board as an ArrayList of Squares, a Square being another class used to represent each one of the Board's spaces) setting in motion the game logic according with the inputs.
+  **Controller** - handles the data in an abstract form (AKA, for example, sees the game Board as an ArrayList of Squares, a Square being another class used to represent each one of the Board's spaces) setting in motion the game logic according with the inputs.
  
   **View** - responsible for the output of the information, handling the drawing of all of the necessary elements be they UI or game related. It is also in charge of swapping between screens.
  
