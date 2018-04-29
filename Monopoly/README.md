@@ -19,10 +19,13 @@ Model Part
 ![modeldiagram](https://user-images.githubusercontent.com/36206773/39408777-66d39018-4bd3-11e8-91c6-143527278d5f.png)
  
 #### Behavioural Aspects
+
 Link to pdf
+
 [Basic Sequence Diagram.pdf](https://github.com/adobe/brackets/files/1958945/Basic.Sequence.Diagram.pdf)
 
 Image
+
 ![basic sequence diagram-1](https://user-images.githubusercontent.com/36206773/39408808-fe662df0-4bd3-11e8-9e2b-cfc22558f7fb.png)
  
 #### Expected Design Patterns
