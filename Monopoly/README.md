@@ -10,19 +10,19 @@
 
 #### Expected Design Patterns
 
-- MVC - Model, View and Controller.
+MVC - Model, View and Controller.
 
-  **Controller** - The central component of this pattern. Responsible for storing the data in an abstract form (AKA, storing, for example, the game Board as an ArrayList of Squares, a Square being another class used to represent each one of the Board's spaces) and updating the game according with the inputs, efectively handling all of the game's mechanics and logic internally.
- 
-  **View** - responsible for the output of the information, handling the drawing of all of the necessary elements be they UI or game related. It is also in charge of swapping between screens.
- 
-  **Model** - processes the changes made at an abstract level by the controller, and informs View that the object to display has been altered.
-  
-  **Model** and **Controller** have two packages created for them: one for the *Singleton* instance of each one, and another for all the entities (board, player, cards, etc..).
-  
-  **View** also has two packages: one for all the screens that are going to be showed during the game (Main Menu, Piece Selection, Board Screen, etc.) and another for all the entities (board, player, cards, etc..).
-  
-  This pattern is used to separate internal information in different areas, allowing us to develop the code in parallel.
+**Model** - the central component of this pattern. Responsible for storing the data and updating the game according with the inputs.
+
+**View** - responsible for the output of the information.
+
+**Controller** - responsible for the handling of the inputs. Accepts and converts them into commands to be send to the other 2 components.
+
+**Model** and **Controller** have two packages created for them: one for the singleton instance of each one, and another for all the entities (board, player, cards, etc..)
+
+**View** also has two packages: one for all the screens that are going to be showed during the game (Main menu, piece selection, board screen, etc.) and another for all the entities (board, player, cards, etc..).
+
+This pattern is used to separate internal information in different areas and allow to develop the code parallelly.
   
 - Singleton - used to ensure there is only one instance of a class, keeping a global point of access to all classes related to the singleton.
 
