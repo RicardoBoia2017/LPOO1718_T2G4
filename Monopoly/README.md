@@ -1,41 +1,41 @@
 # Monopoly
-
+ 
 ## Intermediate Deliverables
-
+ 
 ### Architecture Design
-
+ 
 #### UML Diagram
-
+ 
 #### Behavioural Aspects
-
+ 
 #### Expected Design Patterns
-
+ 
 - MVC - Model, View and Controller.
-
-**Model** - the central component of this pattern. Responsible for storing the data and updating the game according with the inputs.
-
-**View** - responsible for the output of the information.
-
-**Controller** - responsible for the handling of the inputs. Accepts and converts them into commands to be send to the other 2 components.
-
-**Model** and **Controller** have two packages created for them: one for the singleton instance of each one, and another for all the entities (board, player, cards, etc..)
-
-**View** also has two packages: one for all the screens that are going to be showed during the game (Main menu, piece selection, board screen, etc.) and another for all the entities (board, player, cards, etc..).
-
-This pattern is used to separate internal information in different areas and allow to develop the code parallelly.
+ 
+  **Controller** - Handles the data in an abstract form (AKA, for example, sees the game Board as an ArrayList of Squares, a Square being another class used to represent each one of the Board's spaces) setting in motion the game logic according with the inputs.
+ 
+  **View** - responsible for the output of the information, handling the drawing of all of the necessary elements be they UI or game related. It is also in charge of swapping between screens.
+ 
+  **Model** - processes the changes made at an abstract level by the controller receiving inputs from that element, and informs View of the object to be displayed to match these.
+  
+  **Model** and **Controller** have two packages created for them: one for the *Singleton* instance of each one, and another for all the entities (board, player, cards, etc..).
+  
+  **View** also has two packages: one for all the screens that are going to be showed during the game (Main Menu, Piece Selection, Board Screen, etc.) and another for all the entities (board, player, cards, etc..).
+  
+  This pattern is used to separate internal information in different areas, allowing us to develop the code in parallel.
   
 - Singleton - used to ensure there is only one instance of a class, keeping a global point of access to all classes related to the singleton.
-
-There are three classes that use this pattern: Monopoly.java, GameController.java and GameModel.java.
+ 
+  There are three classes that use this pattern: Monopoly.java, GameController.java and GameModel.java.
     
-- Factory - defines an interface for creating an object, but lets the subclasses decide which class to instantiate.   
-
-This pattern is used to "delegate" responsabilities away from the main classes into the *Entityview* subclasses.   
-
+- Factory - defines an interface for creating an object, but lets the subclasses decide which class to instantiate.
+ 
+  This pattern is used to "delegate" responsabilities away from the main classes into the *Entityview* subclasses.
+ 
 ### GUI Design
-
+ 
 #### Main Functionalities
-
+ 
 - Load game.
 - Select the desired piece to play with.
 - Show each player's money and piece, as well as the current tax money (money to be awarded to the next player to end up in the Free Parking square.
@@ -44,21 +44,21 @@ This pattern is used to "delegate" responsabilities away from the main classes i
 - Negotiate properties.
 - Mortgate properties.
 - Save current game.
-
+ 
 #### GUI Mock-up
-
+ 
 Board Screen
-
+ 
 ![boardscreen](https://user-images.githubusercontent.com/25772346/39356333-abcecc3c-4a07-11e8-86fd-45ded9980f84.png)
-
+ 
 Property Screen
-
+ 
 ![propertyscreen](https://user-images.githubusercontent.com/25772346/39356395-d2152422-4a07-11e8-9415-609c6b48d4eb.png)
-
+ 
 ### Test Design
-
+ 
 #### List of expected final test cases
-
+ 
 - Create game (test if all the needed components are created correctly).
 - Movement (test if the pieces are moving the correct amout of squares, according to the dice numbers and if it changes the direction of the movement when needed).
 - Jail (test if the player goes to jail when needed, and test the exit possibilities (paying the bail, after a number of turns, etc.).
@@ -69,4 +69,4 @@ Property Screen
 - Go (test if the player collects 200€ when he passes the go square).
 - Properties negotiation (test if the negotiation between players goes as expected).
 - Properties mortgage (test if the player receives the right amount of money when he morgages a property and if the houses/hotels get collected.
-- Bankruptcy (test if a player goes bankrupt when the amount he has to pay is bigger than the amount he has). 
+- Bankruptcy (test if a player goes bankrupt when the amount he has to pay is bigger than the amount he has).
