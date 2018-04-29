@@ -55,6 +55,14 @@ Property Screen
  
 ![propertyscreen](https://user-images.githubusercontent.com/25772346/39356395-d2152422-4a07-11e8-9415-609c6b48d4eb.png)
  
+Main Menu
+ 
+![mainmenu](https://user-images.githubusercontent.com/36206773/39408729-b04d838a-4bd2-11e8-9a8f-13edb0b19e9b.png)
+
+Piece Select Screen
+
+![pieceselect](https://user-images.githubusercontent.com/36206773/39408735-cb2d082e-4bd2-11e8-9ed9-7f8f17860dd7.png) 
+
 ### Test Design
  
 #### List of expected final test cases
