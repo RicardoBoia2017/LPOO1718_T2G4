@@ -10,7 +10,7 @@
 
 #### Expected Design Patterns
 
-MVC - Model, View and Controller.
+- MVC - Model, View and Controller.
 
 **Model** - the central component of this pattern. Responsible for storing the data and updating the game according with the inputs.
 
@@ -26,11 +26,11 @@ This pattern is used to separate internal information in different areas and all
   
 - Singleton - used to ensure there is only one instance of a class, keeping a global point of access to all classes related to the singleton.
 
-  There are three classes that use this pattern: Monopoly.java, GameController.java and GameModel.java.
+There are three classes that use this pattern: Monopoly.java, GameController.java and GameModel.java.
     
 - Factory - defines an interface for creating an object, but lets the subclasses decide which class to instantiate.   
 
-  This pattern is used to "delegate" responsabilities away from the main classes into the *Entityview* subclasses.   
+This pattern is used to "delegate" responsabilities away from the main classes into the *Entityview* subclasses.   
 
 ### GUI Design
 
