@@ -1,74 +1,100 @@
 # Monopoly
-
+ 
 ## Intermediate Deliverables
-
+ 
 ### Architecture Design
-
+ 
 #### UML Diagram
 
+Controller part
+
+![controllerdiagram](https://user-images.githubusercontent.com/36206773/39408765-2de92da8-4bd3-11e8-995f-4aaebe9af602.png)
+
+View Part
+
+![viewdiagram](https://user-images.githubusercontent.com/36206773/39408773-5c0a9212-4bd3-11e8-855c-989d934400b2.png)
+
+Model Part
+
+![modeldiagram](https://user-images.githubusercontent.com/36206773/39408777-66d39018-4bd3-11e8-91c6-143527278d5f.png)
+ 
 #### Behavioural Aspects
 
+Link to pdf
+
+[Basic Sequence Diagram.pdf](https://github.com/adobe/brackets/files/1958945/Basic.Sequence.Diagram.pdf)
+
+Image
+
+![basic sequence diagram-1](https://user-images.githubusercontent.com/36206773/39408808-fe662df0-4bd3-11e8-9e2b-cfc22558f7fb.png)
+ 
 #### Expected Design Patterns
-
+ 
 - MVC - Model, View and Controller.
-
-  **Model** - the central component of this pattern. Responsible for storing the data and updating the game according with the inputs.
  
-  **View** - responsible for the output of the information. 
+  **Controller** - handles the data in an abstract form (AKA, for example, sees the game Board as an ArrayList of Squares, a Square being another class used to represent each one of the Board's spaces) setting in motion the game logic accordingly with user input.
  
-  **Controller** - responsible for the handling of the inputs. Accepts and converts them into commands to be send to the other 2 components.
+  **View** - responsible for the output of the information, handling the drawing of all of the necessary elements be they UI or game related. It is also in charge of swapping between screens.
+ 
+  **Model** - processes the changes made at an abstract level by the controller receiving inputs from that element, and informs View of the object to be displayed to match these.
   
-  **Model** and **Controller** have two packages created for them: one for the *singleton* instance of each one, and another for all the entities (board, player, cards, etc..)
+  **Model** and **Controller** have two packages created for them: one for the *Singleton* instance of each one, and another for all the entities (board, player, cards, etc..).
   
-  **View** also has two packages: one for all the screens that are going to be showed during the game (Main menu, piece selection, board screen, etc.) and another for all the entities (board, player, cards, etc..).
+  **View** also has two packages: one for all the screens that are going to be showed during the game (Main Menu, Piece Selection, Board Screen, etc.) and another for all the entities (board, player, cards, etc..).
   
-  This pattern is used to separate internal information in different areas and allow to develop the code parallelly.
+  This pattern is used to separate internal information in different areas, allowing us to develop the code in parallel.
   
-- Singleton - used to ensure there only one instance of a class.
-
-  There are 3 classes that use this pattern: Monopoly.java, GameController.java and GameModel.java.
-  
-  This pattern is used to allow us to keep a global point of access to these classes.
+- Singleton - used to ensure there is only one instance of a class, keeping a global point of access to all classes related to the singleton.
+ 
+  There are three classes that use this pattern: Monopoly.java, GameController.java and GameModel.java.
     
-- Factory - defines an interface for creating an object, but let the subclasses decide which class to instantiate.   
-
-  This pattern is used to "delegate" responsabilities away from the main classes into the *Entityview* subclasses.   
-
+- Factory - defines an interface for creating an object, but lets the subclasses decide which class to instantiate.
+ 
+  This pattern is used to "delegate" responsabilities away from the main classes into the *Entityview* subclasses.
+ 
 ### GUI Design
-
+ 
 #### Main Functionalities
-
-- Load game
-- Select the desired piece to play with
+ 
+- Load game.
+- Select the desired piece to play with.
 - Show each player's money and piece, as well as the current tax money (money to be awarded to the next player to end up in the Free Parking square.
-- View all properties and who owns each one
-- Build houses/hotels
-- Negotiate properties
-- Mortgate properties
-- Save current game
-
+- View all properties and who owns each one.
+- Build houses/hotels.
+- Negotiate properties.
+- Mortgate properties.
+- Save current game.
+ 
 #### GUI Mock-up
-
+ 
 Board Screen
-
+ 
 ![boardscreen](https://user-images.githubusercontent.com/25772346/39356333-abcecc3c-4a07-11e8-86fd-45ded9980f84.png)
-
-Property Screen
-
+ 
+ Property Screen
+ 
 ![propertyscreen](https://user-images.githubusercontent.com/25772346/39356395-d2152422-4a07-11e8-9415-609c6b48d4eb.png)
+ 
+ Main Menu
+ 
+![mainmenu](https://user-images.githubusercontent.com/36206773/39408729-b04d838a-4bd2-11e8-9a8f-13edb0b19e9b.png)
+
+Piece Select Screen
+
+![pieceselect](https://user-images.githubusercontent.com/36206773/39408735-cb2d082e-4bd2-11e8-9ed9-7f8f17860dd7.png) 
 
 ### Test Design
-
+ 
 #### List of expected final test cases
-
-- Create game (test if all the needed components are created correctly)
-- Movement (test if the pieces are moving the correct amout of squares, according to the dice numbers and if it changes the direction of the movement when needed)
-- Jail (test if the player goes to jail when needed, and test the exit possibilities (paying the bail, after a number of turns, etc.)
-- Communuty Chest and Chance (test if the game is selecting the correct card when the player is in one of those squares and test if the action performed is coherent with the card)
+ 
+- Create game (test if all the needed components are created correctly).
+- Movement (test if the pieces are moving the correct amout of squares, according to the dice numbers and if it changes the direction of the movement when needed).
+- Jail (test if the player goes to jail when needed, and test the exit possibilities (paying the bail, after a number of turns, etc.).
+- Communuty Chest and Chance (test if the game is selecting the correct card when the player is in one of those squares and test if the action performed is coherent with the card).
 - Taxes (test if the money payed from taxes (either by being in a tax square or by drawing a community chest or chance card with this instruction) is being saved correctly and if the player that moves to the Free Parking square gets the correct amount of money (tax money).
-- Properties buy and house/hotel building (test if properties purchase goes as expected and if the player is only able to build houses and hotels in certain situation (if the player has all the properties of a specific color for houses, or if the a certain proporty already had 4 houses before building a hotel)
-- Stations and Companies rent growth (test if rent value goes up when the player possesses more than one card of a certain type)
-- Go (test if the player collects 200€ when he passes the go square)
-- Properties negotiation (test if the negotiation between players goes as expected)
-- Properties mortgage (test if the player receives the right amount of money when he morgages a property and if the houses/hotels get collected)
-- Bankruptcy (test if a player goes bankrupt when the amount he has to pay is bigger than the amount he has) 
+- Properties buy and house/hotel building (test if properties purchase goes as expected and if the player is only able to build houses and hotels in certain situation (if the player has all the properties of a specific color for houses, or if the a certain proporty already had 4 houses before building a hotel).
+- Stations and Companies rent growth (test if rent value goes up when the player possesses more than one card of a certain type).
+- Go (test if the player collects 200€ when he passes the go square).
+- Properties negotiation (test if the negotiation between players goes as expected).
+- Properties mortgage (test if the player receives the right amount of money when he morgages a property and if the houses/hotels get collected.
+- Bankruptcy (test if a player goes bankrupt when the amount he has to pay is bigger than the amount he has).
