@@ -64,7 +64,7 @@ public class GameScreen extends AbstractScreen {
 		Image house = new Image (houseTexture);
 		house.setSize(20, 20);
 		//125 - Go square width
-		//83 - regular square width
+		//83 - regular square width (not fully tested)
 		house.setPosition(125 + 8 * 83,975);
 		addActor (house);
 	}
