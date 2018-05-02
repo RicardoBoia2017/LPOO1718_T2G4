@@ -5,18 +5,38 @@
 ### Architecture Design
  
 #### UML Diagram
+
+Model part
+
+![controllerdiagram](https://user-images.githubusercontent.com/36206773/39408765-2de92da8-4bd3-11e8-995f-4aaebe9af602.png)
+
+View Part
+
+![viewdiagram](https://user-images.githubusercontent.com/36206773/39408773-5c0a9212-4bd3-11e8-855c-989d934400b2.png)
+
+Controller Part
+
+![modeldiagram](https://user-images.githubusercontent.com/36206773/39408777-66d39018-4bd3-11e8-91c6-143527278d5f.png)
  
 #### Behavioural Aspects
+
+Link to pdf
+
+[Basic Sequence Diagram.pdf](https://github.com/adobe/brackets/files/1958945/Basic.Sequence.Diagram.pdf)
+
+Image
+
+![basic sequence diagram-1](https://user-images.githubusercontent.com/36206773/39408808-fe662df0-4bd3-11e8-9e2b-cfc22558f7fb.png)
  
 #### Expected Design Patterns
  
 - MVC - Model, View and Controller.
  
-  **Controller** - Handles the data in an abstract form (AKA, for example, sees the game Board as an ArrayList of Squares, a Square being another class used to represent each one of the Board's spaces) setting in motion the game logic according with the inputs.
+  **Model** - handles the data in an abstract form (AKA, for example, sees the game Board as an ArrayList of Squares, a Square being another class used to represent each one of the Board's spaces) setting in motion the game logic accordingly with user input.
  
   **View** - responsible for the output of the information, handling the drawing of all of the necessary elements be they UI or game related. It is also in charge of swapping between screens.
  
-  **Model** - processes the changes made at an abstract level by the controller receiving inputs from that element, and informs View of the object to be displayed to match these.
+  **Controller** - processes the changes made at an abstract level by the model receiving inputs from that element, and informs View of the object to be displayed to match these.
   
   **Model** and **Controller** have two packages created for them: one for the *Singleton* instance of each one, and another for all the entities (board, player, cards, etc..).
   
@@ -51,10 +71,18 @@ Board Screen
  
 ![boardscreen](https://user-images.githubusercontent.com/25772346/39356333-abcecc3c-4a07-11e8-86fd-45ded9980f84.png)
  
-Property Screen
+ Property Screen
  
 ![propertyscreen](https://user-images.githubusercontent.com/25772346/39356395-d2152422-4a07-11e8-9415-609c6b48d4eb.png)
  
+ Main Menu
+ 
+![mainmenu](https://user-images.githubusercontent.com/36206773/39408729-b04d838a-4bd2-11e8-9a8f-13edb0b19e9b.png)
+
+Piece Select Screen
+
+![pieceselect](https://user-images.githubusercontent.com/36206773/39408735-cb2d082e-4bd2-11e8-9ed9-7f8f17860dd7.png) 
+
 ### Test Design
  
 #### List of expected final test cases

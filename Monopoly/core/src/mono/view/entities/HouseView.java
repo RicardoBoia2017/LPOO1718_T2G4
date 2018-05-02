@@ -9,9 +9,10 @@ public class HouseView extends EntityView{
 
 	public HouseView(Monopoly game) {
 		super (game);
+		sprite = createSprite ();
 	}
 
-    public Sprite createSprite(Monopoly game) {
+    public Sprite createSprite() {
         Texture house = game.getAssetManager().get("House.png");
 
         return new Sprite(house, house.getWidth(), house.getHeight());

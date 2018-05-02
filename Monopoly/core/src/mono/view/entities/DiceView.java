@@ -12,31 +12,32 @@ public class DiceView extends EntityView {
 	public DiceView(Monopoly game, int number) {
 		super (game);
 		this.number = number;
+		sprite = createSprite ();
 	}
 
 	@Override
-	public Sprite createSprite(Monopoly game) {
-		Texture dice = new Texture("Dice1.png");
+	public Sprite createSprite() {
+		Texture dice = new Texture("Dice/Dice1.png");
 		
 		switch (number)
 		{
 		case 1:
-			dice = game.getAssetManager().get("Dice1.png");
+			dice = game.getAssetManager().get("Dice/Dice1.png");
 			break;
 		case 2:
-			dice = game.getAssetManager().get("Dice2.png");
+			dice = game.getAssetManager().get("Dice/Dice2.png");
 			break;
 		case 3:
-			dice = game.getAssetManager().get("Dice3.png");
+			dice = game.getAssetManager().get("Dice/Dice3.png");
 			break;
 		case 4:
-			dice = game.getAssetManager().get("Dice4.png");
+			dice = game.getAssetManager().get("Dice/Dice4.png");
 			break;
 		case 5:
-			dice = game.getAssetManager().get("Dice5.png");
+			dice = game.getAssetManager().get("Dice/Dice5.png");
 			break;
 		case 6:
-			dice = game.getAssetManager().get("Dice6.png");
+			dice = game.getAssetManager().get("Dice/Dice6.png");
 			break;
 		default:
 			System.out.println("Error: Error loading dice with number " + number );

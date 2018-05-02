@@ -8,10 +8,12 @@ public class CardView extends EntityView {
 
 	public CardView(Monopoly game) {
 		super (game);
+		sprite = createSprite ();
+
 	}
 
 	@Override
-	public Sprite createSprite(Monopoly game) {
+	public Sprite createSprite() {
 		// TODO Auto-generated method stub
 		return null;
 	}
