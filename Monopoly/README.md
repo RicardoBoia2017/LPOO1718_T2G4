@@ -36,7 +36,7 @@ Image
  
   **View** - responsible for the output of the information, handling the drawing of all of the necessary elements be they UI or game related. It is also in charge of swapping between screens.
  
-  **Controller** - processes the changes made at an abstract level by the controller receiving inputs from that element, and informs View of the object to be displayed to match these.
+  **Controller** - processes the changes made at an abstract level by the model receiving inputs from that element, and informs View of the object to be displayed to match these.
   
   **Model** and **Controller** have two packages created for them: one for the *Singleton* instance of each one, and another for all the entities (board, player, cards, etc..).
   
