@@ -9,9 +9,10 @@ public class HotelView extends EntityView{
 
 	public HotelView(Monopoly game) {
 		super (game);
+		sprite = createSprite ();
 	}
 
-    public Sprite createSprite(Monopoly game) {
+    public Sprite createSprite() {
         Texture hotel = game.getAssetManager().get("Hotel.png");
 
         return new Sprite(hotel, hotel.getWidth(), hotel.getHeight());

@@ -12,11 +12,12 @@ public class DiceView extends EntityView {
 	public DiceView(Monopoly game, int number) {
 		super (game);
 		this.number = number;
+		sprite = createSprite ();
 	}
 
 	@Override
-	public Sprite createSprite(Monopoly game) {
-		Texture dice = new Texture("Dice1.png");
+	public Sprite createSprite() {
+		Texture dice = new Texture("Dice/Dice1.png");
 		
 		switch (number)
 		{
