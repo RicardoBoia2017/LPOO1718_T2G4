@@ -2,10 +2,11 @@ package mono.controller;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mono.controller.entities.*;
-import mono.model.GameController;
+import mono.model.GameModel;
 import mono.model.entities.Player;
 import mono.model.entities.Square;
 
@@ -15,28 +16,29 @@ import mono.model.entities.Square;
  *
  */
 
-public class GameModel {
+public class GameController {
 
-    private static GameModel instance;
+    private static GameController instance;
 	
     private BoardModel board;
     
     private List <HouseModel> houses;
-    private List <PlayerModel> playerModels;
+    private List <PlayerModel> playerModels = new ArrayList<PlayerModel>();
     
     /**
      * Returns a singleton instance of the game model
      *
      * @return the singleton instance
      */
-    public static GameModel getInstance() {
+    public static GameController getInstance() {
         if (instance == null)
-            instance = new GameModel();
+            instance = new GameController();
         return instance;
     }
     
-	private GameModel() {
-		GameController g1 = GameController.getInstance();
+	private GameController() {
+		GameModel g1 = GameModel.getInstance();
+		
 		Position finalPosition = new Position(0,0);
 		
 		Player p1 = g1.getPlayers()[0];
@@ -49,13 +51,13 @@ public class GameModel {
 		
 		g1.updateGame(p1.getAmountToWalk());
 			
-			//^
-		//how to know the position from the current square??
-			//v
-			
 		PlayerModel p1Model = new PlayerModel(finalPosition.x, finalPosition.y, 0);
-			
+		
 		playerModels.add(p1Model);
+	}
+	
+	public List<PlayerModel> getPlayersToDraw() {
+		return playerModels;
 	}
 	
 }

@@ -17,15 +17,16 @@ import mono.model.entities.StartSquare;
  * @author luis
  *
  */
-public class GameController {
-	private static GameController instance;
+public class GameModel {
+	private static GameModel instance;
 	Board board;
 	Player[] players = new Player[4];
 	String player1Piece;
 	
-	private GameController()
+	private GameModel()
 	{
 		board = new Board();
+		addPlayers("Hat");
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -82,10 +83,10 @@ public class GameController {
 		addPlayerToBoardSquare(players[playerIndex].getPosition(), playerIndex);
 	}
 
-	public static synchronized GameController getInstance()
+	public static synchronized GameModel getInstance()
 	{
 		if (instance == null)
-			instance = new GameController();
+			instance = new GameModel();
 
 		return instance;
 	}
@@ -107,7 +108,7 @@ public class GameController {
 		Position finalPosition = new Position(0,0);
 		
 		if(s1.getName().equals("Start")) {
-			int GoSquareGap = 60;
+			int GoSquareGap = 30;
 			int StandardSquareGap = 68;
 			int boardHeight = 930;
 			int boardWidth = 750;
@@ -119,7 +120,7 @@ public class GameController {
 			
 			else {
 				finalPosition.x = boardWidth;
-				finalPosition.y = StandardSquareGap*(amountToWalk-10);
+				finalPosition.y = 930 - StandardSquareGap*(amountToWalk-10);
 			}
 			
 			return finalPosition;

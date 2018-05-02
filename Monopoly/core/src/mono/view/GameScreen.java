@@ -11,8 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 
-import mono.controller.GameModel;
-import mono.model.GameController;
+import mono.controller.GameController;
+import mono.controller.entities.PlayerModel;
+import mono.model.GameModel;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.ScreenManager;
 import mono.view.swapper.UIFactory;
@@ -22,6 +23,9 @@ public class GameScreen extends AbstractScreen {
 	Integer playerModel;
 	TextButton rollDiceButton;
 	Skin skin;
+	PlayerModel playerToDraw;
+	Float pieceCoordX = 0.f;
+	Float pieceCoordY = 930.f;
 	
 	public GameScreen(Integer player1Model) {
 		super();
@@ -33,7 +37,6 @@ public class GameScreen extends AbstractScreen {
 	private static void  loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
-		game.getAssetManager().load ("rollDiceButton.png", Texture.class);
         game.getAssetManager().finishLoading();
 	}
 	
@@ -67,7 +70,7 @@ public class GameScreen extends AbstractScreen {
 		
 		Image piece = new Image (player1Model);
 		piece.setSize(50, 50);
-		piece.setPosition(0, 930);
+		piece.setPosition(pieceCoordX, pieceCoordY);
 		addActor(piece);
 		
 		createRollDiceButton();
@@ -82,7 +85,11 @@ public class GameScreen extends AbstractScreen {
 				new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						//
+						GameController g1 = GameController.getInstance();
+						playerToDraw = g1.getPlayersToDraw().get(0);
+						pieceCoordX = playerToDraw.getX();
+						pieceCoordY = playerToDraw.getY();
+						buildStage();
 						return false;
 					}
 				});

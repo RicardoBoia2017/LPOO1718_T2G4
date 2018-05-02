@@ -15,6 +15,8 @@ public class Player {
 		boardPiece = piece;
 		money = new Money();
 		diceRoll = 0;
+		dice_1 = new Dice();
+		dice_2 = new Dice();
 	}
 	
 	public void RollDice() {
