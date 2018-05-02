@@ -1,4 +1,4 @@
-package mono.controller.entities;
+package mono.model.entities;
 
 import java.util.Random;
 
@@ -10,11 +10,15 @@ public class Dice {
 		number = 0;
 	}
 	
-	public int getNumber() {
+	public int rollNumber() {
 		Random rand = new Random();
 		
 		number = 1+rand.nextInt(6);
 		
+		return number;
+	}
+	
+	public int getNumber() {
 		return number;
 	}
 }

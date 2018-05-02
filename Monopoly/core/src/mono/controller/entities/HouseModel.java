@@ -1,4 +1,4 @@
-package mono.model.entities;
+package mono.controller.entities;
 
 public class HouseModel extends EntityModel {
 

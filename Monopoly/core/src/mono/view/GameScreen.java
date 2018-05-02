@@ -3,28 +3,38 @@ package mono.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+
+import mono.controller.GameModel;
+import mono.model.GameController;
 import mono.view.swapper.ScreenEnum;
+import mono.view.swapper.ScreenManager;
 import mono.view.swapper.UIFactory;
 
 public class GameScreen extends AbstractScreen {
 	
 	Integer playerModel;
+	TextButton rollDiceButton;
+	Skin skin;
 	
 	public GameScreen(Integer player1Model) {
 		super();
 		playerModel = player1Model;
+		skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
 		loadAssets();
 	}	
 
 	private static void  loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
-		
+		game.getAssetManager().load ("rollDiceButton.png", Texture.class);
         game.getAssetManager().finishLoading();
-
 	}
 	
 	@Override
@@ -33,8 +43,8 @@ public class GameScreen extends AbstractScreen {
 
 		Texture board = game.getAssetManager().get("Board.png");
 		Image boardImage = new Image (board);
-		boardImage.setSize(1000, 1000);
-		boardImage.setPosition(getWidth() / 2, getHeight() / 2, Align.center);
+		boardImage.setSize(800, 800);
+		boardImage.setPosition(1, 190);
 		addActor(boardImage);
 
 		Texture player1Model =  game.getAssetManager().get("Boot.png");;
@@ -56,17 +66,26 @@ public class GameScreen extends AbstractScreen {
 		}
 		
 		Image piece = new Image (player1Model);
-		piece.setSize(60, 60);
+		piece.setSize(50, 50);
 		piece.setPosition(0, 930);
 		addActor(piece);
 		
-		Texture houseTexture = game.getAssetManager().get("house.png");
-		Image house = new Image (houseTexture);
-		house.setSize(20, 20);
-		//125 - Go square width
-		//83 - regular square width
-		house.setPosition(125 + 8 * 83,975);
-		addActor (house);
+		createRollDiceButton();
+		addActor(rollDiceButton);
+	}
+	
+	public void createRollDiceButton() {
+        rollDiceButton = new TextButton("Roll Dice", skin);
+        rollDiceButton.setPosition(580, 20);
+        rollDiceButton.setWidth(400);
+        rollDiceButton.addListener(
+				new InputListener() {
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						//
+						return false;
+					}
+				});
 	}
 	
 	

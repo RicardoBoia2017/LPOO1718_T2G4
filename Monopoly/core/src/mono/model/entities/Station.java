@@ -1,4 +1,4 @@
-package mono.controller.entities;
+package mono.model.entities;
 
 public class Station extends Square {
 	private int price;

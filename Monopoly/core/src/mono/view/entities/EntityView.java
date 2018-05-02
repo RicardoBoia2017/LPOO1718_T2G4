@@ -3,8 +3,8 @@ package mono.view.entities;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import mono.controller.entities.EntityModel;
 import mono.game.Monopoly;
-import mono.model.entities.EntityModel;
 
 public abstract class EntityView {
 

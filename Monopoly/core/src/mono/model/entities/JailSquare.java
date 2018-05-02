@@ -1,4 +1,4 @@
-package mono.controller.entities;
+package mono.model.entities;
 
 public class JailSquare extends Square {
 

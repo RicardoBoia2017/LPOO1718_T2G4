@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import mono.controller.GameController;
-import mono.controller.entities.Player;
-import mono.controller.entities.Square;
+import mono.model.GameController;
+import mono.model.entities.Player;
+import mono.model.entities.Square;
 
 public class MonopolyTests {
 	

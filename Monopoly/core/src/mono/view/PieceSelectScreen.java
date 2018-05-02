@@ -21,9 +21,7 @@ public class PieceSelectScreen extends AbstractScreen {
 		this.game.getAssetManager().load ("Car.png", Texture.class);
 		this.game.getAssetManager().load ("Thimble.png", Texture.class);
 		this.game.getAssetManager().load ("Hat.png", Texture.class);
-		
         this.game.getAssetManager().finishLoading();
-
 	}
 
 	@Override

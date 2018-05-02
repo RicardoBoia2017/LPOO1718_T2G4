@@ -1,14 +1,16 @@
-package mono.controller;
+package mono.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import mono.controller.entities.Board;
-import mono.controller.entities.CommunityChest;
-import mono.controller.entities.HouseSquare;
-import mono.controller.entities.Player;
-import mono.controller.entities.Square;
-import mono.controller.entities.StartSquare;
+import mono.controller.entities.Position;
+import mono.model.entities.Board;
+import mono.model.entities.CommunityChest;
+import mono.model.entities.Dice;
+import mono.model.entities.HouseSquare;
+import mono.model.entities.Player;
+import mono.model.entities.Square;
+import mono.model.entities.StartSquare;
 
 /**
  * Singleton
@@ -24,7 +26,6 @@ public class GameController {
 	private GameController()
 	{
 		board = new Board();
-		
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -100,6 +101,31 @@ public class GameController {
 	
 	public Board getBoard() {
 		return board;
+	}
+	
+	public Position getCoordFromSquare(Square s1, int amountToWalk) {
+		Position finalPosition = new Position(0,0);
+		
+		if(s1.getName().equals("Start")) {
+			int GoSquareGap = 60;
+			int StandardSquareGap = 68;
+			int boardHeight = 930;
+			int boardWidth = 750;
+			
+			if(amountToWalk <= 10) {
+				finalPosition.x = GoSquareGap + StandardSquareGap*amountToWalk;
+				finalPosition.y = boardHeight;
+			}
+			
+			else {
+				finalPosition.x = boardWidth;
+				finalPosition.y = StandardSquareGap*(amountToWalk-10);
+			}
+			
+			return finalPosition;
+		}
+		
+		return finalPosition;
 	}
 
 }
