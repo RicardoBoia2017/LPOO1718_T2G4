@@ -45,13 +45,13 @@ public class GameController {
 		
 		Square s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
 		
-		p1.RollDice();
+		p1.rollDice();
 		
 		finalPosition = g1.getCoordFromSquare(s1, p1.getAmountToWalk());
 		
 		g1.updateGame(p1.getAmountToWalk());
 			
-		PlayerModel p1Model = new PlayerModel(finalPosition.x, finalPosition.y, 0);
+		PlayerModel p1Model = new PlayerModel(finalPosition.x, finalPosition.y, 0, p1.getDice1Num(), p1.getDice2Num());
 		
 		playerModels.add(p1Model);
 	}

@@ -8,6 +8,8 @@ public class Player {
 	Dice dice_1;
 	Dice dice_2;
 	int diceRoll;
+	int dice1Num;
+	int dice2Num;
 
 	public Player(String name, String piece) {
 		this.name = name;
@@ -19,8 +21,10 @@ public class Player {
 		dice_2 = new Dice();
 	}
 	
-	public void RollDice() {
-		diceRoll = dice_1.rollNumber()+dice_2.rollNumber();
+	public void rollDice() {
+		dice1Num = dice_1.rollNumber();
+		dice2Num = dice_2.rollNumber();
+		diceRoll = dice1Num + dice2Num;
 	}
 	
 	public int getAmountToWalk() {
@@ -45,5 +49,13 @@ public class Player {
 		if(position >= 40) {
 			position = position - 40;
 		}
+	}
+	
+	public int getDice1Num() {
+		return dice1Num;
+	}
+	
+	public int getDice2Num() {
+		return dice2Num;
 	}
 }
