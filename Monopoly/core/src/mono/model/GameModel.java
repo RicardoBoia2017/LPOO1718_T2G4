@@ -26,7 +26,6 @@ public class GameModel {
 	private GameModel()
 	{
 		board = new Board();
-		addPlayers("Hat");
 	}
 	
 	public void addPlayers(String player1Piece) {

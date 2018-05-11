@@ -17,7 +17,11 @@ import mono.controller.GameController;
 import mono.controller.entities.DiceModel;
 import mono.controller.entities.PlayerModel;
 import mono.model.GameModel;
+import mono.view.entities.BootView;
+import mono.view.entities.CarView;
 import mono.view.entities.DiceView;
+import mono.view.entities.HatView;
+import mono.view.entities.ThimbleView;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.ScreenManager;
 import mono.view.swapper.UIFactory;
@@ -32,9 +36,6 @@ public class GameScreen extends AbstractScreen {
 	DiceModel dice2ToDraw;
 	DiceView dice1;
 	DiceView dice2;
-	
-	Float pieceCoordX = 0.f;
-	Float pieceCoordY = 930.f;
 	
 	public GameScreen(Integer player1Model) {
 		super();
@@ -67,43 +68,18 @@ public class GameScreen extends AbstractScreen {
 		
 		createRollDiceButton();
 		addActor(rollDiceButton);
-
-		Texture player1Model =  game.getAssetManager().get("Boot.png");;
-		
-		switch (playerModel)
-		{
-		case 1:
-			 player1Model = game.getAssetManager().get("Boot.png");
-			 break;
-		case 2:	 
-			 player1Model = game.getAssetManager().get("Car.png");
-			 break;
-		case 3:
-			 player1Model = game.getAssetManager().get("Hat.png");
-			 break;
-		case 4:
-			 player1Model = game.getAssetManager().get("Thimble.png");
-			 break;
-		}
-		
-		Image piece = new Image (player1Model);
-		piece.setSize(50, 50);
-		piece.setPosition(pieceCoordX, pieceCoordY);
-		addActor(piece);
 	}
 	
 	public void drawDice(DiceModel d1, DiceModel d2) {
-		dice1ToDraw = d1;
-		dice2ToDraw = d2;
 		
-		dice1 = new DiceView(game, dice1ToDraw.getNumber());
-		dice2 = new DiceView(game, dice2ToDraw.getNumber());
+		dice1 = new DiceView(game, d1.getNumber());
+		dice2 = new DiceView(game, d2.getNumber());
 		
 		Sprite dice_1 = dice1.createSprite();
 		Sprite dice_2 = dice2.createSprite();
 		
-		dice_1.setOrigin(2.f, 2.f);
-		dice_1.setOrigin(10.f, 2.f);
+		dice_1.setOrigin(d1.getX(), d1.getY());
+		dice_1.setOrigin(d2.getX(), d2.getY());
 		
 		game.getBatch().begin();
 		
@@ -113,14 +89,89 @@ public class GameScreen extends AbstractScreen {
 		game.getBatch().end();
 	}
 	
-	public void redrawPieceAndDice() {
+	public void drawCar(PlayerModel p1) {
+		CarView carView = new CarView(game);
+		
+		Sprite car = carView.createSprite();
+		
+		car.setOrigin(p1.getX(), p1.getY());
+		
+		game.getBatch().begin();
+		
+		car.draw(game.getBatch());
+		
+		game.getBatch().end();
+	}
+	
+	public void drawHat(PlayerModel p1) {
+		HatView hatView = new HatView(game);
+		
+		Sprite hat = hatView.createSprite();
+		
+		hat.setOrigin(p1.getX(), p1.getY());
+		
+		game.getBatch().begin();
+		
+		hat.draw(game.getBatch());
+		
+		game.getBatch().end();
+	}
+	
+	public void drawBoot(PlayerModel p1) {
+		BootView bootView = new BootView(game);
+		
+		Sprite boot = bootView.createSprite();
+		
+		boot.setOrigin(p1.getX(), p1.getY());
+		
+		game.getBatch().begin();
+		
+		boot.draw(game.getBatch());
+		
+		game.getBatch().end();
+	}
+	
+	public void drawThimble(PlayerModel p1) {
+		ThimbleView thimbleView = new ThimbleView(game);
+		
+		Sprite thimble = thimbleView.createSprite();
+		
+		thimble.setOrigin(p1.getX(), p1.getY());
+		
+		game.getBatch().begin();
+		
+		thimble.draw(game.getBatch());
+		
+		game.getBatch().end();
+	}
+	
+	public void drawPiece(PlayerModel p1) {
+		
+		if(p1.getBoardPiece().equals("Thimble")) {
+			drawThimble(p1);
+		}
+		
+		else if(p1.getBoardPiece().equals("Car")) {
+			drawCar(p1);
+		}
+		
+		else if(p1.getBoardPiece().equals("Hat")) {
+			drawHat(p1);
+		}
+		
+		else if(p1.getBoardPiece().equals("Boot")) {
+			drawBoot(p1);
+		}
+		
+	}
+	
+	public void drawPieceAndDice() {
 		GameController g1 = GameController.getInstance();
-		/*
 		playerToDraw = g1.getPlayersToDraw().get(0);
-		pieceCoordX = playerToDraw.getX();
-		pieceCoordY = playerToDraw.getY();
-		buildStage();*/
-		drawDice(g1.getPlayersToDraw().get(0).getDice1Model(), g1.getPlayersToDraw().get(0).getDice2Model());
+		dice1ToDraw = g1.getPlayersToDraw().get(0).getDice1Model();
+		dice2ToDraw = g1.getPlayersToDraw().get(0).getDice2Model();
+		drawPiece(playerToDraw);
+		drawDice(dice1ToDraw, dice2ToDraw);
 	}
 	
 	public void createRollDiceButton() {
@@ -131,7 +182,7 @@ public class GameScreen extends AbstractScreen {
 				new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						redrawPieceAndDice();
+						drawPieceAndDice();
 						return false;
 					}
 				});

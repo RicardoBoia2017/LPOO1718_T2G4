@@ -51,7 +51,7 @@ public class GameController {
 		
 		g1.updateGame(p1.getAmountToWalk());
 			
-		PlayerModel p1Model = new PlayerModel(finalPosition.x, finalPosition.y, 0, p1.getDice1Num(), p1.getDice2Num());
+		PlayerModel p1Model = new PlayerModel(finalPosition.x, finalPosition.y, 0, p1.getDice1Num(), p1.getDice2Num(), p1.getBoardPiece());
 		
 		playerModels.add(p1Model);
 	}

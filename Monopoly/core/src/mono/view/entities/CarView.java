@@ -10,7 +10,6 @@ public class CarView extends EntityView{
 	public CarView(Monopoly game) {
 		super (game);
 		sprite = createSprite ();
-
 	}
 
     public Sprite createSprite() {
