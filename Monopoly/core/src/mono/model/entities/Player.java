@@ -2,6 +2,8 @@ package mono.model.entities;
 
 public class Player {
 	int position;
+	int x;
+	int y;
 	String name; //there can be more than one player
 	String boardPiece;
 	Money money;
@@ -14,6 +16,8 @@ public class Player {
 	public Player(String name, String piece) {
 		this.name = name;
 		position = 0;
+		x = 50;
+		y = 960;
 		boardPiece = piece;
 		money = new Money();
 		diceRoll = 0;
@@ -43,12 +47,14 @@ public class Player {
 		return position;
 	}
 	
-	public void updatePosition(int diceSum) {
-		position = position + diceSum;
+	public void updatePosition() {
+		position = position + dice1Num + dice2Num;
 		
 		if(position >= 40) {
 			position = position - 40;
-		}
+		} 
+		
+		
 	}
 	
 	public int getDice1Num() {
@@ -58,4 +64,14 @@ public class Player {
 	public int getDice2Num() {
 		return dice2Num;
 	}
+
+	public void setPosition (int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+	
+	public int getX() {return x;}
+	
+	public int getY() {return y;}
 }

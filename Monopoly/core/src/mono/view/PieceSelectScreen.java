@@ -50,10 +50,10 @@ public class PieceSelectScreen extends AbstractScreen {
 		btnThimble.setPosition(750.f, 250.f, Align.center);
 		addActor(btnThimble);
 		
-		btnBoot.addListener(UIFactory.createListener(ScreenEnum.GAME, 1));
-		btnCar.addListener(UIFactory.createListener(ScreenEnum.GAME, 2));
-		btnHat.addListener(UIFactory.createListener(ScreenEnum.GAME, 3));
-		btnThimble.addListener(UIFactory.createListener(ScreenEnum.GAME, 4));
+		btnBoot.addListener(UIFactory.createListener(ScreenEnum.GAME, "Boot"));
+		btnCar.addListener(UIFactory.createListener(ScreenEnum.GAME, "Car"));
+		btnHat.addListener(UIFactory.createListener(ScreenEnum.GAME, "Hat"));
+		btnThimble.addListener(UIFactory.createListener(ScreenEnum.GAME, "Thimble"));
 	}
 
 	@Override

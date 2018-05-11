@@ -16,10 +16,10 @@ public class MonopolyTests {
 		
 		g1.getInstance().addPlayers("Hat");
 		
-		Player p1 = (g1.getInstance().getPlayers())[0];
-		Player p2 = (g1.getInstance().getPlayers())[1];
-		Player p3 = (g1.getInstance().getPlayers())[2];
-		Player p4 = (g1.getInstance().getPlayers())[3];
+		Player p1 = (g1.getInstance().getPlayers()).get(0);
+		Player p2 = (g1.getInstance().getPlayers()).get(1);
+		Player p3 = (g1.getInstance().getPlayers()).get(2);
+		Player p4 = (g1.getInstance().getPlayers()).get(3);
 		
 		assertEquals(p1.getName(), "ActualPlayer");
 		assertEquals(p1.getBoardPiece(), "Hat");
@@ -41,7 +41,7 @@ public class MonopolyTests {
 				
 		g1.getInstance().addPlayers("Hat");
 		
-		Player p1 = (g1.getInstance().getPlayers())[0];
+		Player p1 = (g1.getInstance().getPlayers()).get(0);
 		
 		g1.getInstance().updateGame(6);
 		
@@ -70,7 +70,7 @@ public class MonopolyTests {
 		
 		g1.getInstance().addPlayers("Hat");
 		
-		Player p1 = (g1.getInstance().getPlayers())[0];
+		Player p1 = (g1.getInstance().getPlayers()).get(0);
 		
 		g1.getInstance().updateGame(12);
 		g1.getInstance().updateGame(12);

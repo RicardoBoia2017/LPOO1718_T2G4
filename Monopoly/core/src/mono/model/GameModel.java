@@ -20,7 +20,7 @@ import mono.model.entities.StartSquare;
 public class GameModel {
 	private static GameModel instance;
 	Board board;
-	Player[] players = new Player[4];
+	ArrayList <Player> players = new ArrayList<Player>();
 	String player1Piece;
 	
 	private GameModel()
@@ -30,30 +30,30 @@ public class GameModel {
 	
 	public void addPlayers(String player1Piece) {
 		
-		players[0] = new Player("ActualPlayer", player1Piece);
+		players.add(new Player("ActualPlayer", player1Piece));
 		
 		if(player1Piece.equals("Car")) {
-			players[1] = new Player("Bot", "Thimble");
-			players[2] = new Player("Bot", "Hat");
-			players[3] = new Player("Bot", "Boot");
+			players.add(new Player("Bot", "Thimble"));
+			players.add(new Player("Bot", "Hat"));
+			players.add(new Player("Bot", "Boot"));
 		}
 		
 		else if(player1Piece.equals("Thimble")) {
-			players[1] = new Player("Bot", "Hat");
-			players[2] = new Player("Bot", "Car");
-			players[3] = new Player("Bot", "Boot");
+			players.add(new Player("Bot", "Hat"));
+			players.add(new Player("Bot", "Car"));
+			players.add(new Player("Bot", "Boot"));
 		}
 		
 		else if(player1Piece.equals("Boot")) {
-			players[1] = new Player("Bot", "Thimble");
-			players[2] = new Player("Bot", "Hat");
-			players[3] = new Player("Bot", "Car");
+			players.add(new Player("Bot", "Thimble"));
+			players.add(new Player("Bot", "Hat"));
+			players.add(new Player("Bot", "Car"));
 		}
 		
 		else if(player1Piece.equals("Hat")) {
-			players[1] = new Player("Bot", "Thimble");
-			players[2] = new Player("Bot", "Boot");
-			players[3] = new Player("Bot", "Car");
+			players.add(new Player("Bot", "Thimble"));
+			players.add(new Player("Bot", "Boot"));
+			players.add(new Player("Bot", "Car"));
 		}
 		
 		this.player1Piece = player1Piece;
@@ -69,7 +69,7 @@ public class GameModel {
 	}
 	
 	public void addPlayerToBoardSquare(int squareIndex, int playerIndex) {
-		board.getBoardArray().get(squareIndex).setPlayerOnTopOfSquare(players[playerIndex]);
+		board.getBoardArray().get(squareIndex).setPlayerOnTopOfSquare(players.get(playerIndex));
 	}
 	
 	public void takePlayerFromBoardSquare(int squareIndex, int playerIndex) {
@@ -77,9 +77,13 @@ public class GameModel {
 	}
 	
 	public void movePlayer(int playerIndex, int diceSum) {
-		takePlayerFromBoardSquare(players[playerIndex].getPosition(), playerIndex);
-		players[playerIndex].updatePosition(diceSum);
-		addPlayerToBoardSquare(players[playerIndex].getPosition(), playerIndex);
+		takePlayerFromBoardSquare(players.get(playerIndex).getPosition(), playerIndex);
+		
+		players.get(playerIndex).updatePosition();
+		
+		addPlayerToBoardSquare(players.get(playerIndex).getPosition(), playerIndex);
+		
+		
 	}
 
 	public static synchronized GameModel getInstance()
@@ -95,35 +99,92 @@ public class GameModel {
 		movePlayer(0, diceSum);
 	}
 	
-	public Player[] getPlayers() {
+	public ArrayList <Player> getPlayers() {
 		return players;
 	}
 	
 	public Board getBoard() {
 		return board;
-	}
+	} 
 	
-	public Position getCoordFromSquare(Square s1, int amountToWalk) {
-		Position finalPosition = new Position(0,0);
+	public Position getCoordFromSquare(Player p1, Square s1, int amountToWalk) {
+		Position finalPosition = new Position(p1.getX(),p1.getY());
+		int currentPosition = p1.getPosition();
+		int GoSquareGap = 75;
+		int StandardSquareGap = 68;
+		int boardHeight = 930;
+		int boardWidth = 750;
 		
-		if(s1.getName().equals("Start")) {
-			int GoSquareGap = 30;
-			int StandardSquareGap = 68;
-			int boardHeight = 930;
-			int boardWidth = 750;
-			
-			if(amountToWalk <= 10) {
-				finalPosition.x = GoSquareGap + StandardSquareGap*amountToWalk;
-				finalPosition.y = boardHeight;
+		System.out.println("Position " + currentPosition + "    ATW " + amountToWalk);
+		
+		
+		while (amountToWalk > 0)
+		{
+			if (currentPosition == 0)
+			{
+				finalPosition.x += GoSquareGap;
 			}
 			
-			else {
-				finalPosition.x = boardWidth;
-				finalPosition.y = 930 - StandardSquareGap*(amountToWalk-10);
+			else if (currentPosition < 10)
+			{
+				finalPosition.x += StandardSquareGap;
 			}
 			
-			return finalPosition;
+			else if (currentPosition == 10)
+			{
+				finalPosition.y -= 30 + GoSquareGap;
+			}
+			
+			else if (currentPosition < 20)
+			{
+				finalPosition.y -= StandardSquareGap;
+			}
+			
+			else if (currentPosition == 20)
+			{
+				finalPosition.x -= 30 + GoSquareGap;
+			}
+			
+			else if (currentPosition < 30)
+			{
+				finalPosition.x -= StandardSquareGap;
+			}
+			
+			else if (currentPosition == 30)
+			{
+				finalPosition.y += GoSquareGap;
+			}
+			
+			else if (currentPosition < 40)
+			{
+				finalPosition.y += StandardSquareGap;
+			}
+			
+			System.out.println(finalPosition.x + "   " + finalPosition.y);
+			System.out.println(currentPosition);
+			amountToWalk --;
+			
+			if (currentPosition == 39)
+				currentPosition = 0;
+			else
+				currentPosition++;
 		}
+		
+//		if(s1.getName().equals("Start")) {
+//
+//			
+//			if(amountToWalk <= 10) {
+//				finalPosition.x = GoSquareGap + StandardSquareGap*amountToWalk;
+//				finalPosition.y = boardHeight;
+//			}
+//			
+//			else {
+//				finalPosition.x = boardWidth;
+//				finalPosition.y = 930 - StandardSquareGap*(amountToWalk-10);
+//			}
+//			
+//			return finalPosition;
+//		}
 		
 		return finalPosition;
 	}
