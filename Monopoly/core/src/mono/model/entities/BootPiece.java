@@ -1,5 +1,7 @@
 package mono.model.entities;
 
+import java.awt.Point;
+
 public class BootPiece extends Piece {
 	
 	public BootPiece ()
@@ -7,10 +9,14 @@ public class BootPiece extends Piece {
 		
 	}
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
+	public String getType()
+	{
+		return "Boot";
 	}
 
+	@Override
+	public Point move(int playerX, int playerY, int playerPosition, int amounToWalk) {
+
+		return null;
+	}
 }

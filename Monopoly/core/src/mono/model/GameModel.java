@@ -79,7 +79,7 @@ public class GameModel {
 	public void movePlayer(int playerIndex, int diceSum) {
 		takePlayerFromBoardSquare(players.get(playerIndex).getPosition(), playerIndex);
 		
-		players.get(playerIndex).updatePosition();
+		players.get(playerIndex).move();
 		
 		addPlayerToBoardSquare(players.get(playerIndex).getPosition(), playerIndex);
 		

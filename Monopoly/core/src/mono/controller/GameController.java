@@ -54,9 +54,9 @@ public class GameController {
 		
 		p1.rollDice();
 		
-		finalPosition = GameModel.getInstance().getCoordFromSquare(p1,s1, p1.getAmountToWalk());
+//		finalPosition = GameModel.getInstance().getCoordFromSquare(p1,s1, p1.getAmountToWalk());
 		GameModel.getInstance().updateGame(p1.getAmountToWalk());
-		GameModel.getInstance().getPlayers().get(0).setPosition(finalPosition.x, finalPosition.y);	
+//		GameModel.getInstance().getPlayers().get(0).setPosition(finalPosition.x, finalPosition.y);	
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {

@@ -165,19 +165,19 @@ public class GameScreen extends AbstractScreen {
 	
 	public void drawPiece(Player p1) {
 		
-		if(p1.getBoardPiece().equals("Thimble")) {
+		if(p1.getBoardPiece().getType() == "Thimble") {
 			drawThimble(p1);
 		}
 		
-		else if(p1.getBoardPiece().equals("Car")) {
+		else if(p1.getBoardPiece().getType() == "Car") {
 			drawCar(p1);
 		}
 		
-		else if(p1.getBoardPiece().equals("Hat")) {
+		else if(p1.getBoardPiece().getType() == "Hat") {
 			drawHat(p1);
 		}
 		
-		else if(p1.getBoardPiece().equals("Boot")) {
+		else if(p1.getBoardPiece().getType() == "Boot") {
 			drawBoot(p1);
 		}
 		

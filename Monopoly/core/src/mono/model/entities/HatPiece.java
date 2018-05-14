@@ -1,5 +1,7 @@
 package mono.model.entities;
 
+import java.awt.Point;
+
 public class HatPiece extends Piece{
 	
 	public HatPiece () 
@@ -8,9 +10,14 @@ public class HatPiece extends Piece{
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
+	public String getType() {
+		return "Hat";
+	}
+
+	@Override
+	public Point move(int playerX, int playerY, int playerPosition, int amounToWalk) {
+
+		return null;
 	}
 
 	

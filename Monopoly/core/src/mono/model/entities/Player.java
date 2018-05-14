@@ -1,33 +1,62 @@
 package mono.model.entities;
 
+import java.awt.Point;
+import java.util.Random;
+
 public class Player {
 	int position;
 	int x;
 	int y;
 	String name; //there can be more than one player
-	String boardPiece;
+	Piece boardPiece;
 	Money money;
-	Dice dice_1;
-	Dice dice_2;
+//	Dice dice_1;
+//	Dice dice_2;
 	int diceRoll;
 	int dice1Num;
 	int dice2Num;
 
-	public Player(String name, String piece) {
+	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
-		x = 50;
-		y = 960;
-		boardPiece = piece;
 		money = new Money();
 		diceRoll = 0;
-		dice_1 = new Dice();
-		dice_2 = new Dice();
+		initializePiece(pieceType);
+//		dice_1 = new Dice();
+//		dice_2 = new Dice();
 	}
 	
+	private void initializePiece(String pieceType) {
+		
+		switch (pieceType)
+		{
+			case "Boot":
+				boardPiece = new BootPiece();
+				break;
+				
+			case "Car":
+				boardPiece = new CarPiece ();
+				break;
+				
+			case "Hat":
+				boardPiece = new HatPiece ();
+				break;
+			
+			case "Thimble":
+				boardPiece = new ThimblePiece ();
+				break;
+			
+		}
+		
+		x = boardPiece.getInitialX();
+		y = boardPiece.getInitialY();
+	}
+
 	public void rollDice() {
-		dice1Num = dice_1.rollNumber();
-		dice2Num = dice_2.rollNumber();
+		Random rand = new Random();
+
+		dice1Num = 1+rand.nextInt(6);//dice_1.rollNumber();
+		dice2Num = 1+rand.nextInt(6);//dice_2.rollNumber();
 		diceRoll = dice1Num + dice2Num;
 	}
 	
@@ -39,7 +68,7 @@ public class Player {
 		return name;
 	}
 	
-	public String getBoardPiece() {
+	public Piece getBoardPiece() {
 		return boardPiece;
 	}
 	
@@ -47,14 +76,18 @@ public class Player {
 		return position;
 	}
 	
-	public void updatePosition() {
-		position = position + diceRoll;
+	public void move() {
+
+		Point finalPosition = boardPiece.move(x, y, position, diceRoll);
+
+		x = (int) finalPosition.getX();
+		y = (int) finalPosition.getY();
 		
+		position = position + diceRoll;
+
 		if(position >= 40) {
 			position = position - 40;
-		} 
-		
-		
+		}
 	}
 	
 	public int getDice1Num() {
