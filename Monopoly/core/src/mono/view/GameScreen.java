@@ -97,7 +97,7 @@ public class GameScreen extends AbstractScreen {
 	private void drawBoard ()
 	{
 		Texture board = game.getAssetManager().get("Board.png",Texture.class);
-		game.getBatch().draw(board, 1, 200, 800, 800);
+		game.getBatch().draw(board, 1, 197, 803, 803);
 	}
 	
 	public void drawDice(DiceModel d1, DiceModel d2) {

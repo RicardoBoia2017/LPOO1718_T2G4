@@ -110,19 +110,19 @@ public class GameModel {
 	public Position getCoordFromSquare(Player p1, Square s1, int amountToWalk) {
 		Position finalPosition = new Position(p1.getX(),p1.getY());
 		int currentPosition = p1.getPosition();
-		int GoSquareGap = 75;
+		int GoSquareGap = 101;
 		int StandardSquareGap = 68;
 		int boardHeight = 930;
 		int boardWidth = 750;
 		
-		System.out.println("Position " + currentPosition + "    ATW " + amountToWalk);
+//		System.out.println("Position " + currentPosition + "    ATW " + amountToWalk);
 		
 		
 		while (amountToWalk > 0)
 		{
 			if (currentPosition == 0)
 			{
-				finalPosition.x += GoSquareGap;
+				finalPosition.x += GoSquareGap - 51 + StandardSquareGap/2; 
 			}
 			
 			else if (currentPosition < 10)
@@ -132,7 +132,7 @@ public class GameModel {
 			
 			else if (currentPosition == 10)
 			{
-				finalPosition.y -= 30 + GoSquareGap;
+				finalPosition.y -= GoSquareGap - 5;
 			}
 			
 			else if (currentPosition < 20)
@@ -142,7 +142,7 @@ public class GameModel {
 			
 			else if (currentPosition == 20)
 			{
-				finalPosition.x -= 30 + GoSquareGap;
+				finalPosition.x -= GoSquareGap - 51 + StandardSquareGap/2;;
 			}
 			
 			else if (currentPosition < 30)
@@ -152,7 +152,7 @@ public class GameModel {
 			
 			else if (currentPosition == 30)
 			{
-				finalPosition.y += GoSquareGap;
+				finalPosition.y += GoSquareGap - 5;
 			}
 			
 			else if (currentPosition < 40)
@@ -160,8 +160,8 @@ public class GameModel {
 				finalPosition.y += StandardSquareGap;
 			}
 			
-			System.out.println(finalPosition.x + "   " + finalPosition.y);
-			System.out.println(currentPosition);
+//			System.out.println(finalPosition.x + "   " + finalPosition.y);
+//			System.out.println(currentPosition);
 			amountToWalk --;
 			
 			if (currentPosition == 39)

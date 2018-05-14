@@ -48,7 +48,7 @@ public class Player {
 	}
 	
 	public void updatePosition() {
-		position = position + dice1Num + dice2Num;
+		position = position + diceRoll;
 		
 		if(position >= 40) {
 			position = position - 40;
