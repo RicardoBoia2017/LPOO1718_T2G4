@@ -82,8 +82,6 @@ public class GameModel {
 		players.get(playerIndex).move();
 		
 		addPlayerToBoardSquare(players.get(playerIndex).getPosition(), playerIndex);
-		
-		
 	}
 
 	public static synchronized GameModel getInstance()

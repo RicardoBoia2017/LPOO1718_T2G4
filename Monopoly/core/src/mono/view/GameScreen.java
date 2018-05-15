@@ -34,10 +34,6 @@ public class GameScreen extends AbstractScreen {
 	TextButton rollDiceButton;
 	Skin skin;
 	Player playerToDraw;
-	DiceModel dice1ToDraw;
-	DiceModel dice2ToDraw;
-	DiceView dice1;
-	DiceView dice2;
 	
 	public GameScreen(String player1Model) {
 		super();
@@ -88,6 +84,7 @@ public class GameScreen extends AbstractScreen {
 		addActor(rollDiceButton);
 			
 		drawPiece (playerToDraw);
+		drawDice();
 		game.getBatch().end();
 		
 		super.act();
@@ -100,20 +97,21 @@ public class GameScreen extends AbstractScreen {
 		game.getBatch().draw(board, 1, 197, 803, 803);
 	}
 	
-	public void drawDice(DiceModel d1, DiceModel d2) {
-		
-		dice1 = new DiceView(game, d1.getNumber());
-		dice2 = new DiceView(game, d2.getNumber());
+	public void drawDice() {
+		GameModel g1 = GameModel.getInstance();
+		DiceView dice1 = new DiceView(game, g1.getPlayers().get(0).getDice1Num());
+		DiceView dice2 = new DiceView(game, g1.getPlayers().get(0).getDice2Num());
 		
 		Sprite dice_1 = dice1.createSprite();
 		Sprite dice_2 = dice2.createSprite();
 		
-		dice_1.setOrigin(d1.getX(), d1.getY());
-		dice_1.setOrigin(d2.getX(), d2.getY());
+		dice_1.scale(-0.5f);
+		dice_2.scale(-0.5f);
+		dice_1.setPosition(-60, -60);
+		dice_2.setPosition(150, -60);
 				
 		dice_1.draw(game.getBatch());
-		dice_2.draw(game.getBatch());
-		
+		dice_2.draw(game.getBatch());	
 	}
 	
 	public void drawCar(Player p1) {
@@ -132,11 +130,10 @@ public class GameScreen extends AbstractScreen {
 		
 		Sprite hat = hatView.createSprite();
 		
-		hat.setPosition(0, 910);
+		hat.setPosition(p1.getX(), p1.getY());
 		hat.setSize (40,40);
 		
 		hat.draw(game.getBatch());
-		
 	}
 	
 	public void drawBoot(Player p1) {
@@ -145,10 +142,9 @@ public class GameScreen extends AbstractScreen {
 		Sprite boot = bootView.createSprite();
 		
 		boot.setSize(40, 40);
-		boot.setPosition(0, 960);
+		boot.setPosition(p1.getX(), p1.getY());
 		
 		boot.draw(game.getBatch());
-		
 	}
 	
 	public void drawThimble(Player p1) {
@@ -157,10 +153,9 @@ public class GameScreen extends AbstractScreen {
 		Sprite thimble = thimbleView.createSprite();
 		
 		thimble.setSize(40,40);
-		thimble.setPosition(50, 910);
+		thimble.setPosition(p1.getX(), p1.getY());
 				
 		thimble.draw(game.getBatch());
-		
 	}
 	
 	public void drawPiece(Player p1) {
@@ -183,7 +178,7 @@ public class GameScreen extends AbstractScreen {
 		
 	}
 	
-	public void drawPieceAndDice() {
+/*	public void drawPieceAndDice() {
 		GameModel g1 = GameModel.getInstance();
 		playerToDraw = g1.getPlayers().get(0);
 //		dice1ToDraw = g1.getPlayers().get(0).getDice1Num();
@@ -191,6 +186,7 @@ public class GameScreen extends AbstractScreen {
 		drawPiece(playerToDraw);
 		drawDice(dice1ToDraw, dice2ToDraw);
 	}
+*/
 	
 	public void createRollDiceButton() {
         rollDiceButton = new TextButton("Roll Dice", skin);

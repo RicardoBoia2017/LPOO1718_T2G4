@@ -16,7 +16,7 @@ public class CarPiece extends Piece {
 	public Point move(int playerX, int playerY, int playerPosition, int amountToWalk) {
 		Point finalPosition = new Point (playerX, playerY);
 		int currentPosition = playerPosition;
-		int GoSquareGap = 101;
+		int GoSquareGap = 100;
 		int StandardSquareGap = 68;
 		int boardHeight = 930;
 		int boardWidth = 750;
@@ -48,7 +48,7 @@ public class CarPiece extends Piece {
 			
 			else if (currentPosition == 20)
 			{
-				finalPosition.x -= GoSquareGap - 51 + StandardSquareGap/2;;
+				finalPosition.x -= GoSquareGap - 51 + StandardSquareGap/2;
 			}
 			
 			else if (currentPosition < 30)
@@ -94,7 +94,6 @@ public class CarPiece extends Piece {
 		
 		return finalPosition;
 }
-		
 	
 
 	@Override

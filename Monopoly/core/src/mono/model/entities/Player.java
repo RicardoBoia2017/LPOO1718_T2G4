@@ -22,6 +22,8 @@ public class Player {
 		money = new Money();
 		diceRoll = 0;
 		initializePiece(pieceType);
+		dice1Num = 1;	
+		dice2Num = 1;
 //		dice_1 = new Dice();
 //		dice_2 = new Dice();
 	}
