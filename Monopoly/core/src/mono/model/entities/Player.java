@@ -5,8 +5,7 @@ import java.util.Random;
 
 public class Player {
 	int position;
-	int x;
-	int y;
+	Point coordinates;
 	String name; //there can be more than one player
 	Piece boardPiece;
 	Money money;
@@ -50,8 +49,7 @@ public class Player {
 			
 		}
 		
-		x = boardPiece.getInitialX();
-		y = boardPiece.getInitialY();
+		coordinates = new Point (boardPiece.getInitialX(), boardPiece.getInitialY());
 	}
 
 	public void rollDice() {
@@ -80,10 +78,11 @@ public class Player {
 	
 	public void move() {
 
-		Point finalPosition = boardPiece.move(x, y, position, diceRoll);
+		rollDice ();
+		
+		Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll);
 
-		x = (int) finalPosition.getX();
-		y = (int) finalPosition.getY();
+		coordinates = finalPosition;
 		
 		position = position + diceRoll;
 
@@ -100,13 +99,12 @@ public class Player {
 		return dice2Num;
 	}
 
-	public void setPosition (int x, int y)
+	public void setCoordinates (int x, int y)
 	{
-		this.x = x;
-		this.y = y;
+		this.coordinates.setLocation(x, y);
 	}
 	
-	public int getX() {return x;}
+	public int getX() {return (int) coordinates.getX();}
 	
-	public int getY() {return y;}
+	public int getY() {return (int) coordinates.getY();}
 }

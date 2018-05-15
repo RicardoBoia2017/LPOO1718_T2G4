@@ -44,17 +44,9 @@ public class GameController {
 	
 	public void movePlayer()
 	{
-		Position finalPosition = new Position(0,0);
 		
-		Player p1 = GameModel.getInstance().getPlayers().get(0);
-		
-		Square s1 = GameModel.getInstance().getBoard().getBoardArray().get(p1.getPosition());
-		
-		p1.rollDice();
-		
-//		finalPosition = GameModel.getInstance().getCoordFromSquare(p1,s1, p1.getAmountToWalk());
+		Player p1 = GameModel.getInstance().getPlayers().get(0);		
 		GameModel.getInstance().updateGame(p1.getAmountToWalk());
-//		GameModel.getInstance().getPlayers().get(0).setPosition(finalPosition.x, finalPosition.y);	
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {
