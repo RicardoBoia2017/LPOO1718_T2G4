@@ -122,6 +122,54 @@ public class MonopolyTests {
 		assertEquals(s1.getName(), "Jail");
 	}
 	
+	@Test
+	public void testIfPlayerMovementIsBlockedInJailThreeTurns() {
+		GameModel g1 = GameModel.getInstance();
+		g1.setGameModelInstanceToNull();
+		g1 = GameModel.getInstance();
+		
+		g1.addPlayers("Hat");
+		
+		g1.movePlayer(30);
+		
+		g1.squareAction();
+		
+		Player p1 = (g1.getPlayers()).get(0);
+		Square s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		assertEquals(p1.getPosition(), 10);
+		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+		
+		g1.movePlayer(1);
+		g1.squareAction();
+		
+		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		assertEquals(p1.getPosition(), 10);
+		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+		
+		g1.movePlayer(1);
+		g1.squareAction();
+		
+		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		assertEquals(p1.getPosition(), 10);
+		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+		
+		g1.movePlayer(1);
+		g1.squareAction();
+		
+		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		assertEquals(p1.getPosition(), 10);
+		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+		
+		g1.movePlayer(1);
+		g1.squareAction();
+		
+		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		assertEquals(p1.getPosition(), 11);
+		assertEquals(s1.getName(), "Cape Town");
+	}
+	
 	/*@Test
 	public void playerGetsOutOfJailByPaying() {
 		

@@ -10,12 +10,14 @@ public class Player {
 	Piece boardPiece;
 	int money;
 	Boolean sentToJail;
+	int turnsWithoutMoving;
 
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
 		money = 15000; //confirm later
 		sentToJail = false;
+		turnsWithoutMoving = 0;
 		initializePiece(pieceType);
 	}
 	
@@ -54,15 +56,21 @@ public class Player {
 	
 	public void move(int diceRoll) {
 		
-		Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll);
+		if(!sentToJail) {
+			Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll);
+			
+			coordinates = finalPosition;
+			
+			position = position + diceRoll;
+	
+			if(position >= 40) {
+				position = position - 40;
+	
+			}
+		}
 		
-		coordinates = finalPosition;
-		
-		position = position + diceRoll;
-
-		if(position >= 40) {
-			position = position - 40;
-
+		else {
+			turnsWithoutMoving++;
 		}
 		
 	}
@@ -88,5 +96,17 @@ public class Player {
 	
 	public void sendToJail() {
 		sentToJail = true;
+	}
+	
+	public void freeFromJail() {
+		sentToJail = false;
+	}
+	
+	public void resetTurnsWithoutMoving() {
+		turnsWithoutMoving = 0;
+	}
+	
+	public int getTurnsWithoutMoving() {
+		return turnsWithoutMoving;
 	}
 }

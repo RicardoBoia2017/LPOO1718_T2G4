@@ -7,9 +7,11 @@ public class JailSquare extends Square {
 	}
 
 	@Override
-	public void doAction( Player p) {
-		// TODO Auto-generated method stub
-		
+	public void doAction(Player p) {
+		if(p.getTurnsWithoutMoving() == 3) {
+			p.freeFromJail();
+			p.resetTurnsWithoutMoving();
+		}
 	}
 
 }

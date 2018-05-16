@@ -11,10 +11,8 @@ public class GoToJailSquare extends Square {
 	@Override
 	public void doAction (Player p) {
 		GameModel g1 = GameModel.getInstance();
-		
-		p.sendToJail();
-		
 		g1.movePlayer(20);
+		p.sendToJail();
 	}
 
 }
