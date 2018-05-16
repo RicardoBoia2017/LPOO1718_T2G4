@@ -75,9 +75,7 @@ public class MonopolyTests {
 	@Test
 	public void testIfPlayerMovesBeyond40() {
 		GameModel g1 = GameModel.getInstance();
-		
 		g1.setGameModelInstanceToNull();
-		
 		g1 = GameModel.getInstance();
 		
 		g1.addPlayers("Hat");
@@ -99,6 +97,8 @@ public class MonopolyTests {
 	@Test
 	public void testIfPlayerGetsSentToJail() {
 		GameModel g1 = GameModel.getInstance();
+		g1.setGameModelInstanceToNull();
+		g1 = GameModel.getInstance();
 		
 		g1.addPlayers("Hat");
 		
@@ -109,12 +109,13 @@ public class MonopolyTests {
 		
 		assertEquals(s1.getName(), "GoToJail");
 		assertEquals(p1.getPosition(), 30);
+		
+		g1.squareAction();
+		
 		assertEquals(p1.wasSentToJail(), true);
 		
-		g1.movePlayer(1);
-		
 		assertEquals(p1.getPosition(), 10);
-		assertEquals(s1.getplayersOnTopOfSquareArray(), 0);
+		assertEquals(s1.getplayersOnTopOfSquareArray().size(), 0);
 		
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
 		

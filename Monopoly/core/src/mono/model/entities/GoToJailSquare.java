@@ -10,8 +10,11 @@ public class GoToJailSquare extends Square {
 
 	@Override
 	public void doAction (Player p) {
-		// TODO Auto-generated method stub
+		GameModel g1 = GameModel.getInstance();
 		
+		p.sendToJail();
+		
+		g1.movePlayer(20);
 	}
 
 }
