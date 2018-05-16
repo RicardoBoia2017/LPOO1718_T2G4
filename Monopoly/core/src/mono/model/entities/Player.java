@@ -9,22 +9,18 @@ public class Player {
 	String name; //there can be more than one player
 	Piece boardPiece;
 	Money money;
-//	Dice dice_1;
-//	Dice dice_2;
-	int diceRoll;
-	int dice1Num;
-	int dice2Num;
+//	int diceRoll;
+//	int dice1Num;
+//	int dice2Num;
 
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
 		money = new Money();
-		diceRoll = 0;
+	//	diceRoll = 0;
 		initializePiece(pieceType);
-		dice1Num = 1;	
-		dice2Num = 1;
-//		dice_1 = new Dice();
-//		dice_2 = new Dice();
+	//	dice1Num = 1;	
+	//	dice2Num = 1;
 	}
 	
 	private void initializePiece(String pieceType) {
@@ -52,17 +48,18 @@ public class Player {
 		coordinates = new Point (boardPiece.getInitialX(), boardPiece.getInitialY());
 	}
 
-	public void rollDice() {
-		Random rand = new Random();
-
-		dice1Num = 1+rand.nextInt(6);//dice_1.rollNumber();
-		dice2Num = 1+rand.nextInt(6);//dice_2.rollNumber();
-		diceRoll = dice1Num + dice2Num;
-	}
+//	public int rollDice() {
+//		Random rand = new Random();
+//
+//		int dice1Num = 1+rand.nextInt(6);
+//		int dice2Num = 1+rand.nextInt(6);
+//		
+//		return dice1Num + dice2Num;
+//	}
 	
-	public int getAmountToWalk() {
-		return diceRoll;
-	}
+//	public int getAmountToWalk() {
+//		return diceRoll;
+//	}
 	
 	public String getName() {
 		return name;
@@ -76,9 +73,9 @@ public class Player {
 		return position;
 	}
 	
-	public void move() {
+	public void move(int diceRoll) {
 
-		rollDice ();
+		//rollDice ();
 		
 		Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll);
 
@@ -91,13 +88,13 @@ public class Player {
 		}
 	}
 	
-	public int getDice1Num() {
-		return dice1Num;
-	}
-	
-	public int getDice2Num() {
-		return dice2Num;
-	}
+//	public int getDice1Num() {
+//		return dice1Num;
+//	}
+//	
+//	public int getDice2Num() {
+//		return dice2Num;
+//	}
 
 	public void setCoordinates (int x, int y)
 	{

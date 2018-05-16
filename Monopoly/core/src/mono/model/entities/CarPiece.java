@@ -2,8 +2,6 @@ package mono.model.entities;
 
 import java.awt.Point;
 
-import mono.controller.entities.Position;
-
 public class CarPiece extends Piece {
 
 	public CarPiece ()

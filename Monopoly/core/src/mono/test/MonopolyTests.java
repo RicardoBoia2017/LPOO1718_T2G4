@@ -43,7 +43,7 @@ public class MonopolyTests {
 		
 		Player p1 = (g1.getInstance().getPlayers()).get(0);
 		
-		g1.getInstance().updateGame(6);
+		g1.getInstance().movePlayer(6);
 		
 		assertEquals(p1.getPosition(), 6);
 		
@@ -53,7 +53,7 @@ public class MonopolyTests {
 		assertEquals(((s1.getplayersOnTopOfSquareArray()).get(0)).getName(), "ActualPlayer");
 		assertEquals(s1.getName(), "Brussels");
 		
-		g1.getInstance().updateGame(7);
+		g1.getInstance().movePlayer(7);
 		
 		assertEquals(p1.getPosition(), 13);
 		
@@ -72,10 +72,10 @@ public class MonopolyTests {
 		
 		Player p1 = (g1.getInstance().getPlayers()).get(0);
 		
-		g1.getInstance().updateGame(12);
-		g1.getInstance().updateGame(12);
-		g1.getInstance().updateGame(12);
-		g1.getInstance().updateGame(12);
+		g1.getInstance().movePlayer(12);
+		g1.getInstance().movePlayer(12);
+		g1.getInstance().movePlayer(12);
+		g1.getInstance().movePlayer(12);
 		
 		assertEquals(p1.getPosition(), 8);
 		Square s1 = g1.getInstance().getBoard().getBoardArray().get(p1.getPosition());

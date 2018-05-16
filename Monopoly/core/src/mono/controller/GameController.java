@@ -7,6 +7,7 @@ import java.util.List;
 
 import mono.controller.entities.*;
 import mono.model.GameModel;
+import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.model.entities.Square;
 
@@ -42,11 +43,24 @@ public class GameController {
 //		playerModels.add(p1Model);
 	}
 	
-	public void movePlayer()
+	public void doTurn()
+	{
+		movePlayer();
+//		doSquareAction();
+		
+	}
+	
+	public Pair movePlayer()
+	{	
+		Pair diceRoll = GameModel.getInstance().rollDice();
+		GameModel.getInstance().movePlayer(diceRoll.getValue1() + diceRoll.getValue2());
+		
+		return diceRoll;
+	}
+	
+	private void doSquareAction()
 	{
 		
-		Player p1 = GameModel.getInstance().getPlayers().get(0);		
-		GameModel.getInstance().updateGame(p1.getAmountToWalk());
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {

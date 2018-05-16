@@ -2,13 +2,14 @@ package mono.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
-import mono.controller.entities.Position;
 import mono.model.entities.Board;
 import mono.model.entities.CommunityChest;
 import mono.model.entities.Dice;
 import mono.model.entities.HouseSquare;
 import mono.model.entities.Player;
+import mono.model.entities.Pair;
 import mono.model.entities.Square;
 import mono.model.entities.StartSquare;
 
@@ -21,11 +22,13 @@ public class GameModel {
 	private static GameModel instance;
 	Board board;
 	ArrayList <Player> players = new ArrayList<Player>();
+	int currentPlayer;
 	String player1Piece;
 	
 	private GameModel()
 	{
 		board = new Board();
+		currentPlayer = 1;
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -76,12 +79,27 @@ public class GameModel {
 		board.getBoardArray().get(squareIndex).getplayersOnTopOfSquareArray().remove(playerIndex);
 	}
 	
-	public void movePlayer(int playerIndex, int diceSum) {
-		takePlayerFromBoardSquare(players.get(playerIndex).getPosition(), playerIndex);
+	public Pair rollDice() {
 		
-		players.get(playerIndex).move();
+		Random rand = new Random();
+		Pair values = new Pair();
 		
-		addPlayerToBoardSquare(players.get(playerIndex).getPosition(), playerIndex);
+		values.setValue1(1+rand.nextInt(6)); //dice roll 1
+		values.setValue2(1+rand.nextInt(6)); //dice roll 2
+		
+		return values;
+	}
+	
+	public void movePlayer(int diceRoll) {
+		
+		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, the is index in array is 0
+		Player p1 = players.get(playerIndex); 
+	
+		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
+				
+		p1.move(diceRoll);
+		
+		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
 	}
 
 	public static synchronized GameModel getInstance()
@@ -92,10 +110,6 @@ public class GameModel {
 		return instance;
 	}
 
-	public void updateGame(int diceSum)
-	{
-		movePlayer(0, diceSum);
-	}
 	
 	public ArrayList <Player> getPlayers() {
 		return players;
@@ -105,86 +119,8 @@ public class GameModel {
 		return board;
 	} 
 	
-	public Position getCoordFromSquare(Player p1, Square s1, int amountToWalk) {
-		Position finalPosition = new Position(p1.getX(),p1.getY());
-		int currentPosition = p1.getPosition();
-		int GoSquareGap = 101;
-		int StandardSquareGap = 68;
-		int boardHeight = 930;
-		int boardWidth = 750;
-		
-//		System.out.println("Position " + currentPosition + "    ATW " + amountToWalk);
-		
-		
-		while (amountToWalk > 0)
-		{
-			if (currentPosition == 0)
-			{
-				finalPosition.x += GoSquareGap - 51 + StandardSquareGap/2; 
-			}
-			
-			else if (currentPosition < 10)
-			{
-				finalPosition.x += StandardSquareGap;
-			}
-			
-			else if (currentPosition == 10)
-			{
-				finalPosition.y -= GoSquareGap - 5;
-			}
-			
-			else if (currentPosition < 20)
-			{
-				finalPosition.y -= StandardSquareGap;
-			}
-			
-			else if (currentPosition == 20)
-			{
-				finalPosition.x -= GoSquareGap - 51 + StandardSquareGap/2;;
-			}
-			
-			else if (currentPosition < 30)
-			{
-				finalPosition.x -= StandardSquareGap;
-			}
-			
-			else if (currentPosition == 30)
-			{
-				finalPosition.y += GoSquareGap - 5;
-			}
-			
-			else if (currentPosition < 40)
-			{
-				finalPosition.y += StandardSquareGap;
-			}
-			
-//			System.out.println(finalPosition.x + "   " + finalPosition.y);
-//			System.out.println(currentPosition);
-			amountToWalk --;
-			
-			if (currentPosition == 39)
-				currentPosition = 0;
-			else
-				currentPosition++;
-		}
-		
-//		if(s1.getName().equals("Start")) {
-//
-//			
-//			if(amountToWalk <= 10) {
-//				finalPosition.x = GoSquareGap + StandardSquareGap*amountToWalk;
-//				finalPosition.y = boardHeight;
-//			}
-//			
-//			else {
-//				finalPosition.x = boardWidth;
-//				finalPosition.y = 930 - StandardSquareGap*(amountToWalk-10);
-//			}
-//			
-//			return finalPosition;
-//		}
-		
-		return finalPosition;
+	public int getCurrentPlayer()
+	{
+		return this.getCurrentPlayer();
 	}
-
 }

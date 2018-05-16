@@ -1,4 +1,6 @@
 package mono.view;
+	
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,6 +19,7 @@ import mono.controller.GameController;
 import mono.controller.entities.DiceModel;
 import mono.controller.entities.PlayerModel;
 import mono.model.GameModel;
+import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.view.entities.BoardView;
 import mono.view.entities.BootView;
@@ -34,6 +37,7 @@ public class GameScreen extends AbstractScreen {
 	TextButton rollDiceButton;
 	Skin skin;
 	Player playerToDraw;
+	Pair diceValues;
 	
 	public GameScreen(String player1Model) {
 		super();
@@ -41,6 +45,10 @@ public class GameScreen extends AbstractScreen {
 		GameModel.getInstance().addPlayers(player1Model);
 		playerToDraw = GameModel.getInstance().getPlayers().get(0);
 		skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
+		
+		//initialize dice
+		diceValues = new Pair();
+		
 		loadAssets();
 	}	
 
@@ -99,8 +107,8 @@ public class GameScreen extends AbstractScreen {
 	
 	public void drawDice() {
 		GameModel g1 = GameModel.getInstance();
-		DiceView dice1 = new DiceView(game, g1.getPlayers().get(0).getDice1Num());
-		DiceView dice2 = new DiceView(game, g1.getPlayers().get(0).getDice2Num());
+		DiceView dice1 = new DiceView(game, diceValues.getValue1());
+		DiceView dice2 = new DiceView(game, diceValues.getValue2());
 		
 		Sprite dice_1 = dice1.createSprite();
 		Sprite dice_2 = dice2.createSprite();
@@ -196,7 +204,7 @@ public class GameScreen extends AbstractScreen {
 				new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						GameController.getInstance().movePlayer();
+						diceValues = GameController.getInstance().movePlayer();
 						return false;
 					}
 				});
