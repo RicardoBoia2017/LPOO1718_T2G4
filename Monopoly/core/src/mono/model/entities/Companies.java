@@ -18,4 +18,10 @@ public class Companies extends Square {
 		this.mortgageValue=price/2;
 		this.position=position;
 	}
+
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
 }

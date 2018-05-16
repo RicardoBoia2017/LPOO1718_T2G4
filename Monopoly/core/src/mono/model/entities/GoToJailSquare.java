@@ -6,4 +6,10 @@ public class GoToJailSquare extends Square {
 		super("GoToJail", 30);
 	}
 
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

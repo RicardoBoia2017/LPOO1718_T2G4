@@ -8,19 +8,14 @@ public class Player {
 	Point coordinates;
 	String name; //there can be more than one player
 	Piece boardPiece;
-	Money money;
-//	int diceRoll;
-//	int dice1Num;
-//	int dice2Num;
+	int money;
+
 
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
-		money = new Money();
-	//	diceRoll = 0;
+		money = 15000; //confirm later
 		initializePiece(pieceType);
-	//	dice1Num = 1;	
-	//	dice2Num = 1;
 	}
 	
 	private void initializePiece(String pieceType) {
@@ -48,19 +43,6 @@ public class Player {
 		coordinates = new Point (boardPiece.getInitialX(), boardPiece.getInitialY());
 	}
 
-//	public int rollDice() {
-//		Random rand = new Random();
-//
-//		int dice1Num = 1+rand.nextInt(6);
-//		int dice2Num = 1+rand.nextInt(6);
-//		
-//		return dice1Num + dice2Num;
-//	}
-	
-//	public int getAmountToWalk() {
-//		return diceRoll;
-//	}
-	
 	public String getName() {
 		return name;
 	}
@@ -69,39 +51,34 @@ public class Player {
 		return boardPiece;
 	}
 	
-	public int getPosition() {
-		return position;
-	}
-	
 	public void move(int diceRoll) {
-
-		//rollDice ();
 		
 		Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll);
-
+		
 		coordinates = finalPosition;
 		
 		position = position + diceRoll;
 
 		if(position >= 40) {
 			position = position - 40;
-		}
-	}
-	
-//	public int getDice1Num() {
-//		return dice1Num;
-//	}
-//	
-//	public int getDice2Num() {
-//		return dice2Num;
-//	}
 
+		}
+		
+	}
+
+	public void addMoney (int value) {money += value;}
+	
+	public void removeMoney (int value) {money -= value;}
+	
+	//not sure if used
 	public void setCoordinates (int x, int y)
 	{
 		this.coordinates.setLocation(x, y);
 	}
 	
-	public int getX() {return (int) coordinates.getX();}
 	
+	public int getPosition() {return position;}
+	public int getX() {return (int) coordinates.getX();}
 	public int getY() {return (int) coordinates.getY();}
+	public int getMoney() {return money;}
 }

@@ -2,7 +2,7 @@ package mono.model.entities;
 
 import java.util.ArrayList;
 
-public class Square {
+public abstract class Square {
 	String name; //name of the square
 	int position;
 	ArrayList<Player> playersOnTopOfSquare = new ArrayList<Player>();
@@ -15,6 +15,8 @@ public class Square {
 	public String getName() {
 		return name;
 	}
+	
+	public abstract void doAction();
 	
 	public void setPlayerOnTopOfSquare(Player p1) {
 		playersOnTopOfSquare.add(p1);

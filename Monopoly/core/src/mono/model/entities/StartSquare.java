@@ -6,4 +6,10 @@ public class StartSquare extends Square {
 		super("Start", 0);
 	}
 
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

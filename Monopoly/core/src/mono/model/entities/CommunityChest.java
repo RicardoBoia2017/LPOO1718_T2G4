@@ -6,4 +6,10 @@ public class CommunityChest extends Square {
 		super("CommunityChest", position);
 	}
 
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

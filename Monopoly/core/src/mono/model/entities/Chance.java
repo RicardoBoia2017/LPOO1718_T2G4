@@ -6,4 +6,10 @@ public class Chance extends Square {
 		super("Chance", position);
 	}
 
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

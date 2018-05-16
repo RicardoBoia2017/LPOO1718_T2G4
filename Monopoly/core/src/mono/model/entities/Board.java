@@ -15,7 +15,7 @@ public class Board {
 		spaces.add(Square2);
 		HouseSquare Square3 = new HouseSquare("Lisbon","BROWN", 60, 2, 10, 30, 90, 160, 250, 50, 3);
 		spaces.add(Square3);
-		IncomeTax Square4 = new IncomeTax(4);
+		Taxes Square4 = new Taxes("Income Tax", 4, 200);
 		spaces.add(Square4);
 		Station Square5 = new Station(200, 5);
 		spaces.add(Square5);
@@ -86,7 +86,7 @@ public class Board {
 		spaces.add(Square36);
 		HouseSquare Square37 = new HouseSquare("Paris","DARK_BLUE", 350, 35, 175, 500, 1100, 1300, 1500, 200, 37);
 		spaces.add(Square37);
-		IncomeTax Square38 = new IncomeTax(38);
+		Taxes Square38 = new Taxes("Luxury Tax", 38, 100);
 		spaces.add(Square38);
 		HouseSquare Square39 = new HouseSquare("Dubai","DARK_BLUE", 400, 50, 200, 600, 1400, 1700, 2000, 200, 39);
 		spaces.add(Square39);

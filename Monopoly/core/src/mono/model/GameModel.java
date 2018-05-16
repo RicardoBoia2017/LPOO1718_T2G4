@@ -6,7 +6,6 @@ import java.util.Random;
 
 import mono.model.entities.Board;
 import mono.model.entities.CommunityChest;
-import mono.model.entities.Dice;
 import mono.model.entities.HouseSquare;
 import mono.model.entities.Player;
 import mono.model.entities.Pair;
@@ -23,14 +22,24 @@ public class GameModel {
 	Board board;
 	ArrayList <Player> players = new ArrayList<Player>();
 	int currentPlayer;
+	int taxMoney; //money in the middle of the board (money payed by players either by stepping in tax squares or with 'lucky' cards (CC and Chance)
 	String player1Piece;
 	
 	private GameModel()
 	{
 		board = new Board();
 		currentPlayer = 1;
+		taxMoney = 0;
 	}
 	
+	public static synchronized GameModel getInstance()
+	{
+		if (instance == null)
+			instance = new GameModel();
+
+		return instance;
+	}
+
 	public void addPlayers(String player1Piece) {
 		
 		players.add(new Player("ActualPlayer", player1Piece));
@@ -101,26 +110,30 @@ public class GameModel {
 		
 		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
 	}
-
-	public static synchronized GameModel getInstance()
+	
+	public void squareAction ()
 	{
-		if (instance == null)
-			instance = new GameModel();
-
-		return instance;
-	}
-
-	
-	public ArrayList <Player> getPlayers() {
-		return players;
+		Player p1 = players.get(currentPlayer - 1);
+		board.getBoardArray().get(p1.getPosition()).doAction();
 	}
 	
-	public Board getBoard() {
-		return board;
-	} 
-	
-	public int getCurrentPlayer()
+	public void addTaxMoney (int value) 
 	{
-		return this.getCurrentPlayer();
+		Player p1 = players.get(currentPlayer - 1);
+		p1.removeMoney(value);
+		taxMoney += value;
 	}
+	
+	public void giveTaxMoney ()
+	{
+		Player p1 = players.get(currentPlayer - 1);
+		p1.addMoney(taxMoney);
+		taxMoney = 0;
+	}
+
+	public ArrayList <Player> getPlayers() {return players;}
+	public Board getBoard() {return board;} 
+	public int getCurrentPlayer(){return this.getCurrentPlayer();}
+	public int getTaxMoney () {return taxMoney;} 
+	
 }

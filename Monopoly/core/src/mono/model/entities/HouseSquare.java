@@ -35,4 +35,10 @@ public class HouseSquare extends Square {
 		this.owned = false;
 	}
 
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

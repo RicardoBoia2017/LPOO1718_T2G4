@@ -45,22 +45,21 @@ public class GameController {
 	
 	public void doTurn()
 	{
-		movePlayer();
-//		doSquareAction();
-		
+		movePlayer();		
 	}
 	
 	public Pair movePlayer()
 	{	
 		Pair diceRoll = GameModel.getInstance().rollDice();
 		GameModel.getInstance().movePlayer(diceRoll.getValue1() + diceRoll.getValue2());
-		
+		doSquareAction();
+
 		return diceRoll;
 	}
 	
 	private void doSquareAction()
 	{
-		
+		GameModel.getInstance().squareAction();
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {

@@ -18,4 +18,10 @@ public class Station extends Square {
 		this.mortgageValue=price/2;
 	}
 
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
