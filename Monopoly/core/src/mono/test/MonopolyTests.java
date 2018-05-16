@@ -11,6 +11,7 @@ import mono.model.entities.Square;
 
 public class MonopolyTests {
 	
+	//Create Game
 	@Test
 	public void testIfGameCreatesAndAddsPlayersProperly() {
 		GameModel g1 = GameModel.getInstance();
@@ -40,6 +41,7 @@ public class MonopolyTests {
 		assertEquals(InitialGoSquare.getNumPlayersOnTopOfSquare(), 4);
 	}
 
+	//Movement
 	@Test
 	public void testIfPlayerMoves() {
 		GameModel g1 = GameModel.getInstance();
@@ -95,6 +97,38 @@ public class MonopolyTests {
 		assertEquals(s1.getName(), "Casablanca");
 	}
 	
+	//Properties
+	
+	@Test
+	public void testIfPlayerPaysRent()
+	{
+		GameModel.getInstance().setGameModelInstanceToNull();
+		
+		GameModel g1 = GameModel.getInstance();
+
+		g1.addPlayers("Hat");
+		Player owner = g1.getPlayers().get(0);
+		Player payer = g1.getPlayers().get(1);
+		
+		int payerMoney = payer.getMoney();
+		int ownerMoney = owner.getMoney();
+		
+		owner.move(1);
+		g1.squareAction();
+		
+		g1.setCurrentPlayer(2);
+		
+		payer.move(1);
+		g1.squareAction();
+		
+		assertEquals (payer.getMoney(), payerMoney - 2);
+		assertEquals (owner.getMoney(), ownerMoney + 2);
+		
+		payerMoney = payer.getMoney();
+		ownerMoney = owner.getMoney();
+	}
+	
+	//Jail 
 	@Test
 	public void testIfPlayerGetsSentToJail() {
 		GameModel g1 = GameModel.getInstance();
@@ -207,4 +241,47 @@ public class MonopolyTests {
 		assertEquals(s1.getName(), "Madrid");
 	}
 
+	//Taxes
+	
+	@Test
+	public void testPlayerPaysAndGetsTaxes()
+	{
+		GameModel.getInstance().setGameModelInstanceToNull();
+		
+		GameModel g1 = GameModel.getInstance();
+
+		g1.addPlayers("Hat");
+		Player p1 = g1.getPlayers().get(0);
+
+		g1.movePlayer(4); //goes to income tax
+		g1.squareAction();
+		
+		assertEquals (p1.getMoney(), 14800);
+		assertEquals (g1.getTaxMoney(), 200);
+		
+		g1.movePlayer(16); //goes to free parking
+		g1.squareAction();
+		
+		assertEquals (p1.getMoney(), 15000);
+		assertEquals (g1.getTaxMoney(), 0);
+		
+		//test if he pays both taxes
+		g1.movePlayer(18); //goes to luxury tax
+		g1.squareAction();
+		
+		assertEquals (p1.getMoney(), 14900);
+		assertEquals (g1.getTaxMoney(), 100);
+		
+		g1.movePlayer(6); //goes to income tax
+		g1.squareAction();
+		
+		assertEquals (p1.getMoney(), 14700);
+		assertEquals (g1.getTaxMoney(), 300);
+		
+		g1.movePlayer(16); //goes to free parking
+		g1.squareAction();
+		
+		assertEquals (p1.getMoney(), 15000);
+		assertEquals (g1.getTaxMoney(), 0);
+	}
 }

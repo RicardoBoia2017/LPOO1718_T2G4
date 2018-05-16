@@ -7,7 +7,7 @@ import java.util.Random;
 import mono.controller.GameController;
 import mono.model.entities.Board;
 import mono.model.entities.CommunityChest;
-import mono.model.entities.HouseSquare;
+import mono.model.entities.PropertySquare;
 import mono.model.entities.JailSquare;
 import mono.model.entities.Player;
 import mono.model.entities.Pair;
@@ -123,11 +123,15 @@ public class GameModel {
 		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
 	}
 	
-	
 	public void squareAction ()
 	{
 		Player p1 = players.get(currentPlayer - 1);
 		board.getBoardArray().get(p1.getPosition()).doAction(p1);
+	}
+	
+	public void setCurrentPlayer(int playerNumber)
+	{
+		this.currentPlayer = playerNumber;
 	}
 	
 	public void setTaxMoney (int newValue)
@@ -148,16 +152,15 @@ public class GameModel {
 		j1.aproveFine();
 	}
 	
-	public ArrayList <Player> getPlayers() {return players;}
-	public Board getBoard() {return board;} 
-	public int getCurrentPlayer(){return this.getCurrentPlayer();}
-	public int getTaxMoney () {return taxMoney;}
-
 	public void tellControllerPlayerIsInJail(Boolean b) {
 		playerIsInJail = b;
 		GameController.getInstance().tellViewToDisplayJailDialog();
 	}
 	
+	public ArrayList <Player> getPlayers() {return players;}
+	public Board getBoard() {return board;} 
+	public int getCurrentPlayer(){return this.getCurrentPlayer();}
+	public int getTaxMoney () {return taxMoney;}
 	public boolean getplayerIsInJail() {
 		return playerIsInJail;
 	}
