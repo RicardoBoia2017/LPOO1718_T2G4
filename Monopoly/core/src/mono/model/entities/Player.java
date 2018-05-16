@@ -9,12 +9,14 @@ public class Player {
 	String name; //there can be more than one player
 	Piece boardPiece;
 	int money;
+	Boolean sentToJail;
 
 
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
 		money = 15000; //confirm later
+		sentToJail = false;
 		initializePiece(pieceType);
 	}
 	
@@ -81,4 +83,12 @@ public class Player {
 	public int getX() {return (int) coordinates.getX();}
 	public int getY() {return (int) coordinates.getY();}
 	public int getMoney() {return money;}
+	
+	public Boolean wasSentToJail() {
+		return sentToJail;
+	}
+	
+	public void sendToJail() {
+		sentToJail = true;
+	}
 }

@@ -32,14 +32,10 @@ public class GameModel {
 		taxMoney = 0;
 	}
 	
-	public static synchronized GameModel getInstance()
-	{
-		if (instance == null)
-			instance = new GameModel();
-
-		return instance;
+	public void setGameModelInstanceToNull() {
+		instance = null;
 	}
-
+	
 	public void addPlayers(String player1Piece) {
 		
 		players.add(new Player("ActualPlayer", player1Piece));
