@@ -1,5 +1,7 @@
 package mono.model.entities;
 
+import mono.model.GameModel;
+
 public class GoToJailSquare extends Square {
 
 	public GoToJailSquare() {

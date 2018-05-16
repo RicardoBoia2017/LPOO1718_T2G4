@@ -11,7 +11,6 @@ public class Player {
 	int money;
 	Boolean sentToJail;
 
-
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
@@ -77,7 +76,6 @@ public class Player {
 	{
 		this.coordinates.setLocation(x, y);
 	}
-	
 	
 	public int getPosition() {return position;}
 	public int getX() {return (int) coordinates.getX();}

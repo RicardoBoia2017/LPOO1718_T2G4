@@ -127,9 +127,16 @@ public class GameModel {
 		taxMoney = 0;
 	}
 
+	public static synchronized GameModel getInstance() 
+	{ 
+		if (instance == null)
+			instance = new GameModel(); 
+		
+		return instance; 
+	}
+	
 	public ArrayList <Player> getPlayers() {return players;}
 	public Board getBoard() {return board;} 
 	public int getCurrentPlayer(){return this.getCurrentPlayer();}
-	public int getTaxMoney () {return taxMoney;} 
-	
+	public int getTaxMoney () {return taxMoney;}
 }
