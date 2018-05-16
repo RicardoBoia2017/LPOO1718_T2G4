@@ -12,7 +12,7 @@ public class Taxes extends Square {
 	}
 
 	@Override
-	public void doAction() {
+	public void doAction (Player p) {
 		GameModel.getInstance().addTaxMoney(valueToPay);
 	}
 
