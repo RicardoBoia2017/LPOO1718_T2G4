@@ -7,7 +7,7 @@ public class JailSquare extends Square {
 	}
 
 	@Override
-	public void doAction() {
+	public void doAction( Player p) {
 		// TODO Auto-generated method stub
 		
 	}

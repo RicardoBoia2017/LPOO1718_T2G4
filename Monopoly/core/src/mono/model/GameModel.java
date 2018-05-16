@@ -114,7 +114,7 @@ public class GameModel {
 	public void squareAction ()
 	{
 		Player p1 = players.get(currentPlayer - 1);
-		board.getBoardArray().get(p1.getPosition()).doAction();
+		board.getBoardArray().get(p1.getPosition()).doAction(p1);
 	}
 	
 	public void addTaxMoney (int value) 

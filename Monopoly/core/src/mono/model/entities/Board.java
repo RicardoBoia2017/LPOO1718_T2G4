@@ -48,7 +48,7 @@ public class Board {
 		spaces.add(Square18);
 		HouseSquare Square19 = new HouseSquare("Tokyo","ORANGE", 200, 16, 80, 220, 600, 800, 1000, 100, 19);
 		spaces.add(Square19);
-		ParkingSquare Square20 = new ParkingSquare();
+		FreeParkingSquare Square20 = new FreeParkingSquare();
 		spaces.add(Square20);
 
 		HouseSquare Square21 = new HouseSquare("Cairo","RED", 220, 18, 90, 250, 700, 875, 1050, 150, 21);
