@@ -10,7 +10,13 @@ public class FreeParkingSquare extends Square {
 
 	@Override
 	public void doAction(Player p) {
-		GameModel.getInstance().giveTaxMoney();
+
+		int currentTaxMoney = GameModel.getInstance().getTaxMoney();
+		
+		p.addMoney(currentTaxMoney);
+
+		GameModel.getInstance().setTaxMoney(0);
+		
 	}
 	
 }

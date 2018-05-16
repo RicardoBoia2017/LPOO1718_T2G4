@@ -13,7 +13,12 @@ public class Taxes extends Square {
 
 	@Override
 	public void doAction (Player p) {
-		GameModel.getInstance().addTaxMoney(valueToPay);
+		
+		int currentTaxMoney = GameModel.getInstance().getTaxMoney();
+		
+		GameModel.getInstance().setTaxMoney(currentTaxMoney + valueToPay);
+		
+		p.removeMoney(valueToPay);
 	}
 
 }

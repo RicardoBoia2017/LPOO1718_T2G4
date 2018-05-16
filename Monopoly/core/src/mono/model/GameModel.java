@@ -130,18 +130,9 @@ public class GameModel {
 		board.getBoardArray().get(p1.getPosition()).doAction(p1);
 	}
 	
-	public void addTaxMoney (int value) 
+	public void setTaxMoney (int newValue)
 	{
-		Player p1 = players.get(currentPlayer - 1);
-		p1.removeMoney(value);
-		taxMoney += value;
-	}
-	
-	public void giveTaxMoney ()
-	{
-		Player p1 = players.get(currentPlayer - 1);
-		p1.addMoney(taxMoney);
-		taxMoney = 0;
+		this.taxMoney = newValue;
 	}
 
 	public static synchronized GameModel getInstance() 
