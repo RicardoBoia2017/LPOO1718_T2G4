@@ -65,5 +65,13 @@ public class GameController {
 	public List<PlayerModel> getPlayersToDraw() {
 		return playerModels;
 	}
-	
+
+	public void payJail() {
+		GameModel.getInstance().tellJailPlayerWantsToPayFine();
+		doSquareAction();
+	}
+
+	public boolean tellViewToDisplayJailDialog() {
+		return GameModel.getInstance().getplayerIsInJail();
+	}
 }

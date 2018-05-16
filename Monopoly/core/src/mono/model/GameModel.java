@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import mono.controller.GameController;
 import mono.model.entities.Board;
 import mono.model.entities.CommunityChest;
 import mono.model.entities.HouseSquare;
+import mono.model.entities.JailSquare;
 import mono.model.entities.Player;
 import mono.model.entities.Pair;
 import mono.model.entities.Square;
@@ -24,12 +26,14 @@ public class GameModel {
 	int currentPlayer;
 	int taxMoney; //money in the middle of the board (money payed by players either by stepping in tax squares or with 'lucky' cards (CC and Chance)
 	String player1Piece;
+	Boolean playerIsInJail;
 	
 	private GameModel()
 	{
 		board = new Board();
 		currentPlayer = 1;
 		taxMoney = 0;
+		playerIsInJail = false;
 	}
 	
 	public void setGameModelInstanceToNull() {
@@ -148,8 +152,22 @@ public class GameModel {
 		return instance; 
 	}
 	
+	public void tellJailPlayerWantsToPayFine() {
+		JailSquare j1 = (JailSquare) board.getBoardArray().get(10);
+		j1.aproveFine();
+	}
+	
 	public ArrayList <Player> getPlayers() {return players;}
 	public Board getBoard() {return board;} 
 	public int getCurrentPlayer(){return this.getCurrentPlayer();}
 	public int getTaxMoney () {return taxMoney;}
+
+	public void tellControllerPlayerIsInJail(Boolean b) {
+		playerIsInJail = b;
+		GameController.getInstance().tellViewToDisplayJailDialog();
+	}
+	
+	public boolean getplayerIsInJail() {
+		return playerIsInJail;
+	}
 }

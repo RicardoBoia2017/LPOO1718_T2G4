@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -38,16 +39,20 @@ public class GameScreen extends AbstractScreen {
 	Skin skin;
 	Player playerToDraw;
 	Pair diceValues;
+	Dialog  jailDialog;
+	Boolean hideJailDialog;
 	
 	public GameScreen(String player1Model) {
 		super();
 		playerModel = player1Model;
 		GameModel.getInstance().addPlayers(player1Model);
 		playerToDraw = GameModel.getInstance().getPlayers().get(0);
-		skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
+		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 		
 		//initialize dice
 		diceValues = new Pair();
+		
+		hideJailDialog = true;
 		
 		loadAssets();
 	}	
@@ -66,6 +71,10 @@ public class GameScreen extends AbstractScreen {
 	
 	@Override
 	public void buildStage() {
+		
+		createJailDialog();
+		addActor(jailDialog);
+		
 //		// Adding actors
 //
 //		Texture board = game.getAssetManager().get("Board.png");
@@ -77,7 +86,7 @@ public class GameScreen extends AbstractScreen {
 //		createRollDiceButton();
 //		addActor(rollDiceButton);
 //		
-}
+	}
 	
 	@Override
 	public void render(float delta)
@@ -85,15 +94,17 @@ public class GameScreen extends AbstractScreen {
 		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		hideOrShowJailDialog();
+		
 		game.getBatch().begin();
 		drawBoard();
-		
-		createRollDiceButton();
-		addActor(rollDiceButton);
 			
 		drawPiece (playerToDraw);
 		drawDice();
 		game.getBatch().end();
+		
+		createRollDiceButton();
+		addActor(rollDiceButton);
 		
 		super.act();
 		super.draw();
@@ -204,16 +215,63 @@ public class GameScreen extends AbstractScreen {
 				new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				
+						if(GameController.getInstance().tellViewToDisplayJailDialog()) {
+							System.out.println(hideJailDialog);
+							makeJailDialogVisible();
+							System.out.println(hideJailDialog);
+						}
+						
 						diceValues = GameController.getInstance().movePlayer();
+							
 						return false;
 					}
 				});
 	}
 	
+	public void createJailDialog() {
+		
+		jailDialog = new Dialog("Pay the fine or wait?", skin) {
+            protected void result(Object object)
+            {
+            	
+            	if(object.equals(1L)) {
+            		GameController.getInstance().payJail();
+            		hideJailDialog = true;
+            	}
+            	
+            	if(object.equals(2L)) {
+            		hideJailDialog = true;
+            	}
+            };
+		};
+		
+		jailDialog.setPosition(340f, 600f);
+		
+		jailDialog.setMovable(false);
+		
+		jailDialog.setWidth(250f);
+		jailDialog.button("Pay", 1L);
+		jailDialog.button("Wait", 2L);
+	}
+	
+	public void hideOrShowJailDialog() {
+		if(hideJailDialog) {
+			jailDialog.hide();
+		}
+		
+		else {
+			jailDialog.show(this);
+		}
+	}
 	
 	@Override
 	public void dispose() {
 		super.dispose();
+	}
+	
+	public void makeJailDialogVisible() {
+		hideJailDialog = false;
 	}
 
 }

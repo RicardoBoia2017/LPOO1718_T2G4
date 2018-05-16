@@ -3,6 +3,8 @@ package mono.model.entities;
 import java.awt.Point;
 import java.util.Random;
 
+import mono.model.GameModel;
+
 public class Player {
 	int position;
 	Point coordinates;
@@ -68,10 +70,13 @@ public class Player {
 			if(position >= 40) {
 				position = position - 40;
 			}
+			
+			tellGameModelThePlayerIsInJail(false);
 		}
 		
 		else {
 			turnsWithoutMoving++;
+			tellGameModelThePlayerIsInJail(true);
 		}
 		
 	}
@@ -88,10 +93,12 @@ public class Player {
 			if(position >= 40) {
 				position = position - 40;
 			}
+			
 		}
 		
 		else {
 			turnsWithoutMoving++;
+			tellGameModelThePlayerIsInJail(true);
 		}
 		
 	}
@@ -133,5 +140,9 @@ public class Player {
 	
 	public Pair getCurrentDiceRoll() {
 		return currentDiceRoll;
+	}
+	
+	public void tellGameModelThePlayerIsInJail(Boolean b) {
+		GameModel.getInstance().tellControllerPlayerIsInJail(b);
 	}
 }

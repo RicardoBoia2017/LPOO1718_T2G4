@@ -4,8 +4,13 @@ import mono.model.GameModel;
 
 public class JailSquare extends Square {
 
+	int fine;
+	Boolean playerWillPayFine;
+	
 	public JailSquare() {
 		super("Jail", 10);
+		fine = 50;
+		playerWillPayFine = false;
 	}
 	
 	public void freePlayer(Player p) {
@@ -25,6 +30,22 @@ public class JailSquare extends Square {
 			GameModel g1 = GameModel.getInstance();
 			g1.movePlayer(p.getCurrentDiceRoll());
 		}
+		
+		if(playerWillPayFine) {
+			System.out.println(p.getMoney());
+			
+			if(p.getMoney() > fine) {
+				p.removeMoney(fine);
+				freePlayer(p);
+				playerWillPayFine = false;
+			}
+			
+			System.out.print(p.getMoney());
+		}
+	}
+	
+	public void aproveFine() {
+		playerWillPayFine = true;
 	}
 
 }
