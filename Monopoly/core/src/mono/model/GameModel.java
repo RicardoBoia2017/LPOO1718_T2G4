@@ -95,6 +95,18 @@ public class GameModel {
 		return values;
 	}
 	
+	public void movePlayer(Pair diceRoll) {
+		
+		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, the is index in array is 0
+		Player p1 = players.get(playerIndex); 
+	
+		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
+				
+		p1.move(diceRoll);
+		
+		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
+	}
+	
 	public void movePlayer(int diceRoll) {
 		
 		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, the is index in array is 0
@@ -106,6 +118,7 @@ public class GameModel {
 		
 		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
 	}
+	
 	
 	public void squareAction ()
 	{

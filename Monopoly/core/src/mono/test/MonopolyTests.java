@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import mono.model.GameModel;
+import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.model.entities.Square;
 
@@ -173,11 +174,37 @@ public class MonopolyTests {
 	/*@Test
 	public void playerGetsOutOfJailByPaying() {
 		
-	}
+	}*/
 	
 	@Test
 	public void playerGetsOutOfJailByRollingDoubles() {
+		GameModel g1 = GameModel.getInstance();
+		g1.setGameModelInstanceToNull();
+		g1 = GameModel.getInstance();
 		
-	}*/
+		g1.addPlayers("Hat");
+		
+		Pair diceRollOdd = new Pair(3, 6);
+		Pair diceRollSame = new Pair(3, 3);
+		
+		g1.movePlayer(30);
+		g1.squareAction();
+		
+		Player p1 = (g1.getPlayers()).get(0);
+		Square s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		g1.movePlayer(diceRollOdd);
+		g1.squareAction();
+		
+		assertEquals(p1.getPosition(), 10);
+		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+		
+		g1.movePlayer(diceRollSame);
+		g1.squareAction();
+		
+		assertEquals(p1.getPosition(), 16);
+		s1 =  g1.getBoard().getBoardArray().get(p1.getPosition());
+		assertEquals(s1.getName(), "Madrid");
+	}
 
 }

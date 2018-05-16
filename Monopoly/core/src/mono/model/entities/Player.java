@@ -11,6 +11,7 @@ public class Player {
 	int money;
 	Boolean sentToJail;
 	int turnsWithoutMoving;
+	Pair currentDiceRoll;
 
 	public Player(String name, String pieceType) {
 		this.name = name;
@@ -40,7 +41,6 @@ public class Player {
 			case "Thimble":
 				boardPiece = new ThimblePiece ();
 				break;
-			
 		}
 		
 		coordinates = new Point (boardPiece.getInitialX(), boardPiece.getInitialY());
@@ -54,6 +54,28 @@ public class Player {
 		return boardPiece;
 	}
 	
+	public void move(Pair diceRoll) {
+		
+		currentDiceRoll = diceRoll;
+		
+		if(!sentToJail) {
+			Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll.getValue1()+diceRoll.getValue2());
+			
+			coordinates = finalPosition;
+			
+			position = position + (diceRoll.getValue1()+diceRoll.getValue2());
+	
+			if(position >= 40) {
+				position = position - 40;
+			}
+		}
+		
+		else {
+			turnsWithoutMoving++;
+		}
+		
+	}
+	
 	public void move(int diceRoll) {
 		
 		if(!sentToJail) {
@@ -65,7 +87,6 @@ public class Player {
 	
 			if(position >= 40) {
 				position = position - 40;
-	
 			}
 		}
 		
@@ -108,5 +129,9 @@ public class Player {
 	
 	public int getTurnsWithoutMoving() {
 		return turnsWithoutMoving;
+	}
+	
+	public Pair getCurrentDiceRoll() {
+		return currentDiceRoll;
 	}
 }

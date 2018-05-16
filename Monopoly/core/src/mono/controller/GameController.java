@@ -51,7 +51,7 @@ public class GameController {
 	public Pair movePlayer()
 	{	
 		Pair diceRoll = GameModel.getInstance().rollDice();
-		GameModel.getInstance().movePlayer(diceRoll.getValue1() + diceRoll.getValue2());
+		GameModel.getInstance().movePlayer(diceRoll);
 		doSquareAction();
 
 		return diceRoll;
