@@ -1,6 +1,6 @@
 package mono.model.entities;
 
-import mono.model.GameModel;
+import mono.model.Game;
 
 public class GoToJailSquare extends Square {
 
@@ -10,7 +10,7 @@ public class GoToJailSquare extends Square {
 
 	@Override
 	public void doAction (Player p) {
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 		g1.movePlayer(20);
 		p.sendToJail();
 	}

@@ -1,6 +1,6 @@
 package mono.model.entities;
 
-import mono.model.GameModel;
+import mono.model.Game;
 
 public class JailSquare extends Square {
 
@@ -27,7 +27,7 @@ public class JailSquare extends Square {
 		
 		else if (p.getCurrentDiceRoll() != null && p.getCurrentDiceRoll().getValue1() == p.getCurrentDiceRoll().getValue2()) {
 			freePlayer(p);
-			GameModel g1 = GameModel.getInstance();
+			Game g1 = Game.getInstance();
 			g1.movePlayer(p.getCurrentDiceRoll());
 		}
 		

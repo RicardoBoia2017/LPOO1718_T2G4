@@ -1,6 +1,6 @@
 package mono.model.entities;
 
-import mono.model.GameModel;
+import mono.model.Game;
 
 public class Taxes extends Square {
 
@@ -14,9 +14,9 @@ public class Taxes extends Square {
 	@Override
 	public void doAction (Player p) {
 		
-		int currentTaxMoney = GameModel.getInstance().getTaxMoney();
+		int currentTaxMoney = Game.getInstance().getTaxMoney();
 		
-		GameModel.getInstance().setTaxMoney(currentTaxMoney + valueToPay);
+		Game.getInstance().setTaxMoney(currentTaxMoney + valueToPay);
 		
 		p.removeMoney(valueToPay);
 	}

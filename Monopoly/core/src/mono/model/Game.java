@@ -19,16 +19,16 @@ import mono.model.entities.StartSquare;
  * @author luis
  *
  */
-public class GameModel {
-	private static GameModel instance;
+public class Game {
+	private static Game instance;
 	Board board;
 	ArrayList <Player> players = new ArrayList<Player>();
 	int currentPlayer;
-	int taxMoney; //money in the middle of the board (money payed by players either by stepping in tax squares or with 'lucky' cards (CC and Chance)
+	int taxMoney; 
 	String player1Piece;
 	Boolean playerIsInJail;
 	
-	private GameModel()
+	private Game()
 	{
 		board = new Board();
 		currentPlayer = 1;
@@ -139,10 +139,10 @@ public class GameModel {
 		this.taxMoney = newValue;
 	}
 
-	public static synchronized GameModel getInstance() 
+	public static synchronized Game getInstance() 
 	{ 
 		if (instance == null)
-			instance = new GameModel(); 
+			instance = new Game(); 
 		
 		return instance; 
 	}

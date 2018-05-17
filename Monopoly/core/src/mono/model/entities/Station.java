@@ -18,7 +18,6 @@ public class Station extends Square {
 
 	@Override
 	public void doAction (Player p) {
-		int value = 0;
 		
 		if (owner != null)
 			payRent(p);

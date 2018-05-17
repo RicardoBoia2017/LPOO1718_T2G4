@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import mono.controller.GameController;
 import mono.controller.entities.DiceModel;
 import mono.controller.entities.PlayerModel;
-import mono.model.GameModel;
+import mono.model.Game;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.view.entities.BoardView;
@@ -34,29 +34,39 @@ import mono.view.swapper.UIFactory;
 
 public class GameScreen extends AbstractScreen {
 	
-	String playerModel;
+    private static GameScreen instance;
+
 	TextButton rollDiceButton;
 	Skin skin;
 	Player playerToDraw;
 	Pair diceValues;
-	Dialog  jailDialog;
-	Boolean hideJailDialog;
+	Dialog jailDialog;
+	Dialog buyPropertyDialog;
 	
 	public GameScreen(String player1Model) {
 		super();
-		playerModel = player1Model;
-		GameModel.getInstance().addPlayers(player1Model);
-		playerToDraw = GameModel.getInstance().getPlayers().get(0);
+		Game.getInstance().addPlayers(player1Model);
+		playerToDraw = Game.getInstance().getPlayers().get(0);
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 		
 		//initialize dice
 		diceValues = new Pair();
-		
-		hideJailDialog = true;
-		
+				
 		loadAssets();
 	}	
 
+    /**
+     * Returns a singleton instance of the game model
+     *
+     * @return the singleton instance
+     */
+    public static GameScreen getInstance() {
+        if (instance == null) 
+            instance = new GameScreen("Hat"); //Change this 
+        return instance;
+    }
+    
+    
 	private static void  loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
@@ -72,20 +82,11 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		
-		createJailDialog();
-		addActor(jailDialog);
+		createRollDiceButton();
+		addActor(rollDiceButton);
 		
-//		// Adding actors
-//
-//		Texture board = game.getAssetManager().get("Board.png");
-//		Image boardImage = new Image (board);
-//		boardImage.setSize(800, 800);
-//		boardImage.setPosition(1, 190);
-////		addActor(boardImage);
-//		
-//		createRollDiceButton();
-//		addActor(rollDiceButton);
-//		
+//		createJailDialog();
+//		addActor(jailDialog);
 	}
 	
 	@Override
@@ -93,18 +94,13 @@ public class GameScreen extends AbstractScreen {
 	{
 		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		hideOrShowJailDialog();
-		
+				
 		game.getBatch().begin();
 		drawBoard();
 			
 		drawPiece (playerToDraw);
 		drawDice();
 		game.getBatch().end();
-		
-		createRollDiceButton();
-		addActor(rollDiceButton);
 		
 		super.act();
 		super.draw();
@@ -117,7 +113,7 @@ public class GameScreen extends AbstractScreen {
 	}
 	
 	public void drawDice() {
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 		DiceView dice1 = new DiceView(game, diceValues.getValue1());
 		DiceView dice2 = new DiceView(game, diceValues.getValue2());
 		
@@ -217,11 +213,11 @@ public class GameScreen extends AbstractScreen {
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				
 						if(GameController.getInstance().tellViewToDisplayJailDialog()) {
-							System.out.println(hideJailDialog);
-							makeJailDialogVisible();
-							System.out.println(hideJailDialog);
+	//						System.out.println(hideJailDialog);
+			//				showJailDialog();
+	//						System.out.println(hideJailDialog);
 						}
-						
+												
 						diceValues = GameController.getInstance().movePlayer();
 							
 						return false;
@@ -237,41 +233,62 @@ public class GameScreen extends AbstractScreen {
             	
             	if(object.equals(1L)) {
             		GameController.getInstance().payJail();
-            		hideJailDialog = true;
             	}
             	
             	if(object.equals(2L)) {
-            		hideJailDialog = true;
             	}
+            	
+            	jailDialog.remove();
             };
 		};
 		
 		jailDialog.setPosition(340f, 600f);
 		
 		jailDialog.setMovable(false);
+		jailDialog.setVisible(true);
 		
 		jailDialog.setWidth(250f);
-		jailDialog.button("Pay", 1L);
-		jailDialog.button("Wait", 2L);
+		jailDialog.button("PAY", 1L);
+		jailDialog.button("WAIT", 2L);
+		addActor(jailDialog);
 	}
 	
-	public void hideOrShowJailDialog() {
-		if(hideJailDialog) {
-			jailDialog.hide();
-		}
+	public void createBuyPropertyDialog (String propertyName)
+	{
+		String dialog = "Buy " + propertyName;
 		
-		else {
-			jailDialog.show(this);
-		}
+		buyPropertyDialog = new Dialog(dialog, skin) {
+            protected void result(Object object)
+            {
+            	
+            	if(object.equals(1L)) {
+            		GameController.getInstance().buyPropertyResponse(true);
+            	}
+            	
+            	if(object.equals(2L)) {
+            		GameController.getInstance().buyPropertyResponse(false);
+            	}
+            	
+            	buyPropertyDialog.remove();
+            };
+		};
+		 
+		buyPropertyDialog.setPosition(340f, 600f);
+		
+		buyPropertyDialog.setMovable(false);
+		buyPropertyDialog.setVisible(false);
+		
+		buyPropertyDialog.setWidth(250f);
+		buyPropertyDialog.button("YES", 1L);
+		buyPropertyDialog.button("NO", 2L);
+		addActor(buyPropertyDialog);
+//		while (true)
+	//		;
 	}
 	
 	@Override
 	public void dispose() {
 		super.dispose();
-	}
-	
-	public void makeJailDialogVisible() {
-		hideJailDialog = false;
 	}
 
 }

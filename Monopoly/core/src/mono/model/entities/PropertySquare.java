@@ -2,6 +2,8 @@ package mono.model.entities;
 
 import java.util.ArrayList;
 
+import mono.controller.GameController;
+
 public class PropertySquare extends Square {
 	private String color;
 	private int price;
@@ -34,9 +36,9 @@ public class PropertySquare extends Square {
 		
 		if (owner != null)
 			payRent(p);
-
-		//asks if he wants to buy TODO
-		buyProperty(p);
+		
+		else
+			GameController.getInstance().buyProperty(name);
 	}
 
 	private void payRent (Player p)
@@ -54,7 +56,6 @@ public class PropertySquare extends Square {
 	
 	private void buyProperty(Player p)
 	{
-		System.out.println("Owner" + p.getName());
 		this.owner = p;
 	}
 	

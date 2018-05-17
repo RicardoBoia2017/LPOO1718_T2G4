@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import mono.model.GameModel;
+import mono.model.Game;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.model.entities.Square;
@@ -14,11 +14,11 @@ public class MonopolyTests {
 	//Create Game
 	@Test
 	public void testIfGameCreatesAndAddsPlayersProperly() {
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 		
 		g1.setGameModelInstanceToNull();
 		
-		g1 = GameModel.getInstance();
+		g1 = Game.getInstance();
 		
 		g1.addPlayers("Hat");
 		
@@ -44,11 +44,11 @@ public class MonopolyTests {
 	//Movement
 	@Test
 	public void testIfPlayerMoves() {
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 		
 		g1.setGameModelInstanceToNull();
 		
-		g1 = GameModel.getInstance();
+		g1 = Game.getInstance();
 				
 		g1.addPlayers("Hat");
 		
@@ -77,9 +77,9 @@ public class MonopolyTests {
 	
 	@Test
 	public void testIfPlayerMovesBeyond40() {
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 		g1.setGameModelInstanceToNull();
-		g1 = GameModel.getInstance();
+		g1 = Game.getInstance();
 		
 		g1.addPlayers("Hat");
 		
@@ -102,9 +102,9 @@ public class MonopolyTests {
 	@Test
 	public void testIfPlayerPaysRent()
 	{
-		GameModel.getInstance().setGameModelInstanceToNull();
+		Game.getInstance().setGameModelInstanceToNull();
 		
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 
 		g1.addPlayers("Hat");
 		Player owner = g1.getPlayers().get(0);
@@ -131,9 +131,9 @@ public class MonopolyTests {
 	//Jail 
 	@Test
 	public void testIfPlayerGetsSentToJail() {
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 		g1.setGameModelInstanceToNull();
-		g1 = GameModel.getInstance();
+		g1 = Game.getInstance();
 		
 		g1.addPlayers("Hat");
 		
@@ -159,9 +159,9 @@ public class MonopolyTests {
 	
 	@Test
 	public void testIfPlayerMovementIsBlockedInJailThreeTurns() {
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 		g1.setGameModelInstanceToNull();
-		g1 = GameModel.getInstance();
+		g1 = Game.getInstance();
 		
 		g1.addPlayers("Hat");
 		
@@ -212,9 +212,9 @@ public class MonopolyTests {
 	
 	@Test
 	public void playerGetsOutOfJailByRollingDoubles() {
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 		g1.setGameModelInstanceToNull();
-		g1 = GameModel.getInstance();
+		g1 = Game.getInstance();
 		
 		g1.addPlayers("Hat");
 		
@@ -246,42 +246,54 @@ public class MonopolyTests {
 	@Test
 	public void testPlayerPaysAndGetsTaxes()
 	{
-		GameModel.getInstance().setGameModelInstanceToNull();
+		Game.getInstance().setGameModelInstanceToNull();
 		
-		GameModel g1 = GameModel.getInstance();
+		Game g1 = Game.getInstance();
 
 		g1.addPlayers("Hat");
 		Player p1 = g1.getPlayers().get(0);
-
+		int playerMoney = p1.getMoney();
+		
 		g1.movePlayer(4); //goes to income tax
 		g1.squareAction();
 		
-		assertEquals (p1.getMoney(), 14800);
+		assertEquals (p1.getMoney(), playerMoney - 200);
 		assertEquals (g1.getTaxMoney(), 200);
+		
+		
+		playerMoney = p1.getMoney();
 		
 		g1.movePlayer(16); //goes to free parking
 		g1.squareAction();
 		
-		assertEquals (p1.getMoney(), 15000);
+		assertEquals (p1.getMoney(), playerMoney + 200);
 		assertEquals (g1.getTaxMoney(), 0);
+		
+		playerMoney = p1.getMoney();
 		
 		//test if he pays both taxes
 		g1.movePlayer(18); //goes to luxury tax
 		g1.squareAction();
 		
-		assertEquals (p1.getMoney(), 14900);
+		assertEquals (p1.getMoney(), playerMoney - 100);
 		assertEquals (g1.getTaxMoney(), 100);
+		
+		playerMoney = p1.getMoney();
+
 		
 		g1.movePlayer(6); //goes to income tax
 		g1.squareAction();
 		
-		assertEquals (p1.getMoney(), 14700);
+		assertEquals (p1.getMoney(), playerMoney-200);
 		assertEquals (g1.getTaxMoney(), 300);
+				
+		playerMoney = p1.getMoney();
+
 		
 		g1.movePlayer(16); //goes to free parking
 		g1.squareAction();
 		
-		assertEquals (p1.getMoney(), 15000);
+		assertEquals (p1.getMoney(), playerMoney + 300);
 		assertEquals (g1.getTaxMoney(), 0);
 	}
 }

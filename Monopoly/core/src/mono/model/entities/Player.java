@@ -3,7 +3,7 @@ package mono.model.entities;
 import java.awt.Point;
 import java.util.Random;
 
-import mono.model.GameModel;
+import mono.model.Game;
 
 public class Player {
 	int position;
@@ -18,7 +18,7 @@ public class Player {
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
-		money = 15000; //confirm later
+		money = 1500;
 		sentToJail = false;
 		turnsWithoutMoving = 0;
 		initializePiece(pieceType);
@@ -143,6 +143,6 @@ public class Player {
 	}
 	
 	public void tellGameModelThePlayerIsInJail(Boolean b) {
-		GameModel.getInstance().tellControllerPlayerIsInJail(b);
+		Game.getInstance().tellControllerPlayerIsInJail(b);
 	}
 }

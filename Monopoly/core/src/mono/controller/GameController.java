@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mono.controller.entities.*;
-import mono.model.GameModel;
+import mono.model.Game;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.model.entities.Square;
+import mono.view.GameScreen;
 
 /**
  * Singleton
@@ -38,9 +39,7 @@ public class GameController {
     }
     
 	private GameController() {		
-//		PlayerModel p1Model = new PlayerModel(finalPosition.x, finalPosition.y, 0, p1.getDice1Num(), p1.getDice2Num(), p1.getBoardPiece());
-//		
-//		playerModels.add(p1Model);
+
 	}
 	
 	public void doTurn()
@@ -50,8 +49,8 @@ public class GameController {
 	
 	public Pair movePlayer()
 	{	
-		Pair diceRoll = GameModel.getInstance().rollDice();
-		GameModel.getInstance().movePlayer(diceRoll);
+		Pair diceRoll = Game.getInstance().rollDice();
+		Game.getInstance().movePlayer(diceRoll);
 		doSquareAction();
 
 		return diceRoll;
@@ -59,7 +58,16 @@ public class GameController {
 	
 	private void doSquareAction()
 	{
-		GameModel.getInstance().squareAction();
+		Game.getInstance().squareAction();
+	}
+	
+	public void buyProperty(String propertyName)
+	{
+		GameScreen.getInstance().createBuyPropertyDialog(propertyName);
+	}
+	
+	public void buyPropertyResponse(boolean b) {
+		
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {
@@ -67,11 +75,13 @@ public class GameController {
 	}
 
 	public void payJail() {
-		GameModel.getInstance().tellJailPlayerWantsToPayFine();
+		Game.getInstance().tellJailPlayerWantsToPayFine();
 		doSquareAction();
 	}
 
 	public boolean tellViewToDisplayJailDialog() {
-		return GameModel.getInstance().getplayerIsInJail();
+		return Game.getInstance().getplayerIsInJail();
 	}
+
+
 }

@@ -1,6 +1,6 @@
 package mono.model.entities;
 
-import mono.model.GameModel;
+import mono.model.Game;
 
 public class FreeParkingSquare extends Square {
 
@@ -11,11 +11,11 @@ public class FreeParkingSquare extends Square {
 	@Override
 	public void doAction(Player p) {
 
-		int currentTaxMoney = GameModel.getInstance().getTaxMoney();
+		int currentTaxMoney = Game.getInstance().getTaxMoney();
 		
 		p.addMoney(currentTaxMoney);
 
-		GameModel.getInstance().setTaxMoney(0);
+		Game.getInstance().setTaxMoney(0);
 		
 	}
 	
