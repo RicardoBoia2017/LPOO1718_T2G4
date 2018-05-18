@@ -153,6 +153,7 @@ public class Game {
 	}
 	
 	public void tellControllerPlayerIsInJail(Boolean b) {
+		System.out.println("Telling the controller he is in jail or not");
 		playerIsInJail = b;
 		GameController.getInstance().tellViewToDisplayJailDialog();
 	}
@@ -161,6 +162,7 @@ public class Game {
 	public Board getBoard() {return board;} 
 	public int getCurrentPlayer(){return this.getCurrentPlayer();}
 	public int getTaxMoney () {return taxMoney;}
+	
 	public boolean getplayerIsInJail() {
 		return playerIsInJail;
 	}

@@ -98,6 +98,7 @@ public class Player {
 		
 		else {
 			turnsWithoutMoving++;
+			System.out.println("Telling the model I am in jail");
 			tellGameModelThePlayerIsInJail(true);
 		}
 		
