@@ -85,7 +85,7 @@ public class PropertySquare extends Square {
 	}
 
 	@Override
-	public String getType() {
-		return "Property";
-	}
+	public String getType() {return "Property";	}
+	public int getPrice() {return price;}
+
 }

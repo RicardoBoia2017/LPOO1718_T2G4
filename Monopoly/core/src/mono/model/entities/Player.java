@@ -104,9 +104,23 @@ public class Player {
 		
 	}
 
+	public void addProperty (Square property)
+	{
+		this.propertiesOwned.add(property);
+	}
+	
 	public void addMoney (int value) {money += value;}
 	
-	public void removeMoney (int value) {money -= value;}
+	public boolean removeMoney (int value)
+	{
+		if (value > money)
+		{
+			money -= value;
+			return false;
+		}
+		
+		return true;
+	}
 	
 	//not sure if used
 	public void setCoordinates (int x, int y)

@@ -159,7 +159,7 @@ public class Game {
 		GameController.getInstance().tellViewToDisplayJailDialog();
 	}
 	
-	public int buyProperty()
+	public int checkPropertyAvailibility()
 	{
 		Player p1 = players.get(currentPlayer - 1); 
 		Square s1 = this.board.getBoardArray().get(p1.getPosition());
@@ -177,6 +177,14 @@ public class Game {
 		
 		return 0; //square can be bought
 		
+	}
+
+	public void buyProperty()
+	{
+		Player p1 = players.get(currentPlayer - 1); 
+		PropertySquare ps1 = (PropertySquare) board.getBoardArray().get(p1.getPosition());
+		
+		p1.removeMoney(ps1.getPrice());
 	}
 	
 	private boolean checkIfPropertyIsOwned (String squareName)

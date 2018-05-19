@@ -63,11 +63,12 @@ public class GameController {
 	
 	public int buyProperty()
 	{
-		return Game.getInstance().buyProperty();
-	}
-	
-	public void buyPropertyResponse(boolean b) {
+		int res = Game.getInstance().checkPropertyAvailibility();
 		
+		if (res == 0)
+			Game.getInstance().buyProperty();
+			
+		return res;
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {
