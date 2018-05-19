@@ -173,9 +173,7 @@ public class Game {
 			return -1;
 
 		else if (checkIfPropertyIsOwned (s1.getName())) //trying to buy a square that is already owned
-		{
 			return -2;
-		}
 		
 		return 0; //square can be bought
 		

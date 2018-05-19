@@ -43,8 +43,12 @@ public class GameScreen extends AbstractScreen {
 	Pair diceValues;
 	Dialog jailDialog;
 	Dialog successfulBuyDialog;
+	Dialog notBuyableDialog;
+	Dialog alreadyOwnedDialog;
 	Boolean visibleJail;
 	Boolean visibleSuccessfulBuy;
+	Boolean visibleNotBuyable;
+	Boolean visibleAlreadyOwned;
 	
 	public GameScreen(String player1Model) {
 		super();
@@ -56,7 +60,9 @@ public class GameScreen extends AbstractScreen {
 		diceValues = new Pair();
 		
 		visibleJail = false;
-		visibleSuccessfulBuy= false;
+		visibleSuccessfulBuy = false;
+		visibleNotBuyable = false;
+		visibleAlreadyOwned = false;
 				
 		loadAssets();
 	}	
@@ -96,7 +102,6 @@ public class GameScreen extends AbstractScreen {
 		
 	}
 	
-
 	@Override
 	public void render(float delta)
 	{
@@ -119,6 +124,8 @@ public class GameScreen extends AbstractScreen {
 	private void setVisibilities() {
 		this.setJailVisibility();
 		this.setSuccessfullBuyVisibility();
+		this.setNotBuyableVisibility();
+		this.setAlreadyOwnedVisibility();
 	}
 
 	private void setJailVisibility()
@@ -144,6 +151,32 @@ public class GameScreen extends AbstractScreen {
 		
 		else {
 			successfulBuyDialog.setVisible(visibleSuccessfulBuy);
+		}
+	}
+	
+	private void setNotBuyableVisibility()
+	{
+		if(!visibleNotBuyable) {
+			createNotBuyableDialog();
+			addActor(notBuyableDialog);
+			notBuyableDialog.setVisible(visibleNotBuyable);
+		}
+		
+		else {
+			notBuyableDialog.setVisible(visibleNotBuyable);
+		}
+	}
+	
+	private void setAlreadyOwnedVisibility()
+	{
+		if(!visibleAlreadyOwned) {
+			createAlreadyOwnedDialog();
+			addActor(alreadyOwnedDialog);
+			alreadyOwnedDialog.setVisible(visibleAlreadyOwned);
+		}
+		
+		else {
+			alreadyOwnedDialog.setVisible(visibleAlreadyOwned);
 		}
 	}
 	
@@ -274,8 +307,15 @@ public class GameScreen extends AbstractScreen {
 						
 						switch (res)
 						{
+						case -2:
+							visibleAlreadyOwned = true;
+							break;
+						case -1:
+							visibleNotBuyable = true;
+							break;
 						case 0:
-							visibleSuccessfulBuy = true;							
+							visibleSuccessfulBuy = true;
+							break;
 						}
 						
 						return false;
@@ -330,37 +370,42 @@ public class GameScreen extends AbstractScreen {
 
 	}
 	
-//	public void createBuyPropertyDialog (String propertyName)
-//	{
-//		String dialog = "Buy " + propertyName;
-//		
-//		buyPropertyDialog = new Dialog(dialog, skin) {
-//            protected void result(Object object)
-//            {
-//            	
-//            	if(object.equals(1L)) {
-//            		GameController.getInstance().buyPropertyResponse(true);
-//            		visibleProperty = false;
-//            	}
-//            	
-//            	if(object.equals(2L)) {
-//            		GameController.getInstance().buyPropertyResponse(false);
-//            		visibleProperty = false;
-//            	}
-//            	
-//            };
-//		};
-//		 
-//		buyPropertyDialog.setPosition(340f, 600f);
-//		
-//		buyPropertyDialog.setMovable(false);
-//		buyPropertyDialog.setVisible(visibleProperty);
-//		
-//		buyPropertyDialog.setWidth(250f);
-//		buyPropertyDialog.button("YES", 1L);
-//		buyPropertyDialog.button("NO", 2L);
-//	}
-//	
+	public void createNotBuyableDialog()
+	{
+		notBuyableDialog = new Dialog("This square is not buyable", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					visibleNotBuyable = false;
+
+			};
+		};
+		notBuyableDialog.setPosition(340f, 600f);
+
+		notBuyableDialog.setMovable(false);
+		notBuyableDialog.setVisible(visibleNotBuyable);
+
+		notBuyableDialog.setWidth(300f);
+		notBuyableDialog.button("EXIT", 1L);
+	}
+
+	public void createAlreadyOwnedDialog()
+	{
+		alreadyOwnedDialog = new Dialog("Property is already owned", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					visibleAlreadyOwned = false;
+
+			};
+		};
+		alreadyOwnedDialog.setPosition(340f, 600f);
+
+		alreadyOwnedDialog.setMovable(false);
+		alreadyOwnedDialog.setVisible(visibleAlreadyOwned);
+
+		alreadyOwnedDialog.setWidth(320f);
+		alreadyOwnedDialog.button("EXIT", 1L);
+	}
+		
 	@Override
 	public void dispose() {
 		super.dispose();
