@@ -13,6 +13,7 @@ public class GoToJailSquare extends Square {
 		Game g1 = Game.getInstance();
 		g1.movePlayer(20);
 		p.sendToJail();
+		p.tellGameModelThePlayerIsInJail(true);
 	}
 
 }

@@ -11,14 +11,17 @@ import mono.model.entities.Square;
 
 public class MonopolyTests {
 	
+	public Game createGameForTesting() {
+		Game g1 = Game.getInstance();
+		g1.setGameModelInstanceToNull();
+		g1 = Game.getInstance();
+		return g1;
+	}
+	
 	//Create Game
 	@Test
 	public void testIfGameCreatesAndAddsPlayersProperly() {
-		Game g1 = Game.getInstance();
-		
-		g1.setGameModelInstanceToNull();
-		
-		g1 = Game.getInstance();
+		Game g1 = createGameForTesting();
 		
 		g1.addPlayers("Hat");
 		
@@ -44,11 +47,7 @@ public class MonopolyTests {
 	//Movement
 	@Test
 	public void testIfPlayerMoves() {
-		Game g1 = Game.getInstance();
-		
-		g1.setGameModelInstanceToNull();
-		
-		g1 = Game.getInstance();
+		Game g1 = createGameForTesting();
 				
 		g1.addPlayers("Hat");
 		
@@ -77,9 +76,7 @@ public class MonopolyTests {
 	
 	@Test
 	public void testIfPlayerMovesBeyond40() {
-		Game g1 = Game.getInstance();
-		g1.setGameModelInstanceToNull();
-		g1 = Game.getInstance();
+		Game g1 = createGameForTesting();
 		
 		g1.addPlayers("Hat");
 		
@@ -99,12 +96,10 @@ public class MonopolyTests {
 	
 	//Properties
 	
-	@Test
+	/*@Test
 	public void testIfPlayerPaysRent()
 	{
-		Game.getInstance().setGameModelInstanceToNull();
-		
-		Game g1 = Game.getInstance();
+		Game g1 = createGameForTesting();
 
 		g1.addPlayers("Hat");
 		Player owner = g1.getPlayers().get(0);
@@ -126,14 +121,12 @@ public class MonopolyTests {
 		
 		payerMoney = payer.getMoney();
 		ownerMoney = owner.getMoney();
-	}
+	}*/
 	
 	//Jail 
 	@Test
 	public void testIfPlayerGetsSentToJail() {
-		Game g1 = Game.getInstance();
-		g1.setGameModelInstanceToNull();
-		g1 = Game.getInstance();
+		Game g1 = createGameForTesting();
 		
 		g1.addPlayers("Hat");
 		
@@ -157,11 +150,9 @@ public class MonopolyTests {
 		assertEquals(s1.getName(), "Jail");
 	}
 	
-	@Test
+	/*@Test
 	public void testIfPlayerMovementIsBlockedInJailThreeTurns() {
-		Game g1 = Game.getInstance();
-		g1.setGameModelInstanceToNull();
-		g1 = Game.getInstance();
+		Game g1 = createGameForTesting();
 		
 		g1.addPlayers("Hat");
 		
@@ -203,18 +194,46 @@ public class MonopolyTests {
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
 		assertEquals(p1.getPosition(), 11);
 		assertEquals(s1.getName(), "Cape Town");
-	}
-	
-	/*@Test
-	public void playerGetsOutOfJailByPaying() {
-		
 	}*/
 	
 	@Test
+	public void playerGetsOutOfJailByPaying() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		
+		g1.movePlayer(30);
+		
+		g1.squareAction();
+		
+		Player p1 = (g1.getPlayers()).get(0);
+		Square s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		g1.movePlayer(1);
+		g1.squareAction();
+		
+		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		assertEquals(p1.getPosition(), 10);
+		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+		
+		int moneyBefore = p1.getMoney();
+		
+		g1.tellJailPlayerWantsToPayFine();
+		s1.doAction(p1);
+		
+		assertEquals(p1.getMoney(), moneyBefore-50);
+		
+		g1.movePlayer(1);
+		s1.doAction(p1);
+		
+		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
+		assertEquals(p1.getPosition(), 11);
+		assertEquals(s1.getName(), "Cape Town");
+	}
+	
+	@Test
 	public void playerGetsOutOfJailByRollingDoubles() {
-		Game g1 = Game.getInstance();
-		g1.setGameModelInstanceToNull();
-		g1 = Game.getInstance();
+		Game g1 = createGameForTesting();
 		
 		g1.addPlayers("Hat");
 		
@@ -246,9 +265,7 @@ public class MonopolyTests {
 	@Test
 	public void testPlayerPaysAndGetsTaxes()
 	{
-		Game.getInstance().setGameModelInstanceToNull();
-		
-		Game g1 = Game.getInstance();
+		Game g1 = createGameForTesting();
 
 		g1.addPlayers("Hat");
 		Player p1 = g1.getPlayers().get(0);

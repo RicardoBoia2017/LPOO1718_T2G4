@@ -71,12 +71,10 @@ public class Player {
 				position = position - 40;
 			}
 			
-			tellGameModelThePlayerIsInJail(false);
 		}
 		
 		else {
 			turnsWithoutMoving++;
-			tellGameModelThePlayerIsInJail(true);
 		}
 		
 	}

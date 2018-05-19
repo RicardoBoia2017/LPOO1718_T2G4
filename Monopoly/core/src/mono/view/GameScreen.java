@@ -42,6 +42,8 @@ public class GameScreen extends AbstractScreen {
 	Pair diceValues;
 	Dialog jailDialog;
 	Dialog buyPropertyDialog;
+	Boolean visibleJail;
+	Boolean visibleProperty;
 	
 	public GameScreen(String player1Model) {
 		super();
@@ -51,6 +53,9 @@ public class GameScreen extends AbstractScreen {
 		
 		//initialize dice
 		diceValues = new Pair();
+		
+		visibleJail = false;
+		visibleProperty = false;
 				
 		loadAssets();
 	}	
@@ -85,8 +90,6 @@ public class GameScreen extends AbstractScreen {
 		createRollDiceButton();
 		addActor(rollDiceButton);
 		
-//		createJailDialog();
-//		addActor(jailDialog);
 	}
 	
 	@Override
@@ -101,6 +104,26 @@ public class GameScreen extends AbstractScreen {
 		drawPiece (playerToDraw);
 		drawDice();
 		game.getBatch().end();
+		
+		if(!visibleProperty) {
+			createBuyPropertyDialog("Test");
+			addActor(buyPropertyDialog);
+			buyPropertyDialog.setVisible(visibleProperty);
+		}
+		
+		else {
+			buyPropertyDialog.setVisible(visibleProperty);
+		}
+		
+		if(!visibleJail) {
+			createJailDialog();
+			addActor(jailDialog);
+			jailDialog.setVisible(visibleJail);
+		}
+		
+		else {
+			jailDialog.setVisible(visibleJail);
+		}
 		
 		super.act();
 		super.draw();
@@ -193,16 +216,6 @@ public class GameScreen extends AbstractScreen {
 		
 	}
 	
-/*	public void drawPieceAndDice() {
-		GameModel g1 = GameModel.getInstance();
-		playerToDraw = g1.getPlayers().get(0);
-//		dice1ToDraw = g1.getPlayers().get(0).getDice1Num();
-//		dice2ToDraw = g1.getPlayersToDraw().get(0).getDice2Model();
-		drawPiece(playerToDraw);
-		drawDice(dice1ToDraw, dice2ToDraw);
-	}
-*/
-	
 	public void createRollDiceButton() {
         rollDiceButton = new TextButton("Roll Dice", skin);
         rollDiceButton.setPosition(580, 20);
@@ -213,12 +226,14 @@ public class GameScreen extends AbstractScreen {
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				
 						if(GameController.getInstance().tellViewToDisplayJailDialog()) {
-	//						System.out.println(hideJailDialog);
-			//				showJailDialog();
-	//						System.out.println(hideJailDialog);
+							visibleJail = true;
+						} else {
+							visibleJail = false;
 						}
 												
 						diceValues = GameController.getInstance().movePlayer();
+						
+						//visibleProperty = true;
 							
 						return false;
 					}
@@ -236,21 +251,20 @@ public class GameScreen extends AbstractScreen {
             	}
             	
             	if(object.equals(2L)) {
+            		visibleJail = false;
             	}
             	
-            	jailDialog.remove();
             };
 		};
 		
 		jailDialog.setPosition(340f, 600f);
 		
 		jailDialog.setMovable(false);
-		jailDialog.setVisible(true);
+		jailDialog.setVisible(visibleJail);
 		
 		jailDialog.setWidth(250f);
 		jailDialog.button("PAY", 1L);
 		jailDialog.button("WAIT", 2L);
-		addActor(jailDialog);
 	}
 	
 	public void createBuyPropertyDialog (String propertyName)
@@ -263,32 +277,30 @@ public class GameScreen extends AbstractScreen {
             	
             	if(object.equals(1L)) {
             		GameController.getInstance().buyPropertyResponse(true);
+            		visibleProperty = false;
             	}
             	
             	if(object.equals(2L)) {
             		GameController.getInstance().buyPropertyResponse(false);
+            		visibleProperty = false;
             	}
             	
-            	buyPropertyDialog.remove();
             };
 		};
 		 
 		buyPropertyDialog.setPosition(340f, 600f);
 		
 		buyPropertyDialog.setMovable(false);
-		buyPropertyDialog.setVisible(false);
+		buyPropertyDialog.setVisible(visibleProperty);
 		
 		buyPropertyDialog.setWidth(250f);
 		buyPropertyDialog.button("YES", 1L);
 		buyPropertyDialog.button("NO", 2L);
-		addActor(buyPropertyDialog);
-//		while (true)
-	//		;
 	}
 	
 	@Override
 	public void dispose() {
 		super.dispose();
 	}
-
+	
 }

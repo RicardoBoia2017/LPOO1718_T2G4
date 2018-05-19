@@ -21,6 +21,11 @@ public class JailSquare extends Square {
 	@Override
 	public void doAction(Player p) {
 		
+		if(p.getTurnsWithoutMoving() == 2) {
+			//telling the model the player is in Jail ahead of time so it won't display the option to pay on the third turn since that doesn't make much sense (he will get out anyway)
+			p.tellGameModelThePlayerIsInJail(false);
+		}
+		
 		if(p.getTurnsWithoutMoving() == 3) {
 			freePlayer(p);
 		}
