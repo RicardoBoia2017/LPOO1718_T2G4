@@ -21,4 +21,9 @@ public class Taxes extends Square {
 		p.removeMoney(valueToPay);
 	}
 
+	@Override
+	public String getType() {
+		return "Taxes";
+	}
+
 }

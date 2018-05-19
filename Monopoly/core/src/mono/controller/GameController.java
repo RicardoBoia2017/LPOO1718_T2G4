@@ -61,9 +61,9 @@ public class GameController {
 		Game.getInstance().squareAction();
 	}
 	
-	public void buyProperty(String propertyName)
+	public int buyProperty()
 	{
-		GameScreen.getInstance().createBuyPropertyDialog(propertyName);
+		return Game.getInstance().buyProperty();
 	}
 	
 	public void buyPropertyResponse(boolean b) {

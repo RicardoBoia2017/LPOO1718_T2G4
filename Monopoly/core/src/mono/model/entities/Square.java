@@ -16,6 +16,8 @@ public abstract class Square {
 		return name;
 	}
 	
+	public abstract String getType();
+	
 	public abstract void doAction (Player p);
 	
 	public void setPlayerOnTopOfSquare(Player p1) {

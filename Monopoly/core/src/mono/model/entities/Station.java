@@ -41,4 +41,11 @@ public class Station extends Square {
 	{
 		owner = buyer;
 	}
+
+	
+	@Override
+	public String getType() {
+		return "Station";
+	}
+
 }

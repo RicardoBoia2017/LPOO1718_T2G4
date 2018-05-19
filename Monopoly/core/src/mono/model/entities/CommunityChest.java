@@ -12,4 +12,9 @@ public class CommunityChest extends Square {
 		
 	}
 
+	@Override
+	public String getType() {
+		return "Community Chest";
+	}
+
 }

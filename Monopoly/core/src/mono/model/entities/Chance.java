@@ -12,4 +12,10 @@ public class Chance extends Square {
 		
 	}
 
+	@Override
+	public String getType() {
+
+		return "Chance";
+	}
+
 }

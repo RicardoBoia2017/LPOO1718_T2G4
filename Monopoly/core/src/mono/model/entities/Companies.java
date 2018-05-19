@@ -24,4 +24,10 @@ public class Companies extends Square {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getType() {
+
+		return "Companies";
+	}
 }

@@ -1,6 +1,7 @@
 package mono.model;
 
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -158,11 +159,45 @@ public class Game {
 		GameController.getInstance().tellViewToDisplayJailDialog();
 	}
 	
+	public int buyProperty()
+	{
+		Player p1 = players.get(currentPlayer - 1); 
+		Square s1 = this.board.getBoardArray().get(p1.getPosition());
+		
+		Vector <String> allowedTypes = new Vector <String> (3);
+		allowedTypes.add("Property");
+		allowedTypes.add("Station");
+		allowedTypes.add("Companies");
+		
+		if (!allowedTypes.contains(s1.getType())) //trying to buy square that can't be bought
+			return -1;
+
+		else if (checkIfPropertyIsOwned (s1.getName())) //trying to buy a square that is already owned
+		{
+			return -2;
+		}
+		
+		return 0; //square can be bought
+		
+	}
+	
+	private boolean checkIfPropertyIsOwned (String squareName)
+	{
+		for (Player p: this.players)
+		{
+			for (Square s: p.getPropertiesOwned())
+				
+				if (s.getName() == squareName)
+					return true;
+		}
+		
+		return false;
+	}
+	
 	public ArrayList <Player> getPlayers() {return players;}
 	public Board getBoard() {return board;} 
 	public int getCurrentPlayer(){return this.getCurrentPlayer();}
 	public int getTaxMoney () {return taxMoney;}
-	
 	public boolean getplayerIsInJail() {
 		return playerIsInJail;
 	}

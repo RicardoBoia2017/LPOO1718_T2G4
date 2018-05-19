@@ -1,7 +1,8 @@
 package mono.model.entities;
 
 import java.awt.Point;
-import java.util.Random;
+import java.util.ArrayList;
+//import java.util.Random;
 
 import mono.model.Game;
 
@@ -14,6 +15,7 @@ public class Player {
 	Boolean sentToJail;
 	int turnsWithoutMoving;
 	Pair currentDiceRoll;
+	ArrayList <Square> propertiesOwned =  new ArrayList <Square> ();
 
 	public Player(String name, String pieceType) {
 		this.name = name;
@@ -116,6 +118,7 @@ public class Player {
 	public int getX() {return (int) coordinates.getX();}
 	public int getY() {return (int) coordinates.getY();}
 	public int getMoney() {return money;}
+	public ArrayList <Square> getPropertiesOwned () {return this.propertiesOwned;}
 	
 	public Boolean wasSentToJail() {
 		return sentToJail;

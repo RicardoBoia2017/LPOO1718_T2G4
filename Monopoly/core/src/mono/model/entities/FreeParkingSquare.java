@@ -18,5 +18,10 @@ public class FreeParkingSquare extends Square {
 		Game.getInstance().setTaxMoney(0);
 		
 	}
+
+	@Override
+	public String getType() {
+		return "Free Parking";
+	}
 	
 }

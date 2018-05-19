@@ -37,8 +37,6 @@ public class PropertySquare extends Square {
 		if (owner != null)
 			payRent(p);
 		
-		else
-			GameController.getInstance().buyProperty(name);
 	}
 
 	private void payRent (Player p)
@@ -84,5 +82,10 @@ public class PropertySquare extends Square {
 	{
 		if (this.nHotels == 0 && this.nHouses == 4)
 			nHotels++;
+	}
+
+	@Override
+	public String getType() {
+		return "Property";
 	}
 }

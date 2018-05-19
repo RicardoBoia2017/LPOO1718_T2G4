@@ -53,4 +53,9 @@ public class JailSquare extends Square {
 		playerWillPayFine = true;
 	}
 
+	@Override
+	public String getType() {
+		return "Jail";
+	}
+
 }

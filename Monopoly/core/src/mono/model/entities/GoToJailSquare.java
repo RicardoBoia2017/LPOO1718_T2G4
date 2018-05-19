@@ -16,4 +16,10 @@ public class GoToJailSquare extends Square {
 		p.tellGameModelThePlayerIsInJail(true);
 	}
 
+	@Override
+	public String getType() {
+		return "Go To Jail";
+	}
+
+	
 }

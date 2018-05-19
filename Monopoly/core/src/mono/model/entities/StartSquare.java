@@ -12,4 +12,9 @@ public class StartSquare extends Square {
 		
 	}
 
+	@Override
+	public String getType() {
+		return "Start";
+	}
+
 }

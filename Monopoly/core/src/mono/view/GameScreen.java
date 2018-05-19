@@ -37,13 +37,14 @@ public class GameScreen extends AbstractScreen {
     private static GameScreen instance;
 
 	TextButton rollDiceButton;
+	TextButton buyPropertyButton;
 	Skin skin;
 	Player playerToDraw;
 	Pair diceValues;
 	Dialog jailDialog;
-	Dialog buyPropertyDialog;
+	Dialog successfulBuyDialog;
 	Boolean visibleJail;
-	Boolean visibleProperty;
+	Boolean visibleSuccessfulBuy;
 	
 	public GameScreen(String player1Model) {
 		super();
@@ -55,7 +56,7 @@ public class GameScreen extends AbstractScreen {
 		diceValues = new Pair();
 		
 		visibleJail = false;
-		visibleProperty = false;
+		visibleSuccessfulBuy= false;
 				
 		loadAssets();
 	}	
@@ -90,8 +91,12 @@ public class GameScreen extends AbstractScreen {
 		createRollDiceButton();
 		addActor(rollDiceButton);
 		
+		createBuyPropertyButton();
+		addActor(buyPropertyButton);
+		
 	}
 	
+
 	@Override
 	public void render(float delta)
 	{
@@ -105,16 +110,19 @@ public class GameScreen extends AbstractScreen {
 		drawDice();
 		game.getBatch().end();
 		
-		if(!visibleProperty) {
-			createBuyPropertyDialog("Test");
-			addActor(buyPropertyDialog);
-			buyPropertyDialog.setVisible(visibleProperty);
-		}
+		this.setVisibilities();
 		
-		else {
-			buyPropertyDialog.setVisible(visibleProperty);
-		}
-		
+		super.act();
+		super.draw();
+	}
+	
+	private void setVisibilities() {
+		this.setJailVisibility();
+		this.setSuccessfullBuyVisibility();
+	}
+
+	private void setJailVisibility()
+	{
 		if(!visibleJail) {
 			createJailDialog();
 			addActor(jailDialog);
@@ -124,9 +132,19 @@ public class GameScreen extends AbstractScreen {
 		else {
 			jailDialog.setVisible(visibleJail);
 		}
+	}
+	
+	private void setSuccessfullBuyVisibility()
+	{
+		if(!visibleSuccessfulBuy) {
+			createSuccessfulBuyDialog();
+			addActor(successfulBuyDialog);
+			successfulBuyDialog.setVisible(visibleSuccessfulBuy);
+		}
 		
-		super.act();
-		super.draw();
+		else {
+			successfulBuyDialog.setVisible(visibleSuccessfulBuy);
+		}
 	}
 	
 	private void drawBoard ()
@@ -218,8 +236,8 @@ public class GameScreen extends AbstractScreen {
 	
 	public void createRollDiceButton() {
         rollDiceButton = new TextButton("Roll Dice", skin);
-        rollDiceButton.setPosition(580, 20);
-        rollDiceButton.setWidth(400);
+        rollDiceButton.setPosition(780, 20);
+        rollDiceButton.setWidth(200);
         rollDiceButton.addListener(
 				new InputListener() {
 					@Override
@@ -235,6 +253,31 @@ public class GameScreen extends AbstractScreen {
 						
 						//visibleProperty = true;
 							
+						return false;
+					}
+				});
+	}
+	
+	private void createBuyPropertyButton() {
+
+        buyPropertyButton = new TextButton("Buy", skin);
+        buyPropertyButton.setPosition(500, 20);
+        buyPropertyButton.setWidth(200);
+        buyPropertyButton.setChecked(false);
+        
+        buyPropertyButton.addListener(
+				new InputListener() {
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						
+						int res = GameController.getInstance().buyProperty();
+						
+						switch (res)
+						{
+						case 0:
+							visibleSuccessfulBuy = true;							
+						}
+						
 						return false;
 					}
 				});
@@ -267,37 +310,57 @@ public class GameScreen extends AbstractScreen {
 		jailDialog.button("WAIT", 2L);
 	}
 	
-	public void createBuyPropertyDialog (String propertyName)
+	public void createSuccessfulBuyDialog()
 	{
-		String dialog = "Buy " + propertyName;
-		
-		buyPropertyDialog = new Dialog(dialog, skin) {
-            protected void result(Object object)
-            {
-            	
-            	if(object.equals(1L)) {
-            		GameController.getInstance().buyPropertyResponse(true);
-            		visibleProperty = false;
-            	}
-            	
-            	if(object.equals(2L)) {
-            		GameController.getInstance().buyPropertyResponse(false);
-            		visibleProperty = false;
-            	}
-            	
-            };
+		successfulBuyDialog = new Dialog("Purchase successful", skin){
+        protected void result(Object object)
+        {
+        	if(object.equals(1L)) 
+        		visibleSuccessfulBuy = false;
+        	
+        };
 		};
-		 
-		buyPropertyDialog.setPosition(340f, 600f);
+		successfulBuyDialog.setPosition(340f, 600f);
 		
-		buyPropertyDialog.setMovable(false);
-		buyPropertyDialog.setVisible(visibleProperty);
+		successfulBuyDialog.setMovable (false);
+		successfulBuyDialog.setVisible (visibleSuccessfulBuy);
 		
-		buyPropertyDialog.setWidth(250f);
-		buyPropertyDialog.button("YES", 1L);
-		buyPropertyDialog.button("NO", 2L);
+		successfulBuyDialog.setWidth(250f);
+		successfulBuyDialog.button("EXIT", 1L);
+
 	}
 	
+//	public void createBuyPropertyDialog (String propertyName)
+//	{
+//		String dialog = "Buy " + propertyName;
+//		
+//		buyPropertyDialog = new Dialog(dialog, skin) {
+//            protected void result(Object object)
+//            {
+//            	
+//            	if(object.equals(1L)) {
+//            		GameController.getInstance().buyPropertyResponse(true);
+//            		visibleProperty = false;
+//            	}
+//            	
+//            	if(object.equals(2L)) {
+//            		GameController.getInstance().buyPropertyResponse(false);
+//            		visibleProperty = false;
+//            	}
+//            	
+//            };
+//		};
+//		 
+//		buyPropertyDialog.setPosition(340f, 600f);
+//		
+//		buyPropertyDialog.setMovable(false);
+//		buyPropertyDialog.setVisible(visibleProperty);
+//		
+//		buyPropertyDialog.setWidth(250f);
+//		buyPropertyDialog.button("YES", 1L);
+//		buyPropertyDialog.button("NO", 2L);
+//	}
+//	
 	@Override
 	public void dispose() {
 		super.dispose();
