@@ -218,17 +218,16 @@ public class MonopolyTests {
 		
 		int moneyBefore = p1.getMoney();
 		
+		p1.setCurrentDiceroll(new Pair(3,1));
+		
 		g1.tellJailPlayerWantsToPayFine();
 		s1.doAction(p1);
 		
 		assertEquals(p1.getMoney(), moneyBefore-50);
 		
-		g1.movePlayer(1);
-		s1.doAction(p1);
-		
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
-		assertEquals(p1.getPosition(), 11);
-		assertEquals(s1.getName(), "Cape Town");
+		assertEquals(p1.getPosition(), 14);
+		assertEquals(s1.getName(), "Amsterdam");
 	}
 	
 	@Test

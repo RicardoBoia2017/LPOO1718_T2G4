@@ -21,19 +21,16 @@ public class JailSquare extends Square {
 	@Override
 	public void doAction(Player p) {
 		
-		if(p.getTurnsWithoutMoving() == 2) {
-			//telling the model the player is in Jail ahead of time so it won't display the option to pay on the third turn since that doesn't make much sense (he will get out anyway)
-			p.tellGameModelThePlayerIsInJail(false);
-		}
-		
 		if(p.getTurnsWithoutMoving() == 3) {
 			freePlayer(p);
+			p.tellGameModelThePlayerIsInJail(false);
 		}
 		
 		else if (p.getCurrentDiceRoll() != null && p.getCurrentDiceRoll().getValue1() == p.getCurrentDiceRoll().getValue2()) {
 			freePlayer(p);
 			Game g1 = Game.getInstance();
 			g1.movePlayer(p.getCurrentDiceRoll());
+			p.tellGameModelThePlayerIsInJail(false);
 		}
 		
 		if(playerWillPayFine) {
@@ -43,6 +40,9 @@ public class JailSquare extends Square {
 				p.removeMoney(fine);
 				freePlayer(p);
 				playerWillPayFine = false;
+				p.tellGameModelThePlayerIsInJail(false);
+				Game g1 = Game.getInstance();
+				g1.movePlayer(p.getCurrentDiceRoll());
 			}
 			
 			System.out.print(p.getMoney());

@@ -144,4 +144,8 @@ public class Player {
 	public void tellGameModelThePlayerIsInJail(Boolean b) {
 		Game.getInstance().tellControllerPlayerIsInJail(b);
 	}
+	
+	public void setCurrentDiceroll(Pair dice) {
+		currentDiceRoll = dice;
+	}
 }
