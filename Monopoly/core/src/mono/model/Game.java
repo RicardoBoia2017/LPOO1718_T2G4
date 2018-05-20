@@ -186,8 +186,12 @@ public class Game {
 		
 		int res = p1.removeMoney(ps1.getPrice());
 		
+		
 		if (res == 0)	
+		{
 			p1.addProperty(ps1);
+			ps1.setOwner(p1);
+		}
 		
 		return res;
 		

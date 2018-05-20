@@ -96,7 +96,7 @@ public class MonopolyTests {
 	
 	//Properties
 	
-	/*@Test
+	@Test
 	public void testIfPlayerPaysRent()
 	{
 		Game g1 = createGameForTesting();
@@ -109,7 +109,9 @@ public class MonopolyTests {
 		int ownerMoney = owner.getMoney();
 		
 		owner.move(1);
-		g1.squareAction();
+		g1.buyProperty(); //pays the property price
+		
+		ownerMoney = owner.getMoney();
 		
 		g1.setCurrentPlayer(2);
 		
@@ -121,7 +123,7 @@ public class MonopolyTests {
 		
 		payerMoney = payer.getMoney();
 		ownerMoney = owner.getMoney();
-	}*/
+	}
 	
 	//Jail 
 	@Test

@@ -20,7 +20,7 @@ public class Player {
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
-		money = 10;
+		money = 1500;
 		sentToJail = false;
 		turnsWithoutMoving = 0;
 		initializePiece(pieceType);
