@@ -42,12 +42,7 @@ public class GameController {
 
 	}
 	
-	public void doTurn()
-	{
-		movePlayer();		
-	}
-	
-	public Pair movePlayer()
+	public Pair doTurn()
 	{	
 		Pair diceRoll = Game.getInstance().rollDice();
 		Game.getInstance().movePlayer(diceRoll);
@@ -69,6 +64,11 @@ public class GameController {
 			res = Game.getInstance().buyProperty();
 			
 		return res;
+	}
+	
+	public void endTurn()
+	{
+		Game.getInstance().endTurn();
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {

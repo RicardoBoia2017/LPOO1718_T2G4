@@ -160,7 +160,7 @@ public class MonopolyTests {
 		owner.move(1);
 		g1.buyProperty();
 		
-		g1.setCurrentPlayer(2);
+		g1.endTurn();
 		
 		payer.move(1);
 		assertEquals(-2, g1.checkPropertyAvailibility());
@@ -213,7 +213,7 @@ public class MonopolyTests {
 		
 		ownerMoney = owner.getMoney();
 		
-		g1.setCurrentPlayer(2);
+		g1.endTurn();
 		
 		payer.move(1);
 		g1.squareAction();

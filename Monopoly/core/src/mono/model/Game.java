@@ -106,7 +106,7 @@ public class Game {
 		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, the is index in array is 0
 		Player p1 = players.get(playerIndex); 
 	
-		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
+		takePlayerFromBoardSquare(p1.getPosition(), playerIndex); //DOES NOT WORK
 				
 		p1.move(diceRoll);
 		
@@ -131,9 +131,16 @@ public class Game {
 		board.getBoardArray().get(p1.getPosition()).doAction(p1);
 	}
 	
-	public void setCurrentPlayer(int playerNumber)
+	public void endTurn ()
 	{
-		this.currentPlayer = playerNumber;
+		
+		if (currentPlayer == players.size())
+			this.currentPlayer = 1;
+		
+		else
+			this.currentPlayer++;
+		
+		System.out.println(this.currentPlayer);
 	}
 	
 	public void setTaxMoney (int newValue)

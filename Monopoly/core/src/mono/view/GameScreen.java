@@ -36,8 +36,6 @@ public class GameScreen extends AbstractScreen {
 	
     private static GameScreen instance;
 
-	TextButton rollDiceButton;
-	TextButton buyPropertyButton;
 	Skin skin;
 	Player playerToDraw;
 	Pair diceValues;
@@ -96,12 +94,9 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		
-		createRollDiceButton();
-		addActor(rollDiceButton);
-		
-		createBuyPropertyButton();
-		addActor(buyPropertyButton);
-		
+		addActor(createRollDiceBtn());
+		addActor(createBuyPropertyBtn());
+		addActor(createEndTurnBtn());
 	}
 	
 	@Override
@@ -283,8 +278,8 @@ public class GameScreen extends AbstractScreen {
 		
 	}
 	
-	public void createRollDiceButton() {
-        rollDiceButton = new TextButton("Roll Dice", skin);
+	public TextButton createRollDiceBtn() { 
+       TextButton rollDiceButton = new TextButton("Roll Dice", skin);
         rollDiceButton.setPosition(780, 20);
         rollDiceButton.setWidth(200);
         rollDiceButton.addListener(
@@ -298,18 +293,21 @@ public class GameScreen extends AbstractScreen {
 							visibleJail = false;
 						}
 												
-						diceValues = GameController.getInstance().movePlayer();
+						diceValues = GameController.getInstance().doTurn();
 						
 						//visibleProperty = true;
 							
 						return false;
 					}
 				});
+        
+        return rollDiceButton;
 	}
 	
-	private void createBuyPropertyButton() {
+	
+	private TextButton createBuyPropertyBtn() {
 
-        buyPropertyButton = new TextButton("Buy", skin);
+        TextButton buyPropertyButton = new TextButton("Buy", skin);
         buyPropertyButton.setPosition(500, 20);
         buyPropertyButton.setWidth(200);
         buyPropertyButton.setChecked(false);
@@ -340,6 +338,28 @@ public class GameScreen extends AbstractScreen {
 						return false;
 					}
 				});
+        
+        return buyPropertyButton;
+	}
+	
+	public TextButton createEndTurnBtn()
+	{
+	       TextButton endTurnBtn = new TextButton("End Turn", skin);
+	        endTurnBtn.setPosition(780, 110);
+	        endTurnBtn.setWidth(200);
+	        
+	        endTurnBtn.addListener(
+					new InputListener() {
+						@Override
+						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+											
+							GameController.getInstance().endTurn();
+							
+							return false;
+						}
+					});
+	        
+	        return endTurnBtn;
 	}
 	
 	public void createJailDialog() {
