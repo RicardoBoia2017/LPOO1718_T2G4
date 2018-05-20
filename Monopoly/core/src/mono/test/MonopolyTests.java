@@ -97,6 +97,70 @@ public class MonopolyTests {
 	//Properties
 	
 	@Test
+	public void testIfPlayerBuysProperty()
+	{
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+
+		Player p1 = g1.getPlayers().get(0);
+		
+		int p1Money = p1.getMoney();
+
+		p1.move(1);
+		g1.buyProperty();
+
+		assertEquals (p1.getMoney(), p1Money - 60);
+		assertEquals (p1.getPropertiesOwned().size(), 1); 
+	}
+	
+	public void testIfPlayerCantBuyPropertyWhenOwned()
+	{
+		Game g1 = createGameForTesting();
+
+		g1.addPlayers("Hat");
+		Player owner = g1.getPlayers().get(0);
+		Player payer = g1.getPlayers().get(1);
+		
+		owner.move(1);
+		g1.buyProperty();
+		
+		g1.setCurrentPlayer(2);
+		
+		payer.move(1);
+		assertEquals(-2, g1.checkPropertyAvailibility());
+	}
+	
+	@Test
+	public void testIfPlayerCantBuyWhenSquareIsntBuyable()
+	{
+		Game g1 = createGameForTesting();
+
+		g1.addPlayers("Hat");
+		Player p1 = g1.getPlayers().get(0);
+		
+		p1.move(2);
+				
+		assertEquals(-1, g1.checkPropertyAvailibility());
+	}
+
+	@Test
+	public void testIfPlayerCantBuyWhenHasntEnoughMoney()
+	{
+		Game g1 = createGameForTesting();
+
+		g1.addPlayers("Hat");
+		Player p1 = g1.getPlayers().get(0);
+		
+		p1.removeMoney(1490); //stays with 10€
+		
+		p1.move(1);
+		g1.buyProperty();
+				
+		assertEquals(-3, g1.buyProperty());
+	}
+
+	
+	@Test
 	public void testIfPlayerPaysRent()
 	{
 		Game g1 = createGameForTesting();

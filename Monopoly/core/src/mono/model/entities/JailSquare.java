@@ -34,7 +34,7 @@ public class JailSquare extends Square {
 		}
 		
 		if(playerWillPayFine) {
-			System.out.println(p.getMoney());
+//			System.out.println(p.getMoney());
 			
 			if(p.getMoney() > fine) {
 				p.removeMoney(fine);
@@ -45,7 +45,7 @@ public class JailSquare extends Square {
 				g1.movePlayer(p.getCurrentDiceRoll());
 			}
 			
-			System.out.print(p.getMoney());
+//			System.out.print(p.getMoney());
 		}
 	}
 	
