@@ -4,42 +4,32 @@ import java.util.ArrayList;
 
 import mono.controller.GameController;
 
-public class PropertySquare extends Square {
+public class Property extends BuyableSquare {
 	private String color;
-	private int price;
 	private int buildingCost; 
 	private Player owner;
 	ArrayList <Integer> rents;
-    private int mortgageValue;
 	private int nHouses;
 	private int nHotels;
-	private boolean inMortgage;
 
-	public PropertySquare(String name, String color, int price, int normalRent, int oneRent, int twoRent, int threeRent, int fourRent, int hotelRent, int buildingCost, int position) {
-		super(name, position);
-		this.price = price;
+	public Property(String name, String color, int cost, int normalRent, int oneRent, int twoRent, int threeRent, int fourRent, int hotelRent, int buildingCost, int position) {
+		super(name, position, cost);
 		this.color = color;
 		this.rents = new ArrayList <Integer> (6);
 		setRents (normalRent, oneRent, twoRent, threeRent, fourRent, hotelRent);
-		owner = null;
-		this.inMortgage=false;
 		this.buildingCost = buildingCost; 
-		this.mortgageValue = price/2;
 		this.nHouses=0;
 		this.nHotels=0;
 	}
 
 	@Override
 	public void doAction(Player p) {
-		
-		int value = 0;
-		
+				
 		if (owner != null)
-			payRent(p);
-		
+			payRent(p);		
 	}
 
-	private void payRent (Player p)
+	protected void payRent (Player p1)
 	{
 		int value = 0;
 		
@@ -48,7 +38,7 @@ public class PropertySquare extends Square {
 		else
 			value = rents.get(nHouses*1);
 		
-		p.removeMoney(value);
+		p1.removeMoney(value);
 		owner.addMoney(value);
 	}
 	
@@ -86,6 +76,5 @@ public class PropertySquare extends Square {
 
 	@Override
 	public String getType() {return "Property";	}
-	public int getPrice() {return price;}
 
 }

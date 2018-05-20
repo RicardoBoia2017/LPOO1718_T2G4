@@ -1,38 +1,22 @@
 package mono.model.entities;
 
-public class Station extends Square {
-	private int price;
-	private Player owner;
+public class Station extends BuyableSquare {
+	
 	private int rent;
-	private boolean mortgage;
 	private double mortgageValue;
 
-	public Station(String name, int price, int position) {
-		super(name, position);
-		this.price=price;
-		this.owner=null;
-		this.rent=25;
-		this.mortgage=false;
-		this.mortgageValue=price/2;
-	}
-
-	@Override
-	public void doAction (Player p) {
-		
-		if (owner != null)
-			payRent(p);
-
-		//asks if he wants to buy TODO
-		buyProperty(p);		
+	public Station(String name, int cost, int position) {
+		super(name, position, cost);
+		this.rent = 25;
 	}
 	
-	private void payRent (Player p)
+	protected void payRent (Player p)
 	{		
 		p.removeMoney(rent);
 		owner.addMoney(rent);
 	}
 	
-	private void buyProperty(Player p)
+	public void buyProperty(Player p)
 	{
 		this.owner = p;
 	}

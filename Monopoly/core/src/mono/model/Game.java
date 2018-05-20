@@ -7,9 +7,10 @@ import java.util.Random;
 
 import mono.controller.GameController;
 import mono.model.entities.Board;
+import mono.model.entities.BuyableSquare;
 import mono.model.entities.CommunityChest;
-import mono.model.entities.PropertySquare;
-import mono.model.entities.JailSquare;
+import mono.model.entities.Property;
+import mono.model.entities.Jail;
 import mono.model.entities.Player;
 import mono.model.entities.Pair;
 import mono.model.entities.Square;
@@ -149,7 +150,7 @@ public class Game {
 	}
 	
 	public void tellJailPlayerWantsToPayFine() {
-		JailSquare j1 = (JailSquare) board.getBoardArray().get(10);
+		Jail j1 = (Jail) board.getBoardArray().get(10);
 		j1.aproveFine();
 	}
 	
@@ -182,9 +183,9 @@ public class Game {
 	public int buyProperty()
 	{
 		Player p1 = players.get(currentPlayer - 1); 
-		PropertySquare ps1 = (PropertySquare) board.getBoardArray().get(p1.getPosition());
+		BuyableSquare ps1 = (BuyableSquare) board.getBoardArray().get(p1.getPosition());
 		
-		int res = p1.removeMoney(ps1.getPrice());
+		int res = p1.removeMoney(ps1.getCost());
 		
 		
 		if (res == 0)	

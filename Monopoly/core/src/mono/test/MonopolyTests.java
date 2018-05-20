@@ -94,10 +94,10 @@ public class MonopolyTests {
 		assertEquals(s1.getName(), "Casablanca");
 	}
 	
-	//Properties
+	//Buyable squares
 	
 	@Test
-	public void testIfPlayerBuysProperty()
+	public void testIfPlayerBuyProperty()
 	{
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
@@ -113,6 +113,42 @@ public class MonopolyTests {
 		assertEquals (p1.getPropertiesOwned().size(), 1); 
 	}
 	
+	@Test
+	public void testIfPlayerBuyStation()
+	{
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+
+		Player p1 = g1.getPlayers().get(0);
+		
+		int p1Money = p1.getMoney();
+
+		p1.move(5);
+		g1.buyProperty();
+
+		assertEquals (p1.getMoney(), p1Money - 200);
+		assertEquals (p1.getPropertiesOwned().size(), 1); 
+	}
+
+	@Test
+	public void testIfPlayerBuyCompany()
+	{
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+
+		Player p1 = g1.getPlayers().get(0);
+		
+		int p1Money = p1.getMoney();
+
+		p1.move(12);
+		System.out.println(g1.getBoard().getBoardArray().get(12).getName());
+		g1.buyProperty();
+
+		assertEquals (p1.getMoney(), p1Money - 150);
+		assertEquals (p1.getPropertiesOwned().size(), 1); 
+	}
+	
+	@Test
 	public void testIfPlayerCantBuyPropertyWhenOwned()
 	{
 		Game g1 = createGameForTesting();

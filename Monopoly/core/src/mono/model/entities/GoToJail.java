@@ -2,9 +2,9 @@ package mono.model.entities;
 
 import mono.model.Game;
 
-public class GoToJailSquare extends Square {
+public class GoToJail extends Square {
 
-	public GoToJailSquare() {
+	public GoToJail() {
 		super("GoToJail", 30);
 	}
 

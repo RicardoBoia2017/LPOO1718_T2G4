@@ -2,12 +2,12 @@ package mono.model.entities;
 
 import mono.model.Game;
 
-public class JailSquare extends Square {
+public class Jail extends Square {
 
 	int fine;
 	Boolean playerWillPayFine;
 	
-	public JailSquare() {
+	public Jail() {
 		super("Jail", 10);
 		fine = 50;
 		playerWillPayFine = false;

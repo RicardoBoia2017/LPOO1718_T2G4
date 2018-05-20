@@ -1,33 +1,24 @@
 package mono.model.entities;
 
-public class Companies extends Square {
-	private int price;
-	private boolean owned;
-	private Player owner;
+public class Companies extends BuyableSquare {
+	
 	private int rent = 0;
-    private boolean mortgage;
     private double mortgageValue;
     
-	public Companies(int price, int position){
-		super("Companies", position);
-		this.price=price;
-		this.owned=false;
-		this.owner=null;
-		this.rent=0;
-		this.mortgage=false;
-		this.mortgageValue=price/2;
-		this.position=position;
+	public Companies(String name, int cost, int position){
+		super(name, position, cost);
+		this.rent = 0;
 	}
 
 	@Override
-	public void doAction(Player p) {
-		// TODO Auto-generated method stub
+	protected void payRent(Player p1) {
 		
 	}
-
+	
 	@Override
 	public String getType() {
 
-		return "Companies";
+		return "Company";
 	}
+
 }
