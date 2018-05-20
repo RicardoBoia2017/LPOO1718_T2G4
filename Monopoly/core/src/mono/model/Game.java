@@ -179,12 +179,18 @@ public class Game {
 		
 	}
 
-	public void buyProperty()
+	public int buyProperty()
 	{
 		Player p1 = players.get(currentPlayer - 1); 
 		PropertySquare ps1 = (PropertySquare) board.getBoardArray().get(p1.getPosition());
 		
-		p1.removeMoney(ps1.getPrice());
+		int res = p1.removeMoney(ps1.getPrice());
+		
+		if (res == 0)	
+			p1.addProperty(ps1);
+		
+		return res;
+		
 	}
 	
 	private boolean checkIfPropertyIsOwned (String squareName)

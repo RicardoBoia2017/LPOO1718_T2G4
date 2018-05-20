@@ -20,7 +20,7 @@ public class Player {
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
-		money = 1500;
+		money = 10;
 		sentToJail = false;
 		turnsWithoutMoving = 0;
 		initializePiece(pieceType);
@@ -111,15 +111,14 @@ public class Player {
 	
 	public void addMoney (int value) {money += value;}
 	
-	public boolean removeMoney (int value)
+	public int removeMoney (int value)
 	{
 		if (value > money)
-		{
-			money -= value;
-			return false;
-		}
+			return -3;
 		
-		return true;
+		money -= value;
+	
+		return 0;
 	}
 	
 	//not sure if used

@@ -66,7 +66,7 @@ public class GameController {
 		int res = Game.getInstance().checkPropertyAvailibility();
 		
 		if (res == 0)
-			Game.getInstance().buyProperty();
+			res = Game.getInstance().buyProperty();
 			
 		return res;
 	}

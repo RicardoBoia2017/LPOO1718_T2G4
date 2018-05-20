@@ -45,10 +45,12 @@ public class GameScreen extends AbstractScreen {
 	Dialog successfulBuyDialog;
 	Dialog notBuyableDialog;
 	Dialog alreadyOwnedDialog;
+	Dialog noMoneyDialog;
 	Boolean visibleJail;
 	Boolean visibleSuccessfulBuy;
 	Boolean visibleNotBuyable;
 	Boolean visibleAlreadyOwned;
+	Boolean visibleNoMoney;
 	
 	public GameScreen(String player1Model) {
 		super();
@@ -63,6 +65,7 @@ public class GameScreen extends AbstractScreen {
 		visibleSuccessfulBuy = false;
 		visibleNotBuyable = false;
 		visibleAlreadyOwned = false;
+		visibleNoMoney = false;
 				
 		loadAssets();
 	}	
@@ -77,7 +80,6 @@ public class GameScreen extends AbstractScreen {
             instance = new GameScreen("Hat"); //Change this 
         return instance;
     }
-    
     
 	private static void  loadAssets ()
 	{
@@ -126,6 +128,7 @@ public class GameScreen extends AbstractScreen {
 		this.setSuccessfullBuyVisibility();
 		this.setNotBuyableVisibility();
 		this.setAlreadyOwnedVisibility();
+		this.setNoMoneyVisibility();
 	}
 
 	private void setJailVisibility()
@@ -177,6 +180,19 @@ public class GameScreen extends AbstractScreen {
 		
 		else {
 			alreadyOwnedDialog.setVisible(visibleAlreadyOwned);
+		}
+	}
+	
+	private void setNoMoneyVisibility()
+	{
+		if(!visibleNoMoney) {
+			createNoMoneyDialog();
+			addActor(noMoneyDialog);
+			noMoneyDialog.setVisible(visibleNoMoney);
+		}
+		
+		else {
+			noMoneyDialog.setVisible(visibleNoMoney);
 		}
 	}
 	
@@ -307,6 +323,9 @@ public class GameScreen extends AbstractScreen {
 						
 						switch (res)
 						{
+						case -3:
+							visibleNoMoney = true;
+							break;
 						case -2:
 							visibleAlreadyOwned = true;
 							break;
@@ -406,6 +425,24 @@ public class GameScreen extends AbstractScreen {
 		alreadyOwnedDialog.button("EXIT", 1L);
 	}
 		
+	public void createNoMoneyDialog()
+	{
+		noMoneyDialog = new Dialog("You don't have enough money", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					visibleNoMoney = false;
+
+			};
+		};
+		noMoneyDialog.setPosition(340f, 600f);
+
+		noMoneyDialog.setMovable(false);
+		noMoneyDialog.setVisible(visibleNoMoney);
+
+		noMoneyDialog.setWidth(350f);
+		noMoneyDialog.button("EXIT", 1L);
+	}
+	
 	@Override
 	public void dispose() {
 		super.dispose();
