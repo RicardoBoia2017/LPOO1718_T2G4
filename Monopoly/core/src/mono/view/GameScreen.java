@@ -1,10 +1,14 @@
 package mono.view;
 	
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,9 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 
 import mono.controller.GameController;
 import mono.controller.entities.DiceModel;
@@ -50,6 +57,9 @@ public class GameScreen extends AbstractScreen {
 	Boolean visibleAlreadyOwned;
 	Boolean visibleNoMoney;
 	
+	static float diceRollTime;
+	Animation a;
+	
 	public GameScreen(String player1Model) {
 		super();
 		Game.getInstance().addPlayers(player1Model);
@@ -66,6 +76,10 @@ public class GameScreen extends AbstractScreen {
 		visibleNoMoney = false;
 				
 		loadAssets();
+		
+		drawAnimation();
+		
+		this.diceRollTime = 100;
 	}	
 
     /**
@@ -105,11 +119,13 @@ public class GameScreen extends AbstractScreen {
 		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				
+		
 		game.getBatch().begin();
 		drawBoard();
-			
 		drawPiece (playerToDraw);
 		drawDice();
+		rollDiceAnimation(delta);
+
 		game.getBatch().end();
 		
 		this.setVisibilities();
@@ -118,6 +134,37 @@ public class GameScreen extends AbstractScreen {
 		super.draw();
 	}
 	
+	private void rollDiceAnimation(float delta) {
+			
+		this.diceRollTime += delta;
+		Random rand = new Random();
+		Texture current;
+		
+		if (this.diceRollTime < 1)
+		{
+			current = (Texture) a.getKeyFrames()[rand.nextInt(6)];
+			game.getBatch().draw(current, 15.5f, 16f, 151.5f,151.5f);
+			
+			current = (Texture) a.getKeyFrames()[rand.nextInt(6)];
+			game.getBatch().draw(current, 225.5f, 16f, 151.5f,151.5f);
+
+		}
+	}
+
+	private void drawAnimation() {
+			
+		Array <Texture> array = new Array <Texture> (6);
+		array.add((Texture) game.getAssetManager().get("Dice/Dice1.png"));
+		array.add((Texture) game.getAssetManager().get("Dice/Dice2.png"));
+		array.add((Texture) game.getAssetManager().get("Dice/Dice3.png"));
+		array.add((Texture) game.getAssetManager().get("Dice/Dice4.png"));
+		array.add((Texture) game.getAssetManager().get("Dice/Dice5.png"));
+		array.add((Texture) game.getAssetManager().get("Dice/Dice6.png"));
+		
+		a = new Animation<>(0.1f, array);
+		
+	}
+
 	private void setVisibilities() {
 		this.setJailVisibility();
 		this.setSuccessfullBuyVisibility();
@@ -278,7 +325,7 @@ public class GameScreen extends AbstractScreen {
 		
 	}
 	
-	public TextButton createRollDiceBtn() { 
+	private TextButton createRollDiceBtn() { 
        TextButton rollDiceButton = new TextButton("Roll Dice", skin);
         rollDiceButton.setPosition(780, 20);
         rollDiceButton.setWidth(200);
@@ -287,6 +334,8 @@ public class GameScreen extends AbstractScreen {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				
+						diceRollTime = 0;
+						
 						if(GameController.getInstance().tellViewToDisplayJailDialog()) {
 							visibleJail = true;
 						} else {
@@ -342,7 +391,7 @@ public class GameScreen extends AbstractScreen {
         return buyPropertyButton;
 	}
 	
-	public TextButton createEndTurnBtn()
+	private TextButton createEndTurnBtn()
 	{
 	       TextButton endTurnBtn = new TextButton("End Turn", skin);
 	        endTurnBtn.setPosition(780, 110);
@@ -361,6 +410,23 @@ public class GameScreen extends AbstractScreen {
 	        
 	        return endTurnBtn;
 	}
+	
+//	private Label createLabel()
+//	{
+//		Label label;
+//		Text r;
+//		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+//		BitmapFont font = new BitmapFont();
+//		LabelStyle style = new LabelStyle (font, Color.SKY);
+//		
+//		label = new Label("jojoo", style);
+//		label.setPosition(500, 500);
+//		label.setFontScale(3);
+//	//	label.setFontScale(5);
+////		label.setStyle(style);
+//		
+//		return label;
+//	}
 	
 	public void createJailDialog() {
 		
