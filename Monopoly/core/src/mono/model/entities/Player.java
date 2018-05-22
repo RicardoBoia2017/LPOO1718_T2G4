@@ -16,6 +16,7 @@ public class Player {
 	int turnsWithoutMoving;
 	Pair currentDiceRoll;
 	ArrayList <Square> propertiesOwned =  new ArrayList <Square> ();
+	Boolean hasPassedGoSquareOnce;
 
 	public Player(String name, String pieceType) {
 		this.name = name;
@@ -24,6 +25,7 @@ public class Player {
 		sentToJail = false;
 		turnsWithoutMoving = 0;
 		initializePiece(pieceType);
+		hasPassedGoSquareOnce = true;
 	}
 	
 	private void initializePiece(String pieceType) {
@@ -71,6 +73,11 @@ public class Player {
 	
 			if(position >= 40) {
 				position = position - 40;
+				
+				if(position > 0) {
+					tellGameModelThePlayerPassedByGoSquare();
+					hasPassedGoSquareOnce = true;
+				}
 			}
 			
 		}
@@ -163,5 +170,9 @@ public class Player {
 	
 	public void setCurrentDiceroll(Pair dice) {
 		currentDiceRoll = dice;
+	}
+	
+	public void tellGameModelThePlayerPassedByGoSquare() {
+		Game.getInstance().givePlayer200Money(this);
 	}
 }

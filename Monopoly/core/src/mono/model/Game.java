@@ -110,6 +110,10 @@ public class Game {
 				
 		p1.move(diceRoll);
 		
+		if(p1.getPosition() == 0) {
+			tellGoSquareItsNotFirstVisit();
+		}
+		
 		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
 	}
 	
@@ -159,6 +163,11 @@ public class Game {
 	public void tellJailPlayerWantsToPayFine() {
 		Jail j1 = (Jail) board.getBoardArray().get(10);
 		j1.aproveFine();
+	}
+	
+	public void tellGoSquareItsNotFirstVisit() {
+		StartSquare s1 = (StartSquare) board.getBoardArray().get(0);
+		s1.setFirstVisitToFalse();
 	}
 	
 	public void tellControllerPlayerIsInJail(Boolean b) {
@@ -216,6 +225,12 @@ public class Game {
 		}
 		
 		return false;
+	}
+	
+	public void givePlayer200Money(Player p) {
+		System.out.println(p.getMoney());
+		p.addMoney(200);
+		System.out.println(p.getMoney());
 	}
 	
 	public ArrayList <Player> getPlayers() {return players;}

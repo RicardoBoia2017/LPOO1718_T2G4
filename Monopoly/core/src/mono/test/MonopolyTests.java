@@ -187,7 +187,7 @@ public class MonopolyTests {
 		g1.addPlayers("Hat");
 		Player p1 = g1.getPlayers().get(0);
 		
-		p1.removeMoney(1490); //stays with 10€
+		p1.removeMoney(1490); //stays with 10ï¿½
 		
 		p1.move(1);
 		g1.buyProperty();
@@ -413,5 +413,47 @@ public class MonopolyTests {
 		
 		assertEquals (p1.getMoney(), playerMoney + 300);
 		assertEquals (g1.getTaxMoney(), 0);
+	}
+	
+	@Test
+	public void testIfPlayerReceives200ByPassingGo() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		Player p1 = g1.getPlayers().get(0);
+		int playerMoney = p1.getMoney();
+		Pair diceRoll = new Pair(5,5);
+		
+		g1.movePlayer(diceRoll);
+		g1.movePlayer(diceRoll);
+		g1.movePlayer(diceRoll);
+		
+		Pair otherDiceRoll = new Pair(5,6);
+		
+		g1.movePlayer(otherDiceRoll);
+		
+		assertEquals(p1.getPosition(), 1);
+		
+		assertEquals(p1.getMoney(), playerMoney+200);
+	}
+	
+	@Test
+	public void testIfPlayerReceives400ByLandingGo() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		Player p1 = g1.getPlayers().get(0);
+		int playerMoney = p1.getMoney();
+		Pair diceRoll = new Pair(5,5);
+		
+		g1.movePlayer(diceRoll);
+		g1.movePlayer(diceRoll);
+		g1.movePlayer(diceRoll);
+		g1.movePlayer(diceRoll);
+		g1.squareAction();
+		
+		assertEquals(p1.getPosition(), 0);
+		
+		assertEquals(p1.getMoney(), playerMoney+400);
 	}
 }
