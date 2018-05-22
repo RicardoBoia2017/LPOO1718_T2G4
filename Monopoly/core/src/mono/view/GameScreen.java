@@ -2,6 +2,7 @@ package mono.view;
 	
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -32,6 +33,7 @@ import mono.model.entities.Player;
 import mono.view.entities.BoardView;
 import mono.view.entities.BootView;
 import mono.view.entities.CarView;
+import mono.view.entities.ChanceView;
 import mono.view.entities.DiceView;
 import mono.view.entities.HatView;
 import mono.view.entities.ThimbleView;
@@ -96,6 +98,7 @@ public class GameScreen extends AbstractScreen {
 	private static void  loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
+		game.getAssetManager().load ("Chance.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice1.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice2.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice3.png", Texture.class);
@@ -111,6 +114,8 @@ public class GameScreen extends AbstractScreen {
 		addActor(createRollDiceBtn());
 		addActor(createBuyPropertyBtn());
 		addActor(createEndTurnBtn());
+		
+		createSuccessfulBuyDialog();
 	}
 	
 	@Override
@@ -122,13 +127,14 @@ public class GameScreen extends AbstractScreen {
 		
 		game.getBatch().begin();
 		drawBoard();
-		drawPiece (playerToDraw);
 		drawDice();
 		rollDiceAnimation(delta);
-
-		game.getBatch().end();
+		drawPiece (playerToDraw);
+//		drawCard();
 		
-		this.setVisibilities();
+		game.getBatch().end();
+
+//		this.setVisibilities();
 		
 		super.act();
 		super.draw();
@@ -167,10 +173,6 @@ public class GameScreen extends AbstractScreen {
 
 	private void setVisibilities() {
 		this.setJailVisibility();
-		this.setSuccessfullBuyVisibility();
-		this.setNotBuyableVisibility();
-		this.setAlreadyOwnedVisibility();
-		this.setNoMoneyVisibility();
 	}
 
 	private void setJailVisibility()
@@ -186,57 +188,7 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 	
-	private void setSuccessfullBuyVisibility()
-	{
-		if(!visibleSuccessfulBuy) {
-			createSuccessfulBuyDialog();
-			addActor(successfulBuyDialog);
-			successfulBuyDialog.setVisible(visibleSuccessfulBuy);
-		}
-		
-		else {
-			successfulBuyDialog.setVisible(visibleSuccessfulBuy);
-		}
-	}
 	
-	private void setNotBuyableVisibility()
-	{
-		if(!visibleNotBuyable) {
-			createNotBuyableDialog();
-			addActor(notBuyableDialog);
-			notBuyableDialog.setVisible(visibleNotBuyable);
-		}
-		
-		else {
-			notBuyableDialog.setVisible(visibleNotBuyable);
-		}
-	}
-	
-	private void setAlreadyOwnedVisibility()
-	{
-		if(!visibleAlreadyOwned) {
-			createAlreadyOwnedDialog();
-			addActor(alreadyOwnedDialog);
-			alreadyOwnedDialog.setVisible(visibleAlreadyOwned);
-		}
-		
-		else {
-			alreadyOwnedDialog.setVisible(visibleAlreadyOwned);
-		}
-	}
-	
-	private void setNoMoneyVisibility()
-	{
-		if(!visibleNoMoney) {
-			createNoMoneyDialog();
-			addActor(noMoneyDialog);
-			noMoneyDialog.setVisible(visibleNoMoney);
-		}
-		
-		else {
-			noMoneyDialog.setVisible(visibleNoMoney);
-		}
-	}
 	
 	private void drawBoard ()
 	{
@@ -305,6 +257,19 @@ public class GameScreen extends AbstractScreen {
 		thimble.draw(game.getBatch());
 	}
 	
+	
+	private void drawCard()
+	{
+		ChanceView chanceView = new ChanceView(game);
+		
+		Sprite chance = chanceView.createSprite();
+		
+		chance.setSize(550, 400);
+		chance.setPosition(125, 400);
+		
+		chance.draw(game.getBatch());
+	}
+	
 	public void drawPiece(Player p1) {
 		
 		if(p1.getBoardPiece().getType() == "Thimble") {
@@ -325,6 +290,7 @@ public class GameScreen extends AbstractScreen {
 		
 	}
 	
+	
 	private TextButton createRollDiceBtn() { 
        TextButton rollDiceButton = new TextButton("Roll Dice", skin);
         rollDiceButton.setPosition(780, 20);
@@ -341,7 +307,7 @@ public class GameScreen extends AbstractScreen {
 						} else {
 							visibleJail = false;
 						}
-												
+								
 						diceValues = GameController.getInstance().doTurn();
 						
 						//visibleProperty = true;
@@ -371,17 +337,22 @@ public class GameScreen extends AbstractScreen {
 						switch (res)
 						{
 						case -3:
-							visibleNoMoney = true;
+							createNoMoneyDialog();
+							addActor(noMoneyDialog);
 							break;
 						case -2:
-							visibleAlreadyOwned = true;
+							createAlreadyOwnedDialog();
+							addActor(alreadyOwnedDialog);
 							break;
 						case -1:
-							visibleNotBuyable = true;
+							createNotBuyableDialog();
+							addActor(notBuyableDialog);
 							break;
 						case 0:
-							visibleSuccessfulBuy = true;
+							createSuccessfulBuyDialog();
+							addActor(successfulBuyDialog);
 							break;
+						
 						}
 						
 						return false;
@@ -411,22 +382,6 @@ public class GameScreen extends AbstractScreen {
 	        return endTurnBtn;
 	}
 	
-//	private Label createLabel()
-//	{
-//		Label label;
-//		Text r;
-//		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-//		BitmapFont font = new BitmapFont();
-//		LabelStyle style = new LabelStyle (font, Color.SKY);
-//		
-//		label = new Label("jojoo", style);
-//		label.setPosition(500, 500);
-//		label.setFontScale(3);
-//	//	label.setFontScale(5);
-////		label.setStyle(style);
-//		
-//		return label;
-//	}
 	
 	public void createJailDialog() {
 		
@@ -461,33 +416,29 @@ public class GameScreen extends AbstractScreen {
         protected void result(Object object)
         {
         	if(object.equals(1L)) 
-        		visibleSuccessfulBuy = false;
-        	
+        	{
+        		successfulBuyDialog.remove();
+        	}
         };
 		};
 		successfulBuyDialog.setPosition(340f, 600f);
 		
-		successfulBuyDialog.setMovable (false);
-		successfulBuyDialog.setVisible (visibleSuccessfulBuy);
-		
 		successfulBuyDialog.setWidth(250f);
 		successfulBuyDialog.button("EXIT", 1L);
-
+		
 	}
+	
 	
 	public void createNotBuyableDialog()
 	{
 		notBuyableDialog = new Dialog("This square is not buyable", skin) {
 			protected void result(Object object) {
 				if (object.equals(1L))
-					visibleNotBuyable = false;
+					notBuyableDialog.remove();
 
 			};
 		};
 		notBuyableDialog.setPosition(340f, 600f);
-
-		notBuyableDialog.setMovable(false);
-		notBuyableDialog.setVisible(visibleNotBuyable);
 
 		notBuyableDialog.setWidth(300f);
 		notBuyableDialog.button("EXIT", 1L);
@@ -498,14 +449,11 @@ public class GameScreen extends AbstractScreen {
 		alreadyOwnedDialog = new Dialog("Property is already owned", skin) {
 			protected void result(Object object) {
 				if (object.equals(1L))
-					visibleAlreadyOwned = false;
+					alreadyOwnedDialog.remove();
 
 			};
 		};
 		alreadyOwnedDialog.setPosition(340f, 600f);
-
-		alreadyOwnedDialog.setMovable(false);
-		alreadyOwnedDialog.setVisible(visibleAlreadyOwned);
 
 		alreadyOwnedDialog.setWidth(320f);
 		alreadyOwnedDialog.button("EXIT", 1L);
@@ -516,14 +464,10 @@ public class GameScreen extends AbstractScreen {
 		noMoneyDialog = new Dialog("You don't have enough money", skin) {
 			protected void result(Object object) {
 				if (object.equals(1L))
-					visibleNoMoney = false;
-
+					noMoneyDialog.remove();
 			};
 		};
 		noMoneyDialog.setPosition(340f, 600f);
-
-		noMoneyDialog.setMovable(false);
-		noMoneyDialog.setVisible(visibleNoMoney);
 
 		noMoneyDialog.setWidth(350f);
 		noMoneyDialog.button("EXIT", 1L);
