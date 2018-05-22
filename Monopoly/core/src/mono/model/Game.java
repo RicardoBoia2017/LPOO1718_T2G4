@@ -63,8 +63,10 @@ public class Game {
 	
 	private void initializeChanceQueue()
 	{
-		chanceQueue.add(1);
-		chanceQueue.add(2);
+		for (int i = 1; i <= 9; i++)
+			chanceQueue.add(i);
+		
+		System.out.println(chanceQueue.size());
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -275,7 +277,7 @@ public class Game {
 
 		
 		else if(cchestPositions.contains(p1.getPosition()))
-			res =  "CH " + chanceQueue.peek();
+			res =  "CC " + chanceQueue.peek();
 
 			
 		return res;

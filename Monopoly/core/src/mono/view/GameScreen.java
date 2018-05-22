@@ -32,9 +32,11 @@ import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.view.entities.BoardView;
 import mono.view.entities.BootView;
+import mono.view.entities.CChestView;
 import mono.view.entities.CarView;
 import mono.view.entities.ChanceView;
 import mono.view.entities.DiceView;
+import mono.view.entities.EntityView;
 import mono.view.entities.HatView;
 import mono.view.entities.ThimbleView;
 import mono.view.swapper.ScreenEnum;
@@ -91,15 +93,32 @@ public class GameScreen extends AbstractScreen {
 	private static void  loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
-		game.getAssetManager().load ("Chance.png", Texture.class);
-		game.getAssetManager().load ("Back 3 squares.png", Texture.class);
+		loadChanceCards();
+		loadDices();
+        game.getAssetManager().finishLoading();
+	}
+	
+	private static void loadChanceCards()
+	{
+		game.getAssetManager().load("ChanceCards/AExam.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/Birthday.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/CaughtStealing.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/FoundMoney.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/GoToMoscow.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/LostBet.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/RealEstateTaxes.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/SummerComing.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/WrongWay.png",Texture.class);
+	}
+	
+	private static void loadDices()
+	{
 		game.getAssetManager().load ("Dice/Dice1.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice2.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice3.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice4.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice5.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice6.png", Texture.class);
-        game.getAssetManager().finishLoading();
 	}
 	
 	@Override
@@ -252,23 +271,27 @@ public class GameScreen extends AbstractScreen {
 	private void drawCard()
 	{
 		String res = Game.getInstance().inCardPosition();
+		String cardType;
+		int cardId;
 		
 		if (res != null)
 		{
-			ChanceView chanceView = null;
+			EntityView cardView = null;
+			cardType = res.substring(0,2);
+			cardId = Integer.valueOf(res.substring(3));
 			
-			if (res.equals("CH 1"))
-				chanceView = new ChanceView(game,1);
+			if (cardType.equals("CH"))
+				cardView = new ChanceView(game,cardId);
 			
-			if (res.equals("CH 2"))
-				chanceView = new ChanceView(game,2);
+			else if (cardType.equals("CC"))
+				cardView = new CChestView(game,cardId);
 
-			Sprite chance = chanceView.createSprite();
+			Sprite card = cardView.createSprite();
 			
-			chance.setSize(550, 400);
-			chance.setPosition(125, 400);
+			card.setSize(550, 400);
+			card.setPosition(125, 400);
 			
-			chance.draw(game.getBatch());
+			card.draw(game.getBatch());
 		}
 	}
 	
