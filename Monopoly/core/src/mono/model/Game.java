@@ -2,12 +2,16 @@ package mono.model;
 
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.Queue;
+
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Random;
 
 import mono.controller.GameController;
 import mono.model.entities.Board;
 import mono.model.entities.BuyableSquare;
+import mono.model.entities.Chance;
 import mono.model.entities.CommunityChest;
 import mono.model.entities.Property;
 import mono.model.entities.Jail;
@@ -29,6 +33,9 @@ public class Game {
 	int taxMoney; 
 	String player1Piece;
 	Boolean playerIsInJail;
+	Queue <Chance> chanceQueue;
+	Queue <CommunityChest> cChestQueue;
+
 	
 	private Game()
 	{
@@ -36,6 +43,10 @@ public class Game {
 		currentPlayer = 1;
 		taxMoney = 0;
 		playerIsInJail = false;
+		
+		chanceQueue = new LinkedList <Chance>();
+		cChestQueue = new LinkedList <CommunityChest>();
+
 	}
 	
 	public void setGameModelInstanceToNull() {
@@ -231,6 +242,31 @@ public class Game {
 		System.out.println(p.getMoney());
 		p.addMoney(200);
 		System.out.println(p.getMoney());
+	}
+	
+	public String getCard()
+	{
+		Player p1 = players.get(currentPlayer - 1); 
+		
+		Vector <Integer> chancePositions = new Vector<Integer> (3);
+		Vector <Integer> cchestPositions = new Vector<Integer> (3);
+		
+		chancePositions.add(7);
+		chancePositions.add(22);
+		chancePositions.add(36);
+		
+		cchestPositions.add(2);
+		cchestPositions.add(17);
+		cchestPositions.add(33);
+		
+		if(chancePositions.contains(p1.getPosition()))
+			return "CH ";// + chanceQueue.peek();
+		
+		else if(cchestPositions.contains(p1.getPosition()))
+			return "CC ";// + cChestQueue.peek();
+
+			
+		return null;
 	}
 	
 	public ArrayList <Player> getPlayers() {return players;}

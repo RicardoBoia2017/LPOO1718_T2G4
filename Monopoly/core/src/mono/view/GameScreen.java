@@ -130,7 +130,7 @@ public class GameScreen extends AbstractScreen {
 		drawDice();
 		rollDiceAnimation(delta);
 		drawPiece (playerToDraw);
-//		drawCard();
+		drawCard();
 		
 		game.getBatch().end();
 
@@ -260,14 +260,17 @@ public class GameScreen extends AbstractScreen {
 	
 	private void drawCard()
 	{
-		ChanceView chanceView = new ChanceView(game);
-		
-		Sprite chance = chanceView.createSprite();
-		
-		chance.setSize(550, 400);
-		chance.setPosition(125, 400);
-		
-		chance.draw(game.getBatch());
+		if (Game.getInstance().getCard() != null)
+		{
+			ChanceView chanceView = new ChanceView(game);
+			
+			Sprite chance = chanceView.createSprite();
+			
+			chance.setSize(550, 400);
+			chance.setPosition(125, 400);
+			
+			chance.draw(game.getBatch());
+		}
 	}
 	
 	public void drawPiece(Player p1) {
