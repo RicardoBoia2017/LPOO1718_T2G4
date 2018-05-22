@@ -226,7 +226,6 @@ public class Game {
 		
 		int res = p1.removeMoney(ps1.getCost());
 		
-		
 		if (res == 0)	
 		{
 			p1.addProperty(ps1);

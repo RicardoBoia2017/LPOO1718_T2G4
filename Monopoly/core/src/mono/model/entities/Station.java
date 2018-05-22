@@ -12,20 +12,37 @@ public class Station extends BuyableSquare {
 	
 	protected void payRent (Player p)
 	{		
-		p.removeMoney(rent);
-		owner.addMoney(rent);
+		if(p != owner) {
+			int multiplier = 0;
+		
+			for(int i = 0; i < owner.getPropertiesOwned().size(); i++) {
+				if(owner.getPropertiesOwned().get(i).getType().equals("Station")) {
+					multiplier++;
+				}
+			}
+		
+			p.removeMoney(rent*multiplier);
+			owner.addMoney(rent*multiplier);
+		}
 	}
 	
 	public void buyProperty(Player p)
 	{
-		this.owner = p;
+		setOwner(p);
+		owner.addProperty(this);
 	}
 
 	public void setOwner (Player buyer)
 	{
 		owner = buyer;
 	}
-
+	
+	@Override
+	public void doAction (Player p) {
+		if(owner != null) {
+			payRent(p);
+		}
+	}
 	
 	@Override
 	public String getType() {

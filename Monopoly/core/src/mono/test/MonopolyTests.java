@@ -402,7 +402,7 @@ public class MonopolyTests {
 		g1.movePlayer(6); //goes to income tax
 		g1.squareAction();
 		
-		assertEquals (p1.getMoney(), playerMoney-200);
+		assertEquals (p1.getMoney(), playerMoney - 200);
 		assertEquals (g1.getTaxMoney(), 300);
 				
 		playerMoney = p1.getMoney();
@@ -455,5 +455,63 @@ public class MonopolyTests {
 		assertEquals(p1.getPosition(), 0);
 		
 		assertEquals(p1.getMoney(), playerMoney+400);
+	}
+	
+	@Test
+	public void testIfPlayerCollectsAndPaysStation() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		
+		Player p1 = g1.getPlayers().get(0);
+		Player p2 = g1.getPlayers().get(1);
+		
+		int ownerMoney = p1.getMoney();
+		int payerMoney = p2.getMoney();
+		
+		assertEquals(ownerMoney, 1500);
+		assertEquals(payerMoney, 1500);
+		
+		g1.movePlayer(5);
+		g1.buyProperty();
+		g1.endTurn();
+		
+		g1.movePlayer(5);
+		g1.squareAction();
+		
+		assertEquals(p1.getMoney(), (ownerMoney-200)+25);
+		assertEquals(p2.getMoney(), payerMoney-25);
+		
+		g1.endTurn();
+	}
+	
+	@Test
+	public void testIfPlayerCollectsAndPaysCompany() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		
+		Player p1 = g1.getPlayers().get(0);
+		Player p2 = g1.getPlayers().get(1);
+		
+		int ownerMoney = p1.getMoney();
+		int payerMoney = p2.getMoney();
+		
+		assertEquals(ownerMoney, 1500);
+		assertEquals(payerMoney, 1500);
+		
+		g1.movePlayer(12);
+		g1.buyProperty();
+		g1.endTurn();
+		
+		Pair diceroll = new Pair(6,6);
+		
+		g1.movePlayer(diceroll);
+		g1.squareAction();
+		
+		assertEquals(p1.getMoney(), (ownerMoney-150)+(4*12));
+		assertEquals(p2.getMoney(), payerMoney-(4*12));
+		
+		g1.endTurn();
 	}
 }

@@ -175,4 +175,8 @@ public class Player {
 	public void tellGameModelThePlayerPassedByGoSquare() {
 		Game.getInstance().givePlayer200Money(this);
 	}
+	
+	public int getAdditiveDiceRoll() {
+		return currentDiceRoll.getValue1()+currentDiceRoll.getValue2();
+	}
 }
