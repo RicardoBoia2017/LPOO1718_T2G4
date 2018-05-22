@@ -54,13 +54,10 @@ public class GameScreen extends AbstractScreen {
 	Dialog alreadyOwnedDialog;
 	Dialog noMoneyDialog;
 	Boolean visibleJail;
-	Boolean visibleSuccessfulBuy;
-	Boolean visibleNotBuyable;
-	Boolean visibleAlreadyOwned;
-	Boolean visibleNoMoney;
+
 	
-	static float diceRollTime;
-	Animation a;
+	static float diceRollTime; 
+	Animation diceAnimation;
 	
 	public GameScreen(String player1Model) {
 		super();
@@ -72,10 +69,6 @@ public class GameScreen extends AbstractScreen {
 		diceValues = new Pair();
 		
 		visibleJail = false;
-		visibleSuccessfulBuy = false;
-		visibleNotBuyable = false;
-		visibleAlreadyOwned = false;
-		visibleNoMoney = false;
 				
 		loadAssets();
 		
@@ -99,6 +92,7 @@ public class GameScreen extends AbstractScreen {
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
 		game.getAssetManager().load ("Chance.png", Texture.class);
+		game.getAssetManager().load ("Back 3 squares.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice1.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice2.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice3.png", Texture.class);
@@ -148,10 +142,10 @@ public class GameScreen extends AbstractScreen {
 		
 		if (this.diceRollTime < 1)
 		{
-			current = (Texture) a.getKeyFrames()[rand.nextInt(6)];
+			current = (Texture) diceAnimation.getKeyFrames()[rand.nextInt(6)];
 			game.getBatch().draw(current, 15.5f, 16f, 151.5f,151.5f);
 			
-			current = (Texture) a.getKeyFrames()[rand.nextInt(6)];
+			current = (Texture) diceAnimation.getKeyFrames()[rand.nextInt(6)];
 			game.getBatch().draw(current, 225.5f, 16f, 151.5f,151.5f);
 
 		}
@@ -167,7 +161,7 @@ public class GameScreen extends AbstractScreen {
 		array.add((Texture) game.getAssetManager().get("Dice/Dice5.png"));
 		array.add((Texture) game.getAssetManager().get("Dice/Dice6.png"));
 		
-		a = new Animation<>(0.1f, array);
+		diceAnimation = new Animation<>(0.1f, array);
 		
 	}
 
@@ -187,8 +181,6 @@ public class GameScreen extends AbstractScreen {
 			jailDialog.setVisible(visibleJail);
 		}
 	}
-	
-	
 	
 	private void drawBoard ()
 	{
@@ -257,13 +249,20 @@ public class GameScreen extends AbstractScreen {
 		thimble.draw(game.getBatch());
 	}
 	
-	
 	private void drawCard()
 	{
-		if (Game.getInstance().getCard() != null)
+		String res = Game.getInstance().inCardPosition();
+		
+		if (res != null)
 		{
-			ChanceView chanceView = new ChanceView(game);
+			ChanceView chanceView = null;
 			
+			if (res.equals("CH 1"))
+				chanceView = new ChanceView(game,1);
+			
+			if (res.equals("CH 2"))
+				chanceView = new ChanceView(game,2);
+
 			Sprite chance = chanceView.createSprite();
 			
 			chance.setSize(550, 400);
@@ -430,8 +429,7 @@ public class GameScreen extends AbstractScreen {
 		successfulBuyDialog.button("EXIT", 1L);
 		
 	}
-	
-	
+		
 	public void createNotBuyableDialog()
 	{
 		notBuyableDialog = new Dialog("This square is not buyable", skin) {

@@ -33,9 +33,20 @@ public class Game {
 	int taxMoney; 
 	String player1Piece;
 	Boolean playerIsInJail;
-	Queue <Chance> chanceQueue;
+	Queue <Integer> chanceQueue;
 	Queue <CommunityChest> cChestQueue;
 
+	public static synchronized Game getInstance() 
+	{ 
+		if (instance == null)
+			instance = new Game(); 
+		
+		return instance; 
+	}
+	
+	public void setGameModelInstanceToNull() {
+		instance = null;
+	}
 	
 	private Game()
 	{
@@ -44,13 +55,16 @@ public class Game {
 		taxMoney = 0;
 		playerIsInJail = false;
 		
-		chanceQueue = new LinkedList <Chance>();
+		chanceQueue = new LinkedList <Integer>();
+		initializeChanceQueue();
 		cChestQueue = new LinkedList <CommunityChest>();
 
 	}
 	
-	public void setGameModelInstanceToNull() {
-		instance = null;
+	private void initializeChanceQueue()
+	{
+		chanceQueue.add(1);
+		chanceQueue.add(2);
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -109,6 +123,12 @@ public class Game {
 		values.setValue1(1+rand.nextInt(6)); //dice roll 1
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
+		if (inCardPosition() != null)
+		{
+			int firstElement = chanceQueue.poll();
+			chanceQueue.add (firstElement);
+		}
+		
 		return values;
 	}
 	
@@ -161,14 +181,6 @@ public class Game {
 	public void setTaxMoney (int newValue)
 	{
 		this.taxMoney = newValue;
-	}
-
-	public static synchronized Game getInstance() 
-	{ 
-		if (instance == null)
-			instance = new Game(); 
-		
-		return instance; 
 	}
 	
 	public void tellJailPlayerWantsToPayFine() {
@@ -244,10 +256,10 @@ public class Game {
 		System.out.println(p.getMoney());
 	}
 	
-	public String getCard()
+	public String inCardPosition()
 	{
+		String res= null;
 		Player p1 = players.get(currentPlayer - 1); 
-		
 		Vector <Integer> chancePositions = new Vector<Integer> (3);
 		Vector <Integer> cchestPositions = new Vector<Integer> (3);
 		
@@ -260,13 +272,14 @@ public class Game {
 		cchestPositions.add(33);
 		
 		if(chancePositions.contains(p1.getPosition()))
-			return "CH ";// + chanceQueue.peek();
+			res =  "CH " + chanceQueue.peek();
+
 		
 		else if(cchestPositions.contains(p1.getPosition()))
-			return "CC ";// + cChestQueue.peek();
+			res =  "CH " + chanceQueue.peek();
 
 			
-		return null;
+		return res;
 	}
 	
 	public ArrayList <Player> getPlayers() {return players;}
