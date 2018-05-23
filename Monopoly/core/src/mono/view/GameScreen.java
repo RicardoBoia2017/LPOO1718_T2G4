@@ -147,7 +147,7 @@ public class GameScreen extends AbstractScreen {
 		
 		game.getBatch().end();
 
-		this.setVisibilities();
+		//this.setVisibilities();
 		
 		super.act();
 		super.draw();
