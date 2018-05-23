@@ -81,6 +81,7 @@ public class GameController {
 	}
 
 	public boolean tellViewToDisplayJailDialog() {
+		System.out.println(Game.getInstance().getplayerIsInJail());
 		return Game.getInstance().getplayerIsInJail();
 	}
 	

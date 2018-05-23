@@ -147,7 +147,7 @@ public class GameScreen extends AbstractScreen {
 		
 		game.getBatch().end();
 
-//		this.setVisibilities();
+		this.setVisibilities();
 		
 		super.act();
 		super.draw();
@@ -284,7 +284,7 @@ public class GameScreen extends AbstractScreen {
 				cardView = new ChanceView(game,cardId);
 			
 			else if (cardType.equals("CC"))
-				cardView = new CChestView(game,cardId);
+				cardView = new ChanceView(game,cardId);
 
 			Sprite card = cardView.createSprite();
 			
@@ -328,14 +328,27 @@ public class GameScreen extends AbstractScreen {
 						diceRollTime = 0;
 						
 						if(GameController.getInstance().tellViewToDisplayJailDialog()) {
-							visibleJail = true;
+							
+							if(jailDialog != null) {
+								if(jailDialog.isVisible() == false) {
+									jailDialog.setVisible(true);
+								}
+							} 
+							
+							else {
+								createJailDialog();
+								addActor(jailDialog);
+							}
+							
 						} else {
-							visibleJail = false;
+							
+							if(jailDialog != null) {
+								jailDialog.remove();
+							}
+							
 						}
 								
 						diceValues = GameController.getInstance().doTurn();
-						
-						//visibleProperty = true;
 							
 						return false;
 					}
@@ -419,7 +432,7 @@ public class GameScreen extends AbstractScreen {
             	}
             	
             	if(object.equals(2L)) {
-            		visibleJail = false;
+            		jailDialog.setVisible(false);
             	}
             	
             };
@@ -428,7 +441,6 @@ public class GameScreen extends AbstractScreen {
 		jailDialog.setPosition(340f, 600f);
 		
 		jailDialog.setMovable(false);
-		jailDialog.setVisible(visibleJail);
 		
 		jailDialog.setWidth(250f);
 		jailDialog.button("PAY", 1L);

@@ -32,7 +32,6 @@ public class Game {
 	int currentPlayer;
 	int taxMoney; 
 	String player1Piece;
-	Boolean playerIsInJail;
 	Queue <Integer> chanceQueue;
 	Queue <CommunityChest> cChestQueue;
 
@@ -53,7 +52,6 @@ public class Game {
 		board = new Board();
 		currentPlayer = 1;
 		taxMoney = 0;
-		playerIsInJail = false;
 		
 		chanceQueue = new LinkedList <Integer>();
 		initializeChanceQueue();
@@ -195,9 +193,12 @@ public class Game {
 		s1.setFirstVisitToFalse();
 	}
 	
-	public void tellControllerPlayerIsInJail(Boolean b) {
+	public void tellControllerPlayerIsInJail() {
 		System.out.println("Telling the controller he is in jail or not");
-		playerIsInJail = b;
+		System.out.print("Player ");
+		System.out.print(players.get(currentPlayer).getName());
+		System.out.print("is in jail? ");
+		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
 		GameController.getInstance().tellViewToDisplayJailDialog();
 	}
 	
@@ -287,7 +288,12 @@ public class Game {
 	public Board getBoard() {return board;} 
 	public int getCurrentPlayer(){return this.getCurrentPlayer();}
 	public int getTaxMoney () {return taxMoney;}
+	
 	public boolean getplayerIsInJail() {
-		return playerIsInJail;
+		System.out.print("Player ");
+		System.out.print(players.get(currentPlayer).getName());
+		System.out.print("is in jail? ");
+		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
+		return players.get(currentPlayer - 1).getPlayerIsInJail();
 	}
 }

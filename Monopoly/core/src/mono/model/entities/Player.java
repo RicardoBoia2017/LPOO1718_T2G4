@@ -105,8 +105,6 @@ public class Player {
 		
 		else {
 			turnsWithoutMoving++;
-			System.out.println("Telling the model I am in jail");
-			tellGameModelThePlayerIsInJail(true);
 		}
 		
 	}
@@ -164,8 +162,10 @@ public class Player {
 		return currentDiceRoll;
 	}
 	
-	public void tellGameModelThePlayerIsInJail(Boolean b) {
-		Game.getInstance().tellControllerPlayerIsInJail(b);
+	public void tellGameModelThePlayerIsInJail() {
+		System.out.print("My flag is ");
+		System.out.print(sentToJail);
+		Game.getInstance().tellControllerPlayerIsInJail();
 	}
 	
 	public void setCurrentDiceroll(Pair dice) {
@@ -178,5 +178,9 @@ public class Player {
 	
 	public int getAdditiveDiceRoll() {
 		return currentDiceRoll.getValue1()+currentDiceRoll.getValue2();
+	}
+	
+	public Boolean getPlayerIsInJail() {
+		return sentToJail;
 	}
 }
