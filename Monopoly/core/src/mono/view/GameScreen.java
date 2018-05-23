@@ -55,23 +55,20 @@ public class GameScreen extends AbstractScreen {
 	Dialog notBuyableDialog;
 	Dialog alreadyOwnedDialog;
 	Dialog noMoneyDialog;
-	Boolean visibleJail;
 
 	
 	static float diceRollTime; 
 	Animation diceAnimation;
 	
 	public GameScreen(String player1Model) {
-		super();
+		super(); 
 		Game.getInstance().addPlayers(player1Model);
 		playerToDraw = Game.getInstance().getPlayers().get(0);
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 		
 		//initialize dice
 		diceValues = new Pair();
-		
-		visibleJail = false;
-				
+						
 		loadAssets();
 		
 		drawAnimation();
@@ -146,9 +143,7 @@ public class GameScreen extends AbstractScreen {
 		drawCard();
 		
 		game.getBatch().end();
-
-		//this.setVisibilities();
-		
+				
 		super.act();
 		super.draw();
 	}
@@ -182,23 +177,6 @@ public class GameScreen extends AbstractScreen {
 		
 		diceAnimation = new Animation<>(0.1f, array);
 		
-	}
-
-	private void setVisibilities() {
-		this.setJailVisibility();
-	}
-
-	private void setJailVisibility()
-	{
-		if(!visibleJail) {
-			createJailDialog();
-			addActor(jailDialog);
-			jailDialog.setVisible(visibleJail);
-		}
-		
-		else {
-			jailDialog.setVisible(visibleJail);
-		}
 	}
 	
 	private void drawBoard ()
@@ -315,7 +293,6 @@ public class GameScreen extends AbstractScreen {
 		
 	}
 	
-	
 	private TextButton createRollDiceBtn() { 
        TextButton rollDiceButton = new TextButton("Roll Dice", skin);
         rollDiceButton.setPosition(780, 20);
@@ -347,7 +324,6 @@ public class GameScreen extends AbstractScreen {
         
         return rollDiceButton;
 	}
-	
 	
 	private TextButton createBuyPropertyBtn() {
 
@@ -411,7 +387,6 @@ public class GameScreen extends AbstractScreen {
 	        return endTurnBtn;
 	}
 	
-	
 	public void createJailDialog() {
 		
 		jailDialog = new Dialog("Pay the fine or wait?", skin) {
@@ -419,7 +394,8 @@ public class GameScreen extends AbstractScreen {
             {
             	
             	if(object.equals(1L)) {
-            		GameController.getInstance().payJail();
+            		GameController.getInstance().payJail();  
+            		jailDialog.remove();
             	}
             	
             	if(object.equals(2L)) {

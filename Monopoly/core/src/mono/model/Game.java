@@ -5,7 +5,9 @@ import java.util.Vector;
 import java.util.Queue;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import mono.controller.GameController;
@@ -33,7 +35,7 @@ public class Game {
 	int taxMoney; 
 	String player1Piece;
 	Queue <Integer> chanceQueue;
-	Queue <CommunityChest> cChestQueue;
+	Queue <Integer> cChestQueue;
 
 	public static synchronized Game getInstance() 
 	{ 
@@ -55,16 +57,17 @@ public class Game {
 		
 		chanceQueue = new LinkedList <Integer>();
 		initializeChanceQueue();
-		cChestQueue = new LinkedList <CommunityChest>();
+		cChestQueue = new LinkedList <Integer>();
 
 	}
 	
 	private void initializeChanceQueue()
-	{
+	{		
 		for (int i = 1; i <= 9; i++)
 			chanceQueue.add(i);
 		
-		System.out.println(chanceQueue.size());
+		Collections.shuffle((List<?>) chanceQueue);
+		
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -123,7 +126,7 @@ public class Game {
 		values.setValue1(1+rand.nextInt(6)); //dice roll 1
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
-		if (inCardPosition() != null)
+		if (inCardPosition() != null) 
 		{
 			int firstElement = chanceQueue.poll();
 			chanceQueue.add (firstElement);
@@ -134,13 +137,13 @@ public class Game {
 	
 	public void movePlayer(Pair diceRoll) {
 		
-		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, the is index in array is 0
+		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, index in array is 0
 		Player p1 = players.get(playerIndex); 
 	
 		takePlayerFromBoardSquare(p1.getPosition(), playerIndex); //DOES NOT WORK
 				
 		p1.move(diceRoll);
-		
+
 		if(p1.getPosition() == 0) {
 			tellGoSquareItsNotFirstVisit();
 		}
@@ -150,13 +153,16 @@ public class Game {
 	
 	public void movePlayer(int diceRoll) {
 		
-		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, the is index in array is 0
+		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, index in array is 0
 		Player p1 = players.get(playerIndex); 
 	
 		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
 				
 		p1.move(diceRoll);
 		
+		if(p1.getPosition() == 0) {
+			tellGoSquareItsNotFirstVisit();
+		}
 		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
 	}
 	
@@ -210,7 +216,7 @@ public class Game {
 		Vector <String> allowedTypes = new Vector <String> (3);
 		allowedTypes.add("Property");
 		allowedTypes.add("Station");
-		allowedTypes.add("Companies");
+		allowedTypes.add("Company");
 		
 		if (!allowedTypes.contains(s1.getType())) //trying to buy square that can't be bought
 			return -1;
@@ -278,8 +284,8 @@ public class Game {
 
 		
 		else if(cchestPositions.contains(p1.getPosition()))
-			res =  "CC " + chanceQueue.peek();
-
+//			res =  "CC " + chanceQueue.peek();
+			res =  "CH " + chanceQueue.peek();
 			
 		return res;
 	}
@@ -288,7 +294,8 @@ public class Game {
 	public Board getBoard() {return board;} 
 	public int getCurrentPlayer(){return this.getCurrentPlayer();}
 	public int getTaxMoney () {return taxMoney;}
-	
+	public int getFirstChanceCardId() {return chanceQueue.peek();}
+	public int getFirstCChestCardId() {return cChestQueue.peek();}
 	public boolean getplayerIsInJail() {
 		System.out.print("Player ");
 		System.out.print(players.get(currentPlayer).getName());

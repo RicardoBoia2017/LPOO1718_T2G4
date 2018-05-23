@@ -70,11 +70,15 @@ public class Property extends BuyableSquare {
 	
 	public void buyHotel ()
 	{
-		if (this.nHotels == 0 && this.nHouses == 4)
+		if (this.nHotels == 0 && this.nHouses == 4) 
 			nHotels++;
 	}
 
 	@Override
 	public String getType() {return "Property";	}
+	
+	public int getHouses() {return this.nHouses;}
+	public int getHotels() {return this.nHotels;}
+
 
 }

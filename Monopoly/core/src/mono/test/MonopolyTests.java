@@ -242,7 +242,7 @@ public class MonopolyTests {
 		
 		g1.squareAction();
 		
-		assertEquals(p1.wasSentToJail(), true);
+		assertEquals(p1.isInJail(), true);
 		
 		assertEquals(p1.getPosition(), 10);
 		assertEquals(s1.getplayersOnTopOfSquareArray().size(), 0);
