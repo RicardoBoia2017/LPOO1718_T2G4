@@ -327,19 +327,12 @@ public class GameScreen extends AbstractScreen {
 				
 						diceRollTime = 0;
 						
-						if(GameController.getInstance().tellViewToDisplayJailDialog()) {
-							
-							if(jailDialog != null) {
-								if(jailDialog.isVisible() == false) {
-									jailDialog.setVisible(true);
-								}
-							} 
-							
-							else {
-								createJailDialog();
-								addActor(jailDialog);
-							}
-							
+						diceValues = GameController.getInstance().doTurn();
+						
+						if(GameController.getInstance().tellViewToDisplayJailDialog() && diceValues.getValue1() != diceValues.getValue2()) {
+							createJailDialog();
+							addActor(jailDialog);
+						
 						} else {
 							
 							if(jailDialog != null) {
@@ -347,8 +340,6 @@ public class GameScreen extends AbstractScreen {
 							}
 							
 						}
-								
-						diceValues = GameController.getInstance().doTurn();
 							
 						return false;
 					}
@@ -432,7 +423,7 @@ public class GameScreen extends AbstractScreen {
             	}
             	
             	if(object.equals(2L)) {
-            		jailDialog.setVisible(false);
+            		jailDialog.remove();
             	}
             	
             };

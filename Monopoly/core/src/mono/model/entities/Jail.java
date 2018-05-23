@@ -21,19 +21,19 @@ public class Jail extends Square {
 	@Override
 	public void doAction(Player p) {
 		
-		if(p.getTurnsWithoutMoving() == 3) {
+		if(p.getTurnsWithoutMoving() == 3 && p.getPlayerIsInJail()) {
 			freePlayer(p);
 			p.tellGameModelThePlayerIsInJail();
 		}
 		
-		else if (p.getCurrentDiceRoll() != null && p.getCurrentDiceRoll().getValue1() == p.getCurrentDiceRoll().getValue2()) {
+		if (p.getCurrentDiceRoll() != null && p.getCurrentDiceRoll().getValue1() == p.getCurrentDiceRoll().getValue2() && p.getPlayerIsInJail()) {
 			freePlayer(p);
+			p.tellGameModelThePlayerIsInJail();
 			Game g1 = Game.getInstance();
 			g1.movePlayer(p.getCurrentDiceRoll());
-			p.tellGameModelThePlayerIsInJail();
 		}
 		
-		if(playerWillPayFine) {
+		if(playerWillPayFine && p.getPlayerIsInJail()) {
 //			System.out.println(p.getMoney());
 			
 			if(p.getMoney() > fine) {
