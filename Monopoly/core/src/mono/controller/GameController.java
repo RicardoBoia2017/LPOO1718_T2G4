@@ -22,7 +22,7 @@ public class GameController {
 
     private static GameController instance;
 	
-    private BoardModel board;
+//    private BoardModel board;
     
     private List <HouseModel> houses;
     private List <PlayerModel> playerModels = new ArrayList<PlayerModel>();
@@ -48,7 +48,7 @@ public class GameController {
 		Game.getInstance().movePlayer(diceRoll);
 		doSquareAction();
 
-		return diceRoll;
+		return diceRoll; 
 	}
 	
 	private void doSquareAction()
@@ -63,7 +63,7 @@ public class GameController {
 		if (res == 0)
 			res = Game.getInstance().buyProperty();
 			
-		return res;
+		return res; 
 	}
 	
 	public void endTurn()

@@ -16,11 +16,9 @@ public class CarPiece extends Piece {
 		int currentPosition = playerPosition;
 		int GoSquareGap = 100;
 		int StandardSquareGap = 68;
-		int boardHeight = 930;
-		int boardWidth = 750;
 		
-//		System.out.println("Position " + currentPosition + "    ATW " + amountToWalk);
-		
+		if (amountToWalk < 0)
+			amountToWalk += 40;
 		
 		while (amountToWalk > 0)
 		{

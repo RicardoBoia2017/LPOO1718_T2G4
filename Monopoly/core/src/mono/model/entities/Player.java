@@ -12,17 +12,17 @@ public class Player {
 	String name; //there can be more than one player
 	Piece boardPiece;
 	int money;
-	Boolean sentToJail;
+	Boolean inJail; 
 	int turnsWithoutMoving;
 	Pair currentDiceRoll;
-	ArrayList <Square> propertiesOwned =  new ArrayList <Square> ();
+	ArrayList <BuyableSquare> propertiesOwned =  new ArrayList <BuyableSquare> ();
 	Boolean hasPassedGoSquareOnce;
 
 	public Player(String name, String pieceType) {
 		this.name = name;
 		position = 0;
 		money = 1500;
-		sentToJail = false;
+		inJail = false;
 		turnsWithoutMoving = 0;
 		initializePiece(pieceType);
 		hasPassedGoSquareOnce = true;
@@ -64,7 +64,7 @@ public class Player {
 		
 		currentDiceRoll = diceRoll;
 		
-		if(!sentToJail) {
+		if(!inJail) {
 			Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll.getValue1()+diceRoll.getValue2());
 			
 			coordinates = finalPosition;
@@ -80,6 +80,9 @@ public class Player {
 				}
 			}
 			
+			else if (position < 0)
+				position = position + 40; 
+			
 		}
 		
 		else {
@@ -90,16 +93,18 @@ public class Player {
 	
 	public void move(int diceRoll) {
 		
-		if(!sentToJail) {
+		if(!inJail) {
 			Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll);
 			
 			coordinates = finalPosition;
 			
 			position = position + diceRoll;
 	
-			if(position >= 40) {
+			if(position >= 40) 
 				position = position - 40;
-			}
+			
+			else if (position < 0)
+				position = position + 40; 
 			
 		}
 		
@@ -109,12 +114,16 @@ public class Player {
 		
 	}
 
-	public void addProperty (Square property)
+	public void addProperty (BuyableSquare property)
 	{
 		this.propertiesOwned.add(property);
 	}
 	
-	public void addMoney (int value) {money += value;}
+	public void addMoney (int value) 
+	{
+		money += value;
+		System.out.println("Added " + value);
+	}
 	
 	public int removeMoney (int value)
 	{
@@ -123,6 +132,7 @@ public class Player {
 		
 		money -= value;
 	
+		System.out.println("Removed " + value);
 		return 0;
 	}
 	
@@ -136,18 +146,18 @@ public class Player {
 	public int getX() {return (int) coordinates.getX();}
 	public int getY() {return (int) coordinates.getY();}
 	public int getMoney() {return money;}
-	public ArrayList <Square> getPropertiesOwned () {return this.propertiesOwned;}
+	public ArrayList <BuyableSquare> getPropertiesOwned () {return this.propertiesOwned;}
 	
-	public Boolean wasSentToJail() {
-		return sentToJail;
+	public Boolean isInJail() {
+		return inJail;
 	}
 	
 	public void sendToJail() {
-		sentToJail = true;
+		inJail = true;
 	}
 	
 	public void freeFromJail() {
-		sentToJail = false;
+		inJail = false;
 	}
 	
 	public void resetTurnsWithoutMoving() {
@@ -164,8 +174,8 @@ public class Player {
 	
 	public void tellGameModelThePlayerIsInJail() {
 		System.out.print("My flag is ");
-		System.out.print(sentToJail);
-		Game.getInstance().tellControllerPlayerIsInJail();
+		System.out.print(inJail);
+		Game.getInstance().tellControllerPlayerIsInJail(); 
 	}
 	
 	public void setCurrentDiceroll(Pair dice) {
@@ -181,6 +191,6 @@ public class Player {
 	}
 	
 	public Boolean getPlayerIsInJail() {
-		return sentToJail;
+		return inJail;
 	}
 }

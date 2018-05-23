@@ -21,8 +21,9 @@ public class HatPiece extends Piece{
 		int currentPosition = playerPosition;
 		int GoSquareGap = 80;
 		int StandardSquareGap = 68;
-		int boardHeight = 930;
-		int boardWidth = 750;
+		
+		if (amountToWalk < 0)
+			amountToWalk += 40;
 		
 		while (amountToWalk > 0)
 		{
