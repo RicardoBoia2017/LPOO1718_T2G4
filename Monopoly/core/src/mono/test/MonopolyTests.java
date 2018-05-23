@@ -252,7 +252,7 @@ public class MonopolyTests {
 		assertEquals(s1.getName(), "Jail");
 	}
 	
-	/*@Test
+	@Test
 	public void testIfPlayerMovementIsBlockedInJailThreeTurns() {
 		Game g1 = createGameForTesting();
 		
@@ -296,7 +296,7 @@ public class MonopolyTests {
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
 		assertEquals(p1.getPosition(), 11);
 		assertEquals(s1.getName(), "Cape Town");
-	}*/
+	}
 	
 	@Test
 	public void playerGetsOutOfJailByPaying() {
