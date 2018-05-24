@@ -88,7 +88,7 @@ public class Chance extends Square {
 	private void movePlayer (Player p, int destPosition)
 	{
 		int squaresToMove = destPosition - p.getPosition();
-		Game.getInstance().movePlayer(squaresToMove);
+		Game.getInstance().setMoveFromCards(squaresToMove);
 	}
 	
 	@Override

@@ -33,6 +33,7 @@ public class Game {
 	ArrayList <Player> players = new ArrayList<Player>();
 	int currentPlayer;
 	int taxMoney; 
+	int moveFromCards;
 	String player1Piece;
 	Queue <Integer> chanceQueue;
 	Queue <Integer> cChestQueue;
@@ -54,6 +55,7 @@ public class Game {
 		board = new Board();
 		currentPlayer = 1;
 		taxMoney = 0;
+		moveFromCards = 0;
 		
 		chanceQueue = new LinkedList <Integer>();
 		initializeChanceQueue();
@@ -63,10 +65,11 @@ public class Game {
 	
 	private void initializeChanceQueue()
 	{		
+		chanceQueue.add(3);
 		for (int i = 1; i <= 9; i++)
 			chanceQueue.add(i);
 		
-		Collections.shuffle((List<?>) chanceQueue);
+//		Collections.shuffle((List<?>) chanceQueue);
 		
 	}
 	
@@ -86,7 +89,7 @@ public class Game {
 			players.add(new Player("Bot", "Boot"));
 		}
 		
-		else if(player1Piece.equals("Boot")) {
+		else if(player1Piece.equals("Boot")) { 
 			players.add(new Player("Bot", "Thimble"));
 			players.add(new Player("Bot", "Hat"));
 			players.add(new Player("Bot", "Car"));
@@ -126,13 +129,8 @@ public class Game {
 		values.setValue1(1+rand.nextInt(6)); //dice roll 1
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
-		if (inCardPosition() != null) 
-		{
-			int firstElement = chanceQueue.poll();
-			chanceQueue.add (firstElement);
-		}
-		
-		return values;
+//		return values;
+		return new Pair (4,3);
 	}
 	
 	public void movePlayer(Pair diceRoll) {
@@ -173,7 +171,28 @@ public class Game {
 	}
 	
 	public void endTurn ()
-	{
+	{	
+		String res = inCardPosition();
+
+		if(this.moveFromCards != 0)
+			movePlayerEndTurn ();
+		
+		if (res != null) 
+		{
+			int firstCard;
+
+			if (res.substring(0,2).equals("CH"))
+			{
+				firstCard = chanceQueue.poll();
+				chanceQueue.add (firstCard);
+			}
+			
+//			else
+//			{
+//				firstCard = cChestQueue.poll();
+//				cChestQueue.add (firstCard);
+//			}
+		}
 		
 		if (currentPlayer == players.size())
 			this.currentPlayer = 1;
@@ -181,7 +200,26 @@ public class Game {
 		else
 			this.currentPlayer++;
 		
-		System.out.println(this.currentPlayer);
+		
+	}
+	
+	private void movePlayerEndTurn()
+	{
+		Player p1 = players.get(currentPlayer - 1);
+		System.out.println("End Tur");
+		String res = inCardPosition().substring(0, 2);
+
+		if (res.substring(0,2).equals("CH") &&
+				getFirstChanceCardId()	== 3)
+				p1.freeFromJail();
+		
+		movePlayer(this.moveFromCards);
+		
+		if (res.substring(0,2).equals("CH") &&
+				getFirstChanceCardId()	== 3)
+			p1.sendToJail();
+		
+		this.moveFromCards = 0;
 	}
 	
 	public void setTaxMoney (int newValue)
@@ -200,11 +238,11 @@ public class Game {
 	}
 	
 	public void tellControllerPlayerIsInJail() {
-		System.out.println("Telling the controller he is in jail or not");
-		System.out.print("Player ");
-		System.out.print(players.get(currentPlayer).getName());
-		System.out.print("is in jail? ");
-		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
+//		System.out.println("Telling the controller he is in jail or not");
+//		System.out.print("Player ");
+//		System.out.print(players.get(currentPlayer).getName());
+//		System.out.print("is in jail? ");
+//		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
 		GameController.getInstance().tellViewToDisplayJailDialog();
 	}
 	
@@ -290,6 +328,8 @@ public class Game {
 		return res;
 	}
 	
+	public void setMoveFromCards (int value) {this.moveFromCards = value;}
+	
 	public ArrayList <Player> getPlayers() {return players;}
 	public Board getBoard() {return board;} 
 	public int getCurrentPlayer(){return this.getCurrentPlayer();}
@@ -297,10 +337,10 @@ public class Game {
 	public int getFirstChanceCardId() {return chanceQueue.peek();}
 	public int getFirstCChestCardId() {return cChestQueue.peek();}
 	public boolean getplayerIsInJail() {
-		System.out.print("Player ");
-		System.out.print(players.get(currentPlayer).getName());
-		System.out.print("is in jail? ");
-		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
+//		System.out.print("Player ");
+//		System.out.print(players.get(currentPlayer).getName());
+//		System.out.print("is in jail? ");
+//		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
 		return players.get(currentPlayer - 1).getPlayerIsInJail();
 	}
 }

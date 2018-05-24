@@ -55,7 +55,8 @@ public class GameScreen extends AbstractScreen {
 	Dialog notBuyableDialog;
 	Dialog alreadyOwnedDialog;
 	Dialog noMoneyDialog;
-
+	TextButton closeBtn;
+	Boolean showCard;
 	
 	static float diceRollTime; 
 	Animation diceAnimation;
@@ -68,7 +69,9 @@ public class GameScreen extends AbstractScreen {
 		
 		//initialize dice
 		diceValues = new Pair();
-						
+					
+		showCard = false;
+		
 		loadAssets();
 		
 		drawAnimation();
@@ -181,15 +184,15 @@ public class GameScreen extends AbstractScreen {
 	
 	private void drawBoard ()
 	{
-		Texture board = game.getAssetManager().get("Board.png",Texture.class);
+		Texture board = game.getAssetManager().get("Board.png",Texture.class); 
 		game.getBatch().draw(board, 1, 197, 803, 803);
 	}
 	
 	public void drawDice() {
-		Game g1 = Game.getInstance();
+		
 		DiceView dice1 = new DiceView(game, diceValues.getValue1());
 		DiceView dice2 = new DiceView(game, diceValues.getValue2());
-		
+
 		Sprite dice_1 = dice1.createSprite();
 		Sprite dice_2 = dice2.createSprite();
 		
@@ -202,6 +205,26 @@ public class GameScreen extends AbstractScreen {
 		dice_2.draw(game.getBatch());	
 	}
 	
+	public void drawPiece(Player p1) {
+		
+		if(p1.getBoardPiece().getType() == "Thimble") {
+			drawThimble(p1);
+		}
+		
+		else if(p1.getBoardPiece().getType() == "Car") {
+			drawCar(p1);
+		}
+		
+		else if(p1.getBoardPiece().getType() == "Hat") {
+			drawHat(p1);
+		}
+		
+		else if(p1.getBoardPiece().getType() == "Boot") {
+			drawBoot(p1);
+		}
+		
+	}
+
 	public void drawCar(Player p1) {
 		CarView carView = new CarView(game);
 		
@@ -252,46 +275,44 @@ public class GameScreen extends AbstractScreen {
 		String cardType;
 		int cardId;
 		
-		if (res != null)
-		{
-			EntityView cardView = null;
-			cardType = res.substring(0,2);
-			cardId = Integer.valueOf(res.substring(3));
-			
-			if (cardType.equals("CH"))
-				cardView = new ChanceView(game,cardId);
-			
-			else if (cardType.equals("CC"))
-				cardView = new ChanceView(game,cardId);
+		if (res == null)
+			return;
+		
+//		System.out.println("Show card");
+		
+		EntityView cardView = null;
+		cardType = res.substring(0, 2);
+		cardId = Integer.valueOf(res.substring(3));
 
-			Sprite card = cardView.createSprite();
-			
-			card.setSize(550, 400);
-			card.setPosition(125, 400);
-			
+		if (cardType.equals("CH"))
+			cardView = new ChanceView(game, cardId);
+
+		else if (cardType.equals("CC"))
+			// cardView = new CChestView(game,cardId);
+			cardView = new ChanceView(game, cardId);
+
+		Sprite card = cardView.createSprite();
+
+		card.setSize(550, 400);
+		card.setPosition(125, 400);
+
+		if (closeBtn == null)
+		{
+			createCloseButton();
+			addActor(closeBtn);
+		}
+
+		if (showCard)
 			card.draw(game.getBatch());
+
+		else if (closeBtn != null)
+		{
+			closeBtn.remove();
+			closeBtn = null;
 		}
 	}
-	
-	public void drawPiece(Player p1) {
-		
-		if(p1.getBoardPiece().getType() == "Thimble") {
-			drawThimble(p1);
-		}
-		
-		else if(p1.getBoardPiece().getType() == "Car") {
-			drawCar(p1);
-		}
-		
-		else if(p1.getBoardPiece().getType() == "Hat") {
-			drawHat(p1);
-		}
-		
-		else if(p1.getBoardPiece().getType() == "Boot") {
-			drawBoot(p1);
-		}
-		
-	}
+
+	public void setShowCard(boolean value) {showCard = value;}
 	
 	private TextButton createRollDiceBtn() { 
        TextButton rollDiceButton = new TextButton("Roll Dice", skin);
@@ -303,6 +324,7 @@ public class GameScreen extends AbstractScreen {
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				
 						diceRollTime = 0;
+						showCard = true;
 						
 						diceValues = GameController.getInstance().doTurn();
 						
@@ -385,6 +407,25 @@ public class GameScreen extends AbstractScreen {
 					});
 	        
 	        return endTurnBtn;
+	}
+	
+	private void createCloseButton()
+	{
+	     	closeBtn = new TextButton("Close", skin);
+	        closeBtn.setPosition(337.5f, 400);
+	        closeBtn.setWidth(200);
+	        
+	        closeBtn.addListener(
+					new InputListener() {
+						@Override
+						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+							
+							showCard = false;
+								
+							return false;
+						}
+					});
+	        
 	}
 	
 	public void createJailDialog() {

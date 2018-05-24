@@ -17,7 +17,7 @@ public class PropertyView extends EntityView {
 
 	@Override
 	public Sprite createSprite() {
-		Texture property = new Texture("Properties/Athens.png");
+		Texture property = null;
 /*
 		switch (name)
 		{

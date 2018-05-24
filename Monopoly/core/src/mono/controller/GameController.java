@@ -45,7 +45,7 @@ public class GameController {
 	public Pair doTurn()
 	{	
 		Pair diceRoll = Game.getInstance().rollDice();
-		Game.getInstance().movePlayer(diceRoll);
+		Game.getInstance().movePlayer(diceRoll);			
 		doSquareAction();
 
 		return diceRoll; 

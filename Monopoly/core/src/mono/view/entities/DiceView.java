@@ -17,7 +17,7 @@ public class DiceView extends EntityView {
 
 	@Override
 	public Sprite createSprite() {
-		Texture dice = new Texture("Dice/Dice1.png");
+		Texture dice = game.getAssetManager().get("Dice/Dice1.png");
 		
 		switch (number)
 		{
