@@ -63,9 +63,9 @@ public class Property extends BuyableSquare {
 		owner = buyer;
 	}
 
-	public void buyHouse (int nHouses)
+	public void buyHouse ()
 	{
-		this.nHouses += nHouses;
+		nHouses++;
 	}
 	
 	public void buyHotel ()
@@ -73,12 +73,27 @@ public class Property extends BuyableSquare {
 		if (this.nHotels == 0 && this.nHouses == 4) 
 			nHotels++;
 	}
+	
+	public String getColor()
+	{
+		return color;
+	}
+	
+	public int getCostOfAHouseByColor() {
+		return buildingCost;
+	}
+	
+	public void mortgageThisProperty() {
+		if(inMortgage) {
+			owner.removeMoney(mortgageValue * nHouses);
+			owner.removeMoney(mortgageValue * nHotels);
+			nHouses = 0;
+			nHotels = 0;
+		}
+	}
 
 	@Override
-	public String getType() {return "Property";	}
-	
+	public String getType() {return "Property";}
 	public int getHouses() {return this.nHouses;}
 	public int getHotels() {return this.nHotels;}
-
-
 }

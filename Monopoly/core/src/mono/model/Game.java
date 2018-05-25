@@ -129,8 +129,7 @@ public class Game {
 		values.setValue1(1+rand.nextInt(6)); //dice roll 1
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
-//		return values;
-		return new Pair (4,3);
+		return values;
 	}
 	
 	public void movePlayer(Pair diceRoll) {
@@ -265,6 +264,24 @@ public class Game {
 		return 0; //square can be bought
 		
 	}
+	
+	public int checkHouseAvailability() {
+		Player p1 = players.get(currentPlayer - 1); 
+		Square s1 = this.board.getBoardArray().get(p1.getPosition());
+		
+		if (!s1.getType().equals("Property")) //trying to place a house in a square other than property
+			return -1;
+		
+		else if(checkIfPropertyIsMortgaged(s1.getName())) //trying to place a house in a mortgaged property
+			return -2;
+		
+		Property s2 = (Property) s1; //at this point, we can presume it is a valid property
+		
+		if(!checkIfPlayerOwnsAllPropertiesOfThatColor(p1, s2.getColor())) //trying to place a house without owning all of that color
+			return -4;
+		
+		return 0;
+	}
 
 	public int buyProperty()
 	{
@@ -283,6 +300,20 @@ public class Game {
 		
 	}
 	
+	public int buyHouse() {
+		Player p1 = players.get(currentPlayer - 1); 
+		Property ps1 = (Property) board.getBoardArray().get(p1.getPosition());
+		
+		int res = p1.removeMoney(ps1.getCostOfAHouseByColor());
+		
+		if (res == 0)	
+		{
+			ps1.buyHouse();
+		}
+		
+		return res;
+	}
+	
 	private boolean checkIfPropertyIsOwned (String squareName)
 	{
 		for (Player p: this.players)
@@ -294,6 +325,56 @@ public class Game {
 		}
 		
 		return false;
+	}
+	
+	private boolean checkIfPropertyIsMortgaged (String squarename) {
+		BuyableSquare s1 = null;
+		
+		for(int i = 0; i < board.getBoardArray().size(); i++) {
+			if(board.getBoardArray().get(i).getName().equals(squarename)) {
+				s1 = (BuyableSquare) board.getBoardArray().get(i);
+			}
+		}
+		
+		return s1.getMortgageStatus();
+	}
+	
+	private boolean checkIfPlayerOwnsAllPropertiesOfThatColor(Player p1, String color) {
+		
+		int numberOfPropertiesOfColor = 0;
+		
+		numberOfPropertiesOfColor = countPropertiesOfAColor(color);
+		
+		return checkIfCountingWasValid(color, numberOfPropertiesOfColor);
+		
+	}
+	
+	public int countPropertiesOfAColor(String color) {
+		int countPropertiesOfColor = 0;
+		
+		for(int i = 0; i < players.size(); i++) {
+			for(int j = 0; j < players.get(i).getPropertiesOwned().size(); j++) {
+				if(players.get(i).getPropertiesOwned().get(j).getType().equals("Property")) {
+					Property s2 = (Property) players.get(i).getPropertiesOwned().get(j);
+					
+					if(s2.getColor().equals(color)) {
+						countPropertiesOfColor++;
+					}
+				}
+			}
+		}
+		
+		return countPropertiesOfColor;
+	}
+	
+	public Boolean checkIfCountingWasValid(String color, int count) {
+		if(color.equals("BROWN") || color.equals("DARK_BLUE")) {
+			return (count == 2);
+		}
+		
+		else {
+			return (count == 3);
+		}
 	}
 	
 	public void givePlayer200Money(Player p) {

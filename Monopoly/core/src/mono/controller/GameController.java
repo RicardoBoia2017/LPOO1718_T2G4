@@ -66,6 +66,16 @@ public class GameController {
 		return res; 
 	}
 	
+	public int buyHouse()
+	{
+		int res = Game.getInstance().checkHouseAvailability();
+		
+		if(res == 0)
+			res = Game.getInstance().buyHouse();
+		
+		return res;
+	}
+	
 	public void endTurn()
 	{
 		Game.getInstance().endTurn();

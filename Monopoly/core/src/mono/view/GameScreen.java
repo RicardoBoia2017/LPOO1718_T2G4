@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -38,6 +39,7 @@ import mono.view.entities.ChanceView;
 import mono.view.entities.DiceView;
 import mono.view.entities.EntityView;
 import mono.view.entities.HatView;
+import mono.view.entities.HouseView;
 import mono.view.entities.ThimbleView;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.ScreenManager;
@@ -55,6 +57,10 @@ public class GameScreen extends AbstractScreen {
 	Dialog notBuyableDialog;
 	Dialog alreadyOwnedDialog;
 	Dialog noMoneyDialog;
+	Dialog sucessfulHouseDialog;
+	Dialog cannotPlaceHouseDialog;
+	Dialog doNotOwnAllColorsDialog;
+	Dialog mortgagedDialog;
 	TextButton closeBtn;
 	Boolean showCard;
 	
@@ -127,6 +133,7 @@ public class GameScreen extends AbstractScreen {
 		addActor(createRollDiceBtn());
 		addActor(createBuyPropertyBtn());
 		addActor(createEndTurnBtn());
+		addActor(createBuyHouseBtn());
 		
 		createSuccessfulBuyDialog();
 	}
@@ -223,6 +230,17 @@ public class GameScreen extends AbstractScreen {
 			drawBoot(p1);
 		}
 		
+	}
+	
+	private void drawAHouse(Player p1) {
+		HouseView houseView = new HouseView(game);
+		
+		Sprite house = houseView.createSprite();
+		
+		house.setPosition(p1.getX(), p1.getY()+10);
+		house.setSize(20, 20);
+		
+		house.draw(game.getBatch());
 	}
 
 	public void drawCar(Player p1) {
@@ -389,6 +407,53 @@ public class GameScreen extends AbstractScreen {
         return buyPropertyButton;
 	}
 	
+	private TextButton createBuyHouseBtn() {
+
+        TextButton buyHouseButton = new TextButton("House", skin);
+        buyHouseButton.setPosition(500, 110);
+        buyHouseButton.setWidth(200);
+        buyHouseButton.setChecked(false);
+        
+        buyHouseButton.addListener(
+				new InputListener() {
+
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						
+						int res = GameController.getInstance().buyHouse();
+						
+						switch (res)
+						{
+						case -4:
+							createDontOwnAllPropertiesDialog();
+							addActor(doNotOwnAllColorsDialog);
+							break;
+						case -3:
+							createNoMoneyDialog();
+							addActor(noMoneyDialog);
+							break;
+						case -2:
+							createMortgagedDialog();
+							addActor(mortgagedDialog);
+							break;
+						case -1:
+							createNotPlaceableDialog();
+							addActor(cannotPlaceHouseDialog);
+							break;
+						case 0:
+							createSuccessfulBuyDialog();
+							addActor(successfulBuyDialog);
+							break;
+						}
+						
+						return false;
+					}
+
+				});
+        
+        return buyHouseButton;
+	}
+	
 	private TextButton createEndTurnBtn()
 	{
 	       TextButton endTurnBtn = new TextButton("End Turn", skin);
@@ -515,6 +580,48 @@ public class GameScreen extends AbstractScreen {
 
 		noMoneyDialog.setWidth(350f);
 		noMoneyDialog.button("EXIT", 1L);
+	}
+	
+	private void createMortgagedDialog() {
+		mortgagedDialog = new Dialog("Property has been mortgaged", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					mortgagedDialog.remove();
+
+			};
+		};
+		mortgagedDialog.setPosition(340f, 600f);
+
+		mortgagedDialog.setWidth(380f);
+		mortgagedDialog.button("EXIT", 1L);
+	}
+
+	private void createDontOwnAllPropertiesDialog() {
+		doNotOwnAllColorsDialog = new Dialog("You do not own all properties of this color", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					doNotOwnAllColorsDialog.remove();
+
+			};
+		};
+		doNotOwnAllColorsDialog.setPosition(340f, 600f);
+
+		doNotOwnAllColorsDialog.setWidth(500f);
+		doNotOwnAllColorsDialog.button("EXIT", 1L);
+	}
+	
+	private void createNotPlaceableDialog() {
+		cannotPlaceHouseDialog = new Dialog("You cannot place a house here", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					cannotPlaceHouseDialog.remove();
+
+			};
+		};
+		cannotPlaceHouseDialog.setPosition(340f, 600f);
+
+		cannotPlaceHouseDialog.setWidth(380f);
+		cannotPlaceHouseDialog.button("EXIT", 1L);
 	}
 	
 	@Override

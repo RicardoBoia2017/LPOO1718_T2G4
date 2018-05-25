@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import mono.model.Game;
+import mono.model.entities.BuyableSquare;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.model.entities.Square;
@@ -513,5 +514,79 @@ public class MonopolyTests {
 		assertEquals(p2.getMoney(), payerMoney-(4*12));
 		
 		g1.endTurn();
+	}
+	
+	@Test
+	public void testIfPlayerCantPlaceHouseInInvalidPlaces() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		
+		Player p1 = g1.getPlayers().get(0);
+		
+		assertEquals(g1.checkHouseAvailability(), -1); //go Square isn't a property;
+		
+		g1.movePlayer(1);
+		
+		assertEquals(g1.checkHouseAvailability(), -4); //player doesn't own all brown spaces
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(2);
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(38);
+		
+		BuyableSquare s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		s1.setInMortgage(true);
+		
+		assertEquals(g1.checkHouseAvailability(), -2); //house is in mortgage
+	}
+	
+	@Test
+	public void testifPlayerCantBuyAHouseWithoutMoney() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		
+		Player p1 = g1.getPlayers().get(0);
+		
+		g1.movePlayer(1);
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(2);
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(38);
+		
+		p1.removeMoney(1331); //he has 49 left but a brown house costs 50
+		
+		assertEquals(g1.buyHouse(), -3); //no money
+	}
+	
+	@Test
+	public void testIfPlayerCanPlaceHouseInValidPlaces() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		
+		Player p1 = g1.getPlayers().get(0);
+		
+		g1.movePlayer(1);
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(2);
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(38);
+		
+		assertEquals(g1.checkHouseAvailability(), 0);
+		assertEquals(g1.buyHouse(), 0);
 	}
 }

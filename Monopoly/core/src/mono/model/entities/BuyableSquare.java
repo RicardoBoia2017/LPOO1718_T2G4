@@ -18,7 +18,7 @@ public abstract class BuyableSquare extends Square{
 	
 	public void doAction(Player p1)
 	{
-		if (owner != null)
+		if (owner != null && inMortgage == false)
 			payRent(p1);		
 	}
 	
@@ -29,4 +29,8 @@ public abstract class BuyableSquare extends Square{
 	public int getCost () {return cost;}
 	
 	public void setInMortgage (boolean value) {inMortgage = value;}
+	
+	public Boolean getMortgageStatus() {
+		return inMortgage;
+	}
 }
