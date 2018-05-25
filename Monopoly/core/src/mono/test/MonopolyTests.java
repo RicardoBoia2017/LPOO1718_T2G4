@@ -372,10 +372,12 @@ public class MonopolyTests {
 
 		Player p1 = g1.getPlayers().get(0);
 		Player p2 = g1.getPlayers().get(1);
+		
 		int firstCardId;
 		int beforeActionP1Money;
 		int beforeActionP2Money;
-		
+		int beforeActionTaxMoney;
+
 		g1.movePlayer(7);
 		
 		for (int i = 1; i <= 10; i++)
@@ -384,6 +386,7 @@ public class MonopolyTests {
 			firstCardId = g1.getFirstChanceCardId();
 			beforeActionP1Money = p1.getMoney();
 			beforeActionP2Money = p2.getMoney();			
+			beforeActionTaxMoney = g1.getTaxMoney();
 			
 			g1.squareAction();
 			g1.endTurn();
@@ -452,7 +455,7 @@ public class MonopolyTests {
 					
 				case 10:
 					assertEquals (p1.getMoney(), beforeActionP1Money - 75);
-					assertEquals (g1.getTaxMoney(), 75);
+					assertEquals (g1.getTaxMoney(), beforeActionTaxMoney + 75);
 					break;
 			}
 			
@@ -462,6 +465,104 @@ public class MonopolyTests {
 			
 		}
 	}
+	
+	//Community Chest
+	
+	@Test
+	public void testCommunityChestCards()
+	{
+	Game g1 = createGameForTesting();
+	
+	g1.addPlayers("Hat");
+
+	Player p1 = g1.getPlayers().get(0);
+	Player p2 = g1.getPlayers().get(1);
+	int firstCardId;
+	int beforeActionP1Money;
+	int beforeActionP2Money;
+	int beforeActionTaxMoney;
+	
+	g1.movePlayer(2);
+	
+	for (int i = 1; i <= 10; i++)
+	{
+		
+		firstCardId = g1.getFirstCChestCardId();
+		beforeActionP1Money = p1.getMoney();
+		beforeActionP2Money = p2.getMoney();	
+		beforeActionTaxMoney = g1.getTaxMoney();
+		
+		g1.squareAction();
+		g1.endTurn();
+
+		switch (firstCardId)
+		{
+			case 1:
+				assertEquals (p1.getMoney(), beforeActionP1Money + 30 * (g1.getPlayers().size() - 1) );
+				assertEquals (p2.getMoney(), beforeActionP2Money - 30);
+				break;
+				
+			case 2:
+				assertEquals (p1.getMoney(), beforeActionP1Money - 50);
+				assertEquals (g1.getTaxMoney(), beforeActionTaxMoney + 50);
+				break;
+				 
+			case 3:
+				assertEquals (3, p1.getPosition());
+				g1.endTurn();
+				g1.endTurn();
+				g1.endTurn();
+				g1.movePlayer(-1);
+				g1.endTurn();
+				break;
+				
+			case 4:
+				assertEquals (4, p1.getPosition());
+				g1.endTurn();
+				g1.endTurn();
+				g1.endTurn();
+				g1.movePlayer(-2);
+				g1.endTurn();
+				break;
+				
+			case 5:
+				assertEquals (p1.getMoney(), beforeActionP1Money - 120);
+				assertEquals (g1.getTaxMoney(), beforeActionTaxMoney + 120);
+				break;
+				
+			case 6:
+				assertEquals (p1.getMoney(), beforeActionP1Money - 20);
+				assertEquals (g1.getTaxMoney(), beforeActionTaxMoney + 20);
+				break;
+				
+			case 7:
+				assertEquals (p1.getMoney(), beforeActionP1Money + 60);
+				break;
+				
+			case 8:
+				assertEquals (27, p1.getPosition());
+				g1.endTurn();
+				g1.endTurn();
+				g1.endTurn();
+				g1.movePlayer(-25);
+				g1.endTurn();
+				break;
+				
+			case 9:
+				assertEquals (p1.getMoney(), beforeActionP1Money + 100);
+				break;
+				
+			case 10:
+				assertEquals (p1.getMoney(), beforeActionP1Money); //GO BACK TO THIS
+				break;
+		}
+		
+		g1.endTurn();
+		g1.endTurn();
+		g1.endTurn();
+		
+	}
+}
 	
 	//Taxes
 	

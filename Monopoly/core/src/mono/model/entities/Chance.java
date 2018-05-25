@@ -56,7 +56,7 @@ public class Chance extends Square {
 				
 			case 10:
 				p.removeMoney (75);
-				Game.getInstance().setTaxMoney(75);
+				Game.getInstance().setTaxMoney(Game.getInstance().getTaxMoney() + 75);
 				break;
 		}
 		
