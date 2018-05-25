@@ -14,7 +14,7 @@ public class Chance extends Square {
 	@Override
 	public void doAction(Player p) {
 		int firstCardId = Game.getInstance().getFirstChanceCardId();
-		System.out.println("First card: " + firstCardId);
+
 		switch (firstCardId)
 		{
 			case 1:
@@ -52,6 +52,11 @@ public class Chance extends Square {
 			
 			case 9:
 				Game.getInstance().movePlayer(-3);
+				break;
+				
+			case 10:
+				p.removeMoney (75);
+				Game.getInstance().setTaxMoney(75);
 				break;
 		}
 		

@@ -122,7 +122,6 @@ public class Player {
 	public void addMoney (int value) 
 	{
 		money += value;
-		System.out.println("Added " + value);
 	}
 	
 	public int removeMoney (int value)
@@ -132,7 +131,6 @@ public class Player {
 		
 		money -= value;
 	
-		System.out.println("Removed " + value);
 		return 0;
 	}
 	

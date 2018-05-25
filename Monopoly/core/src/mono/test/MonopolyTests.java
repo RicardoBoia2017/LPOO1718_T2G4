@@ -196,7 +196,6 @@ public class MonopolyTests {
 		assertEquals(-3, g1.buyProperty());
 	}
 
-	
 	@Test
 	public void testIfPlayerPaysRent()
 	{
@@ -362,6 +361,108 @@ public class MonopolyTests {
 		assertEquals(s1.getName(), "Madrid");
 	}
 
+	//Chance
+	
+	@Test
+	public void testChanceCards()
+	{
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+
+		Player p1 = g1.getPlayers().get(0);
+		Player p2 = g1.getPlayers().get(1);
+		int firstCardId;
+		int beforeActionP1Money;
+		int beforeActionP2Money;
+		
+		g1.movePlayer(7);
+		
+		for (int i = 1; i <= 10; i++)
+		{
+			
+			firstCardId = g1.getFirstChanceCardId();
+			beforeActionP1Money = p1.getMoney();
+			beforeActionP2Money = p2.getMoney();			
+			
+			g1.squareAction();
+			g1.endTurn();
+
+			switch (firstCardId)
+			{
+				case 1:
+					assertEquals (p1.getMoney(), beforeActionP1Money + 100);
+					break;
+					
+				case 2:
+					assertEquals (p1.getMoney(), beforeActionP1Money + 30 * (g1.getPlayers().size() - 1) );
+					assertEquals (p2.getMoney(), beforeActionP2Money - 30);
+					break;
+					 
+				case 3:
+					assertEquals (10, p1.getPosition());
+					assertEquals (true, p1.isInJail());
+					p1.freeFromJail();
+					g1.endTurn();
+					g1.endTurn();
+					g1.endTurn();
+					g1.movePlayer(-3);
+					g1.endTurn();
+					break;
+					
+				case 4:
+					assertEquals (p1.getMoney(), beforeActionP1Money + 150);
+					break;
+					
+				case 5:
+					assertEquals (13, p1.getPosition());
+					g1.endTurn();
+					g1.endTurn();
+					g1.endTurn();
+					g1.movePlayer(-6);
+					g1.endTurn();
+					break;
+					
+				case 6:
+					assertEquals (p1.getMoney(), beforeActionP1Money - 20 * (g1.getPlayers().size() - 1) );
+					assertEquals (p2.getMoney(), beforeActionP2Money + 20);
+					break;
+					
+				case 7:
+					assertEquals (p1.getMoney(), beforeActionP1Money); // GO BACK TO THIS
+					break;
+					
+				case 8:
+					assertEquals (32, p1.getPosition());
+					g1.endTurn();
+					g1.endTurn();
+					g1.endTurn();
+					g1.movePlayer(15);
+					g1.endTurn();
+					break;
+					
+				case 9:
+					assertEquals (4, p1.getPosition());
+					g1.endTurn();
+					g1.endTurn();
+					g1.endTurn();
+					g1.movePlayer(3);
+					g1.endTurn();
+					break;
+					
+				case 10:
+					assertEquals (p1.getMoney(), beforeActionP1Money - 75);
+					assertEquals (g1.getTaxMoney(), 75);
+					break;
+			}
+			
+			g1.endTurn();
+			g1.endTurn();
+			g1.endTurn();
+			
+		}
+	}
+	
 	//Taxes
 	
 	@Test
@@ -515,7 +616,7 @@ public class MonopolyTests {
 		
 		g1.endTurn();
 	}
-	
+
 	@Test
 	public void testIfPlayerCantPlaceHouseInInvalidPlaces() {
 		Game g1 = createGameForTesting();
@@ -590,3 +691,5 @@ public class MonopolyTests {
 		assertEquals(g1.buyHouse(), 0);
 	}
 }
+
+

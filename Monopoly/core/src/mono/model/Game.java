@@ -138,6 +138,7 @@ public class Game {
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
 		return values;
+//		return new Pair (1,1);
 	}
 	
 	public void movePlayer(Pair diceRoll) {
@@ -193,7 +194,7 @@ public class Game {
 	private void movePlayerEndTurn()
 	{
 		Player p1 = players.get(currentPlayer - 1);
-		System.out.println("End Tur");
+
 		String res = inCardPosition().substring(0, 2);
 
 		if (res.substring(0,2).equals("CH") &&
@@ -280,24 +281,6 @@ public class Game {
 		return 0; //square can be bought
 		
 	}
-	
-	public int checkHouseAvailability() {
-		Player p1 = players.get(currentPlayer - 1); 
-		Square s1 = this.board.getBoardArray().get(p1.getPosition());
-		
-		if (!s1.getType().equals("Property")) //trying to place a house in a square other than property
-			return -1;
-		
-		else if(checkIfPropertyIsMortgaged(s1.getName())) //trying to place a house in a mortgaged property
-			return -2;
-		
-		Property s2 = (Property) s1; //at this point, we can presume it is a valid property
-		
-		if(!checkIfPlayerOwnsAllPropertiesOfThatColor(p1, s2.getColor())) //trying to place a house without owning all of that color
-			return -4;
-		
-		return 0;
-	}
 
 	public int buyProperty()
 	{
@@ -317,16 +300,15 @@ public class Game {
 	}
 	
 	public int buyHouse() {
-		Player p1 = players.get(currentPlayer - 1); 
+		Player p1 = players.get(currentPlayer - 1);
 		Property ps1 = (Property) board.getBoardArray().get(p1.getPosition());
-		
+
 		int res = p1.removeMoney(ps1.getCostOfAHouseByColor());
-		
-		if (res == 0)	
-		{
+
+		if (res == 0) {
 			ps1.buyHouse();
 		}
-		
+
 		return res;
 	}
 	
@@ -355,6 +337,25 @@ public class Game {
 		return s1.getMortgageStatus();
 	}
 	
+	public int checkHouseAvailability() { 
+		
+	    Player p1 = players.get(currentPlayer - 1);  
+	    Square s1 = this.board.getBoardArray().get(p1.getPosition()); 
+		     
+	    if (!s1.getType().equals("Property")) //trying to place a house in a square other than property 
+	      return -1; 
+	     
+	    else if(checkIfPropertyIsMortgaged(s1.getName())) //trying to place a house in a mortgaged property 
+	      return -2; 
+		     
+	    Property s2 = (Property) s1; //at this point, we can presume it is a valid property 
+	     
+	    if(!checkIfPlayerOwnsAllPropertiesOfThatColor(p1, s2.getColor())) //trying to place a house without owning all of that color 
+	      return -4; 
+	     
+	    return 0; 
+	  } 
+	
 	private boolean checkIfPlayerOwnsAllPropertiesOfThatColor(Player p1, String color) {
 		
 		int numberOfPropertiesOfColor = 0;
@@ -364,6 +365,7 @@ public class Game {
 		return checkIfCountingWasValid(color, numberOfPropertiesOfColor);
 		
 	}
+	
 	
 	public int countPropertiesOfAColor(String color) {
 		int countPropertiesOfColor = 0;
@@ -428,7 +430,7 @@ public class Game {
 	
 	public ArrayList <Player> getPlayers() {return players;}
 	public Board getBoard() {return board;} 
-	public int getCurrentPlayer(){return this.getCurrentPlayer();}
+	public int getCurrentPlayer(){return this.currentPlayer;}
 	public int getTaxMoney () {return taxMoney;}
 	public int getFirstChanceCardId() {return chanceQueue.peek();}
 	public int getFirstCChestCardId() {return cChestQueue.peek();}
