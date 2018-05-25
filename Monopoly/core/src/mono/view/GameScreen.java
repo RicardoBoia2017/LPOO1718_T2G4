@@ -99,11 +99,26 @@ public class GameScreen extends AbstractScreen {
 	private static void  loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
+		loadCChestCards();
 		loadChanceCards();
 		loadDices();
         game.getAssetManager().finishLoading();
 	}
 	
+	private static void loadCChestCards() 
+	{
+		game.getAssetManager().load("CChestCards/Birthday.png",Texture.class);
+		game.getAssetManager().load("CChestCards/CarToaded.png",Texture.class);
+		game.getAssetManager().load("CChestCards/Eurovision.png",Texture.class);
+		game.getAssetManager().load("CChestCards/GettingLate.png",Texture.class);
+		game.getAssetManager().load("CChestCards/iPhone.png",Texture.class);
+		game.getAssetManager().load("CChestCards/LateWork.png",Texture.class);
+		game.getAssetManager().load("CChestCards/Lottery.png",Texture.class);
+		game.getAssetManager().load("CChestCards/MSG.png",Texture.class);
+		game.getAssetManager().load("CChestCards/OldLady.png",Texture.class);
+		game.getAssetManager().load("CChestCards/PCS.png",Texture.class);
+	}
+
 	private static void loadChanceCards()
 	{
 		game.getAssetManager().load("ChanceCards/AExam.png",Texture.class);
@@ -115,6 +130,7 @@ public class GameScreen extends AbstractScreen {
 		game.getAssetManager().load("ChanceCards/RealEstateTaxes.png",Texture.class);
 		game.getAssetManager().load("ChanceCards/SummerComing.png",Texture.class);
 		game.getAssetManager().load("ChanceCards/WrongWay.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/LostCreditCard.png",Texture.class);
 	}
 	
 	private static void loadDices()
@@ -296,7 +312,6 @@ public class GameScreen extends AbstractScreen {
 		if (res == null)
 			return;
 		
-//		System.out.println("Show card");
 		
 		EntityView cardView = null;
 		cardType = res.substring(0, 2);
@@ -306,8 +321,7 @@ public class GameScreen extends AbstractScreen {
 			cardView = new ChanceView(game, cardId);
 
 		else if (cardType.equals("CC"))
-			// cardView = new CChestView(game,cardId);
-			cardView = new ChanceView(game, cardId);
+			cardView = new CChestView(game,cardId);
 
 		Sprite card = cardView.createSprite();
 

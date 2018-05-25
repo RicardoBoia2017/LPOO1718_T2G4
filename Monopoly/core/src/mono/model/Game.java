@@ -60,17 +60,25 @@ public class Game {
 		chanceQueue = new LinkedList <Integer>();
 		initializeChanceQueue();
 		cChestQueue = new LinkedList <Integer>();
+		initializeCChestQueue();
 
 	}
-	
+
 	private void initializeChanceQueue()
 	{		
-		chanceQueue.add(3);
-		for (int i = 1; i <= 9; i++)
+		for (int i = 1; i <= 10; i++)
 			chanceQueue.add(i);
 		
-//		Collections.shuffle((List<?>) chanceQueue);
+		Collections.shuffle((List<?>) chanceQueue);
 		
+	}
+	
+	private void initializeCChestQueue()
+	{
+		for (int i = 1; i <= 10; i++)
+			cChestQueue.add(i);
+		
+		Collections.shuffle((List<?>) cChestQueue);	
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -176,29 +184,9 @@ public class Game {
 		if(this.moveFromCards != 0)
 			movePlayerEndTurn ();
 		
-		if (res != null) 
-		{
-			int firstCard;
+		changeCardEndTurn(res);
 
-			if (res.substring(0,2).equals("CH"))
-			{
-				firstCard = chanceQueue.poll();
-				chanceQueue.add (firstCard);
-			}
-			
-//			else
-//			{
-//				firstCard = cChestQueue.poll();
-//				cChestQueue.add (firstCard);
-//			}
-		}
-		
-		if (currentPlayer == players.size())
-			this.currentPlayer = 1;
-		
-		else
-			this.currentPlayer++;
-		
+		changePlayer();
 		
 	}
 	
@@ -220,7 +208,35 @@ public class Game {
 		
 		this.moveFromCards = 0;
 	}
-	
+
+	private void changeCardEndTurn(String res)
+	{
+		if (res != null) 
+		{
+			int firstCard;
+
+			if (res.substring(0,2).equals("CH"))
+			{
+				firstCard = chanceQueue.poll();
+				chanceQueue.add (firstCard);
+			}
+			
+			else
+			{
+				firstCard = cChestQueue.poll();
+				cChestQueue.add (firstCard);
+			}
+		}	
+	}
+
+	private void changePlayer()
+	{	
+		if (currentPlayer == players.size())
+			this.currentPlayer = 1;
+		
+		else
+			this.currentPlayer++;
+	}
 	public void setTaxMoney (int newValue)
 	{
 		this.taxMoney = newValue;
@@ -403,8 +419,7 @@ public class Game {
 
 		
 		else if(cchestPositions.contains(p1.getPosition()))
-//			res =  "CC " + chanceQueue.peek();
-			res =  "CH " + chanceQueue.peek();
+			res =  "CC " + cChestQueue.peek();
 			
 		return res;
 	}
