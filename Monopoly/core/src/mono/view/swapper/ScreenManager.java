@@ -44,6 +44,6 @@ public class ScreenManager {
 		// Dispose previous screen
 		if (currentScreen != null) {
 			currentScreen.dispose();
-		}
+		} 
 	}
 }

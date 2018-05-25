@@ -67,9 +67,8 @@ public class GameScreen extends AbstractScreen {
 	static float diceRollTime; 
 	Animation diceAnimation;
 	
-	public GameScreen(String player1Model) {
+	public GameScreen() {
 		super(); 
-		Game.getInstance().addPlayers(player1Model);
 		playerToDraw = Game.getInstance().getPlayers().get(0);
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 		
@@ -91,8 +90,10 @@ public class GameScreen extends AbstractScreen {
      * @return the singleton instance
      */
     public static GameScreen getInstance() {
+    	
         if (instance == null) 
-            instance = new GameScreen("Hat"); //Change this 
+            instance = new GameScreen(); //Change this 
+        
         return instance;
     }
     
@@ -117,7 +118,7 @@ public class GameScreen extends AbstractScreen {
 		game.getAssetManager().load("CChestCards/MSG.png",Texture.class);
 		game.getAssetManager().load("CChestCards/OldLady.png",Texture.class);
 		game.getAssetManager().load("CChestCards/PCS.png",Texture.class);
-	}
+	} 
 
 	private static void loadChanceCards()
 	{
@@ -149,7 +150,7 @@ public class GameScreen extends AbstractScreen {
 		addActor(createRollDiceBtn());
 		addActor(createBuyPropertyBtn());
 		addActor(createEndTurnBtn());
-		addActor(createBuyHouseBtn());
+		addActor(createPropertyScreenBtn());
 		
 		createSuccessfulBuyDialog();
 	}
@@ -421,49 +422,42 @@ public class GameScreen extends AbstractScreen {
         return buyPropertyButton;
 	}
 	
-	private TextButton createBuyHouseBtn() {
+	private TextButton createPropertyScreenBtn() {
 
-        TextButton buyHouseButton = new TextButton("House", skin);
+        TextButton buyHouseButton = new TextButton("Properties", skin);
         buyHouseButton.setPosition(500, 110);
         buyHouseButton.setWidth(200);
         buyHouseButton.setChecked(false);
         
-        buyHouseButton.addListener(
-				new InputListener() {
-
-					@Override
-					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						
-						int res = GameController.getInstance().buyHouse();
-						
-						switch (res)
-						{
-						case -4:
-							createDontOwnAllPropertiesDialog();
-							addActor(doNotOwnAllColorsDialog);
-							break;
-						case -3:
-							createNoMoneyDialog();
-							addActor(noMoneyDialog);
-							break;
-						case -2:
-							createMortgagedDialog();
-							addActor(mortgagedDialog);
-							break;
-						case -1:
-							createNotPlaceableDialog();
-							addActor(cannotPlaceHouseDialog);
-							break;
-						case 0:
-							createSuccessfulBuyDialog();
-							addActor(successfulBuyDialog);
-							break;
-						}
-						
-						return false;
-					}
-
-				});
+        buyHouseButton.addListener(						
+//						int res = GameController.getInstance().buyHouse();
+//						
+//						switch (res)
+//						{
+//						case -4:
+//							createDontOwnAllPropertiesDialog();
+//							addActor(doNotOwnAllColorsDialog);
+//							break;
+//						case -3:
+//							createNoMoneyDialog();
+//							addActor(noMoneyDialog);
+//							break;
+//						case -2:
+//							createMortgagedDialog();
+//							addActor(mortgagedDialog);
+//							break;
+//						case -1:
+//							createNotPlaceableDialog();
+//							addActor(cannotPlaceHouseDialog);
+//							break;
+//						case 0:
+//							createSuccessfulBuyDialog();
+//							addActor(successfulBuyDialog);
+//							break;
+//						}
+//						
+						UIFactory.createListener(ScreenEnum.PROPERTIES)
+);
         
         return buyHouseButton;
 	}

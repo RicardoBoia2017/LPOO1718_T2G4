@@ -138,7 +138,7 @@ public class Game {
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
 		return values;
-//		return new Pair (1,1);
+//		return new Pair (2,1);
 	}
 	
 	public void movePlayer(Pair diceRoll) {

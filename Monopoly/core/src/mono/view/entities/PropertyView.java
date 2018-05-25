@@ -18,7 +18,7 @@ public class PropertyView extends EntityView {
 	@Override
 	public Sprite createSprite() {
 		Texture property = null;
-/*
+
 		switch (name)
 		{
 		case "Athens":
@@ -87,7 +87,7 @@ public class PropertyView extends EntityView {
 		default:
 			System.out.println("Error: Error loading property " + name);
 		}
-		*/
+		
         return new Sprite(property, property.getWidth(), property.getHeight());
 
 	}

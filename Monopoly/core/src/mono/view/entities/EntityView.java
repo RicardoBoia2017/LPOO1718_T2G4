@@ -23,6 +23,8 @@ public abstract class EntityView {
 	
     public abstract Sprite createSprite();
 
+    public Sprite getSprite() {return sprite;}
+    
     public void update(EntityModel model) {
         sprite.setCenter(model.getX(), model.getY());
         sprite.setRotation((float) Math.toDegrees(model.getRotation()));
