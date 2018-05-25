@@ -58,10 +58,15 @@ public class ChanceView extends EntityView {
 		chance = game.getAssetManager().get("ChanceCards/WrongWay.png",Texture.class);	
 		break;
 		
+		case 10:
+		chance = game.getAssetManager().get("ChanceCards/LateWork.png",Texture.class);	
+		break;
+		
 		default:
 			System.out.println("Error: Error loading chance card with number " + cardId );
 
 		}
+		
         return new Sprite(chance, chance.getWidth(), chance.getHeight());
 	}
 
