@@ -157,6 +157,23 @@ public class GameScreen extends AbstractScreen {
 		addActor(createEndTurnBtn());
 		addActor(createPropertyScreenBtn());
 		
+		Texture board = this.game.getAssetManager().get("Board.png");
+		ImageButton btnBoard = UIFactory.createButton(board);
+		btnBoard.setSize(803, 803);
+		btnBoard.setPosition(1.f, 197.f);
+		
+		/*btnBoard.addListener(
+				new InputListener() {
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						System.out.println(x);
+						System.out.println(y);
+						return false;
+						}
+					});
+		
+		addActor(btnBoard);*/
+		
 		createSuccessfulBuyDialog();
 	}
 	
@@ -173,8 +190,8 @@ public class GameScreen extends AbstractScreen {
 		rollDiceAnimation(delta);
 		drawPiece (playerToDraw);
 		drawCard();
-		drawAHouse(playerToDraw);
-		drawAHotel(playerToDraw);
+		drawAHouse();
+		drawAHotel();
 		
 		game.getBatch().end();
 				
@@ -256,15 +273,9 @@ public class GameScreen extends AbstractScreen {
 		
 	}
 	
-	private void drawAHouse(Player p1) {
+	private void drawAHouse() {
 		
 		int nHouses = 0;
-		
-		/*if(Game.getInstance().checkHouseAvailability() != 0 && Game.getInstance().checkHouseAvailability() != -5) {
-			return;
-		}*/
-		
-		//else {
 			
 		for(int j = 0; j < Game.getInstance().getBoard().getBoardArray().size(); j++) {
 			if(Game.getInstance().getBoard().getBoardArray().get(j).getType().equals("Property")) {
@@ -276,20 +287,20 @@ public class GameScreen extends AbstractScreen {
 					
 					Sprite house = houseView.createSprite();
 					
-					if(p1.getPosition() >= 0 && p1.getPosition() <= 10) {
-						house.setPosition((p1.getX()+(19*i))-30, p1.getY()+60);
+					if(s1.getPosition() >= 0 && s1.getPosition() <= 10) {
+						house.setPosition((s1.getX()+(19*i))-35, s1.getY()+60);
 					}
 					
-					else if(p1.getPosition() >= 10 && p1.getPosition() <= 20) {
-						house.setPosition(p1.getX()-30, (p1.getY()+60)-(19*i));
+					else if(s1.getPosition() >= 10 && s1.getPosition() <= 20) {
+						house.setPosition(s1.getX()-70, (s1.getY()+60)+(19*i));
 					}
 					
-					if(p1.getPosition() >= 20 && p1.getPosition() <= 30) {
-						house.setPosition((p1.getX()+(19*i))-35, p1.getY()+60);
+					if(s1.getPosition() >= 20 && s1.getPosition() <= 30) {
+						house.setPosition((s1.getX()+(19*i))-35, s1.getY()+60);
 					}
 					
-					if(p1.getPosition() >= 30 && p1.getPosition() <= 39) {
-						house.setPosition(p1.getX()+70, p1.getY()+(19*i));
+					if(s1.getPosition() >= 30 && s1.getPosition() <= 39) {
+						house.setPosition(s1.getX()+50, (s1.getY()+60)+(19*i));
 					}
 					
 					house.setSize(20, 20);
@@ -298,28 +309,42 @@ public class GameScreen extends AbstractScreen {
 				}
 			}
 		}
-
-		//}
 		
 	}
 	
-	private void drawAHotel(Player p1) {
+	private void drawAHotel() {
 		
-		if(Game.getInstance().checkHotelAvailability() != 0 && Game.getInstance().checkHotelAvailability() != -4) {
-			return;
+		int nHotels = 0;
+			
+		for(int j = 0; j < Game.getInstance().getBoard().getBoardArray().size(); j++) {
+			if(Game.getInstance().getBoard().getBoardArray().get(j).getType().equals("Property")) {
+				Property s1 = (Property) Game.getInstance().getBoard().getBoardArray().get(j);
+				nHotels = s1.getHotels();
+				
+				if(nHotels == 1) {
+					
+					HotelView hotelView = new HotelView(game);
+						
+					Sprite hotel = hotelView.createSprite();
+					
+					if(s1.getPosition() >= 10 && s1.getPosition() <= 20) {
+						hotel.setPosition(s1.getX()-40, s1.getY()+66);
+					} 
+					
+					else if(s1.getPosition() >= 30 && s1.getPosition() <= 39) {
+						hotel.setPosition(s1.getX(), s1.getY()+66);
+					}
+					
+					else {
+						hotel.setPosition(s1.getX()+5, s1.getY()+20);
+					}
+						
+					hotel.setSize(30, 30);
+						
+					hotel.draw(game.getBatch());
+				}
+			}
 		}
-		
-		Property s1 = (Property) Game.getInstance().getBoard().getBoardArray().get(playerToDraw.getPosition());
-		
-		HotelView hotelView = new HotelView(game);
-			
-		Sprite hotel = hotelView.createSprite();
-		
-		hotel.setPosition(p1.getX()+5, p1.getY()+5);
-			
-		hotel.setSize(30, 30);
-			
-		hotel.draw(game.getBatch());
 	}
 
 	public void drawCar(Player p1) {

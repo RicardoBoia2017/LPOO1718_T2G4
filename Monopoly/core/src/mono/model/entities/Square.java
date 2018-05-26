@@ -31,4 +31,8 @@ public abstract class Square {
 	public ArrayList<Player> getplayersOnTopOfSquareArray() {
 		return playersOnTopOfSquare;
 	}
+	
+	public int getPosition() {
+		return position;
+	}
 }

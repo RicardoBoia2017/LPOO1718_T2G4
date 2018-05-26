@@ -11,8 +11,10 @@ public class Property extends BuyableSquare {
 	ArrayList <Integer> rents;
 	private int nHouses;
 	private int nHotels;
+	private float coordX;
+	private float coordY;
 
-	public Property(String name, String color, int cost, int normalRent, int oneRent, int twoRent, int threeRent, int fourRent, int hotelRent, int buildingCost, int position) {
+	public Property(String name, String color, int cost, int normalRent, int oneRent, int twoRent, int threeRent, int fourRent, int hotelRent, int buildingCost, int position, float coordinX, float coordinY) {
 		super(name, position, cost);
 		this.color = color;
 		this.rents = new ArrayList <Integer> (6);
@@ -20,6 +22,8 @@ public class Property extends BuyableSquare {
 		this.buildingCost = buildingCost; 
 		this.nHouses=0;
 		this.nHotels=0;
+		coordX = coordinX;
+		coordY = coordinY;
 	}
 
 	@Override
@@ -95,4 +99,12 @@ public class Property extends BuyableSquare {
 	public String getType() {return "Property";}
 	public int getHouses() {return this.nHouses;}
 	public int getHotels() {return this.nHotels;}
+
+	public float getX() {
+		return coordX;
+	}
+
+	public float getY() {
+		return coordY;
+	}
 }

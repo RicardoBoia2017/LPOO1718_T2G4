@@ -14,7 +14,6 @@ public class BoardView extends EntityView{
 
     public Sprite createSprite() {
         Texture board = game.getAssetManager().get("Board.png");
-
         return new Sprite(board, board.getWidth(), board.getHeight());
     }
 }
