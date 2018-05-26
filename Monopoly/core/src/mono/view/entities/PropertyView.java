@@ -84,6 +84,24 @@ public class PropertyView extends EntityView {
 		case "Tokyo":
 			property = game.getAssetManager().get("Properties/Tokyo.png");
 			break;
+		case "Dunedin Station":
+			property = game.getAssetManager().get("Properties/Dunedin Station.png");
+			break;
+		case "Liege Guillemins":
+			property = game.getAssetManager().get("Properties/Liege Guillemins.png");
+			break;
+		case "Milano Centrale":
+			property = game.getAssetManager().get("Properties/Milano Centrale.png");
+			break;
+		case "Sao Bento":
+			property = game.getAssetManager().get("Properties/Sao Bento.png");
+			break;
+		case "Eletricity":
+			property = game.getAssetManager().get("Properties/Eletricity.png");
+			break;
+		case "Water":
+			property = game.getAssetManager().get("Properties/Water.png");
+			break;
 		default:
 			System.out.println("Error: Error loading property " + name);
 		}

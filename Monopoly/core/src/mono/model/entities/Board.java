@@ -17,7 +17,7 @@ public class Board {
 		spaces.add(Square3);
 		Square Square4 = new Taxes("Income Tax", 4, 200);
 		spaces.add(Square4);
-		Square Square5 = new Station("S�o Bento", 200, 5);
+		Square Square5 = new Station("Sao Bento", 200, 5);
 		spaces.add(Square5);
 		Square Square6 = new Property("Brussels","LIGHT_BLUE", 100, 6, 30, 90, 270, 400, 550, 50, 6, 466.f, 920.f);
 		spaces.add(Square6);
@@ -32,13 +32,13 @@ public class Board {
 
 		Square Square11 = new Property("Cape Town","PURPLE", 140, 10, 50, 150, 450, 625, 750, 100, 11, 771.f, 769.3854f);
 		spaces.add(Square11);
-		Square Square12 = new Companies("Electricity", 150, 12);
+		Square Square12 = new Companies("Eletricity", 150, 12);
 		spaces.add(Square12);
 		Square Square13 = new Property("Moscow","PURPLE", 140, 10, 50, 150, 450, 625, 750, 100, 13, 771.f, 637.17725f);
 		spaces.add(Square13);
 		Square Square14 = new Property("Amsterdam","PURPLE", 160, 12, 60, 180, 500, 700, 900, 100, 14, 771.f, 571.07312f);
 		spaces.add(Square14);
-		Square Square15 = new Station("Liege-Guillemins", 200, 15);
+		Square Square15 = new Station("Liege Guillemins", 200, 15);
 		spaces.add(Square15);
 		Square Square16 = new Property("Madrid","ORANGE", 180, 14, 70, 200, 550, 750, 950, 100, 16, 771.f, 437.4585f);
 		spaces.add(Square16);

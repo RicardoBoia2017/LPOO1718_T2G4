@@ -1,9 +1,14 @@
 package mono.view;
 
+import java.awt.Font;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -63,6 +68,17 @@ public class PropertiesScreen extends AbstractScreen {
 		game.getAssetManager().load("Properties/Singapore.png", Texture.class);
 		game.getAssetManager().load("Properties/Sydney.png", Texture.class);
 		game.getAssetManager().load("Properties/Tokyo.png", Texture.class);
+		
+		game.getAssetManager().load("Properties/Dunedin Station.png", Texture.class);
+		game.getAssetManager().load("Properties/Liege Guillemins.png", Texture.class);
+		game.getAssetManager().load("Properties/Milano Centrale.png", Texture.class);
+		game.getAssetManager().load("Properties/Sao Bento.png", Texture.class);
+		
+		game.getAssetManager().load("Properties/Eletricity.png", Texture.class);
+		game.getAssetManager().load("Properties/Water.png", Texture.class);
+
+		
+		
         game.getAssetManager().finishLoading();
 	}
 
@@ -73,8 +89,66 @@ public class PropertiesScreen extends AbstractScreen {
 		addActor(createBuildHotelBtn());
 		addActor(createNegotiateBtn());
 		addActor(createMortgageBtn());
+		addActor(createRightBtn());
+		addActor(createLeftBtn());
 	}
 	
+	private TextButton createLeftBtn() {
+		
+//		TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+//		style.font = new BitmapFont();
+//		style.font.setColor(0, 0, 0, 1);
+		
+		TextButton leftButton = new TextButton ("Left", skin);
+		leftButton.setPosition(30, 600);
+		
+		leftButton.addListener( new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button)
+			{
+				changeCard (-1);
+				
+				return false;
+			}
+		});
+		
+		return leftButton;
+	}
+
+	private TextButton createRightBtn() {
+		
+		TextButton leftButton = new TextButton ("Right", skin);
+		leftButton.setPosition(900, 600);
+		
+		leftButton.addListener( new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button)
+			{
+				changeCard (1);
+				
+				return false;
+			}
+		});
+		
+		return leftButton;	
+	}
+	
+	private void changeCard(int value)
+	{
+		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+
+		int size = p1.getPropertiesOwned().size();
+
+		if (value == -1 && currentCard == 0)
+			currentCard = size - 1;
+		
+		else if (value == 1 && currentCard == size - 1)
+			currentCard = 0;
+
+		else
+			currentCard += value;
+			
+	}
+	
+
 	@Override
 	public void render (float delta)
 	{
@@ -100,7 +174,6 @@ public class PropertiesScreen extends AbstractScreen {
 		
 		PropertyView property = new PropertyView (game, name);
 		
-		//property.draw(game.getBatch());
 		Sprite sprite = property.getSprite();
 		
 		sprite.setSize(500, 600);
@@ -185,7 +258,7 @@ public class PropertiesScreen extends AbstractScreen {
 	}
 	
 	private void createNotPlaceableDialog() {
-		cannotPlaceHouseDialog = new Dialog("You cannot place a that here", skin) {
+		cannotPlaceHouseDialog = new Dialog("You cannot place a building here", skin) {
 			protected void result(Object object) {
 				if (object.equals(1L))
 					cannotPlaceHouseDialog.remove();
