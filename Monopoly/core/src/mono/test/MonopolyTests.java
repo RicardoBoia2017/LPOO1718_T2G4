@@ -8,6 +8,7 @@ import mono.model.Game;
 import mono.model.entities.BuyableSquare;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
+import mono.model.entities.Property;
 import mono.model.entities.Square;
 
 public class MonopolyTests {
@@ -283,14 +284,9 @@ public class MonopolyTests {
 		assertEquals(p1.getPosition(), 10);
 		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
-		g1.movePlayer(1);
-		g1.squareAction();
+		Pair diceroll = new Pair(0,1);
 		
-		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
-		assertEquals(p1.getPosition(), 10);
-		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
-		
-		g1.movePlayer(1);
+		g1.movePlayer(diceroll);
 		g1.squareAction();
 		
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
@@ -790,6 +786,38 @@ public class MonopolyTests {
 		
 		assertEquals(g1.checkHouseAvailability(), 0);
 		assertEquals(g1.buyHouse(), 0);
+	}
+	
+	@Test
+	public void testIfPlayerCantPlaceHotelInInvalidPlaces() {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayers("Hat");
+		
+		Player p1 = g1.getPlayers().get(0);
+		
+		assertEquals(g1.checkHotelAvailability(), -1); //go Square isn't a property;
+		
+		g1.movePlayer(1);
+		
+		assertEquals(g1.checkHotelAvailability(), -2); //player doesn't have 4 houses
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(2);
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(38);
+		
+		g1.buyHouse();
+		g1.buyHouse();
+		g1.buyHouse();
+		g1.buyHouse();
+		
+		g1.buyHotel();
+		
+		assertEquals(g1.checkHotelAvailability(), -4);
 	}
 }
 

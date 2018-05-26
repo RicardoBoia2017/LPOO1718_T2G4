@@ -454,11 +454,11 @@ public class Game {
 	    
 	    Property s2 = (Property) s1; //at this point, we can presume it is a valid property 
 	    
-	    if(s2.getHouses() != 4)  //you cannot have a hotel until you have 4 houses
-	    	return -2;
-	    
 	    if(s2.getHotels() == 1) //cannot have more than one hotel
 	    	return -4;
+	    
+	    if(s2.getHouses() != 4)  //you cannot have a hotel until you have 4 houses
+	    	return -2;
 	    
 	    return 0;
 	}
