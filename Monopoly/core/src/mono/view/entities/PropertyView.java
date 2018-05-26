@@ -49,7 +49,7 @@ public class PropertyView extends EntityView {
 			property = game.getAssetManager().get("Properties/Lisbon.png");
 			break;
 		case "London":
-			property = game.getAssetManager().get("Properties/Lodon.png");
+			property = game.getAssetManager().get("Properties/London.png");
 			break;
 		case "Madrid":
 			property = game.getAssetManager().get("Properties/Madrid.png");

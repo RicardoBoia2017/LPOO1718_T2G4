@@ -94,5 +94,23 @@ public class GameController {
 		System.out.println(Game.getInstance().getplayerIsInJail());
 		return Game.getInstance().getplayerIsInJail();
 	}
+
+	public int buyHotel() {
+		int res = Game.getInstance().checkHotelAvailability();
+		
+		if(res == 0)
+			res = Game.getInstance().buyHotel();
+		
+		return res;
+	}
+
+	public int mortgageProperty() {
+		int res = Game.getInstance().checkIfYouCanMortgage();
+		
+		if(res == 0)
+			res = Game.getInstance().mortgageProperty();
+		
+		return res;
+	}
 	
 }

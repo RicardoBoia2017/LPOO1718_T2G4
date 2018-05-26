@@ -352,6 +352,9 @@ public class Game {
 	     
 	    if(!checkIfPlayerOwnsAllPropertiesOfThatColor(p1, s2.getColor())) //trying to place a house without owning all of that color 
 	      return -4; 
+	    
+	    if(s2.getHouses() == 4) //cannot have more than 4 houses
+	    	return -5;
 	     
 	    return 0; 
 	  } 
@@ -440,5 +443,48 @@ public class Game {
 //		System.out.print("is in jail? ");
 //		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
 		return players.get(currentPlayer - 1).getPlayerIsInJail();
+	}
+
+	public int checkHotelAvailability() {
+	    Player p1 = players.get(currentPlayer - 1);  
+	    Square s1 = this.board.getBoardArray().get(p1.getPosition()); 
+		     
+	    if (!s1.getType().equals("Property")) //trying to place a hotel in a square other than property 
+	    	return -1; 
+	    
+	    Property s2 = (Property) s1; //at this point, we can presume it is a valid property 
+	    
+	    if(s2.getHouses() != 4)  //you cannot have a hotel until you have 4 houses
+	    	return -2;
+	    
+	    if(s2.getHotels() == 1) //cannot have more than one hotel
+	    	return -4;
+	    
+	    return 0;
+	}
+
+	public int buyHotel() {
+		Player p1 = players.get(currentPlayer - 1);
+		Property ps1 = (Property) board.getBoardArray().get(p1.getPosition());
+
+		int res = p1.removeMoney(ps1.getCostOfAHouseByColor());
+
+		if (res == 0) {
+			ps1.buyHotel();
+		}
+
+		return res;
+	}
+
+	public int checkIfYouCanMortgage() {
+		Player p1 = players.get(currentPlayer - 1);
+		Property ps1 = (Property) board.getBoardArray().get(p1.getPosition());
+		int res = 0;
+		
+		return res;
+	}
+
+	public int mortgageProperty() {
+		return 0;
 	}
 }

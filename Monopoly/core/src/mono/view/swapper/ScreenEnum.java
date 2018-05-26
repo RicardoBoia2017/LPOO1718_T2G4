@@ -28,12 +28,6 @@ public enum ScreenEnum {
 			return new GameScreen();
 		}
 	},
-	
-	GAME_IN_PROGRESS {
-		public AbstractScreen getScreen(Object... params) {
-			return GameScreen.getInstance();
-		}
-	},
 
 	PROPERTIES {
 		public AbstractScreen getScreen(Object... params) {

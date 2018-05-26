@@ -13,7 +13,7 @@ public class HotelView extends EntityView{
 	}
 
     public Sprite createSprite() {
-        Texture hotel = game.getAssetManager().get("Hotel.png");
+        Texture hotel = game.getAssetManager().get("hotel.png");
         return new Sprite(hotel, hotel.getWidth(), hotel.getHeight());
     }
 }

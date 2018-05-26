@@ -40,6 +40,7 @@ import mono.view.entities.ChanceView;
 import mono.view.entities.DiceView;
 import mono.view.entities.EntityView;
 import mono.view.entities.HatView;
+import mono.view.entities.HotelView;
 import mono.view.entities.HouseView;
 import mono.view.entities.ThimbleView;
 import mono.view.swapper.ScreenEnum;
@@ -62,6 +63,7 @@ public class GameScreen extends AbstractScreen {
 	Dialog cannotPlaceHouseDialog;
 	Dialog doNotOwnAllColorsDialog;
 	Dialog mortgagedDialog;
+	Dialog noMoreHouses;
 	TextButton closeBtn;
 	Boolean showCard;
 	
@@ -101,6 +103,8 @@ public class GameScreen extends AbstractScreen {
 	private static void  loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
+		game.getAssetManager().load ("house.png", Texture.class);
+		game.getAssetManager().load ("hotel.png", Texture.class);
 		loadCChestCards();
 		loadChanceCards();
 		loadDices();
@@ -170,6 +174,7 @@ public class GameScreen extends AbstractScreen {
 		drawPiece (playerToDraw);
 		drawCard();
 		drawAHouse(playerToDraw);
+		drawAHotel(playerToDraw);
 		
 		game.getBatch().end();
 				
@@ -255,41 +260,66 @@ public class GameScreen extends AbstractScreen {
 		
 		int nHouses = 0;
 		
-		if(Game.getInstance().checkHouseAvailability() != 0) {
+		/*if(Game.getInstance().checkHouseAvailability() != 0 && Game.getInstance().checkHouseAvailability() != -5) {
+			return;
+		}*/
+		
+		//else {
+			
+		for(int j = 0; j < Game.getInstance().getBoard().getBoardArray().size(); j++) {
+			if(Game.getInstance().getBoard().getBoardArray().get(j).getType().equals("Property")) {
+				Property s1 = (Property) Game.getInstance().getBoard().getBoardArray().get(j);
+				nHouses = s1.getHouses();
+				
+				for(int i = 0; i < nHouses; i++) {
+					HouseView houseView = new HouseView(game);
+					
+					Sprite house = houseView.createSprite();
+					
+					if(p1.getPosition() >= 0 && p1.getPosition() <= 10) {
+						house.setPosition((p1.getX()+(19*i))-30, p1.getY()+60);
+					}
+					
+					else if(p1.getPosition() >= 10 && p1.getPosition() <= 20) {
+						house.setPosition(p1.getX()-30, (p1.getY()+60)-(19*i));
+					}
+					
+					if(p1.getPosition() >= 20 && p1.getPosition() <= 30) {
+						house.setPosition((p1.getX()+(19*i))-35, p1.getY()+60);
+					}
+					
+					if(p1.getPosition() >= 30 && p1.getPosition() <= 39) {
+						house.setPosition(p1.getX()+70, p1.getY()+(19*i));
+					}
+					
+					house.setSize(20, 20);
+					
+					house.draw(game.getBatch());
+				}
+			}
+		}
+
+		//}
+		
+	}
+	
+	private void drawAHotel(Player p1) {
+		
+		if(Game.getInstance().checkHotelAvailability() != 0 && Game.getInstance().checkHotelAvailability() != -4) {
 			return;
 		}
 		
-		else {
-			Property s1 = (Property) Game.getInstance().getBoard().getBoardArray().get(playerToDraw.getPosition());
-			nHouses = s1.getHouses();
-		}
+		Property s1 = (Property) Game.getInstance().getBoard().getBoardArray().get(playerToDraw.getPosition());
 		
-		for(int i = 0; i < nHouses; i++) {
-			HouseView houseView = new HouseView(game);
+		HotelView hotelView = new HotelView(game);
 			
-			Sprite house = houseView.createSprite();
-			
-			if(p1.getPosition() >= 0 && p1.getPosition() <= 10) {
-				house.setPosition((p1.getX()+(19*i))-30, p1.getY()+60);
-			}
-			
-			else if(p1.getPosition() >= 10 && p1.getPosition() <= 20) {
-				house.setPosition(p1.getX()-30, (p1.getY()+60)-(19*i));
-			}
-			
-			if(p1.getPosition() >= 20 && p1.getPosition() <= 30) {
-				house.setPosition((p1.getX()+(19*i))-35, p1.getY()+60);
-			}
-			
-			if(p1.getPosition() >= 30 && p1.getPosition() <= 39) {
-				house.setPosition(p1.getX()+70, p1.getY()+(19*i));
-			}
-			
-			house.setSize(20, 20);
-			
-			house.draw(game.getBatch());
-		}
+		Sprite hotel = hotelView.createSprite();
 		
+		hotel.setPosition(p1.getX()+5, p1.getY()+5);
+			
+		hotel.setSize(30, 30);
+			
+		hotel.draw(game.getBatch());
 	}
 
 	public void drawCar(Player p1) {
@@ -461,35 +491,7 @@ public class GameScreen extends AbstractScreen {
         buyHouseButton.setWidth(200);
         buyHouseButton.setChecked(false);
         
-        buyHouseButton.addListener(						
-//						int res = GameController.getInstance().buyHouse();
-//						
-//						switch (res)
-//						{
-//						case -4:
-//							createDontOwnAllPropertiesDialog();
-//							addActor(doNotOwnAllColorsDialog);
-//							break;
-//						case -3:
-//							createNoMoneyDialog();
-//							addActor(noMoneyDialog);
-//							break;
-//						case -2:
-//							createMortgagedDialog();
-//							addActor(mortgagedDialog);
-//							break;
-//						case -1:
-//							createNotPlaceableDialog();
-//							addActor(cannotPlaceHouseDialog);
-//							break;
-//						case 0:
-//							createSuccessfulBuyDialog();
-//							addActor(successfulBuyDialog);
-//							break;
-//						}
-//						
-						UIFactory.createListener(ScreenEnum.PROPERTIES)
-);
+        buyHouseButton.addListener(UIFactory.createListener(ScreenEnum.PROPERTIES));
         
         return buyHouseButton;
 	}
@@ -620,48 +622,6 @@ public class GameScreen extends AbstractScreen {
 
 		noMoneyDialog.setWidth(350f);
 		noMoneyDialog.button("EXIT", 1L);
-	}
-	
-	private void createMortgagedDialog() {
-		mortgagedDialog = new Dialog("Property has been mortgaged", skin) {
-			protected void result(Object object) {
-				if (object.equals(1L))
-					mortgagedDialog.remove();
-
-			};
-		};
-		mortgagedDialog.setPosition(340f, 600f);
-
-		mortgagedDialog.setWidth(380f);
-		mortgagedDialog.button("EXIT", 1L);
-	}
-
-	private void createDontOwnAllPropertiesDialog() {
-		doNotOwnAllColorsDialog = new Dialog("You do not own all properties of this color", skin) {
-			protected void result(Object object) {
-				if (object.equals(1L))
-					doNotOwnAllColorsDialog.remove();
-
-			};
-		};
-		doNotOwnAllColorsDialog.setPosition(340f, 600f);
-
-		doNotOwnAllColorsDialog.setWidth(500f);
-		doNotOwnAllColorsDialog.button("EXIT", 1L);
-	}
-	
-	private void createNotPlaceableDialog() {
-		cannotPlaceHouseDialog = new Dialog("You cannot place a house here", skin) {
-			protected void result(Object object) {
-				if (object.equals(1L))
-					cannotPlaceHouseDialog.remove();
-
-			};
-		};
-		cannotPlaceHouseDialog.setPosition(340f, 600f);
-
-		cannotPlaceHouseDialog.setWidth(380f);
-		cannotPlaceHouseDialog.button("EXIT", 1L);
 	}
 	
 	@Override
