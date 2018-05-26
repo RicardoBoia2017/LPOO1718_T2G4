@@ -107,4 +107,8 @@ public class Property extends BuyableSquare {
 	public float getY() {
 		return coordY;
 	}
+	
+	public void setHouses(int number) {
+		nHouses = number;
+	}
 }

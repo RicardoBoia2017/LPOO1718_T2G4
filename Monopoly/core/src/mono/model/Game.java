@@ -471,6 +471,7 @@ public class Game {
 
 		if (res == 0) {
 			ps1.buyHotel();
+			ps1.setHouses(0);
 		}
 
 		return res;
