@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import mono.controller.GameController;
 import mono.model.Game;
+import mono.model.entities.BuyableSquare;
 import mono.model.entities.Player;
 import mono.view.entities.PropertyView;
 import mono.view.swapper.ScreenEnum;
@@ -77,7 +78,7 @@ public class PropertiesScreen extends AbstractScreen {
 		game.getAssetManager().load("Properties/Eletricity.png", Texture.class);
 		game.getAssetManager().load("Properties/Water.png", Texture.class);
 
-		
+		game.getAssetManager().load("Mortgaged.png", Texture.class);
 		
         game.getAssetManager().finishLoading();
 	}
@@ -170,16 +171,27 @@ public class PropertiesScreen extends AbstractScreen {
 		if (p1.getPropertiesOwned().size() == 0)
 			return;
 		
-		String name = p1.getPropertiesOwned().get(this.currentCard).getName();
+		BuyableSquare s1 =  p1.getPropertiesOwned().get(this.currentCard);
+		
+		if (s1.getMortgageStatus())
+			drawInMortgate();
+		
+		String name = s1.getName();
 		
 		PropertyView property = new PropertyView (game, name);
 		
 		Sprite sprite = property.getSprite();
 		
 		sprite.setSize(500, 600);
-		sprite.setPosition(250, 350);
+		sprite.setPosition(250, 300);
 		sprite.draw(game.getBatch());
 		
+	}
+
+	private void drawInMortgate() {
+		
+		Texture texture = game.getAssetManager().get("Mortgaged.png");
+		game.getBatch().draw (texture, 400 , 925, 200, 50);
 	}
 
 	private TextButton createBackBtn() {
@@ -188,8 +200,8 @@ public class PropertiesScreen extends AbstractScreen {
 
 		TextButton backBtn = new TextButton ("Back", skin);
         backBtn.setPosition(20, 70); 
-        backBtn.setWidth(90);
-        backBtn.setHeight (120);
+        backBtn.setWidth(100);
+        backBtn.setHeight (80);
         backBtn.setChecked(false);
         
         backBtn.addListener(UIFactory.createListener(ScreenEnum.GAME, p1.getBoardPiece().getType()));
@@ -287,9 +299,9 @@ public class PropertiesScreen extends AbstractScreen {
 	
 	private TextButton createBuildHouseBtn() {
 		TextButton buildHouseBtn = new TextButton ("Build House", skin);
-		buildHouseBtn.setPosition(150, 70); 
+		buildHouseBtn.setPosition(190, 70); 
 		buildHouseBtn.setWidth(150);
-		buildHouseBtn.setHeight (120);
+		buildHouseBtn.setHeight (80);
 		buildHouseBtn.setChecked(false);
 		
 		buildHouseBtn.addListener(
@@ -364,9 +376,9 @@ public class PropertiesScreen extends AbstractScreen {
 	
 	private TextButton createBuildHotelBtn() {
 		TextButton buildHotelBtn = new TextButton ("Build Hotel", skin);
-		buildHotelBtn.setPosition(350, 70); 
+		buildHotelBtn.setPosition(400, 70); 
 		buildHotelBtn.setWidth(150);
-		buildHotelBtn.setHeight (120);
+		buildHotelBtn.setHeight (80);
 		buildHotelBtn.setChecked(false);
 		
 		buildHotelBtn.addListener(
@@ -409,18 +421,18 @@ public class PropertiesScreen extends AbstractScreen {
 	
 	private TextButton createNegotiateBtn() {
 		TextButton negotiateButton = new TextButton ("Negotiate", skin);
-		negotiateButton.setPosition(550, 70); 
+		negotiateButton.setPosition(610, 70); 
 		negotiateButton.setWidth(150);
-		negotiateButton.setHeight (120);
+		negotiateButton.setHeight (80);
 		negotiateButton.setChecked(false);
 		return negotiateButton;
 	}
 	
 	private TextButton createMortgageBtn() {
 		TextButton mortgageButton = new TextButton ("Mortgage", skin);
-		mortgageButton.setPosition(750, 70); 
+		mortgageButton.setPosition(830, 70); 
 		mortgageButton.setWidth(150);
-		mortgageButton.setHeight (120);
+		mortgageButton.setHeight (80);
 		mortgageButton.setChecked(false);
 		
 		mortgageButton.addListener(
@@ -428,7 +440,7 @@ public class PropertiesScreen extends AbstractScreen {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						
-				        int res = GameController.getInstance().mortgageProperty();
+				        int res = GameController.getInstance().mortgageProperty(currentCard);
 				        
 				        switch (res) 
 				        { 

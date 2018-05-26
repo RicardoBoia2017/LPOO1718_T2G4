@@ -104,11 +104,11 @@ public class GameController {
 		return res;
 	}
 
-	public int mortgageProperty() {
+	public int mortgageProperty(int currentCard) {
 		int res = Game.getInstance().checkIfYouCanMortgage();
 		
-		if(res == 0)
-			res = Game.getInstance().mortgageProperty();
+//		if(res == 0)
+			res = Game.getInstance().mortgageProperty(currentCard);
 		
 		return res;
 	}

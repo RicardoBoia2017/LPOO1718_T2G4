@@ -30,6 +30,8 @@ public abstract class BuyableSquare extends Square{
 	
 	public void setInMortgage (boolean value) {inMortgage = value;}
 	
+	public int getMortgateValue(){return mortgageValue;}
+	
 	public Boolean getMortgageStatus() {
 		return inMortgage;
 	}

@@ -3,7 +3,6 @@ package mono.model.entities;
 public class Station extends BuyableSquare {
 	
 	private int rent;
-	private double mortgageValue;
 
 	public Station(String name, int cost, int position) {
 		super(name, position, cost);

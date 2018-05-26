@@ -479,13 +479,18 @@ public class Game {
 
 	public int checkIfYouCanMortgage() {
 		Player p1 = players.get(currentPlayer - 1);
-		Property ps1 = (Property) board.getBoardArray().get(p1.getPosition());
 		int res = 0;
 		
 		return res;
 	}
 
-	public int mortgageProperty() {
+	public int mortgageProperty(int card) {
+		Player p1 = players.get(currentPlayer - 1);
+		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
+		
+		s1.setInMortgage(true);
+		p1.addMoney(s1.getMortgateValue());
+		
 		return 0;
 	}
 }

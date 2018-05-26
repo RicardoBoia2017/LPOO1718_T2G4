@@ -7,7 +7,6 @@ import mono.controller.GameController;
 public class Property extends BuyableSquare {
 	private String color;
 	private int buildingCost; 
-	private Player owner;
 	ArrayList <Integer> rents;
 	private int nHouses;
 	private int nHotels;
@@ -29,7 +28,7 @@ public class Property extends BuyableSquare {
 	@Override
 	public void doAction(Player p) {
 				
-		if (owner != null)
+		if (owner != null && !this.inMortgage)
 			payRent(p);		
 	}
 
@@ -45,12 +44,7 @@ public class Property extends BuyableSquare {
 		p1.removeMoney(value);
 		owner.addMoney(value);
 	}
-	
-	private void buyProperty(Player p)
-	{
-		this.owner = p;
-	}
-	
+		
 	public void setRents(int normalRent, int oneRent, int twoRent, int threeRent, int fourRent, int hotelRent)
 	{
 		rents.add (normalRent);
