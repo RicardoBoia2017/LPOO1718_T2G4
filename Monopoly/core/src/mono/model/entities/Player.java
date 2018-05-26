@@ -82,7 +82,6 @@ public class Player {
 			
 			else if (position < 0)
 				position = position + 40; 
-			
 		}
 		
 		else {

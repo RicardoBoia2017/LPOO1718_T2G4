@@ -24,13 +24,13 @@ public class Jail extends Square {
 		if(p.getTurnsWithoutMoving() == 3 && p.getPlayerIsInJail()) {
 			freePlayer(p);
 			p.tellGameModelThePlayerIsInJail();
+			Game.getInstance().movePlayer(p.getCurrentDiceRoll());
 		}
 		
 		if (p.getCurrentDiceRoll() != null && p.getCurrentDiceRoll().getValue1() == p.getCurrentDiceRoll().getValue2() && p.getPlayerIsInJail()) {
 			freePlayer(p);
 			p.tellGameModelThePlayerIsInJail();
-			Game g1 = Game.getInstance();
-			g1.movePlayer(p.getCurrentDiceRoll());
+			Game.getInstance().movePlayer(p.getCurrentDiceRoll());
 		}
 		
 		if(playerWillPayFine && p.getPlayerIsInJail()) {
@@ -41,8 +41,7 @@ public class Jail extends Square {
 				freePlayer(p);
 				playerWillPayFine = false;
 				p.tellGameModelThePlayerIsInJail();
-				Game g1 = Game.getInstance();
-				g1.movePlayer(p.getCurrentDiceRoll());
+				Game.getInstance().movePlayer(p.getCurrentDiceRoll());
 			}
 			
 //			System.out.print(p.getMoney());

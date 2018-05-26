@@ -31,6 +31,7 @@ import mono.controller.entities.PlayerModel;
 import mono.model.Game;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
+import mono.model.entities.Property;
 import mono.view.entities.BoardView;
 import mono.view.entities.BootView;
 import mono.view.entities.CChestView;
@@ -168,6 +169,7 @@ public class GameScreen extends AbstractScreen {
 		rollDiceAnimation(delta);
 		drawPiece (playerToDraw);
 		drawCard();
+		drawAHouse(playerToDraw);
 		
 		game.getBatch().end();
 				
@@ -250,14 +252,44 @@ public class GameScreen extends AbstractScreen {
 	}
 	
 	private void drawAHouse(Player p1) {
-		HouseView houseView = new HouseView(game);
 		
-		Sprite house = houseView.createSprite();
+		int nHouses = 0;
 		
-		house.setPosition(p1.getX(), p1.getY()+10);
-		house.setSize(20, 20);
+		if(Game.getInstance().checkHouseAvailability() != 0) {
+			return;
+		}
 		
-		house.draw(game.getBatch());
+		else {
+			Property s1 = (Property) Game.getInstance().getBoard().getBoardArray().get(playerToDraw.getPosition());
+			nHouses = s1.getHouses();
+		}
+		
+		for(int i = 0; i < nHouses; i++) {
+			HouseView houseView = new HouseView(game);
+			
+			Sprite house = houseView.createSprite();
+			
+			if(p1.getPosition() >= 0 && p1.getPosition() <= 10) {
+				house.setPosition((p1.getX()+(19*i))-30, p1.getY()+60);
+			}
+			
+			else if(p1.getPosition() >= 10 && p1.getPosition() <= 20) {
+				house.setPosition(p1.getX()-30, (p1.getY()+60)-(19*i));
+			}
+			
+			if(p1.getPosition() >= 20 && p1.getPosition() <= 30) {
+				house.setPosition((p1.getX()+(19*i))-35, p1.getY()+60);
+			}
+			
+			if(p1.getPosition() >= 30 && p1.getPosition() <= 39) {
+				house.setPosition(p1.getX()+70, p1.getY()+(19*i));
+			}
+			
+			house.setSize(20, 20);
+			
+			house.draw(game.getBatch());
+		}
+		
 	}
 
 	public void drawCar(Player p1) {

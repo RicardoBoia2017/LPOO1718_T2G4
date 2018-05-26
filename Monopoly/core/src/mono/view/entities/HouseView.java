@@ -13,7 +13,7 @@ public class HouseView extends EntityView{
 	}
 
     public Sprite createSprite() {
-        Texture house = game.getAssetManager().get("House.png");
+        Texture house = game.getAssetManager().get("house.png");
 
         return new Sprite(house, house.getWidth(), house.getHeight());
     }

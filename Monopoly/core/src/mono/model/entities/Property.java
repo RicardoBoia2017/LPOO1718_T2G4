@@ -55,7 +55,6 @@ public class Property extends BuyableSquare {
 		rents.add (threeRent);
 		rents.add (fourRent);
 		rents.add (hotelRent);
-		
 	}
 
 	public void setOwner (Player buyer)
