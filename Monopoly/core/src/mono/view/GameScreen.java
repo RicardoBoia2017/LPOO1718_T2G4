@@ -83,7 +83,7 @@ public class GameScreen extends AbstractScreen {
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 		
 		music = Gdx.audio.newMusic(Gdx.files.internal("Music.mp3"));
-		music.play();
+//		music.play();
 		music.setVolume(0.5f);                
 		music.setLooping(true);
 		
@@ -511,14 +511,20 @@ public class GameScreen extends AbstractScreen {
 	
 	private void drawCard()
 	{
-		String res = Game.getInstance().inCardPosition();
+		String res = Game.getInstance().inCardPosition(false);
 		String cardType;
 		int cardId;
 		
 		if (res == null)
+		{
+			if (closeBtn != null)
+			{
+				closeBtn.remove();
+				closeBtn = null;
+			}
 			return;
-		
-		
+		}
+				
 		EntityView cardView = null;
 		cardType = res.substring(0, 2);
 		cardId = Integer.valueOf(res.substring(3));
@@ -667,7 +673,7 @@ public class GameScreen extends AbstractScreen {
 	private void createCloseButton()
 	{
 	     	closeBtn = new TextButton("Close", skin);
-	        closeBtn.setPosition(337.5f, 400);
+	        closeBtn.setPosition(275f, 410);
 	        closeBtn.setWidth(200);
 	        
 	        closeBtn.addListener(

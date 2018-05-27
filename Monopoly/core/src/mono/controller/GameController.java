@@ -41,17 +41,27 @@ public class GameController {
     }
     
 	private GameController() {		
-
+ 
 	}
 	
 	public Pair doTurn()
 	{	
+		Player p = 	Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+
+		p.setInCardPosition(-1);
+		
 		Pair diceRoll = Game.getInstance().rollDice();
 		
-		Game.getInstance().movePlayer(diceRoll.value1 + diceRoll.value2, diceRoll.sameValue());			
-		doSquareAction();
+		Game.getInstance().movePlayer(diceRoll.value1 + diceRoll.value2, diceRoll.sameValue());
+		if (Game.getInstance().inCardPosition(true) != null)
+		{
+			p.setInCardPosition(p.getPosition());
+		}
 
-		return diceRoll; 
+		doSquareAction();
+//		System.out.println(p.getInCardPosition());
+		
+		return diceRoll;
 	}
 	
 	private void doSquareAction()

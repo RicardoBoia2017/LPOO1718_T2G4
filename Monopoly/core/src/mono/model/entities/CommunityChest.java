@@ -28,7 +28,7 @@ public class CommunityChest extends Square {
 				break;
 			
 			case 4:
-				Game.getInstance().movePlayer(2, false); ///TESTETSTETETST
+				Game.getInstance().movePlayer(2, false);
 				break;
 				
 			case 5:
@@ -92,7 +92,7 @@ public class CommunityChest extends Square {
 	private void movePlayer (Player p, int destPosition)
 	{
 		int squaresToMove = destPosition - p.getPosition();
-		Game.getInstance().setMoveFromCards(squaresToMove);
+		Game.getInstance().movePlayer(squaresToMove, false);
 	}
 	
 	@Override

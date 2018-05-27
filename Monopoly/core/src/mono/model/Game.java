@@ -33,10 +33,9 @@ public class Game {
 	ArrayList <Player> players = new ArrayList<Player>();
 	int currentPlayer;
 	int taxMoney; 
-	int moveFromCards;
 	String player1Piece;
 	Queue <Integer> chanceQueue;
-	Queue <Integer> cChestQueue;
+	Queue <Integer> cChestQueue; 
 
 	public static synchronized Game getInstance() 
 	{ 
@@ -55,7 +54,6 @@ public class Game {
 		board = new Board();
 		currentPlayer = 1;
 		taxMoney = 0;
-		moveFromCards = 0;
 		
 		chanceQueue = new LinkedList <Integer>();
 		initializeChanceQueue();
@@ -64,12 +62,11 @@ public class Game {
 	}
 
 	private void initializeChanceQueue()
-	{		
+	{				
 		for (int i = 1; i <= 10; i++)
 			chanceQueue.add(i);
 		
-		Collections.shuffle((List<?>) chanceQueue);
-		
+		Collections.shuffle((List<?>) chanceQueue);	
 	}
 	
 	private void initializeCChestQueue()
@@ -142,23 +139,8 @@ public class Game {
 		players.get(currentPlayer - 1).setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
 		return values;
+//		return new Pair (6,5);
 	}
-	
-//	public void movePlayer(Pair diceRoll) {
-//		
-//		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, index in array is 0
-//		Player p1 = players.get(playerIndex); 
-//	
-//		takePlayerFromBoardSquare(p1.getPosition(), playerIndex); //DOES NOT WORK
-//				
-//		p1.move(diceRoll);
-//
-//		if(p1.getPosition() == 0) {
-//			tellGoSquareItsNotFirstVisit();
-//		}
-//		
-//		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
-//	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {
 
@@ -173,6 +155,7 @@ public class Game {
 			tellGoSquareItsNotFirstVisit();
 		}
 		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
+		
 	}
 	
 	public void squareAction ()
@@ -183,10 +166,7 @@ public class Game {
 	
 	public void endTurn ()
 	{	
-		String res = inCardPosition();
-
-		if(this.moveFromCards != 0)
-			movePlayerEndTurn ();
+		String res = inCardPosition(false);
 		
 		changeCardEndTurn(res);
 
@@ -194,25 +174,6 @@ public class Game {
 		
 	}
 	
-	private void movePlayerEndTurn()
-	{
-		Player p1 = players.get(currentPlayer - 1);
-
-		String res = inCardPosition().substring(0, 2);
-
-		if (res.substring(0,2).equals("CH") &&
-				getFirstChanceCardId()	== 3)
-				p1.freeFromJail();
-		
-		movePlayer(this.moveFromCards, false);
-		
-		if (res.substring(0,2).equals("CH") &&
-				getFirstChanceCardId()	== 3)
-			p1.sendToJail();
-		
-		this.moveFromCards = 0;
-	}
-
 	private void changeCardEndTurn(String res)
 	{
 		if (res != null) 
@@ -398,13 +359,18 @@ public class Game {
 		p.addMoney(200);
 	}
 	
-	public String inCardPosition()
+	public String inCardPosition(boolean currentPosition)
 	{
 		String res= null;
 		Player p1 = players.get(currentPlayer - 1); 
 		Vector <Integer> chancePositions = new Vector<Integer> (3);
 		Vector <Integer> cchestPositions = new Vector<Integer> (3);
 		
+		int position = p1.getInCardPosition();
+		
+		if (currentPosition)
+			position = p1.getPosition();
+			
 		chancePositions.add(7);
 		chancePositions.add(22);
 		chancePositions.add(36);
@@ -413,18 +379,16 @@ public class Game {
 		cchestPositions.add(17);
 		cchestPositions.add(33);
 		
-		if(chancePositions.contains(p1.getPosition()))
+		if(chancePositions.contains(position))
 			res =  "CH " + chanceQueue.peek();
 
 		
-		else if(cchestPositions.contains(p1.getPosition()))
+		else if(cchestPositions.contains(position))
 			res =  "CC " + cChestQueue.peek();
 			
 		return res;
 	}
-	
-	public void setMoveFromCards (int value) {this.moveFromCards = value;}
-	
+		
 	public int checkHotelAvailability(BuyableSquare s1) {
 	    Player p1 = players.get(currentPlayer - 1); 
 		     
