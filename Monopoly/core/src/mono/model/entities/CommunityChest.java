@@ -19,7 +19,7 @@ public class CommunityChest extends Square {
 				break;
 				
 			case 2:
-				p.removeMoney (50);
+				p.removeMoney (50, true);
 				Game.getInstance().setTaxMoney(Game.getInstance().getTaxMoney() + 50);
 				break;
 			
@@ -32,12 +32,12 @@ public class CommunityChest extends Square {
 				break;
 				
 			case 5:
-				p.removeMoney (120);
+				p.removeMoney (120, true);
 				Game.getInstance().setTaxMoney(Game.getInstance().getTaxMoney() + 120);
 				break;
 			
 			case 6:
-				p.removeMoney (20);
+				p.removeMoney (20, true);
 				Game.getInstance().setTaxMoney(Game.getInstance().getTaxMoney() + 20);
 				break;				
 			
@@ -83,7 +83,7 @@ public class CommunityChest extends Square {
 	{
 		for (Player elem: Game.getInstance().getPlayers())
 		{
-			elem.removeMoney(value);
+			elem.removeMoney(value, true);
 			p.addMoney(value);
 		}
 		

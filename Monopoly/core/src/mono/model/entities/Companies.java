@@ -20,12 +20,12 @@ public class Companies extends BuyableSquare {
 			}
 			
 			if(counter == 1) {
-				p1.removeMoney(4*(p1.getAdditiveDiceRoll()));
+				p1.removeMoney(4*(p1.getAdditiveDiceRoll()), true);
 				owner.addMoney(4*(p1.getAdditiveDiceRoll()));
 			}
 			
 			if(counter == 2) {
-				p1.removeMoney(10*(p1.getAdditiveDiceRoll()));
+				p1.removeMoney(10*(p1.getAdditiveDiceRoll()), true);
 				owner.addMoney(10*(p1.getAdditiveDiceRoll()));
 			}
 		}

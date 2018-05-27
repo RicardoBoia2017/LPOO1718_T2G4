@@ -37,7 +37,7 @@ public class Jail extends Square {
 //			System.out.println(p.getMoney());
 			
 			if(p.getMoney() > fine) {
-				p.removeMoney(fine);
+				p.removeMoney(fine, false);
 				freePlayer(p);
 				playerWillPayFine = false;
 				p.tellGameModelThePlayerIsInJail();

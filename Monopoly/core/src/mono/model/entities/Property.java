@@ -41,7 +41,7 @@ public class Property extends BuyableSquare {
 		else
 			value = rents.get(nHouses*1);
 		
-		p1.removeMoney(value);
+		p1.removeMoney(value, true);
 		owner.addMoney(value);
 	}
 		
@@ -82,8 +82,6 @@ public class Property extends BuyableSquare {
 	
 	public void mortgageThisProperty() {
 		if(inMortgage) {
-			owner.removeMoney(mortgageValue * nHouses);
-			owner.removeMoney(mortgageValue * nHotels);
 			nHouses = 0;
 			nHotels = 0;
 		}

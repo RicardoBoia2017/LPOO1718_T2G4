@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -51,6 +52,7 @@ public class GameScreen extends AbstractScreen {
 	
     private static GameScreen instance;
 
+    Music music;
 	Skin skin;
 	Player playerToDraw;
 	Pair diceValues;
@@ -74,6 +76,11 @@ public class GameScreen extends AbstractScreen {
 		super(); 
 		playerToDraw = Game.getInstance().getPlayers().get(0);
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
+		
+		music = Gdx.audio.newMusic(Gdx.files.internal("Music.mp3"));
+		music.play();
+		music.setVolume(0.5f);                
+		music.setLooping(true);
 		
 		//initialize dice
 		diceValues = new Pair();
