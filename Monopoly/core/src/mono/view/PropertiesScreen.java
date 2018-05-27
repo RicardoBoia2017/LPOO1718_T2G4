@@ -35,6 +35,7 @@ public class PropertiesScreen extends AbstractScreen {
 	Dialog noMoreHouses;
 	Dialog notEnoughHousesDialog;
 	Dialog tooManyHotelsDialog;
+	TextButton reBuyBtn;
 
 	public PropertiesScreen()
 	{
@@ -49,6 +50,7 @@ public class PropertiesScreen extends AbstractScreen {
 	{
 		System.out.println("Entrou");
 		game.getAssetManager().load("Properties/Athens.png", Texture.class);
+		game.getAssetManager().load("Properties/Amsterdam.png", Texture.class);
 		game.getAssetManager().load("Properties/Berlin.png", Texture.class);
 		game.getAssetManager().load("Properties/Brussels.png", Texture.class);
 		game.getAssetManager().load("Properties/Buenos Aires.png", Texture.class);
@@ -95,10 +97,6 @@ public class PropertiesScreen extends AbstractScreen {
 	}
 	
 	private TextButton createLeftBtn() {
-		
-//		TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-//		style.font = new BitmapFont();
-//		style.font.setColor(0, 0, 0, 1);
 		
 		TextButton leftButton = new TextButton ("Left", skin);
 		leftButton.setPosition(30, 600);
@@ -149,7 +147,6 @@ public class PropertiesScreen extends AbstractScreen {
 			
 	}
 	
-
 	@Override
 	public void render (float delta)
 	{
@@ -165,7 +162,7 @@ public class PropertiesScreen extends AbstractScreen {
 	}
 
 	private void drawProperty() {
-
+		
 		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
 		
 		if (p1.getPropertiesOwned().size() == 0)
@@ -174,17 +171,47 @@ public class PropertiesScreen extends AbstractScreen {
 		BuyableSquare s1 =  p1.getPropertiesOwned().get(this.currentCard);
 		
 		if (s1.getMortgageStatus())
+		{
 			drawInMortgate();
+			if (reBuyBtn == null)
+				addActor(createReBuyBtn());
+		}
+		
+		else if (reBuyBtn != null)
+		{
+			reBuyBtn.remove();
+			reBuyBtn = null;
+		}
+
 		
 		String name = s1.getName();
 		
 		PropertyView property = new PropertyView (game, name);
 		
 		Sprite sprite = property.getSprite();
-		
+				
 		sprite.setSize(500, 600);
 		sprite.setPosition(250, 300);
+		
 		sprite.draw(game.getBatch());
+		
+	}
+
+	private TextButton createReBuyBtn() {
+	
+		reBuyBtn = new TextButton ("Rebuy property", skin);
+		reBuyBtn.setPosition(410, 230);
+		
+		reBuyBtn.addListener( new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button)
+			{
+				
+				GameController.getInstance().reBuyProperty(currentCard);
+				return false;
+			}
+		});
+		
+		return reBuyBtn;
 		
 	}
 

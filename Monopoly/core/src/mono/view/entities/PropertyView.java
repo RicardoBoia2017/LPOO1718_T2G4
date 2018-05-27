@@ -24,6 +24,9 @@ public class PropertyView extends EntityView {
 		case "Athens":
 			property = game.getAssetManager().get("Properties/Athens.png");
 			break;
+		case "Amsterdam":
+			property = game.getAssetManager().get("Properties/Amsterdam.png");
+			break;
 		case "Berlin":
 			property = game.getAssetManager().get("Properties/Berlin.png");
 			break;

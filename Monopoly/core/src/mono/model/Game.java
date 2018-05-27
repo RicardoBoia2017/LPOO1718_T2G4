@@ -138,7 +138,7 @@ public class Game {
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
 		return values;
-//		return new Pair (2,1);
+//		return new Pair (3,4);
 	}
 	
 	public void movePlayer(Pair diceRoll) {
@@ -367,7 +367,6 @@ public class Game {
 		
 	}
 	
-	
 	public int countPropertiesOfAColor(String color) {
 		int countPropertiesOfColor = 0;
 		
@@ -429,20 +428,6 @@ public class Game {
 	
 	public void setMoveFromCards (int value) {this.moveFromCards = value;}
 	
-	public ArrayList <Player> getPlayers() {return players;}
-	public Board getBoard() {return board;} 
-	public int getCurrentPlayer(){return this.currentPlayer;}
-	public int getTaxMoney () {return taxMoney;}
-	public int getFirstChanceCardId() {return chanceQueue.peek();}
-	public int getFirstCChestCardId() {return cChestQueue.peek();}
-	public boolean getplayerIsInJail() {
-//		System.out.print("Player ");
-//		System.out.print(players.get(currentPlayer).getName());
-//		System.out.print("is in jail? ");
-//		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
-		return players.get(currentPlayer - 1).getPlayerIsInJail();
-	}
-
 	public int checkHotelAvailability(BuyableSquare s1) {
 	    Player p1 = players.get(currentPlayer - 1); 
 		     
@@ -489,4 +474,30 @@ public class Game {
 		
 		return 0;
 	}
+
+	public int reBuyProperty (int card)
+	{
+		Player p1 = players.get(currentPlayer - 1);
+		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
+		
+		s1.setInMortgage(false);
+		p1.removeMoney(s1.getMortgateValue() * (int)Math.ceil(1.10));
+		
+		return 0;
+	}
+	
+	public ArrayList <Player> getPlayers() {return players;}
+	public Board getBoard() {return board;} 
+	public int getCurrentPlayer(){return this.currentPlayer;}
+	public int getTaxMoney () {return taxMoney;}
+	public int getFirstChanceCardId() {return chanceQueue.peek();}
+	public int getFirstCChestCardId() {return cChestQueue.peek();}
+	public boolean getplayerIsInJail() {
+//		System.out.print("Player ");
+//		System.out.print(players.get(currentPlayer).getName());
+//		System.out.print("is in jail? ");
+//		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
+		return players.get(currentPlayer - 1).getPlayerIsInJail();
+	}
+
 }

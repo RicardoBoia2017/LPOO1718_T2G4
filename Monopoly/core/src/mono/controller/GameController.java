@@ -119,4 +119,8 @@ public class GameController {
 		return res;
 	}
 	
+	public void reBuyProperty (int currentCard)
+	{
+		int res = Game.getInstance().reBuyProperty(currentCard);
+	}
 }
