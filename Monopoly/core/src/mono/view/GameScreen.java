@@ -245,6 +245,11 @@ public class GameScreen extends AbstractScreen {
 	
 	private void createNotValidPlayerDialog() {
 		notValidPlayerDialog = new Dialog("Invalid Player!", skin) {
+	private void drawPlayerMenu() {
+		Texture board = game.getAssetManager().get("PlayersBackground.png",Texture.class); 
+		game.getBatch().draw(board, 803, 197, 295, 803);		
+	}
+	
 			protected void result(Object object) {
 				if (object.equals(1L))
 					notValidPlayerDialog.remove();

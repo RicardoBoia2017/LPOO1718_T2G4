@@ -28,7 +28,7 @@ public class CommunityChest extends Square {
 				break;
 			
 			case 4:
-				Game.getInstance().movePlayer(2);
+				Game.getInstance().movePlayer(2, false); ///TESTETSTETETST
 				break;
 				
 			case 5:

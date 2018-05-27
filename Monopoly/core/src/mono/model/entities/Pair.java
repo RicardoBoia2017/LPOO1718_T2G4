@@ -23,4 +23,6 @@ public class Pair {
 	
 	public void setValue2 (int newValue) {this.value2 = newValue;}
 
+	public boolean sameValue () {return value1 == value2;}
+
 }

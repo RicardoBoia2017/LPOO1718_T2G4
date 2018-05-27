@@ -12,9 +12,7 @@ public class StartSquare extends Square {
 	@Override
 	public void doAction (Player p) {
 		if(!firstVisit) {
-			System.out.println(p.getMoney());
 			p.addMoney(400);
-			System.out.println(p.getMoney());
 		}
 	}
 
