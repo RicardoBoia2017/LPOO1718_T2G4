@@ -14,7 +14,8 @@ public class Player {
 	int money;
 	Boolean inJail; 
 	int turnsWithoutMoving;
-	Pair currentDiceRoll;
+	int currentDiceRoll;
+	boolean diceSameValue;
 	ArrayList <BuyableSquare> propertiesOwned =  new ArrayList <BuyableSquare> ();
 	Boolean hasPassedGoSquareOnce;
 
@@ -26,6 +27,7 @@ public class Player {
 		turnsWithoutMoving = 0;
 		initializePiece(pieceType);
 		hasPassedGoSquareOnce = true;
+		currentDiceRoll = 0;
 	}
 	
 	private void initializePiece(String pieceType) {
@@ -60,38 +62,41 @@ public class Player {
 		return boardPiece;
 	}
 	
-	public void move(Pair diceRoll) {
+//	public void move(Pair diceRoll) {
+//		
+//		currentDiceRoll = diceRoll;
+//		
+//		if(!inJail) {
+//			Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll.getValue1()+diceRoll.getValue2());
+//			
+//			coordinates = finalPosition;
+//			
+//			position = position + (diceRoll.getValue1()+diceRoll.getValue2());
+//	
+//			if(position >= 40) {
+//				position = position - 40;
+//				
+//				if(position > 0) {
+//					tellGameModelThePlayerPassedByGoSquare();
+//					hasPassedGoSquareOnce = true;
+//				}
+//			}
+//			
+//			else if (position < 0)
+//				position = position + 40; 
+//		}
+//		
+//		else {
+//			turnsWithoutMoving++;
+//		}
+//		
+//	}
+	
+	public void move(int diceRoll, boolean sameValue) {
 		
 		currentDiceRoll = diceRoll;
-		
-		if(!inJail) {
-			Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll.getValue1()+diceRoll.getValue2());
+		diceSameValue = sameValue;
 			
-			coordinates = finalPosition;
-			
-			position = position + (diceRoll.getValue1()+diceRoll.getValue2());
-	
-			if(position >= 40) {
-				position = position - 40;
-				
-				if(position > 0) {
-					tellGameModelThePlayerPassedByGoSquare();
-					hasPassedGoSquareOnce = true;
-				}
-			}
-			
-			else if (position < 0)
-				position = position + 40; 
-		}
-		
-		else {
-			turnsWithoutMoving++;
-		}
-		
-	}
-	
-	public void move(int diceRoll) {
-		
 		if(!inJail) {
 			Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll);
 			
@@ -100,7 +105,14 @@ public class Player {
 			position = position + diceRoll;
 	
 			if(position >= 40) 
+			{
 				position = position - 40;
+				
+				if(position > 0) {
+					tellGameModelThePlayerPassedByGoSquare();
+					hasPassedGoSquareOnce = true;
+				}
+			}
 			
 			else if (position < 0)
 				position = position + 40; 
@@ -165,9 +177,11 @@ public class Player {
 		return turnsWithoutMoving;
 	}
 	
-	public Pair getCurrentDiceRoll() {
+	public int getCurrentDiceRoll() {
 		return currentDiceRoll;
 	}
+	
+	public boolean getDiceSameValue () { return this.diceSameValue;}
 	
 	public void tellGameModelThePlayerIsInJail() {
 		System.out.print("My flag is ");
@@ -175,7 +189,7 @@ public class Player {
 		Game.getInstance().tellControllerPlayerIsInJail(); 
 	}
 	
-	public void setCurrentDiceroll(Pair dice) {
+	public void setCurrentDiceroll(int dice) {
 		currentDiceRoll = dice;
 	}
 	
@@ -184,7 +198,7 @@ public class Player {
 	}
 	
 	public int getAdditiveDiceRoll() {
-		return currentDiceRoll.getValue1()+currentDiceRoll.getValue2();
+		return currentDiceRoll;
 	}
 	
 	public Boolean getPlayerIsInJail() {

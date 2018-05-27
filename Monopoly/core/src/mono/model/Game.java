@@ -140,34 +140,36 @@ public class Game {
 		values.setValue1(1+rand.nextInt(6)); //dice roll 1
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
+		players.get(currentPlayer - 1).setCurrentDiceroll(values.getValue1() + values.getValue2()); 
+		
 		return values;
 //		return new Pair (3,4);
 	}
 	
-	public void movePlayer(Pair diceRoll) {
-		
-		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, index in array is 0
-		Player p1 = players.get(playerIndex); 
+//	public void movePlayer(Pair diceRoll) {
+//		
+//		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, index in array is 0
+//		Player p1 = players.get(playerIndex); 
+//	
+//		takePlayerFromBoardSquare(p1.getPosition(), playerIndex); //DOES NOT WORK
+//				
+//		p1.move(diceRoll);
+//
+//		if(p1.getPosition() == 0) {
+//			tellGoSquareItsNotFirstVisit();
+//		}
+//		
+//		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
+//	}
 	
-		takePlayerFromBoardSquare(p1.getPosition(), playerIndex); //DOES NOT WORK
-				
-		p1.move(diceRoll);
+	public void movePlayer(int diceRoll, boolean sameValue) {
 
-		if(p1.getPosition() == 0) {
-			tellGoSquareItsNotFirstVisit();
-		}
-		
-		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
-	}
-	
-	public void movePlayer(int diceRoll) {
-		
 		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, index in array is 0
 		Player p1 = players.get(playerIndex); 
 	
 		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
 				
-		p1.move(diceRoll);
+		p1.move(diceRoll, sameValue);
 		
 		if(p1.getPosition() == 0) {
 			tellGoSquareItsNotFirstVisit();
@@ -204,7 +206,7 @@ public class Game {
 				getFirstChanceCardId()	== 3)
 				p1.freeFromJail();
 		
-		movePlayer(this.moveFromCards);
+		movePlayer(this.moveFromCards, false);
 		
 		if (res.substring(0,2).equals("CH") &&
 				getFirstChanceCardId()	== 3)
@@ -399,9 +401,7 @@ public class Game {
 	}
 	
 	public void givePlayer200Money(Player p) {
-		System.out.println(p.getMoney());
 		p.addMoney(200);
-		System.out.println(p.getMoney());
 	}
 	
 	public String inCardPosition()

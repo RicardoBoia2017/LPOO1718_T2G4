@@ -55,7 +55,7 @@ public class MonopolyTests {
 		
 		Player p1 = (g1.getPlayers()).get(0);
 		
-		g1.movePlayer(6);
+		g1.movePlayer(6, false);
 		
 		assertEquals(p1.getPosition(), 6);
 		
@@ -65,7 +65,7 @@ public class MonopolyTests {
 		assertEquals(((s1.getplayersOnTopOfSquareArray()).get(0)).getName(), "ActualPlayer");
 		assertEquals(s1.getName(), "Brussels");
 		
-		g1.movePlayer(7);
+		g1.movePlayer(7, false);
 		
 		assertEquals(p1.getPosition(), 13);
 		
@@ -84,10 +84,10 @@ public class MonopolyTests {
 		
 		Player p1 = (g1.getPlayers()).get(0);
 		
-		g1.movePlayer(12);
-		g1.movePlayer(12);
-		g1.movePlayer(12);
-		g1.movePlayer(12);
+		g1.movePlayer(12, false);
+		g1.movePlayer(12, false);
+		g1.movePlayer(12, false);
+		g1.movePlayer(12, false);
 		
 		assertEquals(p1.getPosition(), 8);
 		Square s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
@@ -108,7 +108,7 @@ public class MonopolyTests {
 		
 		int p1Money = p1.getMoney();
 
-		p1.move(1);
+		g1.movePlayer (1, false);
 		g1.buyProperty();
 
 		assertEquals (p1.getMoney(), p1Money - 60);
@@ -125,7 +125,7 @@ public class MonopolyTests {
 		
 		int p1Money = p1.getMoney();
 
-		p1.move(5);
+		g1.movePlayer (5, false);
 		g1.buyProperty();
 
 		assertEquals (p1.getMoney(), p1Money - 200);
@@ -142,7 +142,8 @@ public class MonopolyTests {
 		
 		int p1Money = p1.getMoney();
 
-		p1.move(12);
+		g1.movePlayer (12, false);
+		
 		System.out.println(g1.getBoard().getBoardArray().get(12).getName());
 		g1.buyProperty();
 
@@ -159,12 +160,12 @@ public class MonopolyTests {
 		Player owner = g1.getPlayers().get(0);
 		Player payer = g1.getPlayers().get(1);
 		
-		owner.move(1);
+		owner.move(1, false);
 		g1.buyProperty();
 		
 		g1.endTurn();
 		
-		payer.move(1);
+		payer.move(1, false);
 		assertEquals(-2, g1.checkPropertyAvailibility());
 	}
 	
@@ -176,7 +177,7 @@ public class MonopolyTests {
 		g1.addPlayers("Hat");
 		Player p1 = g1.getPlayers().get(0);
 		
-		p1.move(2);
+		g1.movePlayer(2, false);
 				
 		assertEquals(-1, g1.checkPropertyAvailibility());
 	}
@@ -191,7 +192,7 @@ public class MonopolyTests {
 		
 		p1.removeMoney(1490, false); //stays with 10
 		
-		p1.move(1);
+		g1.movePlayer(1, false);
 		g1.buyProperty();
 				
 		assertEquals(-3, g1.buyProperty());
@@ -209,14 +210,14 @@ public class MonopolyTests {
 		int payerMoney = payer.getMoney();
 		int ownerMoney = owner.getMoney();
 		
-		owner.move(1);
+		owner.move(1, false);
 		g1.buyProperty(); //pays the property price
 		
 		ownerMoney = owner.getMoney();
 		
 		g1.endTurn();
 		
-		payer.move(1);
+		payer.move(1, false);
 		g1.squareAction();
 		
 		assertEquals (payer.getMoney(), payerMoney - 2);
@@ -238,7 +239,7 @@ public class MonopolyTests {
 		
 		int p1Money = p1.getMoney();
 
-		p1.move(1);
+		p1.move(1, false);
 		g1.buyProperty();
 		
 		BuyableSquare s1 = p1.getPropertiesOwned().get(0);
@@ -261,7 +262,7 @@ public class MonopolyTests {
 		
 		int p1Money = p1.getMoney();
 
-		p1.move(1);
+		p1.move(1, false);
 		g1.buyProperty();
 		
 		BuyableSquare s1 = p1.getPropertiesOwned().get(0);
@@ -288,7 +289,7 @@ public class MonopolyTests {
 		
 		g1.addPlayers("Hat");
 		
-		g1.movePlayer(30);
+		g1.movePlayer(30, false);
 		
 		Player p1 = (g1.getPlayers()).get(0);
 		Square s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
@@ -314,7 +315,7 @@ public class MonopolyTests {
 		
 		g1.addPlayers("Hat");
 		
-		g1.movePlayer(30);
+		g1.movePlayer(30, false);
 		
 		g1.squareAction();
 		
@@ -324,7 +325,7 @@ public class MonopolyTests {
 		assertEquals(p1.getPosition(), 10);
 		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
-		g1.movePlayer(1);
+		g1.movePlayer(1, false);
 		g1.squareAction();
 		
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
@@ -332,16 +333,16 @@ public class MonopolyTests {
 		assertEquals(p1.getPosition(), 10);
 		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
-		g1.movePlayer(1);
+		g1.movePlayer(1, false);
 		g1.squareAction();
 		
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
 		assertEquals(p1.getPosition(), 10);
 		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
-		Pair diceroll = new Pair(0,1);
+//		Pair diceroll = new Pair(0,1);
 		
-		g1.movePlayer(diceroll);
+		g1.movePlayer(1, false);
 		g1.squareAction();
 		
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
@@ -355,14 +356,14 @@ public class MonopolyTests {
 		
 		g1.addPlayers("Hat");
 		
-		g1.movePlayer(30);
+		g1.movePlayer(30, false);
 		
 		g1.squareAction();
 		
 		Player p1 = (g1.getPlayers()).get(0);
 		Square s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
 		
-		g1.movePlayer(1);
+		g1.movePlayer(1, false);
 		g1.squareAction();
 		
 		s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
@@ -371,7 +372,7 @@ public class MonopolyTests {
 		
 		int moneyBefore = p1.getMoney();
 		
-		p1.setCurrentDiceroll(new Pair(3,1));
+		p1.setCurrentDiceroll(4);
 		
 		g1.tellJailPlayerWantsToPayFine();
 		s1.doAction(p1);
@@ -389,22 +390,22 @@ public class MonopolyTests {
 		
 		g1.addPlayers("Hat");
 		
-		Pair diceRollOdd = new Pair(3, 6);
-		Pair diceRollSame = new Pair(3, 3);
+//		Pair diceRollOdd = new Pair(3, 6);
+//		Pair diceRollSame = new Pair(3, 3);
 		
-		g1.movePlayer(30);
+		g1.movePlayer(30, false);
 		g1.squareAction();
 		
 		Player p1 = (g1.getPlayers()).get(0);
 		Square s1 = g1.getBoard().getBoardArray().get(p1.getPosition());
 		
-		g1.movePlayer(diceRollOdd);
+		g1.movePlayer(9, false);
 		g1.squareAction();
 		
 		assertEquals(p1.getPosition(), 10);
 		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
-		g1.movePlayer(diceRollSame);
+		g1.movePlayer(6, true);
 		g1.squareAction();
 		
 		assertEquals(p1.getPosition(), 16);
@@ -429,7 +430,7 @@ public class MonopolyTests {
 		int beforeActionP2Money;
 		int beforeActionTaxMoney;
 
-		g1.movePlayer(7);
+		g1.movePlayer(7, false);
 		
 		for (int i = 1; i <= 10; i++)
 		{
@@ -460,7 +461,7 @@ public class MonopolyTests {
 					g1.endTurn();
 					g1.endTurn();
 					g1.endTurn();
-					g1.movePlayer(-3);
+					g1.movePlayer(-3, false);
 					g1.endTurn();
 					break;
 					
@@ -473,7 +474,7 @@ public class MonopolyTests {
 					g1.endTurn();
 					g1.endTurn();
 					g1.endTurn();
-					g1.movePlayer(-6);
+					g1.movePlayer(-6, false);
 					g1.endTurn();
 					break;
 					
@@ -491,7 +492,7 @@ public class MonopolyTests {
 					g1.endTurn();
 					g1.endTurn();
 					g1.endTurn();
-					g1.movePlayer(15);
+					g1.movePlayer(15, false);
 					g1.endTurn();
 					break;
 					
@@ -500,7 +501,7 @@ public class MonopolyTests {
 					g1.endTurn();
 					g1.endTurn();
 					g1.endTurn();
-					g1.movePlayer(3);
+					g1.movePlayer(3, false);
 					g1.endTurn();
 					break;
 					
@@ -533,7 +534,7 @@ public class MonopolyTests {
 	int beforeActionP2Money;
 	int beforeActionTaxMoney;
 	
-	g1.movePlayer(2);
+	g1.movePlayer(2, false);
 	
 	for (int i = 1; i <= 10; i++)
 	{
@@ -563,7 +564,7 @@ public class MonopolyTests {
 				g1.endTurn();
 				g1.endTurn();
 				g1.endTurn();
-				g1.movePlayer(-1);
+				g1.movePlayer(-1, false);
 				g1.endTurn();
 				break;
 				
@@ -572,7 +573,7 @@ public class MonopolyTests {
 				g1.endTurn();
 				g1.endTurn();
 				g1.endTurn();
-				g1.movePlayer(-2);
+				g1.movePlayer(-2, false);
 				g1.endTurn();
 				break;
 				
@@ -595,7 +596,7 @@ public class MonopolyTests {
 				g1.endTurn();
 				g1.endTurn();
 				g1.endTurn();
-				g1.movePlayer(-25);
+				g1.movePlayer(-25, false);
 				g1.endTurn();
 				break;
 				
@@ -626,43 +627,43 @@ public class MonopolyTests {
 		Player p1 = g1.getPlayers().get(0);
 		int playerMoney = p1.getMoney();
 		
-		g1.movePlayer(4); //goes to income tax
+		g1.movePlayer(4, false); //goes to income tax
 		g1.squareAction();
-		
+		System.out.println("Current position " + p1.getPosition()); 
+
 		assertEquals (p1.getMoney(), playerMoney - 200);
 		assertEquals (g1.getTaxMoney(), 200);
 		
 		
 		playerMoney = p1.getMoney();
 		
-		g1.movePlayer(16); //goes to free parking
+		g1.movePlayer(16, false); //goes to free parking
 		g1.squareAction();
 		
 		assertEquals (p1.getMoney(), playerMoney + 200);
 		assertEquals (g1.getTaxMoney(), 0);
-		
+
 		playerMoney = p1.getMoney();
 		
 		//test if he pays both taxes
-		g1.movePlayer(18); //goes to luxury tax
+		g1.movePlayer(18, false); //goes to luxury tax
 		g1.squareAction();
-		
+
 		assertEquals (p1.getMoney(), playerMoney - 100);
 		assertEquals (g1.getTaxMoney(), 100);
 		
 		playerMoney = p1.getMoney();
-
 		
-		g1.movePlayer(6); //goes to income tax
+		g1.movePlayer(6, false); //goes to income tax
 		g1.squareAction();
 		
-		assertEquals (p1.getMoney(), playerMoney - 200);
+
+		assertEquals (p1.getMoney(), playerMoney);
 		assertEquals (g1.getTaxMoney(), 300);
 				
 		playerMoney = p1.getMoney();
-
 		
-		g1.movePlayer(16); //goes to free parking
+		g1.movePlayer(16, false); //goes to free parking
 		g1.squareAction();
 		
 		assertEquals (p1.getMoney(), playerMoney + 300);
@@ -676,15 +677,15 @@ public class MonopolyTests {
 		g1.addPlayers("Hat");
 		Player p1 = g1.getPlayers().get(0);
 		int playerMoney = p1.getMoney();
-		Pair diceRoll = new Pair(5,5);
+//		Pair diceRoll = new Pair(5,5);
 		
-		g1.movePlayer(diceRoll);
-		g1.movePlayer(diceRoll);
-		g1.movePlayer(diceRoll);
+		g1.movePlayer(10, false);
+		g1.movePlayer(10, false);
+		g1.movePlayer(10, false);
 		
-		Pair otherDiceRoll = new Pair(5,6);
+//		Pair otherDiceRoll = new Pair(5,6);
 		
-		g1.movePlayer(otherDiceRoll);
+		g1.movePlayer(11, false);
 		
 		assertEquals(p1.getPosition(), 1);
 		
@@ -700,10 +701,11 @@ public class MonopolyTests {
 		int playerMoney = p1.getMoney();
 		Pair diceRoll = new Pair(5,5);
 		
-		g1.movePlayer(diceRoll);
-		g1.movePlayer(diceRoll);
-		g1.movePlayer(diceRoll);
-		g1.movePlayer(diceRoll);
+		g1.movePlayer(10, false);
+		g1.movePlayer(10, false);
+		g1.movePlayer(10, false);
+		g1.movePlayer(10, false);
+		
 		g1.squareAction();
 		
 		assertEquals(p1.getPosition(), 0);
@@ -726,11 +728,11 @@ public class MonopolyTests {
 		assertEquals(ownerMoney, 1500);
 		assertEquals(payerMoney, 1500);
 		
-		g1.movePlayer(5);
+		g1.movePlayer(5, false);
 		g1.buyProperty();
 		g1.endTurn();
 		
-		g1.movePlayer(5);
+		g1.movePlayer(5, false);
 		g1.squareAction();
 		
 		assertEquals(p1.getMoney(), (ownerMoney-200)+25);
@@ -754,13 +756,13 @@ public class MonopolyTests {
 		assertEquals(ownerMoney, 1500);
 		assertEquals(payerMoney, 1500);
 		
-		g1.movePlayer(12);
+		g1.movePlayer(12, false);
 		g1.buyProperty();
 		g1.endTurn();
 		
-		Pair diceroll = new Pair(6,6);
+//		Pair diceroll = new Pair(6,6);
 		
-		g1.movePlayer(diceroll);
+		g1.movePlayer(12, false);
 		g1.squareAction();
 		
 		assertEquals(p1.getMoney(), (ownerMoney-150)+(4*12));
@@ -777,7 +779,7 @@ public class MonopolyTests {
 		
 		Player p1 = g1.getPlayers().get(0);
 		
-		g1.movePlayer(1);
+		g1.movePlayer(1, false);
 		
 		BuyableSquare s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
 		
@@ -785,7 +787,7 @@ public class MonopolyTests {
 		
 		g1.buyProperty();
 		
-		g1.movePlayer(2);
+		g1.movePlayer(2, false);
 		
 		g1.buyProperty();
 		
@@ -795,7 +797,7 @@ public class MonopolyTests {
 		
 		assertEquals(g1.checkHouseAvailability(s1), -2); //house is in mortgage
 		
-		g1.movePlayer(2);
+		g1.movePlayer(2, false);
 		
 		g1.buyProperty();
 		
@@ -813,11 +815,11 @@ public class MonopolyTests {
 		
 		Player p1 = g1.getPlayers().get(0);
 		
-		g1.movePlayer(1);
+		g1.movePlayer(1, false);
 		
 		g1.buyProperty();
 		
-		g1.movePlayer(2);
+		g1.movePlayer(2, false);
 		
 		g1.buyProperty();
 		
@@ -837,11 +839,11 @@ public class MonopolyTests {
 		
 		Player p1 = g1.getPlayers().get(0);
 		
-		g1.movePlayer(1);
+		g1.movePlayer(1, false);
 		
 		g1.buyProperty();
 		
-		g1.movePlayer(2);
+		g1.movePlayer(2, false);
 		
 		g1.buyProperty();
 		
@@ -865,7 +867,7 @@ public class MonopolyTests {
 		
 		Player p1 = g1.getPlayers().get(0);
 		
-		g1.movePlayer(1);
+		g1.movePlayer(1, false);
 		
 		BuyableSquare s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
 		
@@ -873,7 +875,7 @@ public class MonopolyTests {
 		
 		g1.buyProperty();
 		
-		g1.movePlayer(2);
+		g1.movePlayer(2, false);
 		
 		g1.buyProperty();
 		
@@ -892,7 +894,7 @@ public class MonopolyTests {
 		
 		assertEquals(g1.checkHotelAvailability(s2), -4); // already has an hotel
 		
-		g1.movePlayer(2);
+		g1.movePlayer(2, false);
 		
 		s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
 		

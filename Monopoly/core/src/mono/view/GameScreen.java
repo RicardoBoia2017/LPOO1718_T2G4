@@ -243,6 +243,11 @@ public class GameScreen extends AbstractScreen {
 
 	}
 	
+	private void drawPlayerMenu() {
+		Texture board = game.getAssetManager().get("PlayersBackground.png",Texture.class); 
+		game.getBatch().draw(board, 803, 197, 295, 803);		
+	}
+	
 	private void createSucessDialog() {
 		successfulNegotiationDialog = new Dialog("Negotiation done", skin) {
 			protected void result(Object object) {
