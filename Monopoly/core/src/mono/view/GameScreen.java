@@ -73,6 +73,7 @@ public class GameScreen extends AbstractScreen {
 	Dialog noMoreHouses;
 	TextButton closeBtn;
 	Boolean showCard;
+	int firstClick;
 	
 	static float diceRollTime; 
 	Animation diceAnimation;
@@ -210,7 +211,7 @@ public class GameScreen extends AbstractScreen {
 	private void drawEntities(float delta)
 	{
 		drawBoard();
-		drawPlayerMenu();
+		drawPlayers();
 		drawDice();
 		rollDiceAnimation(delta);
 		Player p = Game.getInstance().getPlayers().get(0);
