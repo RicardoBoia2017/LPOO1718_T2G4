@@ -112,6 +112,7 @@ public class GameScreen extends AbstractScreen {
 		game.getAssetManager().load ("Board.png", Texture.class);
 		game.getAssetManager().load ("house.png", Texture.class);
 		game.getAssetManager().load ("hotel.png", Texture.class);
+		game.getAssetManager().load ("PlayersBackground.png", Texture.class);
 		loadCChestCards();
 		loadChanceCards();
 		loadDices();
@@ -192,20 +193,55 @@ public class GameScreen extends AbstractScreen {
 				
 		
 		game.getBatch().begin();
-		drawBoard();
-		drawDice();
-		rollDiceAnimation(delta);
-		drawPiece (playerToDraw);
-		drawCard();
-		drawAHouse();
-		drawAHotel();
-		
+		drawEntities(delta);
+
 		game.getBatch().end();
 				
 		super.act();
 		super.draw();
 	}
 	
+	private void drawEntities(float delta)
+	{
+		drawBoard();
+		drawPlayerMenu();
+		drawDice();
+		rollDiceAnimation(delta);
+		Player p = Game.getInstance().getPlayers().get(0);
+		drawPiece (playerToDraw, p.getX(), p.getY());
+		drawCard();
+		drawAHouse();
+		drawAHotel();
+		drawPlayers();
+
+	}
+	private void drawPlayers() {
+		BitmapFont font = new BitmapFont ();
+		font.setColor (0,0,0,1);
+		font.getData().setScale(2);
+		int i = 0;
+		
+		for (Player p : Game.getInstance().getPlayers())
+		{
+			font.setColor(0, 0, 0, 1);
+			font.draw (game.getBatch(), p.getName(), 820, 950 - i);
+
+			font.setColor(0, 0.70f, 0, 1f);
+			font.draw (game.getBatch(), Integer.toString(p.getMoney()), 820, 900 - i);
+			font.getData().setScale(2f);
+			
+			drawPiece (p, 1000, 870 - i);
+			
+			i += 200;	
+		}
+
+	}
+
+	private void drawPlayerMenu() {
+		Texture board = game.getAssetManager().get("PlayersBackground.png",Texture.class); 
+		game.getBatch().draw(board, 803, 197, 295, 803);		
+	}
+
 	private void rollDiceAnimation(float delta) {
 			
 		this.diceRollTime += delta;
@@ -260,22 +296,22 @@ public class GameScreen extends AbstractScreen {
 		dice_2.draw(game.getBatch());	
 	}
 	
-	public void drawPiece(Player p1) {
+	public void drawPiece(Player p1, int x, int y) {
 		
 		if(p1.getBoardPiece().getType() == "Thimble") {
-			drawThimble(p1);
+			drawThimble(p1, x, y);
 		}
 		
 		else if(p1.getBoardPiece().getType() == "Car") {
-			drawCar(p1);
+			drawCar(p1, x, y);
 		}
 		
 		else if(p1.getBoardPiece().getType() == "Hat") {
-			drawHat(p1);
+			drawHat(p1, x, y);
 		}
 		
 		else if(p1.getBoardPiece().getType() == "Boot") {
-			drawBoot(p1);
+			drawBoot(p1, x, y);
 		}
 		
 	}
@@ -354,46 +390,46 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 
-	public void drawCar(Player p1) {
+	public void drawCar(Player p1, int x, int y) {
 		CarView carView = new CarView(game);
 		
 		Sprite car = carView.createSprite();
 		
-		car.setPosition(p1.getX(), p1.getY());
+		car.setPosition(x, y);
 		car.setSize (40,40);
 				
 		car.draw(game.getBatch());
 	}
 	
-	public void drawHat(Player p1) {
+	public void drawHat(Player p1, int x, int y) {
 		HatView hatView = new HatView(game);
 		
 		Sprite hat = hatView.createSprite();
 		
-		hat.setPosition(p1.getX(), p1.getY());
+		hat.setPosition(x, y);
 		hat.setSize (40,40);
 		
 		hat.draw(game.getBatch());
 	}
 	
-	public void drawBoot(Player p1) {
+	public void drawBoot(Player p1, int x, int y) {
 		BootView bootView = new BootView(game);
 		
 		Sprite boot = bootView.createSprite();
 		
 		boot.setSize(40, 40);
-		boot.setPosition(p1.getX(), p1.getY());
+		boot.setPosition(x, y);
 		
 		boot.draw(game.getBatch());
 	}
 	
-	public void drawThimble(Player p1) {
+	public void drawThimble(Player p1, int x, int y) {
 		ThimbleView thimbleView = new ThimbleView(game);
 		
 		Sprite thimble = thimbleView.createSprite();
 		
 		thimble.setSize(40,40);
-		thimble.setPosition(p1.getX(), p1.getY());
+		thimble.setPosition(x, y);
 				
 		thimble.draw(game.getBatch());
 	}

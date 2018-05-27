@@ -83,6 +83,9 @@ public class Game {
 	
 	public void addPlayers(String player1Piece) {
 		
+		if (players.size() != 0)
+			return;
+			
 		players.add(new Player("ActualPlayer", player1Piece));
 		
 		if(player1Piece.equals("Car")) {
