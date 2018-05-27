@@ -297,6 +297,11 @@ public class PropertiesScreen extends AbstractScreen {
 		noMoreHouses.button("EXIT", 1L);
 	}
 	
+	private BuyableSquare getSquareOfCurrentCard(){
+		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+		return p1.getPropertiesOwned().get(currentCard);
+	}
+	
 	private TextButton createBuildHouseBtn() {
 		TextButton buildHouseBtn = new TextButton ("Build House", skin);
 		buildHouseBtn.setPosition(190, 70); 
@@ -309,7 +314,9 @@ public class PropertiesScreen extends AbstractScreen {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						
-				        int res = GameController.getInstance().buyHouse(); 
+						BuyableSquare squareOfCurrentlySelectedProperty = getSquareOfCurrentCard();
+						
+				        int res = GameController.getInstance().buyHouse(squareOfCurrentlySelectedProperty); 
 				        
 				        switch (res) 
 				        { 
@@ -386,7 +393,9 @@ public class PropertiesScreen extends AbstractScreen {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						
-				        int res = GameController.getInstance().buyHotel();
+						BuyableSquare squareOfCurrentlySelectedProperty = getSquareOfCurrentCard();
+						
+				        int res = GameController.getInstance().buyHotel(squareOfCurrentlySelectedProperty);
 				        
 				        switch (res) 
 				        { 

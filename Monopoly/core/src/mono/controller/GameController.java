@@ -7,8 +7,10 @@ import java.util.List;
 
 import mono.controller.entities.*;
 import mono.model.Game;
+import mono.model.entities.BuyableSquare;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
+import mono.model.entities.Property;
 import mono.model.entities.Square;
 import mono.view.GameScreen;
 
@@ -66,12 +68,14 @@ public class GameController {
 		return res; 
 	}
 	
-	public int buyHouse()
+	public int buyHouse(BuyableSquare s1)
 	{
-		int res = Game.getInstance().checkHouseAvailability();
+		int res = Game.getInstance().checkHouseAvailability(s1);
+		
+		Property s2 = (Property) s1;
 		
 		if(res == 0)
-			res = Game.getInstance().buyHouse();
+			res = Game.getInstance().buyHouse(s2);
 		
 		return res;
 	}
@@ -95,11 +99,13 @@ public class GameController {
 		return Game.getInstance().getplayerIsInJail();
 	}
 
-	public int buyHotel() {
-		int res = Game.getInstance().checkHotelAvailability();
+	public int buyHotel(BuyableSquare s1) {
+		int res = Game.getInstance().checkHotelAvailability(s1);
+		
+		Property s2 = (Property) s1;
 		
 		if(res == 0)
-			res = Game.getInstance().buyHotel();
+			res = Game.getInstance().buyHotel(s2);
 		
 		return res;
 	}

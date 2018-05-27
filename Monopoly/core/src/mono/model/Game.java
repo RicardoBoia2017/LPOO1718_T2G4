@@ -299,9 +299,8 @@ public class Game {
 		
 	}
 	
-	public int buyHouse() {
+	public int buyHouse(Property ps1) {
 		Player p1 = players.get(currentPlayer - 1);
-		Property ps1 = (Property) board.getBoardArray().get(p1.getPosition());
 
 		int res = p1.removeMoney(ps1.getCostOfAHouseByColor());
 
@@ -337,10 +336,9 @@ public class Game {
 		return s1.getMortgageStatus();
 	}
 	
-	public int checkHouseAvailability() { 
+	public int checkHouseAvailability(BuyableSquare s1) { 
 		
 	    Player p1 = players.get(currentPlayer - 1);  
-	    Square s1 = this.board.getBoardArray().get(p1.getPosition()); 
 		     
 	    if (!s1.getType().equals("Property")) //trying to place a house in a square other than property 
 	      return -1; 
@@ -445,9 +443,8 @@ public class Game {
 		return players.get(currentPlayer - 1).getPlayerIsInJail();
 	}
 
-	public int checkHotelAvailability() {
-	    Player p1 = players.get(currentPlayer - 1);  
-	    Square s1 = this.board.getBoardArray().get(p1.getPosition()); 
+	public int checkHotelAvailability(BuyableSquare s1) {
+	    Player p1 = players.get(currentPlayer - 1); 
 		     
 	    if (!s1.getType().equals("Property")) //trying to place a hotel in a square other than property 
 	    	return -1; 
@@ -463,9 +460,8 @@ public class Game {
 	    return 0;
 	}
 
-	public int buyHotel() {
+	public int buyHotel(Property ps1) {
 		Player p1 = players.get(currentPlayer - 1);
-		Property ps1 = (Property) board.getBoardArray().get(p1.getPosition());
 
 		int res = p1.removeMoney(ps1.getCostOfAHouseByColor());
 

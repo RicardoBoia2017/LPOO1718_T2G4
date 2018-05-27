@@ -722,11 +722,11 @@ public class MonopolyTests {
 		
 		Player p1 = g1.getPlayers().get(0);
 		
-		assertEquals(g1.checkHouseAvailability(), -1); //go Square isn't a property;
-		
 		g1.movePlayer(1);
 		
-		assertEquals(g1.checkHouseAvailability(), -4); //player doesn't own all brown spaces
+		BuyableSquare s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		assertEquals(g1.checkHouseAvailability(s1), -4); //player doesn't own all brown spaces
 		
 		g1.buyProperty();
 		
@@ -734,14 +734,21 @@ public class MonopolyTests {
 		
 		g1.buyProperty();
 		
-		g1.movePlayer(38);
-		
-		BuyableSquare s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
+		s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
 		
 		s1.setInMortgage(true);
 		
-		assertEquals(g1.checkHouseAvailability(), -2); //house is in mortgage
-	}
+		assertEquals(g1.checkHouseAvailability(s1), -2); //house is in mortgage
+		
+		g1.movePlayer(2);
+		
+		g1.buyProperty();
+		
+		s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		assertEquals(s1.getType(), "Station");
+		assertEquals(g1.checkHotelAvailability(s1), -1); //can't place house in a station;
+	}	
 	
 	@Test
 	public void testifPlayerCantBuyAHouseWithoutMoney() {
@@ -759,13 +766,14 @@ public class MonopolyTests {
 		
 		g1.buyProperty();
 		
-		g1.movePlayer(38);
+		Property s1 = (Property) g1.getBoard().getBoardArray().get(p1.getPosition());
 		
 		p1.removeMoney(1331); //he has 49 left but a brown house costs 50
 		
-		assertEquals(g1.buyHouse(), -3); //no money
+		assertEquals(g1.buyHouse(s1), -3); //no money
 	}
 	
+
 	@Test
 	public void testIfPlayerCanPlaceHouseInValidPlaces() {
 		Game g1 = createGameForTesting();
@@ -782,12 +790,18 @@ public class MonopolyTests {
 		
 		g1.buyProperty();
 		
-		g1.movePlayer(38);
+		BuyableSquare s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
 		
-		assertEquals(g1.checkHouseAvailability(), 0);
-		assertEquals(g1.buyHouse(), 0);
+		assertEquals(g1.checkHouseAvailability(s1), 0);
+		
+		Property s2 = (Property) s1;
+		
+		assertEquals(g1.buyHouse(s2), 0);
+		
+		assertEquals(s2.getHouses(), 1);
 	}
-	
+
+
 	@Test
 	public void testIfPlayerCantPlaceHotelInInvalidPlaces() {
 		Game g1 = createGameForTesting();
@@ -796,11 +810,11 @@ public class MonopolyTests {
 		
 		Player p1 = g1.getPlayers().get(0);
 		
-		assertEquals(g1.checkHotelAvailability(), -1); //go Square isn't a property;
-		
 		g1.movePlayer(1);
 		
-		assertEquals(g1.checkHotelAvailability(), -2); //player doesn't have 4 houses
+		BuyableSquare s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		assertEquals(g1.checkHotelAvailability(s1), -2); //player doesn't have 4 houses
 		
 		g1.buyProperty();
 		
@@ -808,16 +822,28 @@ public class MonopolyTests {
 		
 		g1.buyProperty();
 		
-		g1.movePlayer(38);
+		s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
 		
-		g1.buyHouse();
-		g1.buyHouse();
-		g1.buyHouse();
-		g1.buyHouse();
+		Property s2 = (Property) s1;
 		
-		g1.buyHotel();
+		g1.buyHouse(s2);
+		g1.buyHouse(s2);
+		g1.buyHouse(s2);
+		g1.buyHouse(s2);
 		
-		assertEquals(g1.checkHotelAvailability(), -4);
+		g1.buyHotel(s2);
+		
+		assertEquals(s2.getHotels(), 1);
+		
+		assertEquals(g1.checkHotelAvailability(s2), -4); // already has an hotel
+		
+		g1.movePlayer(2);
+		
+		s1 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		g1.buyProperty();
+		
+		assertEquals(g1.checkHotelAvailability(s1), -1); // can't place hotels there
 	}
 }
 
