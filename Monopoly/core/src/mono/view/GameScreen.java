@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -68,12 +69,12 @@ public class GameScreen extends AbstractScreen {
 	Dialog doNotOwnAllColorsDialog;
 	Dialog successfulNegotiationDialog;
 	Dialog failedNegotiationDialog;
-	Dialog noSuchPlayerExistsDialog;
+	Dialog notValidPlayerDialog;
 	Dialog mortgagedDialog;
 	Dialog noMoreHouses;
 	TextButton closeBtn;
 	Boolean showCard;
-	int firstClick;
+	int firstClick = 0;
 	
 	static float diceRollTime; 
 	Animation diceAnimation;
@@ -272,18 +273,18 @@ public class GameScreen extends AbstractScreen {
 		failedNegotiationDialog.button("EXIT", 1L);
 	}
 	
-	private void createNoSuchPlayerExistsDialog() {
-		noSuchPlayerExistsDialog = new Dialog("Not a Player!", skin) {
+	private void createNotValidPlayerDialog() {
+		notValidPlayerDialog = new Dialog("Invalid Player!", skin) {
 			protected void result(Object object) {
 				if (object.equals(1L))
-					noSuchPlayerExistsDialog.remove();
+					notValidPlayerDialog.remove();
 
 			};
 		};
 		
-		noSuchPlayerExistsDialog.setPosition(340f, 600f);
-		noSuchPlayerExistsDialog.setWidth(220f);
-		noSuchPlayerExistsDialog.button("EXIT", 1L);
+		notValidPlayerDialog.setPosition(340f, 600f);
+		notValidPlayerDialog.setWidth(220f);
+		notValidPlayerDialog.button("EXIT", 1L);
 	}
 	
 	public class MyTextInputListener implements TextInputListener {
@@ -291,14 +292,16 @@ public class GameScreen extends AbstractScreen {
 		   public void input (String text) {
 			   //function for sorting through player array and finding him
 			   Player p1 = GameController.getInstance().getPlayerByName(text);
+			   String currentPlayerName = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1).getName();
 			   
-			   if(p1 == null) {
-				   createNoSuchPlayerExistsDialog();
-				   addActor(noSuchPlayerExistsDialog);
+			   if(p1 == null || p1.getName().equals(currentPlayerName)) {
+				   createNotValidPlayerDialog();
+				   addActor(notValidPlayerDialog);
+				   firstClick = 0;
 			   }
 				  
 			   else {
-				   ScreenManager.getInstance().showScreen(ScreenEnum.NEGOTIATION, p1);
+				   addListener(UIFactory.createListener(ScreenEnum.NEGOTIATION, p1));
 			   }
 		   }
 		   
@@ -319,15 +322,23 @@ public class GameScreen extends AbstractScreen {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						
-						MyTextInputListener listener = new MyTextInputListener();
+						if(firstClick == 0) {
+							MyTextInputListener listener = new MyTextInputListener();
+							
+							Gdx.input.getTextInput(listener, "Player Select", "", "Player?");
+						}
 						
-						Gdx.input.getTextInput(listener, "Player Select", " ", "Player?");
+						firstClick++;
+						
+						if(firstClick == 2) {
+							firstClick = 0;
+						}
 						
 						//await message from the other side
 						
 						//message goes into res
 						
-				        int res = GameController.getInstance().negotiateProperty();
+				       /* int res = GameController.getInstance().negotiateProperty();
 				        
 				        switch (res) 
 				        { 
@@ -339,7 +350,7 @@ public class GameScreen extends AbstractScreen {
 				      	  createSucessDialog(); 
 				      	  addActor(successfulNegotiationDialog); 
 				      	  break; 
-				        }
+				        }*/
 						
 						return false;
 					}

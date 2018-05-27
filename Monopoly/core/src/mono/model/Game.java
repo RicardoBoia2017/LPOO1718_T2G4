@@ -61,7 +61,6 @@ public class Game {
 		initializeChanceQueue();
 		cChestQueue = new LinkedList <Integer>();
 		initializeCChestQueue();
-
 	}
 
 	private void initializeChanceQueue()
@@ -141,7 +140,6 @@ public class Game {
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
 		return values;
-//		return new Pair (3,4);
 	}
 	
 	public void movePlayer(Pair diceRoll) {
@@ -241,6 +239,7 @@ public class Game {
 		else
 			this.currentPlayer++;
 	}
+	
 	public void setTaxMoney (int newValue)
 	{
 		this.taxMoney = newValue;
@@ -257,11 +256,6 @@ public class Game {
 	}
 	
 	public void tellControllerPlayerIsInJail() {
-//		System.out.println("Telling the controller he is in jail or not");
-//		System.out.print("Player ");
-//		System.out.print(players.get(currentPlayer).getName());
-//		System.out.print("is in jail? ");
-//		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
 		GameController.getInstance().tellViewToDisplayJailDialog();
 	}
 	
@@ -495,14 +489,10 @@ public class Game {
 	public int getTaxMoney () {return taxMoney;}
 	public int getFirstChanceCardId() {return chanceQueue.peek();}
 	public int getFirstCChestCardId() {return cChestQueue.peek();}
+	
 	public boolean getplayerIsInJail() {
-//		System.out.print("Player ");
-//		System.out.print(players.get(currentPlayer).getName());
-//		System.out.print("is in jail? ");
-//		System.out.print(players.get(currentPlayer).getPlayerIsInJail());
 		return players.get(currentPlayer - 1).getPlayerIsInJail();
 	}
-
 
 	public Player getPlayerInSpecific(String name) {
 		
