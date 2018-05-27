@@ -504,4 +504,12 @@ public class Game {
 		
 		return null;
 	}
+
+	public void swapPropertiesAround(Player seller, Player buyer, BuyableSquare property) {
+		buyer.removeMoney(property.getCost(), false);
+		seller.addMoney(property.getCost());
+		property.setOwner(buyer);
+		buyer.addProperty(property);
+		seller.removeProperty(property.getName());
+	}
 }

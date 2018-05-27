@@ -67,8 +67,6 @@ public class GameScreen extends AbstractScreen {
 	Dialog sucessfulHouseDialog;
 	Dialog cannotPlaceHouseDialog;
 	Dialog doNotOwnAllColorsDialog;
-	Dialog successfulNegotiationDialog;
-	Dialog failedNegotiationDialog;
 	Dialog notValidPlayerDialog;
 	Dialog mortgagedDialog;
 	Dialog noMoreHouses;
@@ -245,34 +243,6 @@ public class GameScreen extends AbstractScreen {
 
 	}
 	
-	private void createSucessDialog() {
-		successfulNegotiationDialog = new Dialog("Negotiation done", skin) {
-			protected void result(Object object) {
-				if (object.equals(1L))
-					successfulNegotiationDialog.remove();
-
-			};
-		};
-		successfulNegotiationDialog.setPosition(340f, 600f);
-
-		successfulNegotiationDialog.setWidth(210f);
-		successfulNegotiationDialog.button("EXIT", 1L);
-	}
-	
-	private void createFailDialog() {
-		failedNegotiationDialog = new Dialog("Negotiation failed", skin) {
-			protected void result(Object object) {
-				if (object.equals(1L))
-					failedNegotiationDialog.remove();
-
-			};
-		};
-		failedNegotiationDialog.setPosition(340f, 600f);
-
-		failedNegotiationDialog.setWidth(220f);
-		failedNegotiationDialog.button("EXIT", 1L);
-	}
-	
 	private void createNotValidPlayerDialog() {
 		notValidPlayerDialog = new Dialog("Invalid Player!", skin) {
 			protected void result(Object object) {
@@ -333,24 +303,6 @@ public class GameScreen extends AbstractScreen {
 						if(firstClick == 2) {
 							firstClick = 0;
 						}
-						
-						//await message from the other side
-						
-						//message goes into res
-						
-				       /* int res = GameController.getInstance().negotiateProperty();
-				        
-				        switch (res) 
-				        { 
-				        case -1: 
-				      	  createFailDialog(); 
-				      	  addActor(failedNegotiationDialog); 
-				      	  break; 
-				        case 0: 
-				      	  createSucessDialog(); 
-				      	  addActor(successfulNegotiationDialog); 
-				      	  break; 
-				        }*/
 						
 						return false;
 					}

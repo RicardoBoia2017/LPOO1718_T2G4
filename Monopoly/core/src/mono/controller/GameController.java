@@ -131,4 +131,8 @@ public class GameController {
 	{
 		int res = Game.getInstance().reBuyProperty(currentCard);
 	}
+
+	public void buyPropertyFromOtherPlayer(Player playerThatYouAreBuyingPropertiesFrom, Player playerBuyingTheProperties, BuyableSquare propertyThatIsBeingBought) {
+		Game.getInstance().swapPropertiesAround(playerThatYouAreBuyingPropertiesFrom, playerBuyingTheProperties,propertyThatIsBeingBought);
+	}
 }

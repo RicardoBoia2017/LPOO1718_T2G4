@@ -190,4 +190,12 @@ public class Player {
 	public Boolean getPlayerIsInJail() {
 		return inJail;
 	}
+	
+	public void removeProperty(String name) {
+		for(int i = 0; i < propertiesOwned.size(); i++) {
+			if(propertiesOwned.get(i).getName().equals(name)) {
+				propertiesOwned.remove(propertiesOwned.get(i));
+			}
+		}
+	}
 }

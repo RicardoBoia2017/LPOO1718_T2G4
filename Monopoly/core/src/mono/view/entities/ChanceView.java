@@ -59,7 +59,7 @@ public class ChanceView extends EntityView {
 		break;
 		
 		case 10:
-		chance = game.getAssetManager().get("ChanceCards/LateCreditCard.png",Texture.class);	
+		chance = game.getAssetManager().get("ChanceCards/LostCreditCard.png",Texture.class);	
 		break;
 		
 		default:
