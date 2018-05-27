@@ -118,6 +118,14 @@ public class GameController {
 		
 		return res;
 	}
+
+	public int negotiateProperty() {
+		return 0;
+	}
+
+	public Player getPlayerByName(String name) {
+		return Game.getInstance().getPlayerInSpecific(name);
+	}
 	
 	public void reBuyProperty (int currentCard)
 	{

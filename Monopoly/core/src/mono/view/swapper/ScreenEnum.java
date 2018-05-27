@@ -2,11 +2,13 @@ package mono.view.swapper;
 
 import mono.game.Monopoly;
 import mono.model.Game;
+import mono.model.entities.Player;
 import mono.view.AbstractScreen;
 import mono.view.GameScreen;
 import mono.view.PieceSelectScreen;
 import mono.view.PropertiesScreen;
 import mono.view.MainMenuScreen;
+import mono.view.NegotiationScreen;
 
 public enum ScreenEnum {
 	
@@ -32,6 +34,12 @@ public enum ScreenEnum {
 	PROPERTIES {
 		public AbstractScreen getScreen(Object... params) {
 			return new PropertiesScreen();
+		}
+	}, 
+	
+	NEGOTIATION{
+		public AbstractScreen getScreen(Object... params) {
+			return new NegotiationScreen((Player) params[0]);
 		}
 	};
 	
