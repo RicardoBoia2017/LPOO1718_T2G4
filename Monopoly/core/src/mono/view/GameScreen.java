@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,6 +34,7 @@ import mono.model.Game;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
 import mono.model.entities.Property;
+import com.badlogic.gdx.Input.TextInputListener;
 import mono.view.entities.BoardView;
 import mono.view.entities.BootView;
 import mono.view.entities.CChestView;
@@ -64,6 +66,9 @@ public class GameScreen extends AbstractScreen {
 	Dialog sucessfulHouseDialog;
 	Dialog cannotPlaceHouseDialog;
 	Dialog doNotOwnAllColorsDialog;
+	Dialog successfulNegotiationDialog;
+	Dialog failedNegotiationDialog;
+	Dialog noSuchPlayerExistsDialog;
 	Dialog mortgagedDialog;
 	Dialog noMoreHouses;
 	TextButton closeBtn;
@@ -164,6 +169,7 @@ public class GameScreen extends AbstractScreen {
 		addActor(createBuyPropertyBtn());
 		addActor(createEndTurnBtn());
 		addActor(createPropertyScreenBtn());
+		addActor(createNegotiateBtn());
 		
 		Texture board = this.game.getAssetManager().get("Board.png");
 		ImageButton btnBoard = UIFactory.createButton(board);
@@ -236,12 +242,111 @@ public class GameScreen extends AbstractScreen {
 		}
 
 	}
+	
+	private void createSucessDialog() {
+		successfulNegotiationDialog = new Dialog("Negotiation done", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					successfulNegotiationDialog.remove();
 
-	private void drawPlayerMenu() {
-		Texture board = game.getAssetManager().get("PlayersBackground.png",Texture.class); 
-		game.getBatch().draw(board, 803, 197, 295, 803);		
+			};
+		};
+		successfulNegotiationDialog.setPosition(340f, 600f);
+
+		successfulNegotiationDialog.setWidth(210f);
+		successfulNegotiationDialog.button("EXIT", 1L);
 	}
+	
+	private void createFailDialog() {
+		failedNegotiationDialog = new Dialog("Negotiation failed", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					failedNegotiationDialog.remove();
 
+			};
+		};
+		failedNegotiationDialog.setPosition(340f, 600f);
+
+		failedNegotiationDialog.setWidth(220f);
+		failedNegotiationDialog.button("EXIT", 1L);
+	}
+	
+	private void createNoSuchPlayerExistsDialog() {
+		noSuchPlayerExistsDialog = new Dialog("Not a Player!", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					noSuchPlayerExistsDialog.remove();
+
+			};
+		};
+		
+		noSuchPlayerExistsDialog.setPosition(340f, 600f);
+		noSuchPlayerExistsDialog.setWidth(220f);
+		noSuchPlayerExistsDialog.button("EXIT", 1L);
+	}
+	
+	public class MyTextInputListener implements TextInputListener {
+		   @Override
+		   public void input (String text) {
+			   //function for sorting through player array and finding him
+			   Player p1 = GameController.getInstance().getPlayerByName(text);
+			   
+			   if(p1 == null) {
+				   createNoSuchPlayerExistsDialog();
+				   addActor(noSuchPlayerExistsDialog);
+			   }
+				  
+			   else {
+				   ScreenManager.getInstance().showScreen(ScreenEnum.NEGOTIATION, p1);
+			   }
+		   }
+		   
+		   @Override
+		   public void canceled () {
+			   //nothing happens
+		   }
+	}
+	
+	private TextButton createNegotiateBtn() {
+		TextButton negotiateButton = new TextButton("Negotiate", skin);
+		negotiateButton.setPosition(500, 75);
+		negotiateButton.setWidth(200);
+		negotiateButton.setChecked(false);
+		
+		negotiateButton.addListener(
+				new InputListener() {
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						
+						MyTextInputListener listener = new MyTextInputListener();
+						
+						Gdx.input.getTextInput(listener, "Player Select", " ", "Player?");
+						
+						//await message from the other side
+						
+						//message goes into res
+						
+				        int res = GameController.getInstance().negotiateProperty();
+				        
+				        switch (res) 
+				        { 
+				        case -1: 
+				      	  createFailDialog(); 
+				      	  addActor(failedNegotiationDialog); 
+				      	  break; 
+				        case 0: 
+				      	  createSucessDialog(); 
+				      	  addActor(successfulNegotiationDialog); 
+				      	  break; 
+				        }
+						
+						return false;
+					}
+				});
+		
+		return negotiateButton;
+	}
+	
 	private void rollDiceAnimation(float delta) {
 			
 		this.diceRollTime += delta;
@@ -555,7 +660,7 @@ public class GameScreen extends AbstractScreen {
 	private TextButton createPropertyScreenBtn() {
 
         TextButton buyHouseButton = new TextButton("Properties", skin);
-        buyHouseButton.setPosition(500, 110);
+        buyHouseButton.setPosition(500, 130);
         buyHouseButton.setWidth(200);
         buyHouseButton.setChecked(false);
         

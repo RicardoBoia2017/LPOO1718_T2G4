@@ -1,6 +1,7 @@
 package mono.view;
 
 import java.awt.Font;
+import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -90,7 +91,6 @@ public class PropertiesScreen extends AbstractScreen {
 		addActor(createBackBtn());
 		addActor(createBuildHouseBtn());
 		addActor(createBuildHotelBtn());
-		addActor(createNegotiateBtn());
 		addActor(createMortgageBtn());
 		addActor(createRightBtn());
 		addActor(createLeftBtn());
@@ -326,6 +326,11 @@ public class PropertiesScreen extends AbstractScreen {
 	
 	private BuyableSquare getSquareOfCurrentCard(){
 		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+		
+		if(p1.getPropertiesOwned().isEmpty()) {
+			return null;
+		}
+		
 		return p1.getPropertiesOwned().get(currentCard);
 	}
 	
@@ -342,6 +347,10 @@ public class PropertiesScreen extends AbstractScreen {
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						
 						BuyableSquare squareOfCurrentlySelectedProperty = getSquareOfCurrentCard();
+						
+						if(squareOfCurrentlySelectedProperty == null) {
+							return false;
+						}
 						
 				        int res = GameController.getInstance().buyHouse(squareOfCurrentlySelectedProperty); 
 				        
@@ -407,7 +416,7 @@ public class PropertiesScreen extends AbstractScreen {
 		notEnoughHousesDialog.setWidth(400f);
 		notEnoughHousesDialog.button("EXIT", 1L);
 	}
-	
+
 	private TextButton createBuildHotelBtn() {
 		TextButton buildHotelBtn = new TextButton ("Build Hotel", skin);
 		buildHotelBtn.setPosition(400, 70); 
@@ -421,6 +430,10 @@ public class PropertiesScreen extends AbstractScreen {
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						
 						BuyableSquare squareOfCurrentlySelectedProperty = getSquareOfCurrentCard();
+						
+						if(squareOfCurrentlySelectedProperty == null) {
+							return false;
+						}
 						
 				        int res = GameController.getInstance().buyHotel(squareOfCurrentlySelectedProperty);
 				        
@@ -453,15 +466,6 @@ public class PropertiesScreen extends AbstractScreen {
 				});
 		
 		return buildHotelBtn;
-	}
-	
-	private TextButton createNegotiateBtn() {
-		TextButton negotiateButton = new TextButton ("Negotiate", skin);
-		negotiateButton.setPosition(610, 70); 
-		negotiateButton.setWidth(150);
-		negotiateButton.setHeight (80);
-		negotiateButton.setChecked(false);
-		return negotiateButton;
 	}
 	
 	private TextButton createMortgageBtn() {
