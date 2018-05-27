@@ -1,5 +1,7 @@
 package mono.view;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
 import com.badlogic.gdx.utils.Align;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.UIFactory;
@@ -23,6 +26,7 @@ public class MainMenuScreen extends AbstractScreen {
 		super();
 		this.game = this.game.getInstance();
 		skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
+		
 		loadAssets();
 	}
 
@@ -73,5 +77,14 @@ public class MainMenuScreen extends AbstractScreen {
 	public void dispose() {
 		super.dispose();
 		skin.dispose();
+	}
+	
+	private String getRandomHexString(int numchars){
+	      Random r = new Random();
+	      StringBuffer sb = new StringBuffer();
+	      while(sb.length() < numchars){
+	          sb.append(Integer.toHexString(r.nextInt()));
+	      }
+	      return sb.toString().substring(0, numchars);
 	}
 }
