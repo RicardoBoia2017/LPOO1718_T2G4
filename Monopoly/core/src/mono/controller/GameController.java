@@ -73,10 +73,10 @@ public class GameController {
 	{
 		int res = Game.getInstance().checkHouseAvailability(s1);
 		
-		Property s2 = (Property) s1;
-		
-		if(res == 0)
+		if(res == 0) {
+			Property s2 = (Property) s1;
 			res = Game.getInstance().buyHouse(s2);
+		}
 		
 		return res;
 	}
@@ -103,10 +103,10 @@ public class GameController {
 	public int buyHotel(BuyableSquare s1) {
 		int res = Game.getInstance().checkHotelAvailability(s1);
 		
-		Property s2 = (Property) s1;
-		
-		if(res == 0)
+		if(res == 0) {
+			Property s2 = (Property) s1;
 			res = Game.getInstance().buyHotel(s2);
+		}
 		
 		return res;
 	}
@@ -133,7 +133,13 @@ public class GameController {
 		int res = Game.getInstance().reBuyProperty(currentCard);
 	}
 
-	public void buyPropertyFromOtherPlayer(Player playerThatYouAreBuyingPropertiesFrom, Player playerBuyingTheProperties, BuyableSquare propertyThatIsBeingBought) {
-		Game.getInstance().swapPropertiesAround(playerThatYouAreBuyingPropertiesFrom, playerBuyingTheProperties,propertyThatIsBeingBought);
+	public int buyPropertyFromOtherPlayer(Player playerThatYouAreBuyingPropertiesFrom, Player playerBuyingTheProperties, BuyableSquare propertyThatIsBeingBought) {
+		
+		if(playerBuyingTheProperties.getMoney() < propertyThatIsBeingBought.getCost()) {
+			return -1;
+		}
+		
+		Game.getInstance().swapPropertiesAround(playerThatYouAreBuyingPropertiesFrom, playerBuyingTheProperties,propertyThatIsBeingBought);	
+		return 0;
 	}
 }

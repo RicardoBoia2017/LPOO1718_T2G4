@@ -511,5 +511,6 @@ public class Game {
 		property.setOwner(buyer);
 		buyer.addProperty(property);
 		seller.removeProperty(property.getName());
+		
 	}
 }

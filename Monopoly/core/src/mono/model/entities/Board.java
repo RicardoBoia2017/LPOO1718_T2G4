@@ -78,7 +78,7 @@ public class Board {
 		spaces.add(Square32);
 		Square Square33 = new CommunityChest(33);
 		spaces.add(Square33);
-		Square Square34 = new Property("Shaghai","GREEN", 320, 28, 150, 450, 1000, 1200, 1400, 200, 34, 33f, 437.4585f);
+		Square Square34 = new Property("Shanghai","GREEN", 320, 28, 150, 450, 1000, 1200, 1400, 200, 34, 33f, 437.4585f);
 		spaces.add(Square34);
 		Square Square35 = new Station("Milano Centrale", 200, 35);
 		spaces.add(Square35);

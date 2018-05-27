@@ -119,6 +119,20 @@ public class NegotiationScreen extends AbstractScreen {
 		return leftButton;	
 	}
 	
+	public void createNoMoneyDialog()
+	{
+		noMoneyDialog = new Dialog("You don't have enough money", skin) {
+			protected void result(Object object) {
+				if (object.equals(1L))
+					noMoneyDialog.remove();
+			};
+		};
+		noMoneyDialog.setPosition(340f, 600f);
+
+		noMoneyDialog.setWidth(350f);
+		noMoneyDialog.button("EXIT", 1L);
+	}
+	
 	private void changeCard(int value)
 	{
 
@@ -165,13 +179,12 @@ public class NegotiationScreen extends AbstractScreen {
 	}
 	
 	private BuyableSquare getSquareOfCurrentCard(){
-		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
 		
-		if(p1.getPropertiesOwned().isEmpty()) {
+		if(playerWhosePropertiesAreDisplayed.getPropertiesOwned().isEmpty()) {
 			return null;
 		}
 		
-		return p1.getPropertiesOwned().get(currentCard);
+		return playerWhosePropertiesAreDisplayed.getPropertiesOwned().get(currentCard);
 	}
 	
 	private void drawProperty() {
@@ -179,7 +192,7 @@ public class NegotiationScreen extends AbstractScreen {
 		if (playerWhosePropertiesAreDisplayed.getPropertiesOwned().size() == 0)
 			return;
 		
-		BuyableSquare s1 =  playerWhosePropertiesAreDisplayed.getPropertiesOwned().get(this.currentCard);
+		BuyableSquare s1 =  playerWhosePropertiesAreDisplayed.getPropertiesOwned().get(currentCard);
 		
 		String name = s1.getName();
 		
@@ -242,15 +255,32 @@ public class NegotiationScreen extends AbstractScreen {
 				//int res = GameController.getInstance().negotiateProperty();
 				
 				Player buyingPlayer = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+				BuyableSquare propertyBeingBought = getSquareOfCurrentCard();
 		        
 		        switch (0) //this would be res instead of 0
 		        { 
+		        
 		        case -1: 
 		        	createFailDialog(); 
 		        	addActor(failedNegotiationDialog); 
 		        	break; 
+		        
 		        case 0:
-		        	GameController.getInstance().buyPropertyFromOtherPlayer(playerWhosePropertiesAreDisplayed, buyingPlayer, getSquareOfCurrentCard());
+		        	if(GameController.getInstance().buyPropertyFromOtherPlayer(playerWhosePropertiesAreDisplayed, buyingPlayer, propertyBeingBought) == -1) {
+		        		createNoMoneyDialog();
+		        		addActor(noMoneyDialog);
+		        	};
+		        	
+		        	if(currentCard == 0 && playerWhosePropertiesAreDisplayed.getPropertiesOwned().size() != 1) {
+		        		System.out.println("The other one");
+		        		changeCard(1);
+		        	}
+		        	
+		        	else {
+		        		System.out.println("THis one");
+		        		changeCard(-1);
+		        	}
+		        	
 		        	createSucessDialog(); 
 		        	addActor(successfulNegotiationDialog); 
 		        	break; 
