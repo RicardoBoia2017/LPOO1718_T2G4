@@ -18,7 +18,7 @@ public class Taxes extends Square {
 		
 		Game.getInstance().setTaxMoney(currentTaxMoney + valueToPay);
 		
-		p.removeMoney(valueToPay);
+		p.removeMoney(valueToPay, true);
 	}
 
 	@Override

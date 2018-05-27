@@ -20,7 +20,7 @@ public class Station extends BuyableSquare {
 				}
 			}
 		
-			p.removeMoney(rent*multiplier);
+			p.removeMoney(rent*multiplier, true);
 			owner.addMoney(rent*multiplier);
 		}
 	}

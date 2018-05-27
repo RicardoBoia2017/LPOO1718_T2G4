@@ -287,7 +287,7 @@ public class Game {
 		Player p1 = players.get(currentPlayer - 1); 
 		BuyableSquare ps1 = (BuyableSquare) board.getBoardArray().get(p1.getPosition());
 		
-		int res = p1.removeMoney(ps1.getCost());
+		int res = p1.removeMoney(ps1.getCost(), false);
 		
 		if (res == 0)	
 		{
@@ -302,7 +302,7 @@ public class Game {
 	public int buyHouse(Property ps1) {
 		Player p1 = players.get(currentPlayer - 1);
 
-		int res = p1.removeMoney(ps1.getCostOfAHouseByColor());
+		int res = p1.removeMoney(ps1.getCostOfAHouseByColor(), false);
 
 		if (res == 0) {
 			ps1.buyHouse();
@@ -448,7 +448,7 @@ public class Game {
 	public int buyHotel(Property ps1) {
 		Player p1 = players.get(currentPlayer - 1);
 
-		int res = p1.removeMoney(ps1.getCostOfAHouseByColor());
+		int res = p1.removeMoney(ps1.getCostOfAHouseByColor(), false);
 
 		if (res == 0) {
 			ps1.buyHotel();
@@ -481,7 +481,7 @@ public class Game {
 		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
 		
 		s1.setInMortgage(false);
-		p1.removeMoney(s1.getMortgateValue() * (int)Math.ceil(1.10));
+		p1.removeMoney( (int)Math.ceil (s1.getMortgateValue() * 1.10 ), false);
 		
 		return 0;
 	}

@@ -123,7 +123,7 @@ public class Player {
 		money += value;
 	}
 	
-	public int removeMoney (int value)
+	public int removeMoney (int value, boolean obligatory)
 	{
 		if (value > money)
 			return -3;

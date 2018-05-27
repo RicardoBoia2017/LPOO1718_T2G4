@@ -189,7 +189,7 @@ public class MonopolyTests {
 		g1.addPlayers("Hat");
 		Player p1 = g1.getPlayers().get(0);
 		
-		p1.removeMoney(1490); //stays with 10�
+		p1.removeMoney(1490, false); //stays with 10
 		
 		p1.move(1);
 		g1.buyProperty();
@@ -224,6 +224,61 @@ public class MonopolyTests {
 		
 		payerMoney = payer.getMoney();
 		ownerMoney = owner.getMoney();
+	}
+	
+	//Mortgage
+	
+	@Test
+	public void testIfPropertyGetsMortgaged()
+	{
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+
+		Player p1 = g1.getPlayers().get(0);
+		
+		int p1Money = p1.getMoney();
+
+		p1.move(1);
+		g1.buyProperty();
+		
+		BuyableSquare s1 = p1.getPropertiesOwned().get(0);
+		
+		assertEquals (false, s1.getMortgageStatus());
+		
+		g1.mortgageProperty(0);
+		
+		assertEquals (true, s1.getMortgageStatus());
+		assertEquals (p1.getMoney(), p1Money - s1.getCost() + s1.getMortgateValue());
+	}
+
+	@Test
+	public void testIfPlayerReBuysProperty()
+	{
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+
+		Player p1 = g1.getPlayers().get(0);
+		
+		int p1Money = p1.getMoney();
+
+		p1.move(1);
+		g1.buyProperty();
+		
+		BuyableSquare s1 = p1.getPropertiesOwned().get(0);
+		
+		assertEquals (false, s1.getMortgageStatus());
+		
+		g1.mortgageProperty(0);
+		
+		assertEquals (true, s1.getMortgageStatus());
+		assertEquals (p1.getMoney(), p1Money - s1.getCost() + s1.getMortgateValue());
+		
+		p1Money = p1.getMoney();
+		
+		g1.reBuyProperty(0);
+		
+		assertEquals (false, s1.getMortgageStatus());
+		assertEquals (p1.getMoney(), p1Money - (int)Math.ceil(s1.getMortgateValue() * 1.10));
 	}
 	
 	//Jail 
@@ -768,7 +823,7 @@ public class MonopolyTests {
 		
 		Property s1 = (Property) g1.getBoard().getBoardArray().get(p1.getPosition());
 		
-		p1.removeMoney(1331); //he has 49 left but a brown house costs 50
+		p1.removeMoney(1331, false); //he has 49 left but a brown house costs 50
 		
 		assertEquals(g1.buyHouse(s1), -3); //no money
 	}
