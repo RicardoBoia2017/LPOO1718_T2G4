@@ -68,7 +68,7 @@ public class GameScreen extends AbstractScreen {
 	Dialog cannotPlaceHouseDialog;
 	Dialog doNotOwnAllColorsDialog;
 	Dialog notValidPlayerDialog;
-	Dialog mortgagedDialog;
+	Dialog mortgagedDialog; 
 	Dialog noMoreHouses;
 	TextButton closeBtn;
 	Boolean showCard;
@@ -210,7 +210,7 @@ public class GameScreen extends AbstractScreen {
 	private void drawEntities(float delta)
 	{
 		drawBoard();
-		drawPlayers();
+		drawPlayerMenu();
 		drawDice();
 		rollDiceAnimation(delta);
 		Player p = Game.getInstance().getPlayers().get(0);
@@ -221,6 +221,7 @@ public class GameScreen extends AbstractScreen {
 		drawPlayers();
 
 	}
+	
 	private void drawPlayers() {
 		BitmapFont font = new BitmapFont ();
 		font.setColor (0,0,0,1);
@@ -549,6 +550,11 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 
+	private void drawPlayerMenu() {
+		Texture board = game.getAssetManager().get("PlayersBackground.png", Texture.class);
+		game.getBatch().draw(board, 803, 197, 295, 803);
+	}
+	  
 	public void setShowCard(boolean value) {showCard = value;}
 	
 	private TextButton createRollDiceBtn() { 
