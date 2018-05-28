@@ -3,6 +3,7 @@ package appwarp;
 
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Random;
 
 import org.json.JSONObject;
 
@@ -47,6 +48,7 @@ public class WarpController {
 	
 	public WarpController() {
 		initAppwarp();
+		localUser = getRandomHexString(50);
 		warpClient.addConnectionRequestListener(new ConnectionListener(this));
 		warpClient.addChatRequestListener(new ChatListener(this));
 		warpClient.addZoneRequestListener(new ZoneListener(this));
@@ -252,5 +254,14 @@ public class WarpController {
 		warpClient.removeRoomRequestListener(new RoomListener(this));
 		warpClient.removeNotificationListener(new NotificationListener(this));
 		warpClient.disconnect();
+	}
+	
+	private String getRandomHexString(int numchars){
+	      Random r = new Random();
+	      StringBuffer sb = new StringBuffer();
+	      while(sb.length() < numchars){
+	          sb.append(Integer.toHexString(r.nextInt()));
+	      }
+	      return sb.toString().substring(0, numchars);
 	}
 }

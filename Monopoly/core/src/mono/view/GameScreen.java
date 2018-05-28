@@ -28,6 +28,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
+import appwarp.WarpController;
+import appwarp.WarpListener;
 import mono.controller.GameController;
 import mono.controller.entities.DiceModel;
 import mono.controller.entities.PlayerModel;
@@ -50,8 +52,9 @@ import mono.view.entities.ThimbleView;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.ScreenManager;
 import mono.view.swapper.UIFactory;
+import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
 
-public class GameScreen extends AbstractScreen {
+public class GameScreen extends AbstractScreen implements WarpListener {
 	
     private static GameScreen instance;
 
@@ -95,6 +98,8 @@ public class GameScreen extends AbstractScreen {
 		loadAssets();
 		
 		drawAnimation();
+		
+		//WarpController.getInstance().setListener(this);
 		
 		this.diceRollTime = 100;
 	}	
@@ -775,6 +780,36 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
+	}
+
+	@Override
+	public void onWaitingStarted(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onGameStarted(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onGameFinished(int code, boolean isRemote) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onGameUpdateReceived(String message) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
