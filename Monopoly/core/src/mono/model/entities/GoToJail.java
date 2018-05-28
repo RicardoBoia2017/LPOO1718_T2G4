@@ -11,14 +11,14 @@ public class GoToJail extends Square {
 	@Override
 	public void doAction (Player p) {
 		Game g1 = Game.getInstance();
-		g1.movePlayer(20, false);
+		g1.movePlayer(-20, false);
 		p.sendToJail();
 		
-		System.out.print("Inside Do Action Got to Jail, player is in jail?: ");
-		System.out.print(p.getPlayerIsInJail());
-		
+//		System.out.print("Inside Do Action Got to Jail, player is in jail?: ");
+//		System.out.print(p.getPlayerIsInJail());
+		 
 		p.tellGameModelThePlayerIsInJail();
-	}
+	} 
 
 	@Override
 	public String getType() {

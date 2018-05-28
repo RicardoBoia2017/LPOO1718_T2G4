@@ -18,6 +18,7 @@ public class Player {
 	boolean diceSameValue;
 	ArrayList <BuyableSquare> propertiesOwned =  new ArrayList <BuyableSquare> ();
 	Boolean hasPassedGoSquareOnce;
+	int inCardPosition;
 
 	public Player(String name, String pieceType) {
 		this.name = name;
@@ -28,6 +29,7 @@ public class Player {
 		initializePiece(pieceType);
 		hasPassedGoSquareOnce = true;
 		currentDiceRoll = 0;
+		inCardPosition = -1;
 	}
 	
 	private void initializePiece(String pieceType) {
@@ -61,37 +63,7 @@ public class Player {
 	public Piece getBoardPiece() {
 		return boardPiece;
 	}
-	
-//	public void move(Pair diceRoll) {
-//		
-//		currentDiceRoll = diceRoll;
-//		
-//		if(!inJail) {
-//			Point finalPosition = boardPiece.move((int)coordinates.getX(), (int)coordinates.getY(), position, diceRoll.getValue1()+diceRoll.getValue2());
-//			
-//			coordinates = finalPosition;
-//			
-//			position = position + (diceRoll.getValue1()+diceRoll.getValue2());
-//	
-//			if(position >= 40) {
-//				position = position - 40;
-//				
-//				if(position > 0) {
-//					tellGameModelThePlayerPassedByGoSquare();
-//					hasPassedGoSquareOnce = true;
-//				}
-//			}
-//			
-//			else if (position < 0)
-//				position = position + 40; 
-//		}
-//		
-//		else {
-//			turnsWithoutMoving++;
-//		}
-//		
-//	}
-	
+		
 	public void move(int diceRoll, boolean sameValue) {
 		
 		currentDiceRoll = diceRoll;
@@ -182,7 +154,7 @@ public class Player {
 	}
 	
 	public boolean getDiceSameValue () { return this.diceSameValue;}
-	
+		
 	public void tellGameModelThePlayerIsInJail() {
 		System.out.print("My flag is ");
 		System.out.print(inJail);
@@ -192,6 +164,13 @@ public class Player {
 	public void setCurrentDiceroll(int dice) {
 		currentDiceRoll = dice;
 	}
+	
+	public void setInCardPosition (int value)
+	{
+		this.inCardPosition = value;
+	}
+	
+	public int getInCardPosition() {return this.inCardPosition;}
 	
 	public void tellGameModelThePlayerPassedByGoSquare() {
 		Game.getInstance().givePlayer200Money(this);

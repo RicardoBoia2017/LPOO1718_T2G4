@@ -15,7 +15,7 @@ public class Jail extends Square {
 	
 	public void freePlayer(Player p) {
 		p.freeFromJail();
-		p.resetTurnsWithoutMoving();
+		p.resetTurnsWithoutMoving(); 
 	}
 
 	@Override
