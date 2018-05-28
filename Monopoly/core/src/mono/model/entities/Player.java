@@ -13,9 +13,10 @@ public class Player {
 	Piece boardPiece;
 	int money;
 	Boolean inJail; 
+	Boolean isBankrupt;
 	int turnsWithoutMoving;
 	int currentDiceRoll;
-	boolean diceSameValue;
+	Boolean diceSameValue;
 	ArrayList <BuyableSquare> propertiesOwned =  new ArrayList <BuyableSquare> ();
 	Boolean hasPassedGoSquareOnce;
 	int inCardPosition;
@@ -30,6 +31,7 @@ public class Player {
 		hasPassedGoSquareOnce = true;
 		currentDiceRoll = 0;
 		inCardPosition = -1;
+		isBankrupt = false;
 	}
 	
 	private void initializePiece(String pieceType) {
@@ -109,8 +111,12 @@ public class Player {
 	
 	public int removeMoney (int value, boolean obligatory)
 	{
-		if (value > money)
+		if (value > money && obligatory == false)
 			return -3;
+		
+		if (value > money && obligatory == true) {
+			isBankrupt = true;
+		}
 		
 		money -= value;
 	
@@ -190,5 +196,13 @@ public class Player {
 				propertiesOwned.remove(propertiesOwned.get(i));
 			}
 		}
+	}
+	
+	public Boolean getBankrupcyState() {
+		return isBankrupt;
+	}
+	
+	public void setBankrupcyState(Boolean state) {
+		isBankrupt = state;
 	}
 }

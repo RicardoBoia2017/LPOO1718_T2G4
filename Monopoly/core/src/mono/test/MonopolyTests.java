@@ -902,6 +902,41 @@ public class MonopolyTests {
 		
 		assertEquals(g1.checkHotelAvailability(s1), -1); // can't place hotels there
 	}
+	
+	@Test
+	public void testifPlayerGoesBankrupt() {
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+		Player p1 = g1.getPlayers().get(0);
+		
+		p1.removeMoney(1304, false);
+		
+		assertEquals(p1.getBankrupcyState(), false);
+		
+		g1.movePlayer(4, false); //bankrupcy from a tax square;
+		g1.squareAction();
+		
+		assertEquals(p1.getBankrupcyState(), true);
+		
+		p1.addMoney(1500);
+		
+		g1.movePlayer(1, false);
+		g1.buyProperty();
+		
+		g1.movePlayer(1, false);
+		g1.endTurn();
+		
+		Player p2 = g1.getPlayers().get(1);
+		
+		assertEquals(p2.getBankrupcyState(), false);
+		
+		p2.removeMoney(1480, false); //bankrupcy from paying rent of another player's property
+		
+		g1.movePlayer(5, false);
+		g1.squareAction();
+		
+		assertEquals(p2.getBankrupcyState(), true);
+	}
 }
 
 

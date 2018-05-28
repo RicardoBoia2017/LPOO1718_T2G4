@@ -139,7 +139,6 @@ public class Game {
 		players.get(currentPlayer - 1).setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
 		return values;
-//		return new Pair (6,5);
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {

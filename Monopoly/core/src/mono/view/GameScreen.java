@@ -74,7 +74,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	Dialog mortgagedDialog; 
 	Dialog noMoreHouses;
 	TextButton closeBtn;
+	Dialog bankruptPlayerDialog;
 	Boolean showCard;
+	Boolean removeBankrupcyDialog;
 	int firstClick = 0;
 	
 	static float diceRollTime; 
@@ -224,7 +226,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		drawAHouse();
 		drawAHotel();
 		drawPlayers();
-
+		bankrupcyDraw();
 	}
 	
 	private void drawPlayers() {
@@ -249,12 +251,19 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 
 	}
 	
+	private void bankrupcyDraw() {
+		if(Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1).getBankrupcyState()) {
+			createbankRupcyDialog();
+			addActor(bankruptPlayerDialog);
+		}
+		
+		else {
+			return;
+		}
+	}
+	
 	private void createNotValidPlayerDialog() {
 		notValidPlayerDialog = new Dialog("Invalid Player!", skin) {
-	private void drawPlayerMenu() {
-		Texture board = game.getAssetManager().get("PlayersBackground.png",Texture.class); 
-		game.getBatch().draw(board, 803, 197, 295, 803);		
-	}
 	
 			protected void result(Object object) {
 				if (object.equals(1L))
@@ -266,6 +275,23 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		notValidPlayerDialog.setPosition(340f, 600f);
 		notValidPlayerDialog.setWidth(220f);
 		notValidPlayerDialog.button("EXIT", 1L);
+	}
+	
+	private void createbankRupcyDialog() {
+		bankruptPlayerDialog = new Dialog("You are bankrupt!", skin) {
+			
+			protected void result(Object object) {
+				if (object.equals(1L)) {
+					Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1).setBankrupcyState(false);
+					ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+					bankruptPlayerDialog.remove();
+				}
+			};
+		};
+		
+		bankruptPlayerDialog.setPosition(340f, 600f);
+		bankruptPlayerDialog.setWidth(220f);
+		bankruptPlayerDialog.button("EXIT", 1L);
 	}
 	
 	public class MyTextInputListener implements TextInputListener {
