@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import mono.controller.GameController;
 import mono.model.Game;
 import mono.model.entities.BuyableSquare;
 import mono.model.entities.Pair;
@@ -51,7 +52,7 @@ public class MonopolyTests {
 	public void testIfPlayerMoves() {
 		Game g1 = createGameForTesting();
 				
-		g1.addPlayers("Hat");
+		g1.addPlayers("Boot");
 		
 		Player p1 = (g1.getPlayers()).get(0);
 		
@@ -80,7 +81,7 @@ public class MonopolyTests {
 	public void testIfPlayerMovesBeyond40() {
 		Game g1 = createGameForTesting();
 		
-		g1.addPlayers("Hat");
+		g1.addPlayers("Thimble");
 		
 		Player p1 = (g1.getPlayers()).get(0);
 		
@@ -102,7 +103,7 @@ public class MonopolyTests {
 	public void testIfPlayerBuyProperty()
 	{
 		Game g1 = createGameForTesting();
-		g1.addPlayers("Hat");
+		g1.addPlayers("Car");
 
 		Player p1 = g1.getPlayers().get(0);
 		
@@ -313,7 +314,7 @@ public class MonopolyTests {
 	public void testIfPlayerMovementIsBlockedInJailThreeTurns() {
 		Game g1 = createGameForTesting();
 		
-		g1.addPlayers("Hat");
+		g1.addPlayers("Car");
 		
 		g1.movePlayer(30, false);
 		
@@ -340,8 +341,6 @@ public class MonopolyTests {
 		assertEquals(p1.getPosition(), 10);
 		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
-//		Pair diceroll = new Pair(0,1);
-		
 		g1.movePlayer(1, false);
 		g1.squareAction();
 		
@@ -354,7 +353,7 @@ public class MonopolyTests {
 	public void playerGetsOutOfJailByPaying() {
 		Game g1 = createGameForTesting();
 		
-		g1.addPlayers("Hat");
+		g1.addPlayers("Boot");
 		
 		g1.movePlayer(30, false);
 		
@@ -758,18 +757,16 @@ public class MonopolyTests {
 		
 		g1.movePlayer(12, false);
 		g1.buyProperty();
-		g1.endTurn();
 		
-//		Pair diceroll = new Pair(6,6);
+		g1.endTurn();
 		
 		g1.movePlayer(12, false);
 		g1.squareAction();
 		
 		assertEquals(p1.getMoney(), (ownerMoney-150)+(4*12));
 		assertEquals(p2.getMoney(), payerMoney-(4*12));
-		
-		g1.endTurn();
 	}
+	
 
 	@Test
 	public void testIfPlayerCantPlaceHouseInInvalidPlaces() {
@@ -856,6 +853,27 @@ public class MonopolyTests {
 		assertEquals(g1.buyHouse(s2), 0);
 		
 		assertEquals(s2.getHouses(), 1);
+		
+		g1.movePlayer(3, false);
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(2, false);
+		
+		g1.buyProperty();
+		
+		g1.movePlayer(1, false);
+		
+		g1.buyProperty();
+		
+		BuyableSquare s4 = (BuyableSquare) g1.getBoard().getBoardArray().get(p1.getPosition());
+		
+		assertEquals(g1.checkHouseAvailability(s4), 0);
+		
+		Property s5 = (Property) s4;
+		
+		assertEquals(g1.buyHouse(s5), 0);
+		assertEquals(s5.getHouses(), 1);
 	}
 
 
@@ -901,6 +919,34 @@ public class MonopolyTests {
 		g1.buyProperty();
 		
 		assertEquals(g1.checkHotelAvailability(s1), -1); // can't place hotels there
+	}
+	
+	@Test
+	public void testifPlayerCanBuyAnotherPropertyFromTheOther() {
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+		
+		Player p1 = g1.getPlayers().get(0);
+		Player p2 = g1.getPlayers().get(1);
+		
+		g1.movePlayer(1, false);
+		
+		g1.buyProperty();
+		
+		g1.endTurn();
+		
+		int ownerMoney = p1.getMoney();
+		int buyerMoney = p2.getMoney();
+		Property athens = (Property) p1.getPropertiesOwned().get(0);
+		int costOfTheProperty = athens.getCost();
+		
+		GameController.getInstance().buyPropertyFromOtherPlayer(p1, p2, p1.getPropertiesOwned().get(0));
+		
+		assertEquals(p1.getMoney(), ownerMoney + costOfTheProperty);
+		assertEquals(p1.getPropertiesOwned().size(), 0);
+		assertEquals(p2.getPropertiesOwned().size(), 1);
+		assertEquals(p2.getMoney(), buyerMoney - costOfTheProperty);
+		assertEquals(athens.getOwner(), p2.getName());
 	}
 	
 	@Test

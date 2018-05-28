@@ -103,4 +103,8 @@ public class Property extends BuyableSquare {
 	public void setHouses(int number) {
 		nHouses = number;
 	}
+	
+	public String getOwner() {
+		return owner.getName();
+	}
 }

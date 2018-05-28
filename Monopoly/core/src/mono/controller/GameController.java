@@ -121,17 +121,8 @@ public class GameController {
 		return res;
 	}
 
-	public int mortgageProperty(int currentCard) {
-		int res = Game.getInstance().checkIfYouCanMortgage();
-		
-//		if(res == 0)
-			res = Game.getInstance().mortgageProperty(currentCard);
-		
-		return res;
-	}
-
-	public int negotiateProperty() {
-		return 0;
+	public void mortgageProperty(int currentCard) {
+		Game.getInstance().mortgageProperty(currentCard);
 	}
 
 	public Player getPlayerByName(String name) {

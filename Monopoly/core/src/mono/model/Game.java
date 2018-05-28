@@ -170,7 +170,6 @@ public class Game {
 		changeCardEndTurn(res);
 
 		changePlayer();
-		
 	}
 	
 	private void changeCardEndTurn(String res)
@@ -418,13 +417,6 @@ public class Game {
 		return res;
 	}
 
-	public int checkIfYouCanMortgage() {
-		Player p1 = players.get(currentPlayer - 1);
-		int res = 0;
-		
-		return res;
-	}
-
 	public int mortgageProperty(int card) {
 		Player p1 = players.get(currentPlayer - 1);
 		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
@@ -474,6 +466,5 @@ public class Game {
 		property.setOwner(buyer);
 		buyer.addProperty(property);
 		seller.removeProperty(property.getName());
-		
 	}
 }

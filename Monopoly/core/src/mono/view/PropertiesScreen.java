@@ -480,12 +480,7 @@ public class PropertiesScreen extends AbstractScreen {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						
-				        int res = GameController.getInstance().mortgageProperty(currentCard);
-				        
-				        switch (res) 
-				        { 
-				        
-				        }
+				        GameController.getInstance().mortgageProperty(currentCard);
 						
 						return false;
 					}

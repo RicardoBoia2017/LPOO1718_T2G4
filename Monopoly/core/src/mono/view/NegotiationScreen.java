@@ -28,12 +28,16 @@ public class NegotiationScreen extends AbstractScreen {
 	Player playerWhosePropertiesAreDisplayed;
 	Dialog successfulNegotiationDialog;
 	Dialog failedNegotiationDialog;
+	Dialog allowBuyingDialog;
+	int buyConditional;
+	int firstClick;
 
 	public NegotiationScreen(Player p1) {
 		super();
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 		currentCard = 0;
 		playerWhosePropertiesAreDisplayed = p1;
+		buyConditional = -1;
 		
 		loadProperties();
 	}
@@ -235,6 +239,28 @@ public class NegotiationScreen extends AbstractScreen {
 		successfulNegotiationDialog.button("EXIT", 1L);
 	}
 	
+	private void createAllowBuyingDialog() {
+		allowBuyingDialog = new Dialog("Allow buy?", skin) {
+			protected void result(Object object) {
+				if (object.equals(2L)) {
+					buyConditional = 0;
+					allowBuyingDialog.remove();
+				}
+				
+				if (object.equals(1L)) {
+					buyConditional = -1;
+					allowBuyingDialog.remove();
+				}
+				
+			};
+		};
+		allowBuyingDialog.setPosition(340f, 600f);
+
+		allowBuyingDialog.setWidth(210f);
+		allowBuyingDialog.button("NO", 1L);
+		allowBuyingDialog.button("YES", 2L);
+	}
+	
 	private TextButton createBuyBtn() {
 
 		TextButton buyBtn = new TextButton ("Buy", skin);
@@ -254,10 +280,21 @@ public class NegotiationScreen extends AbstractScreen {
 				
 				//int res = GameController.getInstance().negotiateProperty();
 				
+				if(firstClick == 0) {
+					createAllowBuyingDialog();
+					addActor(allowBuyingDialog);
+					firstClick++;
+					return false;
+				}
+				
+				else {
+					firstClick = 0;
+				}
+				
 				Player buyingPlayer = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
 				BuyableSquare propertyBeingBought = getSquareOfCurrentCard();
 		        
-		        switch (0) //this would be res instead of 0
+		        switch (buyConditional) //this would be res instead of 0
 		        { 
 		        
 		        case -1: 
