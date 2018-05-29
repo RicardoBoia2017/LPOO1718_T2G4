@@ -51,6 +51,7 @@ public class Chance extends Square {
 			
 			case 9:
 				Game.getInstance().movePlayer(-3, false); 
+				Game.getInstance().squareAction();
 				break;
 				
 			case 10:
@@ -93,6 +94,7 @@ public class Chance extends Square {
 	{
 		int squaresToMove = destPosition - p.getPosition();
 		Game.getInstance().movePlayer(squaresToMove, false);
+		Game.getInstance().squareAction();
 	}
 	
 	@Override

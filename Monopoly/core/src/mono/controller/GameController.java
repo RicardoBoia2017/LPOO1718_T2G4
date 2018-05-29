@@ -61,7 +61,7 @@ public class GameController {
 		doSquareAction();
 		
 		if (p.isBot())
-			botTurn();
+			Game.getInstance().botTurn();
 		
 		return diceRoll;
 	}
@@ -71,21 +71,7 @@ public class GameController {
 		Game.getInstance().squareAction();
 	}
 	
-	
-	private void botTurn() {
-
-		Square s1 = Game.getInstance().getCurrentSquare();
-		
-		if (Game.getInstance().checkPropertyAvailibility() == 0)
-		{
-			Game.getInstance().buyProperty();
-		}
-		
-		
-		
-	}
-	
-	public int buyProperty()
+	public int buyProperty() 
 	{
 		int res = Game.getInstance().checkPropertyAvailibility();
 		
@@ -107,9 +93,9 @@ public class GameController {
 		return res;
 	}
 	
-	public boolean endTurn()
+	public void endTurn()
 	{
-		return Game.getInstance().endTurn();
+		Game.getInstance().endTurn();
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {

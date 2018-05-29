@@ -164,7 +164,7 @@ public class Game {
 		board.getSquares().get(currentPlayer.getPosition()).doAction(currentPlayer);
 	} 
 	
-	public boolean endTurn ()
+	public void endTurn ()
 	{	
 		String res = inCardPosition(false);
 		
@@ -172,10 +172,6 @@ public class Game {
 
 		changePlayer(); 
 		
-		if (currentPlayer.getName().substring(0,3) == "Bot")
-			return false;
-		
-		return true;
 	}
 	
 	public void changeCardEndTurn(String res)
@@ -205,6 +201,85 @@ public class Game {
 		
 		else
 			this.currentPlayer = players.get(currentPlayer.getGameId());
+	}
+	
+	public void botTurn()
+	{
+		Player p = Game.getInstance().getCurrentPlayer();
+		Square s1 = Game.getInstance().getCurrentSquare();
+		
+		if (Game.getInstance().checkPropertyAvailibility() == 0)
+		{
+			BuyableSquare bs1 = (BuyableSquare) s1;
+			
+			if (bs1.getType() == "Property")
+				botTurnProperty(p, bs1);
+			
+			else if (bs1.getType() == "Station")
+				botTurnStation(p, bs1);
+
+			else if (bs1.getType() == "Company")
+				botTurnCompany(p, bs1);
+		}
+		
+	}
+ 
+	private void botTurnProperty (Player p, BuyableSquare s) {
+		 
+		Property property = (Property) s;
+		int sameColorCounter = countPropertiesOfAColor(property.getColor());
+		ArrayList <String> twoPropertiesColor = new ArrayList <String> ();
+		twoPropertiesColor.add("BROWN");
+		twoPropertiesColor.add("DARK_BLUE");
+		
+		if (sameColorCounter == 0 && p.getMoney() - s.getCost() >= 500)
+			buyProperty();
+		
+		else if ( (sameColorCounter == 1 && twoPropertiesColor.contains(property.getColor())) ||
+				  (sameColorCounter == 2 && !twoPropertiesColor.contains(property.getColor()) ))
+		{
+			if (p.getMoney() - s.getCost() >= 200)
+				buyProperty ();
+		}
+		
+	}
+	
+	private void botTurnStation (Player p, BuyableSquare s) {
+		
+		int stationsCounter = 0;
+
+		for (BuyableSquare bs: p.getPropertiesOwned())
+		{
+			if (bs.getType() == "Company")
+				stationsCounter++;
+		}
+		
+		if (stationsCounter == 0 && p.getMoney() - s.getCost() >= 500)
+			buyProperty();		
+		
+		else if ((stationsCounter == 1 || stationsCounter == 2) && p.getMoney() - s.getCost() >= 350)
+			buyProperty();
+		
+		if (stationsCounter == 3 && p.getMoney() - s.getCost() >= 200)
+			buyProperty();
+
+	}
+
+	private void botTurnCompany (Player p, BuyableSquare s) {
+		
+		int companiesCounter = 0;
+		
+		for (BuyableSquare bs: p.getPropertiesOwned())
+		{
+			if (bs.getType() == "Company")
+				companiesCounter++;
+		}
+		
+		if (companiesCounter == 0 && p.getMoney() - s.getCost() >= 500)
+			buyProperty();
+		
+		else if (companiesCounter == 1 && p.getMoney() - s.getCost() >= 200)
+			buyProperty();
 	}
 	
 	public void setTaxMoney (int newValue)
@@ -302,7 +377,7 @@ public class Game {
 	
 	public int checkHouseAvailability(BuyableSquare s1) { 
 		
-	    Player p1 = currentPlayer;
+	    Player p1 = currentPlayer; 
 		     
 	    if (!s1.getType().equals("Property")) //trying to place a house in a square other than property 
 	      return -1; 
@@ -425,6 +500,10 @@ public class Game {
 
 	public int mortgageProperty(int card) {
 		Player p1 = currentPlayer;
+		
+		if (card >= p1.getPropertiesOwned().size())
+			return -1;
+		
 		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
 		
 		s1.setInMortgage(true);

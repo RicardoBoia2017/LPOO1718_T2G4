@@ -76,8 +76,11 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	Dialog mortgagedDialog; 
 	Dialog noMoreHouses;
 	TextButton closeBtn; 
-	TextButton rollDiceButton;
+	TextButton rollDiceBtn;
 	TextButton endTurnBtn;
+	TextButton buyPropertyBtn;
+	TextButton negotiateBtn;
+	TextButton propertyScreenBtn;
 	Dialog bankruptPlayerDialog;
 	Boolean showCard;
 	Boolean removeBankrupcyDialog;
@@ -169,7 +172,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		game.getAssetManager().load ("Dice/Dice2.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice3.png", Texture.class);
 		game.getAssetManager().load ("Dice/Dice4.png", Texture.class);
-		game.getAssetManager().load ("Dice/Dice5.png", Texture.class);
+		game.getAssetManager().load ("Dice/Dice5.png", Texture.class); 
 		game.getAssetManager().load ("Dice/Dice6.png", Texture.class);
 	}
 	
@@ -177,13 +180,19 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	public void buildStage() {
 		
 		createRollDiceBtn();
-		addActor(rollDiceButton);
+		addActor(rollDiceBtn);
+		
 		createEndTurnBtn();
 		addActor(endTurnBtn);
 		
-		addActor(createBuyPropertyBtn());
-		addActor(createPropertyScreenBtn());
-		addActor(createNegotiateBtn());
+		createBuyPropertyBtn();
+		addActor (buyPropertyBtn);
+		
+		createPropertyScreenBtn();
+		addActor(propertyScreenBtn);
+		
+		createNegotiateBtn();
+		addActor(negotiateBtn);
 		
 		Texture board = this.game.getAssetManager().get("Board.png");
 		ImageButton btnBoard = UIFactory.createButton(board);
@@ -228,8 +237,6 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		drawPlayers();
 		drawDice();
 		rollDiceAnimation(delta);
-//		Player p = Game.getInstance().getPlayers().get(0);
-//		drawPiece (playerToDraw, p.getX(), p.getY());
 		drawPlayersPieces();
 		drawCard();
 		drawAHouse();
@@ -246,17 +253,19 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		for (Player p : Game.getInstance().getPlayers())
 		{
 			font.draw (game.getBatch(), p.getName(), 820, 970 - i);
+			font.draw (game.getBatch(), "Position: ", 820, 870 - i);
 			font.setColor(0, 0.70f, 0, 1f);
 			
 			font.draw (game.getBatch(), Integer.toString(p.getMoney()), 820, 920 - i);
-			font.setColor(0, 0, 0, 1);
+			font.setColor(1, 1, 1, 1);			
 			
-			font.draw (game.getBatch(), "Position: ", 820, 870 - i);
-			font.draw (game.getBatch(), Integer.toString(p.getPosition()), 1050, 870 - i);
+			font.draw (game.getBatch(), Game.getInstance().getBoard().getSquares().get(p.getPosition()).getName(), 820, 830 - i);
+			font.setColor(0, 0, 0, 1);
 
+			
 			drawPiece (p.getBoardPiece(), 1000, 880 - i);
 			 
-			i += 200;	
+			i += 195;	
 		}
 		
 		font.draw (game.getBatch(), "Current Player", 400, 150);
@@ -599,14 +608,12 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		Texture board = game.getAssetManager().get("PlayersBackground.png", Texture.class);
 		game.getBatch().draw(board, 803, 197, 295, 803);
 	}
-	  
-	public void setShowCard(boolean value) {showCard = value;}
-	
+	  	
 	private void createRollDiceBtn() { 
-        rollDiceButton = new TextButton("Roll Dice", skin);
-        rollDiceButton.setPosition(800, 20);
-        rollDiceButton.setWidth(170);
-        rollDiceButton.addListener(
+        rollDiceBtn = new TextButton("Roll Dice", skin);
+        rollDiceBtn.setPosition(800, 20);
+        rollDiceBtn.setWidth(170);
+        rollDiceBtn.addListener(
 				new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -628,8 +635,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 							
 						}
 							
-						rollDiceButton.setTouchable(Touchable.disabled);
-						rollDiceButton.setColor(1,0,0,1);
+						rollDiceBtn.setTouchable(Touchable.disabled);
+						rollDiceBtn.setColor(1,0,0,1);
 						
 						endTurnBtn.setTouchable(Touchable.enabled);
 						endTurnBtn.setColor(0.9f, 0.9f, 0.9f, 1);
@@ -639,14 +646,14 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 				});
     }
 	
-	private TextButton createBuyPropertyBtn() {
+	private void createBuyPropertyBtn() {
 
-        TextButton buyPropertyButton = new TextButton("Buy", skin);
-        buyPropertyButton.setPosition(600, 20);
-        buyPropertyButton.setWidth(170);
-        buyPropertyButton.setChecked(false);
+        buyPropertyBtn = new TextButton("Buy", skin);
+        buyPropertyBtn.setPosition(600, 20);
+        buyPropertyBtn.setWidth(170);
+        buyPropertyBtn.setChecked(false);
         
-        buyPropertyButton.addListener(
+        buyPropertyBtn.addListener(
 				new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -678,28 +685,27 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 					}
 				});
         
-        return buyPropertyButton;
 	}
 	
-	private TextButton createPropertyScreenBtn() {
+	private void createPropertyScreenBtn() {
 
-        TextButton buyHouseButton = new TextButton("Properties", skin);
-        buyHouseButton.setPosition(600, 130);
-        buyHouseButton.setWidth(170);
-        buyHouseButton.setChecked(false);
+        propertyScreenBtn = new TextButton("Properties", skin);
+        propertyScreenBtn.setPosition(600, 130);
+        propertyScreenBtn.setWidth(170);
+        propertyScreenBtn.setChecked(false);
         
-        buyHouseButton.addListener(UIFactory.createListener(ScreenEnum.PROPERTIES));
+        propertyScreenBtn.addListener(UIFactory.createListener(ScreenEnum.PROPERTIES));
         
-        return buyHouseButton;
 	}
 	
-	private TextButton createNegotiateBtn() {
-		TextButton negotiateButton = new TextButton("Negotiate", skin);
-		negotiateButton.setPosition(600, 75);
-		negotiateButton.setWidth(170);
-		negotiateButton.setChecked(false);
+	private void createNegotiateBtn() {
 		
-		negotiateButton.addListener(
+		negotiateBtn = new TextButton("Negotiate", skin);
+		negotiateBtn.setPosition(600, 75);
+		negotiateBtn.setWidth(170);
+		negotiateBtn.setChecked(false);
+		
+		negotiateBtn.addListener(
 				new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -720,7 +726,6 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 					}
 				});
 		
-		return negotiateButton;
 	}
 	
 	private void createEndTurnBtn()
@@ -741,14 +746,16 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 							endTurnBtn.setColor(1,0,0,1);
 							
 	
-							rollDiceButton.setTouchable(Touchable.enabled);
-							rollDiceButton.setColor(0.9f, 0.9f, 0.9f, 1);
+							rollDiceBtn.setTouchable(Touchable.enabled);
+							rollDiceBtn.setColor(0.9f, 0.9f, 0.9f, 1);
 							
-							if (GameController.getInstance().endTurn())
-								rollDiceButton.setText("Bot Turn");						
+							Game.getInstance().endTurn();
+							
+							if (Game.getInstance().getCurrentPlayer().isBot())
+								botTurnButtons();
 
 							else 
-								rollDiceButton.setText("Roll Dice");						
+								playerTurnButtons();
 			
 							return false;
 						}
@@ -757,6 +764,35 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	        
 	}
 	 
+	protected void playerTurnButtons() {
+		rollDiceBtn.setText("Roll Dice");	
+		endTurnBtn.setText("End Turn");
+		
+		buyPropertyBtn.setTouchable(Touchable.enabled);
+		buyPropertyBtn.setColor(0.9f, 0.9f, 0.9f, 1);
+		
+		negotiateBtn.setTouchable(Touchable.enabled);
+		negotiateBtn.setColor(0.9f, 0.9f, 0.9f, 1);
+		
+		propertyScreenBtn.setTouchable(Touchable.enabled);
+		propertyScreenBtn.setColor(0.9f, 0.9f, 0.9f, 1);
+	}
+
+	protected void botTurnButtons() {
+		rollDiceBtn.setText("Bot Turn");	
+		endTurnBtn.setText("End Bot Turn");
+		
+		buyPropertyBtn.setTouchable(Touchable.disabled);
+		buyPropertyBtn.setColor(0.4f, 0.4f, 0.4f, 1);
+		
+		negotiateBtn.setTouchable(Touchable.disabled);
+		negotiateBtn.setColor(0.4f, 0.4f, 0.4f, 1);
+		
+		propertyScreenBtn.setTouchable(Touchable.disabled);
+		propertyScreenBtn.setColor(0.4f, 0.4f, 0.4f, 1);
+		
+	}
+
 	private void createCloseButton()
 	{
 	     	closeBtn = new TextButton("Close", skin);

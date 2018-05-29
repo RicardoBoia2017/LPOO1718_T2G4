@@ -58,7 +58,7 @@ public class Property extends BuyableSquare {
 		nHouses++;
 	}
 	
-	public void buyHotel ()
+	public void buyHotel () 
 	{
 		if (this.nHotels == 0 && this.nHouses == 4) 
 			nHotels++;

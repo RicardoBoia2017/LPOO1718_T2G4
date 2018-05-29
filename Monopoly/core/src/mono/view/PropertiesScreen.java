@@ -122,7 +122,7 @@ public class PropertiesScreen extends AbstractScreen {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button)
 			{
 				changeCard (1);
-				
+				 
 				return false;
 			}
 		});
@@ -191,7 +191,7 @@ public class PropertiesScreen extends AbstractScreen {
 		Sprite sprite = property.getSprite();
 				
 		sprite.setSize(500, 600);
-		sprite.setPosition(250, 300);
+		sprite.setPosition(300, 300);
 		
 		sprite.draw(game.getBatch());
 		
@@ -218,7 +218,7 @@ public class PropertiesScreen extends AbstractScreen {
 	private void drawInMortgate() {
 		
 		Texture texture = game.getAssetManager().get("Mortgaged.png");
-		game.getBatch().draw (texture, 400 , 925, 200, 50);
+		game.getBatch().draw (texture, 435, 925, 200, 50);
 	}
 
 	private TextButton createBackBtn() {
@@ -336,7 +336,7 @@ public class PropertiesScreen extends AbstractScreen {
 	
 	private TextButton createBuildHouseBtn() {
 		TextButton buildHouseBtn = new TextButton ("Build House", skin);
-		buildHouseBtn.setPosition(190, 70); 
+		buildHouseBtn.setPosition(256, 70); 
 		buildHouseBtn.setWidth(150);
 		buildHouseBtn.setHeight (80);
 		buildHouseBtn.setChecked(false);
@@ -419,7 +419,7 @@ public class PropertiesScreen extends AbstractScreen {
 
 	private TextButton createBuildHotelBtn() {
 		TextButton buildHotelBtn = new TextButton ("Build Hotel", skin);
-		buildHotelBtn.setPosition(400, 70); 
+		buildHotelBtn.setPosition(542, 70); 
 		buildHotelBtn.setWidth(150);
 		buildHotelBtn.setHeight (80);
 		buildHotelBtn.setChecked(false);
