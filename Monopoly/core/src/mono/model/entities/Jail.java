@@ -4,8 +4,8 @@ import mono.model.Game;
 
 public class Jail extends Square {
 
-	int fine;
-	Boolean playerWillPayFine;
+	private int fine;
+	private Boolean playerWillPayFine;
 	
 	public Jail() {
 		super("Jail", 10);

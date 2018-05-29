@@ -5,8 +5,6 @@ import mono.model.entities.Pair;
 
 public class Chance extends Square {
 
-	int id;
-	
 	public Chance(int position) { 
 		super("Chance", position);
 	}

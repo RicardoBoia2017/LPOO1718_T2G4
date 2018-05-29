@@ -25,13 +25,6 @@ public class Property extends BuyableSquare {
 		coordY = coordinY;
 	}
 
-	@Override
-	public void doAction(Player p) {
-				
-		if (owner != null && !this.inMortgage)
-			payRent(p);		
-	}
-
 	protected void payRent (Player p1)
 	{
 		int value = 0;

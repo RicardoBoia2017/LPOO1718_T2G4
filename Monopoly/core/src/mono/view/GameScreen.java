@@ -432,9 +432,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 		int nHouses = 0;
 			
-		for(int j = 0; j < Game.getInstance().getBoard().getBoardArray().size(); j++) {
-			if(Game.getInstance().getBoard().getBoardArray().get(j).getType().equals("Property")) {
-				Property s1 = (Property) Game.getInstance().getBoard().getBoardArray().get(j);
+		for(int j = 0; j < Game.getInstance().getBoard().getSquares().size(); j++) {
+			if(Game.getInstance().getBoard().getSquares().get(j).getType().equals("Property")) {
+				Property s1 = (Property) Game.getInstance().getBoard().getSquares().get(j);
 				nHouses = s1.getHouses();
 				
 				for(int i = 0; i < nHouses; i++) {
@@ -471,9 +471,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 		int nHotels = 0;
 			
-		for(int j = 0; j < Game.getInstance().getBoard().getBoardArray().size(); j++) {
-			if(Game.getInstance().getBoard().getBoardArray().get(j).getType().equals("Property")) {
-				Property s1 = (Property) Game.getInstance().getBoard().getBoardArray().get(j);
+		for(int j = 0; j < Game.getInstance().getBoard().getSquares().size(); j++) {
+			if(Game.getInstance().getBoard().getSquares().get(j).getType().equals("Property")) {
+				Property s1 = (Property) Game.getInstance().getBoard().getSquares().get(j);
 				nHotels = s1.getHotels();
 				
 				if(nHotels == 1) {
@@ -697,6 +697,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	        endTurnBtn.setPosition(780, 110);
 	        endTurnBtn.setWidth(200);
 	        
+			endTurnBtn.setTouchable(Touchable.disabled);
+			endTurnBtn.setColor(1,0,0,1);
+			
 	        endTurnBtn.addListener(
 					new InputListener() { 
 						@Override

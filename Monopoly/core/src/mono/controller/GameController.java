@@ -52,14 +52,13 @@ public class GameController {
 		
 		Pair diceRoll = Game.getInstance().rollDice();
 		
-		Game.getInstance().movePlayer(diceRoll.value1 + diceRoll.value2, diceRoll.sameValue());
+		Game.getInstance().movePlayer(diceRoll.getValue1() + diceRoll.getValue2(), diceRoll.sameValue());
 		if (Game.getInstance().inCardPosition(true) != null)
-		{
+		{ 
 			p.setInCardPosition(p.getPosition());
 		}
 
 		doSquareAction();
-//		System.out.println(p.getInCardPosition());
 		
 		return diceRoll;
 	}

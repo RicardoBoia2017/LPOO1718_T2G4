@@ -30,27 +30,10 @@ public class Companies extends BuyableSquare {
 			}
 		}
 	}
-	
-	public void buyProperty(Player p)
-	{
-		setOwner(p);
-		owner.addProperty(this);
-	}
-
-	public void setOwner (Player buyer)
-	{
-		owner = buyer;
-	}
-	
+		
 	@Override
 	public String getType() {
 		return "Company";
 	}
 
-	@Override
-	public void doAction (Player p) {
-		if(owner != null) {
-			payRent(p);
-		}
-	}
 }

@@ -3,7 +3,7 @@ package mono.model.entities;
 import mono.model.Game;
 
 public class CommunityChest extends Square {
-
+	
 	public CommunityChest(int position) {
 		super("CommunityChest", position);
 	}

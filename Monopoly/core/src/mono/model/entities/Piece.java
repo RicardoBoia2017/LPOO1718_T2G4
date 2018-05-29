@@ -5,8 +5,8 @@ import java.awt.Point;
 public abstract class Piece {
 
 	//coordinates where piece is drawn
-	int initialX; 
-	int initialY;
+	protected int initialX; 
+	protected int initialY;
 	
 	public Piece ()
 	{

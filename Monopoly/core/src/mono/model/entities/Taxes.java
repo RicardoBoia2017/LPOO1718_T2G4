@@ -4,7 +4,7 @@ import mono.model.Game;
 
 public class Taxes extends Square {
 
-	int valueToPay;
+	private int valueToPay;
 	
 	public Taxes(String name, int position, int valueToPay) {
 		super(name, position);

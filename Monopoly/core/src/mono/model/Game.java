@@ -121,11 +121,11 @@ public class Game {
 	}
 	
 	public void addPlayerToBoardSquare(int squareIndex, int playerIndex) {
-		board.getBoardArray().get(squareIndex).setPlayerOnTopOfSquare(players.get(playerIndex));
+		board.getSquares().get(squareIndex).setPlayerOnTopOfSquare(players.get(playerIndex));
 	}
 	
 	public void takePlayerFromBoardSquare(int squareIndex, int playerIndex) {
-		board.getBoardArray().get(squareIndex).getplayersOnTopOfSquareArray().remove(playerIndex);
+		board.getSquares().get(squareIndex).getplayersOnTopOfSquareArray().remove(playerIndex);
 	}
 	
 	public Pair rollDice() {
@@ -160,7 +160,7 @@ public class Game {
 	public void squareAction ()
 	{
 		Player p1 = players.get(currentPlayer - 1);
-		board.getBoardArray().get(p1.getPosition()).doAction(p1);
+		board.getSquares().get(p1.getPosition()).doAction(p1);
 	}
 	
 	public void endTurn ()
@@ -207,12 +207,12 @@ public class Game {
 	}
 	
 	public void tellJailPlayerWantsToPayFine() {
-		Jail j1 = (Jail) board.getBoardArray().get(10);
+		Jail j1 = (Jail) board.getSquares().get(10);
 		j1.aproveFine();
 	}
 	
 	public void tellGoSquareItsNotFirstVisit() {
-		StartSquare s1 = (StartSquare) board.getBoardArray().get(0);
+		StartSquare s1 = (StartSquare) board.getSquares().get(0);
 		s1.setFirstVisitToFalse();
 	}
 	
@@ -223,7 +223,7 @@ public class Game {
 	public int checkPropertyAvailibility()
 	{
 		Player p1 = players.get(currentPlayer - 1); 
-		Square s1 = this.board.getBoardArray().get(p1.getPosition());
+		Square s1 = this.board.getSquares().get(p1.getPosition());
 		
 		Vector <String> allowedTypes = new Vector <String> (3);
 		allowedTypes.add("Property");
@@ -243,7 +243,7 @@ public class Game {
 	public int buyProperty()
 	{
 		Player p1 = players.get(currentPlayer - 1); 
-		BuyableSquare ps1 = (BuyableSquare) board.getBoardArray().get(p1.getPosition());
+		BuyableSquare ps1 = (BuyableSquare) board.getSquares().get(p1.getPosition());
 		
 		int res = p1.removeMoney(ps1.getCost(), false);
 		
@@ -285,9 +285,9 @@ public class Game {
 	private boolean checkIfPropertyIsMortgaged (String squarename) {
 		BuyableSquare s1 = null;
 		
-		for(int i = 0; i < board.getBoardArray().size(); i++) {
-			if(board.getBoardArray().get(i).getName().equals(squarename)) {
-				s1 = (BuyableSquare) board.getBoardArray().get(i);
+		for(int i = 0; i < board.getSquares().size(); i++) {
+			if(board.getSquares().get(i).getName().equals(squarename)) {
+				s1 = (BuyableSquare) board.getSquares().get(i);
 			}
 		}
 		

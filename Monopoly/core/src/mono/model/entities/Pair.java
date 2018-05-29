@@ -1,8 +1,9 @@
 package mono.model.entities;
 
 public class Pair {
-	public int value1;
-	public int value2;
+	
+	private int value1;
+	private int value2;
 	
 	public Pair ()
 	{

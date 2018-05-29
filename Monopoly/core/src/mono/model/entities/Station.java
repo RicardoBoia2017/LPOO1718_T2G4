@@ -25,24 +25,6 @@ public class Station extends BuyableSquare {
 		}
 	}
 	
-	public void buyProperty(Player p)
-	{
-		setOwner(p);
-		owner.addProperty(this);
-	}
-
-	public void setOwner (Player buyer)
-	{
-		owner = buyer;
-	}
-	
-	@Override
-	public void doAction (Player p) {
-		if(owner != null) {
-			payRent(p);
-		}
-	}
-	
 	@Override
 	public String getType() {
 		return "Station";

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Board {
 	
-	ArrayList<Square> spaces = new ArrayList<Square>();
+	private ArrayList<Square> spaces = new ArrayList<Square>();
 
 	public Board() {
 		Square Square0 = new StartSquare();
@@ -92,7 +92,7 @@ public class Board {
 		spaces.add(Square39);
 	}
 	
-	public ArrayList<Square> getBoardArray(){
+	public ArrayList<Square> getSquares(){
 		return spaces;
 	}
 }
