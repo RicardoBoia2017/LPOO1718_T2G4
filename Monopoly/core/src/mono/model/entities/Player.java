@@ -23,7 +23,7 @@ public class Player {
 	int inCardPosition;
 
 	public Player(int gameId, String name, String pieceType) {
-		gameId = 0;
+		this.gameId = gameId;
 		this.name = name;
 		position = 0;
 		money = 1500;

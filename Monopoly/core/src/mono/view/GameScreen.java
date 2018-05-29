@@ -243,17 +243,39 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 		for (Player p : Game.getInstance().getPlayers())
 		{
-			font.setColor(0, 0, 0, 1);
-			font.draw (game.getBatch(), p.getName(), 820, 950 - i);
-
+			font.draw (game.getBatch(), p.getName(), 820, 970 - i);
 			font.setColor(0, 0.70f, 0, 1f);
-			font.draw (game.getBatch(), Integer.toString(p.getMoney()), 820, 900 - i);
-			font.getData().setScale(2f);
 			
-			drawPiece (p, 1000, 870 - i);
+			font.draw (game.getBatch(), Integer.toString(p.getMoney()), 820, 920 - i);
+			font.setColor(0, 0, 0, 1);
 			
+			font.draw (game.getBatch(), "Position: ", 820, 870 - i);
+			font.draw (game.getBatch(), Integer.toString(p.getPosition()), 1050, 870 - i);
+
+			drawPiece (p, 1000, 880 - i);
+			 
 			i += 200;	
 		}
+		
+		font.draw (game.getBatch(), "Current Player", 400, 150);
+		
+		switch (Game.getInstance().getCurrentPlayer().getGameId())
+		{
+		case 1:
+			font.setColor(0f, 0.64f, 0.91f, 1);
+			break;
+		case 2:
+			font.setColor(0.93f, 0.11f, 0.14f, 1);
+			break;
+		case 3:
+			font.setColor(1, 0.79f, 0.55f, 1);
+			break;
+		case 4:
+			font.setColor(1, 0.5f, 0.15f, 1);
+			break;
+		}
+		
+		font.draw (game.getBatch(), Game.getInstance().getCurrentPlayer().getName(), 400, 100);
 
 	}
 	
@@ -323,37 +345,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 			   //nothing happens
 		   }
 	}
-	
-	private TextButton createNegotiateBtn() {
-		TextButton negotiateButton = new TextButton("Negotiate", skin);
-		negotiateButton.setPosition(500, 75);
-		negotiateButton.setWidth(200);
-		negotiateButton.setChecked(false);
-		
-		negotiateButton.addListener(
-				new InputListener() {
-					@Override
-					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						
-						if(firstClick == 0) {
-							MyTextInputListener listener = new MyTextInputListener();
-							
-							Gdx.input.getTextInput(listener, "Player Select", "", "Player?");
-						}
-						
-						firstClick++;
-						
-						if(firstClick == 2) {
-							firstClick = 0;
-						}
-						
-						return false;
-					}
-				});
-		
-		return negotiateButton;
-	}
-	
+
 	private void rollDiceAnimation(float delta) {
 			
 		this.diceRollTime += delta;
@@ -602,8 +594,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	
 	private void createRollDiceBtn() { 
         rollDiceButton = new TextButton("Roll Dice", skin);
-        rollDiceButton.setPosition(780, 20);
-        rollDiceButton.setWidth(200);
+        rollDiceButton.setPosition(800, 20);
+        rollDiceButton.setWidth(170);
         rollDiceButton.addListener(
 				new InputListener() {
 					@Override
@@ -640,8 +632,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	private TextButton createBuyPropertyBtn() {
 
         TextButton buyPropertyButton = new TextButton("Buy", skin);
-        buyPropertyButton.setPosition(500, 20);
-        buyPropertyButton.setWidth(200);
+        buyPropertyButton.setPosition(600, 20);
+        buyPropertyButton.setWidth(170);
         buyPropertyButton.setChecked(false);
         
         buyPropertyButton.addListener(
@@ -682,8 +674,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	private TextButton createPropertyScreenBtn() {
 
         TextButton buyHouseButton = new TextButton("Properties", skin);
-        buyHouseButton.setPosition(500, 130);
-        buyHouseButton.setWidth(200);
+        buyHouseButton.setPosition(600, 130);
+        buyHouseButton.setWidth(170);
         buyHouseButton.setChecked(false);
         
         buyHouseButton.addListener(UIFactory.createListener(ScreenEnum.PROPERTIES));
@@ -691,11 +683,41 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         return buyHouseButton;
 	}
 	
+	private TextButton createNegotiateBtn() {
+		TextButton negotiateButton = new TextButton("Negotiate", skin);
+		negotiateButton.setPosition(600, 75);
+		negotiateButton.setWidth(170);
+		negotiateButton.setChecked(false);
+		
+		negotiateButton.addListener(
+				new InputListener() {
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						
+						if(firstClick == 0) {
+							MyTextInputListener listener = new MyTextInputListener();
+							
+							Gdx.input.getTextInput(listener, "Player Select", "", "Player?");
+						}
+						
+						firstClick++;
+						
+						if(firstClick == 2) {
+							firstClick = 0;
+						}
+						
+						return false;
+					}
+				});
+		
+		return negotiateButton;
+	}
+	
 	private void createEndTurnBtn()
 	{
 	        endTurnBtn = new TextButton("End Turn", skin);
-	        endTurnBtn.setPosition(780, 110);
-	        endTurnBtn.setWidth(200);
+	        endTurnBtn.setPosition(800, 110);
+	        endTurnBtn.setWidth(170);
 	        
 			endTurnBtn.setTouchable(Touchable.disabled);
 			endTurnBtn.setColor(1,0,0,1);
@@ -704,15 +726,20 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 					new InputListener() { 
 						@Override
 						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-											
-							GameController.getInstance().endTurn();
-							
+																		
 							endTurnBtn.setTouchable(Touchable.disabled);
 							endTurnBtn.setColor(1,0,0,1);
 							
+	
 							rollDiceButton.setTouchable(Touchable.enabled);
 							rollDiceButton.setColor(0.9f, 0.9f, 0.9f, 1);
 							
+							if (GameController.getInstance().endTurn())
+								rollDiceButton.setText("Bot Turn");						
+
+							else 
+								rollDiceButton.setText("Roll Dice");						
+			
 							return false;
 						}
 					});

@@ -90,9 +90,9 @@ public class GameController {
 		return res;
 	}
 	
-	public void endTurn()
+	public boolean endTurn()
 	{
-		Game.getInstance().endTurn();
+		return Game.getInstance().endTurn();
 	}
 	
 	public List<PlayerModel> getPlayersToDraw() {

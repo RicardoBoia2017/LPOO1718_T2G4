@@ -85,27 +85,27 @@ public class Game {
 		players.add(new Player(1, "ActualPlayer", player1Piece));
 		
 		if(player1Piece.equals("Car")) {
-			players.add(new Player(2, "Bot", "Thimble"));
-			players.add(new Player(3, "Bot", "Hat"));
-			players.add(new Player(4, "Bot", "Boot"));
+			players.add(new Player(2, "Bot1", "Thimble"));
+			players.add(new Player(3, "Bot2", "Hat"));
+			players.add(new Player(4, "Bot3", "Boot"));
 		}
 		
 		else if(player1Piece.equals("Thimble")) {
-			players.add(new Player(2, "Bot", "Hat"));
-			players.add(new Player(3, "Bot", "Car"));
-			players.add(new Player(4, "Bot", "Boot"));
+			players.add(new Player(2, "Bot1", "Hat"));
+			players.add(new Player(3, "Bot2", "Car"));
+			players.add(new Player(4, "Bot3", "Boot"));
 		}
 		
 		else if(player1Piece.equals("Boot")) { 
-			players.add(new Player(2, "Bot", "Thimble"));
-			players.add(new Player(3, "Bot", "Hat"));
-			players.add(new Player(4, "Bot", "Car"));
+			players.add(new Player(2, "Bot1", "Thimble"));
+			players.add(new Player(3, "Bot2", "Hat"));
+			players.add(new Player(4, "Bot3", "Car"));
 		}
 		
 		else if(player1Piece.equals("Hat")) {
-			players.add(new Player(2, "Bot", "Thimble"));
-			players.add(new Player(3, "Bot", "Boot"));
-			players.add(new Player(4, "Bot", "Car"));
+			players.add(new Player(2, "Bot1", "Thimble"));
+			players.add(new Player(3, "Bot2", "Boot"));
+			players.add(new Player(4, "Bot3", "Car"));
 		}
 		
 		this.player1Piece = player1Piece;
@@ -164,13 +164,18 @@ public class Game {
 		board.getSquares().get(currentPlayer.getPosition()).doAction(currentPlayer);
 	}
 	
-	public void endTurn ()
+	public boolean endTurn ()
 	{	
 		String res = inCardPosition(false);
 		
 		changeCardEndTurn(res);
 
 		changePlayer(); 
+		
+		if (currentPlayer.getName().substring(0,3) == "Bot")
+			return false;
+		
+		return true;
 	}
 	
 	public void changeCardEndTurn(String res)
@@ -199,7 +204,7 @@ public class Game {
 			this.currentPlayer = players.get(0);
 		
 		else
-			this.currentPlayer = players.get(currentPlayer.getGameId() + 1);
+			this.currentPlayer = players.get(currentPlayer.getGameId());
 	}
 	
 	public void setTaxMoney (int newValue)
