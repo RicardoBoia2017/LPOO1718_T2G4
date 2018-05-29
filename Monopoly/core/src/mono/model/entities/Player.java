@@ -8,6 +8,7 @@ import mono.model.Game;
 
 public class Player {
 	int position;
+	int gameId;
 	Point coordinates;
 	String name; //there can be more than one player
 	Piece boardPiece;
@@ -21,7 +22,8 @@ public class Player {
 	Boolean hasPassedGoSquareOnce;
 	int inCardPosition;
 
-	public Player(String name, String pieceType) {
+	public Player(int gameId, String name, String pieceType) {
+		gameId = 0;
 		this.name = name;
 		position = 0;
 		money = 1500;
@@ -129,6 +131,7 @@ public class Player {
 		this.coordinates.setLocation(x, y);
 	}
 	
+	public int getGameId() {return gameId;}
 	public int getPosition() {return position;}
 	public int getX() {return (int) coordinates.getX();}
 	public int getY() {return (int) coordinates.getY();}

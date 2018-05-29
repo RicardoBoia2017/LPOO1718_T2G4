@@ -46,11 +46,11 @@ public class GameController {
 	
 	public Pair doTurn()
 	{	
-		Player p = 	Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+		Player p = 	Game.getInstance().getCurrentPlayer();
 
 		p.setInCardPosition(-1);
 		
-		Pair diceRoll = Game.getInstance().rollDice();
+		Pair diceRoll = Game.getInstance().rollDice(); 
 		
 		Game.getInstance().movePlayer(diceRoll.getValue1() + diceRoll.getValue2(), diceRoll.sameValue());
 		if (Game.getInstance().inCardPosition(true) != null)

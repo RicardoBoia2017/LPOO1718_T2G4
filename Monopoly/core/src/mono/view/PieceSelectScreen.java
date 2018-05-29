@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.UIFactory;
@@ -11,8 +13,11 @@ import mono.view.swapper.UIFactory;
 
 public class PieceSelectScreen extends AbstractScreen {
 		
+	Skin skin;
+	
 	public PieceSelectScreen() {
 		super();
+		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 		loadPieceTextures();
 	}
 	
@@ -28,7 +33,7 @@ public class PieceSelectScreen extends AbstractScreen {
 	public void buildStage() {
 		Texture boot = this.game.getAssetManager().get("Boot.png");
 		ImageButton btnBoot = UIFactory.createButton(boot);
-		btnBoot.setSize(500, 500);
+		btnBoot.setSize(500, 500); 
 		btnBoot.setPosition(250.f, 750.f, Align.center);
 		addActor(btnBoot);
 		
@@ -50,10 +55,15 @@ public class PieceSelectScreen extends AbstractScreen {
 		btnThimble.setPosition(750.f, 250.f, Align.center);
 		addActor(btnThimble);
 		
+		TextButton bot = new TextButton ("Bot", skin);
+		bot.setPosition(10, 10);
+		addActor (bot);
+		
 		btnBoot.addListener(UIFactory.createListener(ScreenEnum.GAME, "Boot"));
 		btnCar.addListener(UIFactory.createListener(ScreenEnum.GAME, "Car"));
 		btnHat.addListener(UIFactory.createListener(ScreenEnum.GAME, "Hat"));
 		btnThimble.addListener(UIFactory.createListener(ScreenEnum.GAME, "Thimble"));
+		bot.addListener(UIFactory.createListener(ScreenEnum.GAME, "Thimble"));
 	}
 
 	@Override

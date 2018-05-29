@@ -132,7 +132,7 @@ public class PropertiesScreen extends AbstractScreen {
 	
 	private void changeCard(int value)
 	{
-		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+		Player p1 = Game.getInstance().getCurrentPlayer();
 
 		int size = p1.getPropertiesOwned().size();
 
@@ -163,7 +163,7 @@ public class PropertiesScreen extends AbstractScreen {
 
 	private void drawProperty() {
 		
-		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+		Player p1 = Game.getInstance().getCurrentPlayer();
 		
 		if (p1.getPropertiesOwned().size() == 0)
 			return;
@@ -223,7 +223,7 @@ public class PropertiesScreen extends AbstractScreen {
 
 	private TextButton createBackBtn() {
 		
-		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+		Player p1 = Game.getInstance().getCurrentPlayer();
 
 		TextButton backBtn = new TextButton ("Back", skin);
         backBtn.setPosition(20, 70); 
@@ -325,7 +325,7 @@ public class PropertiesScreen extends AbstractScreen {
 	}
 	
 	private BuyableSquare getSquareOfCurrentCard(){
-		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+		Player p1 = Game.getInstance().getCurrentPlayer();
 		
 		if(p1.getPropertiesOwned().isEmpty()) {
 			return null;

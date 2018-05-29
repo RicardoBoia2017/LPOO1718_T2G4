@@ -31,7 +31,7 @@ public class Game {
 	private static Game instance;
 	Board board;
 	ArrayList <Player> players = new ArrayList<Player>();
-	int currentPlayer;
+	Player currentPlayer;
 	int taxMoney; 
 	String player1Piece;
 	Queue <Integer> chanceQueue;
@@ -42,7 +42,7 @@ public class Game {
 		if (instance == null)
 			instance = new Game(); 
 		
-		return instance; 
+		return instance;  
 	}
 	
 	public void setGameModelInstanceToNull() {
@@ -52,7 +52,7 @@ public class Game {
 	private Game()
 	{
 		board = new Board();
-		currentPlayer = 1;
+//		currentPlayer = players.get(0);
 		taxMoney = 0;
 		
 		chanceQueue = new LinkedList <Integer>();
@@ -81,52 +81,53 @@ public class Game {
 		
 		if (players.size() != 0)
 			return;
-			
-		players.add(new Player("ActualPlayer", player1Piece));
+		
+		players.add(new Player(1, "ActualPlayer", player1Piece));
 		
 		if(player1Piece.equals("Car")) {
-			players.add(new Player("Bot", "Thimble"));
-			players.add(new Player("Bot", "Hat"));
-			players.add(new Player("Bot", "Boot"));
+			players.add(new Player(2, "Bot", "Thimble"));
+			players.add(new Player(3, "Bot", "Hat"));
+			players.add(new Player(4, "Bot", "Boot"));
 		}
 		
 		else if(player1Piece.equals("Thimble")) {
-			players.add(new Player("Bot", "Hat"));
-			players.add(new Player("Bot", "Car"));
-			players.add(new Player("Bot", "Boot"));
+			players.add(new Player(2, "Bot", "Hat"));
+			players.add(new Player(3, "Bot", "Car"));
+			players.add(new Player(4, "Bot", "Boot"));
 		}
 		
 		else if(player1Piece.equals("Boot")) { 
-			players.add(new Player("Bot", "Thimble"));
-			players.add(new Player("Bot", "Hat"));
-			players.add(new Player("Bot", "Car"));
+			players.add(new Player(2, "Bot", "Thimble"));
+			players.add(new Player(3, "Bot", "Hat"));
+			players.add(new Player(4, "Bot", "Car"));
 		}
 		
 		else if(player1Piece.equals("Hat")) {
-			players.add(new Player("Bot", "Thimble"));
-			players.add(new Player("Bot", "Boot"));
-			players.add(new Player("Bot", "Car"));
+			players.add(new Player(2, "Bot", "Thimble"));
+			players.add(new Player(3, "Bot", "Boot"));
+			players.add(new Player(4, "Bot", "Car"));
 		}
 		
 		this.player1Piece = player1Piece;
 		
-		addAllPlayersToGoSquare();
+		currentPlayer = players.get(0);
+//		addAllPlayersToGoSquare();
 	}
 	
-	public void addAllPlayersToGoSquare() {
-		addPlayerToBoardSquare(0, 0);
-		addPlayerToBoardSquare(0, 1);
-		addPlayerToBoardSquare(0, 2);
-		addPlayerToBoardSquare(0, 3);
-	}
+//	public void addAllPlayersToGoSquare() {
+//		addPlayerToBoardSquare(0, 0);
+//		addPlayerToBoardSquare(0, 1);
+//		addPlayerToBoardSquare(0, 2);
+//		addPlayerToBoardSquare(0, 3);
+//	}
 	
-	public void addPlayerToBoardSquare(int squareIndex, int playerIndex) {
-		board.getSquares().get(squareIndex).setPlayerOnTopOfSquare(players.get(playerIndex));
-	}
+//	public void addPlayerToBoardSquare(int squareIndex, int playerIndex) {
+//		board.getSquares().get(squareIndex).setPlayerOnTopOfSquare(players.get(playerIndex));
+//	}
 	
-	public void takePlayerFromBoardSquare(int squareIndex, int playerIndex) {
-		board.getSquares().get(squareIndex).getplayersOnTopOfSquareArray().remove(playerIndex);
-	}
+//	public void takePlayerFromBoardSquare(int squareIndex, int playerIndex) {
+//		board.getSquares().get(squareIndex).getplayersOnTopOfSquareArray().remove(playerIndex);
+//	}
 	
 	public Pair rollDice() {
 		
@@ -136,31 +137,31 @@ public class Game {
 		values.setValue1(1+rand.nextInt(6)); //dice roll 1
 		values.setValue2(1+rand.nextInt(6)); //dice roll 2
 		
-		players.get(currentPlayer - 1).setCurrentDiceroll(values.getValue1() + values.getValue2()); 
+		currentPlayer.setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
 		return values;
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {
 
-		int playerIndex = currentPlayer - 1; //if currentPlayer = 1, index in array is 0
-		Player p1 = players.get(playerIndex); 
+		int playerIndex = currentPlayer.getGameId() - 1;
+		Player p1 = currentPlayer;
 	
-		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
+//		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
 				
 		p1.move(diceRoll, sameValue);
 		
 		if(p1.getPosition() == 0) {
 			tellGoSquareItsNotFirstVisit();
 		}
-		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
+		
+//		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
 		
 	}
 	
 	public void squareAction ()
 	{
-		Player p1 = players.get(currentPlayer - 1);
-		board.getSquares().get(p1.getPosition()).doAction(p1);
+		board.getSquares().get(currentPlayer.getPosition()).doAction(currentPlayer);
 	}
 	
 	public void endTurn ()
@@ -194,11 +195,11 @@ public class Game {
 
 	private void changePlayer()
 	{	
-		if (currentPlayer == players.size())
-			this.currentPlayer = 1;
+		if (currentPlayer.getGameId() == players.size())
+			this.currentPlayer = players.get(0);
 		
 		else
-			this.currentPlayer++;
+			this.currentPlayer = players.get(currentPlayer.getGameId() + 1);
 	}
 	
 	public void setTaxMoney (int newValue)
@@ -222,7 +223,7 @@ public class Game {
 	
 	public int checkPropertyAvailibility()
 	{
-		Player p1 = players.get(currentPlayer - 1); 
+		Player p1 = currentPlayer;
 		Square s1 = this.board.getSquares().get(p1.getPosition());
 		
 		Vector <String> allowedTypes = new Vector <String> (3);
@@ -242,7 +243,7 @@ public class Game {
 
 	public int buyProperty()
 	{
-		Player p1 = players.get(currentPlayer - 1); 
+		Player p1 = currentPlayer;
 		BuyableSquare ps1 = (BuyableSquare) board.getSquares().get(p1.getPosition());
 		
 		int res = p1.removeMoney(ps1.getCost(), false);
@@ -258,7 +259,7 @@ public class Game {
 	}
 	
 	public int buyHouse(Property ps1) {
-		Player p1 = players.get(currentPlayer - 1);
+		Player p1 = currentPlayer;
 
 		int res = p1.removeMoney(ps1.getCostOfAHouseByColor(), false);
 
@@ -296,7 +297,7 @@ public class Game {
 	
 	public int checkHouseAvailability(BuyableSquare s1) { 
 		
-	    Player p1 = players.get(currentPlayer - 1);  
+	    Player p1 = currentPlayer;
 		     
 	    if (!s1.getType().equals("Property")) //trying to place a house in a square other than property 
 	      return -1; 
@@ -360,7 +361,7 @@ public class Game {
 	public String inCardPosition(boolean currentPosition)
 	{
 		String res= null;
-		Player p1 = players.get(currentPlayer - 1); 
+		Player p1 = currentPlayer;
 		Vector <Integer> chancePositions = new Vector<Integer> (3);
 		Vector <Integer> cchestPositions = new Vector<Integer> (3);
 		
@@ -388,7 +389,7 @@ public class Game {
 	}
 		
 	public int checkHotelAvailability(BuyableSquare s1) {
-	    Player p1 = players.get(currentPlayer - 1); 
+	    Player p1 = currentPlayer;
 		     
 	    if (!s1.getType().equals("Property")) //trying to place a hotel in a square other than property 
 	    	return -1; 
@@ -405,7 +406,7 @@ public class Game {
 	}
 
 	public int buyHotel(Property ps1) {
-		Player p1 = players.get(currentPlayer - 1);
+		Player p1 = currentPlayer;
 
 		int res = p1.removeMoney(ps1.getCostOfAHouseByColor(), false);
 
@@ -418,7 +419,7 @@ public class Game {
 	}
 
 	public int mortgageProperty(int card) {
-		Player p1 = players.get(currentPlayer - 1);
+		Player p1 = currentPlayer;
 		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
 		
 		s1.setInMortgage(true);
@@ -429,7 +430,7 @@ public class Game {
 
 	public int reBuyProperty (int card)
 	{
-		Player p1 = players.get(currentPlayer - 1);
+		Player p1 = currentPlayer;
 		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
 		
 		s1.setInMortgage(false);
@@ -440,13 +441,13 @@ public class Game {
 	
 	public ArrayList <Player> getPlayers() {return players;}
 	public Board getBoard() {return board;} 
-	public int getCurrentPlayer(){return this.currentPlayer;}
+	public Player getCurrentPlayer(){return this.currentPlayer;}
 	public int getTaxMoney () {return taxMoney;}
 	public int getFirstChanceCardId() {return chanceQueue.peek();}
 	public int getFirstCChestCardId() {return cChestQueue.peek();}
 	
 	public boolean getplayerIsInJail() {
-		return players.get(currentPlayer - 1).getPlayerIsInJail();
+		return currentPlayer.getPlayerIsInJail();
 	}
 
 	public Player getPlayerInSpecific(String name) {

@@ -104,7 +104,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 		drawAnimation();
 		
-		//WarpController.getInstance().setListener(this);
+//		WarpController.getInstance().setListener(this);
 		
 		this.diceRollTime = 100;
 	}	
@@ -258,7 +258,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	}
 	
 	private void bankrupcyDraw() {
-		if(Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1).getBankrupcyState()) {
+		if(Game.getInstance().getCurrentPlayer().getBankrupcyState()) {
 			createbankRupcyDialog();
 			addActor(bankruptPlayerDialog);
 		}
@@ -288,7 +288,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 			
 			protected void result(Object object) {
 				if (object.equals(1L)) {
-					Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1).setBankrupcyState(false);
+					Game.getInstance().getCurrentPlayer().setBankrupcyState(false);
 					ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 					bankruptPlayerDialog.remove();
 				}
@@ -305,7 +305,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		   public void input (String text) {
 			   //function for sorting through player array and finding him
 			   Player p1 = GameController.getInstance().getPlayerByName(text);
-			   String currentPlayerName = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1).getName();
+			   String currentPlayerName = Game.getInstance().getCurrentPlayer().getName();
 			   
 			   if(p1 == null || p1.getName().equals(currentPlayerName)) {
 				   createNotValidPlayerDialog();

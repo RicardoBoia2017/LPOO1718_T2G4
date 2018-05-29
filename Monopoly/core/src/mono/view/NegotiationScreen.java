@@ -115,7 +115,7 @@ public class NegotiationScreen extends AbstractScreen {
 	
 	private TextButton createBackBtn() {
 		
-		Player p1 = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+		Player p1 = Game.getInstance().getCurrentPlayer(); 
 
 		TextButton backBtn = new TextButton ("Back", skin);
         backBtn.setPosition(20, 70); 
@@ -251,7 +251,7 @@ public class NegotiationScreen extends AbstractScreen {
 					firstClick = 0;
 				}
 				
-				Player buyingPlayer = Game.getInstance().getPlayers().get(Game.getInstance().getCurrentPlayer() - 1);
+				Player buyingPlayer = Game.getInstance().getCurrentPlayer();
 				BuyableSquare propertyBeingBought = getSquareOfCurrentCard();
 		        
 		        switch (buyConditional) //this would be res instead of 0

@@ -44,7 +44,11 @@ public class MonopolyTests {
 		
 		Square InitialGoSquare = g1.getBoard().getSquares().get(0);
 		
-		assertEquals(InitialGoSquare.getNumPlayersOnTopOfSquare(), 4);
+		for (Player p :g1.getPlayers())
+		{
+			assertEquals (0, p.getPosition());
+		}
+//		assertEquals(InitialGoSquare.getNumPlayersOnTopOfSquare(), 4);
 	}
 
 	//Movement
@@ -62,8 +66,8 @@ public class MonopolyTests {
 		
 		Square s1 = g1.getBoard().getSquares().get(p1.getPosition());
 		
-		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
-		assertEquals(((s1.getplayersOnTopOfSquareArray()).get(0)).getName(), "ActualPlayer");
+//		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+//		assertEquals(((s1.getplayersOnTopOfSquareArray()).get(0)).getName(), "ActualPlayer");
 		assertEquals(s1.getName(), "Brussels");
 		
 		g1.movePlayer(7, false);
@@ -72,8 +76,8 @@ public class MonopolyTests {
 		
 		Square s2 = g1.getBoard().getSquares().get(p1.getPosition());
 		
-		assertEquals(s2.getNumPlayersOnTopOfSquare(), 1);
-		assertEquals(((s2.getplayersOnTopOfSquareArray()).get(0)).getName(), "ActualPlayer");
+//		assertEquals(s2.getNumPlayersOnTopOfSquare(), 1);
+//		assertEquals(((s2.getplayersOnTopOfSquareArray()).get(0)).getName(), "ActualPlayer");
 		assertEquals(s2.getName(), "Moscow");
 	}
 	
@@ -92,8 +96,8 @@ public class MonopolyTests {
 		
 		assertEquals(p1.getPosition(), 8);
 		Square s1 = g1.getBoard().getSquares().get(p1.getPosition());
-		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
-		assertEquals(((s1.getplayersOnTopOfSquareArray()).get(0)).getName(), "ActualPlayer");
+//		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+//		assertEquals(((s1.getplayersOnTopOfSquareArray()).get(0)).getName(), "ActualPlayer");
 		assertEquals(s1.getName(), "Casablanca");
 	}
 	
@@ -303,7 +307,7 @@ public class MonopolyTests {
 		assertEquals(p1.isInJail(), true);
 		
 		assertEquals(p1.getPosition(), 10);
-		assertEquals(s1.getplayersOnTopOfSquareArray().size(), 0);
+//		assertEquals(s1.getplayersOnTopOfSquareArray().size(), 0);
 		
 		s1 = g1.getBoard().getSquares().get(p1.getPosition());
 		
@@ -324,22 +328,22 @@ public class MonopolyTests {
 		Square s1 = g1.getBoard().getSquares().get(p1.getPosition());
 		
 		assertEquals(p1.getPosition(), 10);
-		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
-		
+//		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+		 
 		g1.movePlayer(1, false);
 		g1.squareAction();
 		
 		s1 = g1.getBoard().getSquares().get(p1.getPosition());
 		
 		assertEquals(p1.getPosition(), 10);
-		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+//		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
 		g1.movePlayer(1, false);
 		g1.squareAction();
 		
 		s1 = g1.getBoard().getSquares().get(p1.getPosition());
 		assertEquals(p1.getPosition(), 10);
-		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+//		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
 		g1.movePlayer(1, false);
 		g1.squareAction();
@@ -367,7 +371,7 @@ public class MonopolyTests {
 		
 		s1 = g1.getBoard().getSquares().get(p1.getPosition());
 		assertEquals(p1.getPosition(), 10);
-		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+//		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
 		int moneyBefore = p1.getMoney();
 		
@@ -402,7 +406,7 @@ public class MonopolyTests {
 		g1.squareAction();
 		
 		assertEquals(p1.getPosition(), 10);
-		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
+//		assertEquals(s1.getNumPlayersOnTopOfSquare(), 1);
 		
 		g1.movePlayer(6, true);
 		g1.squareAction();

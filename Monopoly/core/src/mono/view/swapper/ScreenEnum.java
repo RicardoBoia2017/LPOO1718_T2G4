@@ -32,7 +32,7 @@ public enum ScreenEnum {
 	},
 
 	PROPERTIES {
-		public AbstractScreen getScreen(Object... params) {
+		public AbstractScreen getScreen(Object... params) { 
 			return new PropertiesScreen();
 		}
 	}, 

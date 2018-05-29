@@ -20,18 +20,18 @@ public abstract class Square {
 	
 	public abstract void doAction (Player p);
 	
-	public void setPlayerOnTopOfSquare(Player p1) {
-		playersOnTopOfSquare.add(p1);
-	}
-	
-	public int getNumPlayersOnTopOfSquare() {
-		return playersOnTopOfSquare.size();
-	}
-	
-	public ArrayList<Player> getplayersOnTopOfSquareArray() {
-		return playersOnTopOfSquare;
-	}
-	
+//	public void setPlayerOnTopOfSquare(Player p1) {
+//		playersOnTopOfSquare.add(p1);
+//	}
+//	
+//	public int getNumPlayersOnTopOfSquare() {
+//		return playersOnTopOfSquare.size(); 
+//	}
+//	
+//	public ArrayList<Player> getplayersOnTopOfSquareArray() {
+//		return playersOnTopOfSquare;
+//	}
+//	
 	public int getPosition() {
 		return position;
 	}
