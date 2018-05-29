@@ -556,7 +556,7 @@ public class MonopolyTests {
 				assertEquals (p1.getMoney(), beforeActionP1Money - 20);
 				assertEquals (g1.getTaxMoney(), beforeActionTaxMoney + 20);
 				break;
-				
+				 
 			case 7:
 				assertEquals (p1.getMoney(), beforeActionP1Money + 60);
 				break;

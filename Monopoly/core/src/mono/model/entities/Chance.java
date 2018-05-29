@@ -7,7 +7,7 @@ public class Chance extends Square {
 
 	int id;
 	
-	public Chance(int position) {
+	public Chance(int position) { 
 		super("Chance", position);
 	}
 

@@ -173,7 +173,7 @@ public class Game {
 	}
 	
 	public void changeCardEndTurn(String res)
-	{
+	{ 
 		if (res != null) 
 		{
 			int firstCard;

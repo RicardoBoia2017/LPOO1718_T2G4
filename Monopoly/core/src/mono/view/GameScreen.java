@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -73,7 +74,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	Dialog notValidPlayerDialog;
 	Dialog mortgagedDialog; 
 	Dialog noMoreHouses;
-	TextButton closeBtn;
+	TextButton closeBtn; 
+	TextButton rollDiceButton;
+	TextButton endTurnBtn;
 	Dialog bankruptPlayerDialog;
 	Boolean showCard;
 	Boolean removeBankrupcyDialog;
@@ -172,9 +175,12 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	@Override
 	public void buildStage() {
 		
-		addActor(createRollDiceBtn());
+		createRollDiceBtn();
+		addActor(rollDiceButton);
+		createEndTurnBtn();
+		addActor(endTurnBtn);
+		
 		addActor(createBuyPropertyBtn());
-		addActor(createEndTurnBtn());
 		addActor(createPropertyScreenBtn());
 		addActor(createNegotiateBtn());
 		
@@ -594,8 +600,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	  
 	public void setShowCard(boolean value) {showCard = value;}
 	
-	private TextButton createRollDiceBtn() { 
-       TextButton rollDiceButton = new TextButton("Roll Dice", skin);
+	private void createRollDiceBtn() { 
+        rollDiceButton = new TextButton("Roll Dice", skin);
         rollDiceButton.setPosition(780, 20);
         rollDiceButton.setWidth(200);
         rollDiceButton.addListener(
@@ -620,12 +626,16 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 							
 						}
 							
+						rollDiceButton.setTouchable(Touchable.disabled);
+						rollDiceButton.setColor(1,0,0,1);
+						
+						endTurnBtn.setTouchable(Touchable.enabled);
+						endTurnBtn.setColor(0.9f, 0.9f, 0.9f, 1);
+						
 						return false;
 					}
 				});
-        
-        return rollDiceButton;
-	}
+    }
 	
 	private TextButton createBuyPropertyBtn() {
 
@@ -681,24 +691,30 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         return buyHouseButton;
 	}
 	
-	private TextButton createEndTurnBtn()
+	private void createEndTurnBtn()
 	{
-	       TextButton endTurnBtn = new TextButton("End Turn", skin);
+	        endTurnBtn = new TextButton("End Turn", skin);
 	        endTurnBtn.setPosition(780, 110);
 	        endTurnBtn.setWidth(200);
 	        
 	        endTurnBtn.addListener(
-					new InputListener() {
+					new InputListener() { 
 						@Override
 						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 											
 							GameController.getInstance().endTurn();
 							
+							endTurnBtn.setTouchable(Touchable.disabled);
+							endTurnBtn.setColor(1,0,0,1);
+							
+							rollDiceButton.setTouchable(Touchable.enabled);
+							rollDiceButton.setColor(0.9f, 0.9f, 0.9f, 1);
+							
 							return false;
 						}
 					});
 	        
-	        return endTurnBtn;
+	        
 	}
 	
 	private void createCloseButton()
