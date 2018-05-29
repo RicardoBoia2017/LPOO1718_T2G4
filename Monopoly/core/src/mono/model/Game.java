@@ -82,30 +82,30 @@ public class Game {
 		if (players.size() != 0)
 			return;
 		
-		players.add(new Player(1, "ActualPlayer", player1Piece));
+		players.add(new Player(1, "ActualPlayer", player1Piece, false));
 		
 		if(player1Piece.equals("Car")) {
-			players.add(new Player(2, "Bot1", "Thimble"));
-			players.add(new Player(3, "Bot2", "Hat"));
-			players.add(new Player(4, "Bot3", "Boot"));
+			players.add(new Player(2, "Bot1", "Thimble", true));
+			players.add(new Player(3, "Bot2", "Hat", true));
+			players.add(new Player(4, "Bot3", "Boot", true));
 		}
 		
 		else if(player1Piece.equals("Thimble")) {
-			players.add(new Player(2, "Bot1", "Hat"));
-			players.add(new Player(3, "Bot2", "Car"));
-			players.add(new Player(4, "Bot3", "Boot"));
+			players.add(new Player(2, "Bot1", "Hat", true));
+			players.add(new Player(3, "Bot2", "Car", true));
+			players.add(new Player(4, "Bot3", "Boot", true));
 		}
 		
 		else if(player1Piece.equals("Boot")) { 
-			players.add(new Player(2, "Bot1", "Thimble"));
-			players.add(new Player(3, "Bot2", "Hat"));
-			players.add(new Player(4, "Bot3", "Car"));
+			players.add(new Player(2, "Bot1", "Thimble", true));
+			players.add(new Player(3, "Bot2", "Hat", true));
+			players.add(new Player(4, "Bot3", "Car", true));
 		}
 		
 		else if(player1Piece.equals("Hat")) {
-			players.add(new Player(2, "Bot1", "Thimble"));
-			players.add(new Player(3, "Bot2", "Boot"));
-			players.add(new Player(4, "Bot3", "Car"));
+			players.add(new Player(2, "Bot1", "Thimble", true));
+			players.add(new Player(3, "Bot2", "Boot", true));
+			players.add(new Player(4, "Bot3", "Car", true));
 		}
 		
 		this.player1Piece = player1Piece;
@@ -162,7 +162,7 @@ public class Game {
 	public void squareAction ()
 	{
 		board.getSquares().get(currentPlayer.getPosition()).doAction(currentPlayer);
-	}
+	} 
 	
 	public boolean endTurn ()
 	{	
@@ -446,7 +446,8 @@ public class Game {
 	
 	public ArrayList <Player> getPlayers() {return players;}
 	public Board getBoard() {return board;} 
-	public Player getCurrentPlayer(){return this.currentPlayer;}
+	public Player getCurrentPlayer() {return this.currentPlayer;}
+	public Square getCurrentSquare() {return this.board.getSquares().get(currentPlayer.getPosition());}
 	public int getTaxMoney () {return taxMoney;}
 	public int getFirstChanceCardId() {return chanceQueue.peek();}
 	public int getFirstCChestCardId() {return cChestQueue.peek();}

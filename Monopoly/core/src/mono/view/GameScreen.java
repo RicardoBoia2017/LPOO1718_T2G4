@@ -36,6 +36,7 @@ import mono.controller.entities.DiceModel;
 import mono.controller.entities.PlayerModel;
 import mono.model.Game;
 import mono.model.entities.Pair;
+import mono.model.entities.Piece;
 import mono.model.entities.Player;
 import mono.model.entities.Property;
 import com.badlogic.gdx.Input.TextInputListener;
@@ -224,14 +225,15 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	{
 		drawBoard();
 		drawPlayerMenu();
+		drawPlayers();
 		drawDice();
 		rollDiceAnimation(delta);
-		Player p = Game.getInstance().getPlayers().get(0);
-		drawPiece (playerToDraw, p.getX(), p.getY());
+//		Player p = Game.getInstance().getPlayers().get(0);
+//		drawPiece (playerToDraw, p.getX(), p.getY());
+		drawPlayersPieces();
 		drawCard();
 		drawAHouse();
 		drawAHotel();
-		drawPlayers();
 		bankrupcyDraw();
 	}
 	
@@ -252,7 +254,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 			font.draw (game.getBatch(), "Position: ", 820, 870 - i);
 			font.draw (game.getBatch(), Integer.toString(p.getPosition()), 1050, 870 - i);
 
-			drawPiece (p, 1000, 880 - i);
+			drawPiece (p.getBoardPiece(), 1000, 880 - i);
 			 
 			i += 200;	
 		}
@@ -400,22 +402,30 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		dice_2.draw(game.getBatch());	
 	}
 	
-	public void drawPiece(Player p1, int x, int y) {
+	private void drawPlayersPieces()
+	{
+		for (Player p: Game.getInstance().getPlayers())
+		{
+			drawPiece (p.getBoardPiece(), p.getX(), p.getY());
+		}
+	}
+	
+	private void drawPiece(Piece p, int x, int y) {
 		
-		if(p1.getBoardPiece().getType() == "Thimble") {
-			drawThimble(p1, x, y);
+		if(p.getType() == "Thimble") {
+			drawThimble(x, y);
 		}
 		
-		else if(p1.getBoardPiece().getType() == "Car") {
-			drawCar(p1, x, y);
+		else if(p.getType() == "Car") {
+			drawCar(x, y);
 		}
 		
-		else if(p1.getBoardPiece().getType() == "Hat") {
-			drawHat(p1, x, y);
+		else if(p.getType() == "Hat") {
+			drawHat(x, y);
 		}
 		
-		else if(p1.getBoardPiece().getType() == "Boot") {
-			drawBoot(p1, x, y);
+		else if(p.getType() == "Boot") {
+			drawBoot(x, y);
 		}
 		
 	}
@@ -494,7 +504,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		}
 	}
 
-	public void drawCar(Player p1, int x, int y) {
+	public void drawCar(int x, int y) {
 		CarView carView = new CarView(game);
 		
 		Sprite car = carView.createSprite();
@@ -505,7 +515,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		car.draw(game.getBatch());
 	}
 	
-	public void drawHat(Player p1, int x, int y) {
+	public void drawHat(int x, int y) {
 		HatView hatView = new HatView(game);
 		
 		Sprite hat = hatView.createSprite();
@@ -516,7 +526,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		hat.draw(game.getBatch());
 	}
 	
-	public void drawBoot(Player p1, int x, int y) {
+	public void drawBoot(int x, int y) {
 		BootView bootView = new BootView(game);
 		
 		Sprite boot = bootView.createSprite();
@@ -527,7 +537,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		boot.draw(game.getBatch());
 	}
 	
-	public void drawThimble(Player p1, int x, int y) {
+	public void drawThimble(int x, int y) {
 		ThimbleView thimbleView = new ThimbleView(game);
 		
 		Sprite thimble = thimbleView.createSprite();
@@ -746,7 +756,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	        
 	        
 	}
-	
+	 
 	private void createCloseButton()
 	{
 	     	closeBtn = new TextButton("Close", skin);

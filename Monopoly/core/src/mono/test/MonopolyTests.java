@@ -35,19 +35,18 @@ public class MonopolyTests {
 		
 		assertEquals(p1.getName(), "ActualPlayer");
 		assertEquals(p1.getBoardPiece().getType(), "Hat");
-		assertEquals(p2.getName(), "Bot");
+		assertEquals(p2.getName(), "Bot1");
 		assertEquals(p2.getBoardPiece().getType(), "Thimble");
-		assertEquals(p3.getName(), "Bot");
+		assertEquals(p3.getName(), "Bot2");
 		assertEquals(p3.getBoardPiece().getType(), "Boot");
-		assertEquals(p4.getName(), "Bot");
+		assertEquals(p4.getName(), "Bot3");
 		assertEquals(p4.getBoardPiece().getType(), "Car");
 		
-		Square InitialGoSquare = g1.getBoard().getSquares().get(0);
+//		Square InitialGoSquare = g1.getBoard().getSquares().get(0);
 		
-		for (Player p :g1.getPlayers())
-		{
+		for (Player p : g1.getPlayers())
 			assertEquals (0, p.getPosition());
-		}
+		
 //		assertEquals(InitialGoSquare.getNumPlayersOnTopOfSquare(), 4);
 	}
 

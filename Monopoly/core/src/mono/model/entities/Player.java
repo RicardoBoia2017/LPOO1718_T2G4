@@ -9,6 +9,7 @@ import mono.model.Game;
 public class Player {
 	int position;
 	int gameId;
+	boolean isBot;
 	Point coordinates;
 	String name; //there can be more than one player
 	Piece boardPiece;
@@ -22,9 +23,10 @@ public class Player {
 	Boolean hasPassedGoSquareOnce;
 	int inCardPosition;
 
-	public Player(int gameId, String name, String pieceType) {
+	public Player(int gameId, String name, String pieceType, boolean bot) {
 		this.gameId = gameId;
 		this.name = name;
+		this.isBot = bot;
 		position = 0;
 		money = 1500;
 		inJail = false;
@@ -132,6 +134,7 @@ public class Player {
 	}
 	
 	public int getGameId() {return gameId;}
+	public boolean isBot () {return isBot;}
 	public int getPosition() {return position;}
 	public int getX() {return (int) coordinates.getX();}
 	public int getY() {return (int) coordinates.getY();}

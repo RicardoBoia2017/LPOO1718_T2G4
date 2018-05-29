@@ -57,15 +57,32 @@ public class GameController {
 		{ 
 			p.setInCardPosition(p.getPosition());
 		}
-
+ 
 		doSquareAction();
+		
+		if (p.isBot())
+			botTurn();
 		
 		return diceRoll;
 	}
-	
+
 	private void doSquareAction()
 	{
 		Game.getInstance().squareAction();
+	}
+	
+	
+	private void botTurn() {
+
+		Square s1 = Game.getInstance().getCurrentSquare();
+		
+		if (Game.getInstance().checkPropertyAvailibility() == 0)
+		{
+			Game.getInstance().buyProperty();
+		}
+		
+		
+		
 	}
 	
 	public int buyProperty()
