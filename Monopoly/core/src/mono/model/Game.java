@@ -169,10 +169,10 @@ public class Game {
 		
 		changeCardEndTurn(res);
 
-		changePlayer();
+		changePlayer(); 
 	}
 	
-	private void changeCardEndTurn(String res)
+	public void changeCardEndTurn(String res)
 	{
 		if (res != null) 
 		{

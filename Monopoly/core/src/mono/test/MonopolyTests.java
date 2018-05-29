@@ -440,7 +440,6 @@ public class MonopolyTests {
 			beforeActionTaxMoney = g1.getTaxMoney();
 			
 			g1.squareAction();
-			g1.endTurn();
 
 			switch (firstCardId)
 			{
@@ -457,11 +456,7 @@ public class MonopolyTests {
 					assertEquals (10, p1.getPosition());
 					assertEquals (true, p1.isInJail());
 					p1.freeFromJail();
-					g1.endTurn();
-					g1.endTurn();
-					g1.endTurn();
 					g1.movePlayer(-3, false);
-					g1.endTurn();
 					break;
 					
 				case 4:
@@ -470,11 +465,7 @@ public class MonopolyTests {
 					
 				case 5:
 					assertEquals (13, p1.getPosition());
-					g1.endTurn();
-					g1.endTurn();
-					g1.endTurn();
 					g1.movePlayer(-6, false);
-					g1.endTurn();
 					break;
 					
 				case 6:
@@ -488,20 +479,12 @@ public class MonopolyTests {
 					
 				case 8:
 					assertEquals (32, p1.getPosition());
-					g1.endTurn();
-					g1.endTurn();
-					g1.endTurn();
 					g1.movePlayer(15, false);
-					g1.endTurn();
 					break;
 					
 				case 9:
 					assertEquals (4, p1.getPosition());
-					g1.endTurn();
-					g1.endTurn();
-					g1.endTurn();
 					g1.movePlayer(3, false);
-					g1.endTurn();
 					break;
 					
 				case 10:
@@ -510,10 +493,7 @@ public class MonopolyTests {
 					break;
 			}
 			
-			g1.endTurn();
-			g1.endTurn();
-			g1.endTurn();
-			
+			g1.changeCardEndTurn("CH");
 		}
 	}
 	
@@ -544,7 +524,6 @@ public class MonopolyTests {
 		beforeActionTaxMoney = g1.getTaxMoney();
 		
 		g1.squareAction();
-		g1.endTurn();
 
 		switch (firstCardId)
 		{
@@ -560,20 +539,12 @@ public class MonopolyTests {
 				 
 			case 3:
 				assertEquals (3, p1.getPosition());
-				g1.endTurn();
-				g1.endTurn();
-				g1.endTurn();
 				g1.movePlayer(-1, false);
-				g1.endTurn();
 				break;
 				
 			case 4:
 				assertEquals (4, p1.getPosition());
-				g1.endTurn();
-				g1.endTurn();
-				g1.endTurn();
 				g1.movePlayer(-2, false);
-				g1.endTurn();
 				break;
 				
 			case 5:
@@ -592,11 +563,7 @@ public class MonopolyTests {
 				
 			case 8:
 				assertEquals (27, p1.getPosition());
-				g1.endTurn();
-				g1.endTurn();
-				g1.endTurn();
 				g1.movePlayer(-25, false);
-				g1.endTurn();
 				break;
 				
 			case 9:
@@ -607,10 +574,8 @@ public class MonopolyTests {
 				assertEquals (p1.getMoney(), beforeActionP1Money); //GO BACK TO THIS
 				break;
 		}
-		
-		g1.endTurn();
-		g1.endTurn();
-		g1.endTurn();
+			
+		g1.changeCardEndTurn("CC");
 		
 	}
 }
