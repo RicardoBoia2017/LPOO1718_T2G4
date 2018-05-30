@@ -7,6 +7,7 @@ import java.util.List;
 
 import mono.controller.entities.*;
 import mono.model.Game;
+import mono.model.entities.Bot;
 import mono.model.entities.BuyableSquare;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
@@ -61,7 +62,10 @@ public class GameController {
 		doSquareAction();
 		
 		if (p.isBot())
-			Game.getInstance().botTurn();
+		{
+			Bot bot = (Bot) p;
+			bot.botTurn();
+		}
 		
 		return diceRoll;
 	}
@@ -128,7 +132,7 @@ public class GameController {
 	}
 
 	public Player getPlayerByName(String name) {
-		return Game.getInstance().getPlayerByName(name);
+		return Game.getInstance().getPlayerByName(name); 
 	}
 	
 	public void reBuyProperty (int currentCard)

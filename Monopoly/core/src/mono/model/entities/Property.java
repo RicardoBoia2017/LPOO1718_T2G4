@@ -69,7 +69,7 @@ public class Property extends BuyableSquare {
 		return color;
 	}
 	
-	public int getCostOfAHouseByColor() {
+	public int getBuildingCost() {
 		return buildingCost;
 	}
 	

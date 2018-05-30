@@ -11,6 +11,7 @@ import java.util.Random;
 
 import mono.controller.GameController;
 import mono.model.entities.Board;
+import mono.model.entities.Bot;
 import mono.model.entities.BuyableSquare;
 import mono.model.entities.Property;
 import mono.model.entities.Jail;
@@ -83,27 +84,27 @@ public class Game {
 		players.add(new Player(1, "ActualPlayer", player1Piece, false));
 		
 		if(player1Piece.equals("Car")) {
-			players.add(new Player(2, "Bot1", "Thimble", true));
-			players.add(new Player(3, "Bot2", "Hat", true));
-			players.add(new Player(4, "Bot3", "Boot", true));
+			players.add(new Bot(2, "Bot1", "Thimble", true));
+			players.add(new Bot(3, "Bot2", "Hat", true));
+			players.add(new Bot(4, "Bot3", "Boot", true));
 		}
 		
 		else if(player1Piece.equals("Thimble")) {
-			players.add(new Player(2, "Bot1", "Hat", true));
-			players.add(new Player(3, "Bot2", "Car", true));
-			players.add(new Player(4, "Bot3", "Boot", true));
+			players.add(new Bot(2, "Bot1", "Hat", true));
+			players.add(new Bot(3, "Bot2", "Car", true));
+			players.add(new Bot(4, "Bot3", "Boot", true));
 		}
 		
 		else if(player1Piece.equals("Boot")) { 
-			players.add(new Player(2, "Bot1", "Thimble", true));
-			players.add(new Player(3, "Bot2", "Hat", true));
-			players.add(new Player(4, "Bot3", "Car", true));
+			players.add(new Bot(2, "Bot1", "Thimble", true));
+			players.add(new Bot(3, "Bot2", "Hat", true));
+			players.add(new Bot(4, "Bot3", "Car", true));
 		}
 		
 		else if(player1Piece.equals("Hat")) {
-			players.add(new Player(2, "Bot1", "Thimble", true));
-			players.add(new Player(3, "Bot2", "Boot", true));
-			players.add(new Player(4, "Bot3", "Car", true));
+			players.add(new Bot(2, "Bot1", "Thimble", true));
+			players.add(new Bot(3, "Bot2", "Boot", true));
+			players.add(new Bot(4, "Bot3", "Car", true));
 		}
 		
 		this.player1Piece = player1Piece;
@@ -138,7 +139,7 @@ public class Game {
 		currentPlayer.setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
 		return values;
-//		return new Pair (4,3);
+//		return new Pair (1,0);
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {
@@ -205,98 +206,6 @@ public class Game {
 			this.currentPlayer = players.get(currentPlayer.getGameId());
 	}
 	
-	public void botTurn()
-	{	
-		if (Game.getInstance().checkPropertyAvailibility() == 0)
-			botBuyProperty();
-		
-		
-	}
- 
-	public void botBuyProperty()
-	{
-		Player p = Game.getInstance().getCurrentPlayer();
-		Square s1 = Game.getInstance().getCurrentSquare();
-		BuyableSquare bs1 = (BuyableSquare) s1;
-		
-		int moneyAfterBuy = p.getMoney() - bs1.getCost();
-		
-		if (bs1.getType() == "Property")
-			botTurnProperty(p, bs1, moneyAfterBuy);
-		
-		else if (bs1.getType() == "Station")
-			botTurnStation(p, bs1, moneyAfterBuy);
-
-		else 
-			botTurnCompany(p, bs1, moneyAfterBuy);
-	}
-	
-	private void botTurnProperty (Player p, BuyableSquare s, int moneyAfterBuy) {
-		 
-		Property property = (Property) s;
-		int sameColorCounter = countPropertiesOfAColor(property.getColor());
-		
-		ArrayList <String> twoPropertiesColor = new ArrayList <String> ();
-		twoPropertiesColor.add("BROWN");
-		twoPropertiesColor.add("DARK_BLUE");
-		
-		if ( (sameColorCounter == 0) ||
-			 (sameColorCounter == 1 && !twoPropertiesColor.contains(property.getColor()) ) )
-		{
-			if (moneyAfterBuy >= 500)
-			buyProperty();
-		}
-		
-		else if ( (sameColorCounter == 1 && twoPropertiesColor.contains(property.getColor())) ||
-				  (sameColorCounter == 2 && !twoPropertiesColor.contains(property.getColor()) ))
-		{
-			if (moneyAfterBuy >= 200)
-				buyProperty ();
-		}
-		
-	}
-	
-	private void botTurnStation (Player p, BuyableSquare s, int moneyAfterBuy) {
-		
-		int stationsCounter = 0;
-
-		for (BuyableSquare bs: p.getPropertiesOwned())
-		{
-			if (bs.getType() == "Station")
-				stationsCounter++;
-			
-		}
-		
-		System.out.println("Stations counter: " + stationsCounter);
-		
-		if (stationsCounter == 0 && moneyAfterBuy >= 500)
-			buyProperty();		
-		
-		else if ((stationsCounter == 1 || stationsCounter == 2) && moneyAfterBuy >= 350)
-			buyProperty();
-		
-		else if (stationsCounter == 3 && moneyAfterBuy >= 200)
-			buyProperty();
-
-	}
-
-	private void botTurnCompany (Player p, BuyableSquare s, int moneyAfterBuy) {
-		
-		int companiesCounter = 0;
-		
-		for (BuyableSquare bs: p.getPropertiesOwned())
-		{
-			if (bs.getType() == "Company")
-				companiesCounter++;
-		}
-		
-		if (companiesCounter == 0 && moneyAfterBuy >= 500)
-			buyProperty();
-		
-		else if (companiesCounter == 1 && moneyAfterBuy >= 200)
-			buyProperty();
-	}
-	
 	public void setTaxMoney (int newValue)
 	{
 		this.taxMoney = newValue;
@@ -356,12 +265,11 @@ public class Game {
 	public int buyHouse(Property ps1) {
 		Player p1 = currentPlayer;
 
-		int res = p1.removeMoney(ps1.getCostOfAHouseByColor(), false);
+		int res = p1.removeMoney(ps1.getBuildingCost(), false);
 
-		if (res == 0) {
+		if (res == 0) 
 			ps1.buyHouse();
-		}
-
+		
 		return res;
 	}
 	
@@ -395,7 +303,7 @@ public class Game {
 	    Player p1 = currentPlayer; 
 		     
 	    if (!s1.getType().equals("Property")) //trying to place a house in a square other than property 
-	      return -1; 
+	      return -1;  
 	     
 	    else if(checkIfPropertyIsMortgaged(s1.getName())) //trying to place a house in a mortgaged property 
 	      return -2; 
@@ -503,12 +411,12 @@ public class Game {
 	public int buyHotel(Property ps1) {
 		Player p1 = currentPlayer;
 
-		int res = p1.removeMoney(ps1.getCostOfAHouseByColor(), false);
+		int res = p1.removeMoney(ps1.getBuildingCost(), false);
 
 		if (res == 0) {
 			ps1.buyHotel();
 			ps1.setHouses(0);
-		}
+		} 
 
 		return res;
 	}

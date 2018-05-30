@@ -155,7 +155,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	private static void loadChanceCards()
 	{
 		game.getAssetManager().load("ChanceCards/AExam.png",Texture.class);
-		game.getAssetManager().load("ChanceCards/Birthday.png",Texture.class);
+		game.getAssetManager().load("ChanceCards/Birthday.png",Texture.class); 
 		game.getAssetManager().load("ChanceCards/CaughtStealing.png",Texture.class);
 		game.getAssetManager().load("ChanceCards/FoundMoney.png",Texture.class);
 		game.getAssetManager().load("ChanceCards/GoToMoscow.png",Texture.class);
@@ -369,7 +369,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 			game.getBatch().draw(current, 15.5f, 16f, 151.5f,151.5f);
 			
 			current = (Texture) diceAnimation.getKeyFrames()[rand.nextInt(6)];
-			game.getBatch().draw(current, 225.5f, 16f, 151.5f,151.5f);
+			game.getBatch().draw(current, 225.5f, 16f, 151.5f,151.5f); 
 
 		}
 	}

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import mono.controller.GameController;
 import mono.model.Game;
+import mono.model.entities.Bot;
 import mono.model.entities.BuyableSquare;
 import mono.model.entities.Pair;
 import mono.model.entities.Player;
@@ -957,14 +958,14 @@ public class MonopolyTests {
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
 		
-		Player bot1 = g1.getPlayers().get(1);
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
 		
 		g1.endTurn();
 		
 		assertEquals("Bot1", g1.getCurrentPlayer().getName());
 		
 		g1.movePlayer(1, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (1, bot1.getPropertiesOwned().size());
 		assertEquals (1440, bot1.getMoney() );
@@ -977,21 +978,21 @@ public class MonopolyTests {
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
 		
-		Player bot1 = g1.getPlayers().get(1);
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
 		
 		g1.endTurn();
 		
 		assertEquals("Bot1", g1.getCurrentPlayer().getName());
 		
 		g1.movePlayer(1, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (1, bot1.getPropertiesOwned().size());
 		assertEquals (1440, bot1.getMoney());
 		
 		bot1.removeMoney(1180, false);
 		g1.movePlayer(2, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (2, bot1.getPropertiesOwned().size());
 		assertEquals (200, bot1.getMoney());
@@ -1004,20 +1005,20 @@ public class MonopolyTests {
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
 		
-		Player bot1 = g1.getPlayers().get(1);
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
 		
 		g1.endTurn();
 		
 		assertEquals("Bot1", g1.getCurrentPlayer().getName());
 		
 		g1.movePlayer(6, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (1, bot1.getPropertiesOwned().size());
 		assertEquals (1400, bot1.getMoney());
 		
 		g1.movePlayer(2, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		System.out.println(g1.getBoard().getSquares().get(bot1.getPosition()).getName());
 		
@@ -1026,7 +1027,7 @@ public class MonopolyTests {
 		
 		bot1.removeMoney(980, false);
 		g1.movePlayer(1, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (3, bot1.getPropertiesOwned().size());
 		assertEquals (200, bot1.getMoney());
@@ -1039,14 +1040,14 @@ public class MonopolyTests {
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
 		
-		Player bot1 = g1.getPlayers().get(1);
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
 		
 		g1.endTurn();
 		
 		assertEquals("Bot1", g1.getCurrentPlayer().getName());
 		
 		g1.movePlayer(5, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (1, bot1.getPropertiesOwned().size());
 		assertEquals (1300, bot1.getMoney() );
@@ -1059,21 +1060,21 @@ public class MonopolyTests {
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
 		
-		Player bot1 = g1.getPlayers().get(1);
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
 		
 		g1.endTurn();
 		
 		assertEquals("Bot1", g1.getCurrentPlayer().getName());
 		
 		g1.movePlayer(5, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (1, bot1.getPropertiesOwned().size());
 		assertEquals (1300, bot1.getMoney());
 		
 		bot1.removeMoney(750, false);
 		g1.movePlayer(10, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (2, bot1.getPropertiesOwned().size());
 		assertEquals (350, bot1.getMoney());
@@ -1085,26 +1086,26 @@ public class MonopolyTests {
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
 		
-		Player bot1 = g1.getPlayers().get(1);
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
 		
 		g1.endTurn();
 		
 		assertEquals("Bot1", g1.getCurrentPlayer().getName());
 		
 		g1.movePlayer(5, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (1, bot1.getPropertiesOwned().size());
 		assertEquals (1300, bot1.getMoney());
 		
 		g1.movePlayer(10, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (2, bot1.getPropertiesOwned().size());
 		assertEquals (1100, bot1.getMoney());
 		
 		g1.movePlayer(10, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (3, bot1.getPropertiesOwned().size());
 		assertEquals (900, bot1.getMoney());
@@ -1112,7 +1113,7 @@ public class MonopolyTests {
 		bot1.removeMoney(500, false);
 		
 		g1.movePlayer(10, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (4, bot1.getPropertiesOwned().size());
 		assertEquals (200, bot1.getMoney());
@@ -1124,14 +1125,14 @@ public class MonopolyTests {
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
 		
-		Player bot1 = g1.getPlayers().get(1);
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
 		
 		g1.endTurn();
 		
 		assertEquals("Bot1", g1.getCurrentPlayer().getName());
 		
 		g1.movePlayer(12, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (1, bot1.getPropertiesOwned().size());
 		assertEquals (1350, bot1.getMoney() );
@@ -1144,25 +1145,66 @@ public class MonopolyTests {
 		Game g1 = createGameForTesting();
 		g1.addPlayers("Hat");
 		
-		Player bot1 = g1.getPlayers().get(1);
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
 		
 		g1.endTurn();
 		
 		assertEquals("Bot1", g1.getCurrentPlayer().getName());
 		
 		g1.movePlayer(12, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (1, bot1.getPropertiesOwned().size());
 		assertEquals (1350, bot1.getMoney());
 		
 		bot1.removeMoney(1000, false);
 		g1.movePlayer(16, false);
-		g1.botTurn();
+		bot1.botTurn();
 		
 		assertEquals (2, bot1.getPropertiesOwned().size());
 		assertEquals (200, bot1.getMoney());
 	
+	}
+
+	@Test
+	public void testIfBotBuysBuildings()
+	{
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+		
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
+		Property athens = (Property) g1.getBoard().getSquares().get(1);
+		
+		g1.endTurn();
+		
+		assertEquals("Bot1", g1.getCurrentPlayer().getName());
+		
+		g1.movePlayer(1, false);
+		bot1.botTurn();
+		
+		g1.movePlayer(2, false);
+		bot1.botTurn();
+		
+		assertEquals(2, bot1.getPropertiesOwned().size() );
+		assertEquals(1, athens.getHouses());
+		assertEquals(1330, bot1.getMoney());
+		
+		bot1.botTurn();
+		assertEquals(2, athens.getHouses());
+		assertEquals(1280, bot1.getMoney());
+		
+		bot1.botTurn();
+		assertEquals(3, athens.getHouses());
+		assertEquals(1230, bot1.getMoney());
+		
+		bot1.botTurn();
+		assertEquals(4, athens.getHouses());
+		assertEquals(1180, bot1.getMoney());
+		
+		bot1.botTurn();
+		assertEquals(0, athens.getHouses());
+		assertEquals(1, athens.getHotels());
+		assertEquals(1130, bot1.getMoney());
 	}
 }
 

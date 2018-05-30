@@ -5,7 +5,7 @@ import mono.model.Game;
 public class CommunityChest extends Square {
 	
 	public CommunityChest(int position) {
-		super("CommunityChest", position);
+		super("Community Chest", position);
 	}
 
 	@Override
