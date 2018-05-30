@@ -20,7 +20,6 @@ public class Bot extends Player {
 		
 	}
  
-
 	private void botBuyProperty()
 	{
 		BuyableSquare bs1 = (BuyableSquare) Game.getInstance().getCurrentSquare();;
@@ -72,9 +71,7 @@ public class Bot extends Player {
 				stationsCounter++;
 			
 		}
-		
-		System.out.println("Stations counter: " + stationsCounter);
-		
+				
 		if (stationsCounter == 0 && moneyAfterBuy >= 500)
 			Game.getInstance().buyProperty();		
 		
@@ -111,14 +108,14 @@ public class Bot extends Player {
 			
 			if (res == 0)
 			{
-				botBuyHouse( (Property) elem);
-				break;
+				if (botBuyHouse( (Property) elem) == 0);
+					break;
 			}
 			
 			else if (res == -5)
 			{
-				botBuyHotel( (Property) elem);
-				break;
+				if (botBuyHotel( (Property) elem) == 0);
+					break;
 			}
 				
 			else
@@ -127,24 +124,30 @@ public class Bot extends Player {
 		}
 	}
 
-	private void botBuyHouse (Property p) {
+	private int botBuyHouse (Property p) {
 
 		int nHouses = p.getHouses();
 		int valueAfterPurchase = money - p.getBuildingCost();
+		int res = 0;
 		
-		if (nHouses <= 1 && valueAfterPurchase >= 300)
-			Game.getInstance().buyHouse(p);
+		if (nHouses <= 1 && valueAfterPurchase >= 300) 
+			res = Game.getInstance().buyHouse(p);
 		
 		else if (nHouses <= 3 && valueAfterPurchase >= 200)
-			Game.getInstance().buyHouse(p);
+			res = Game.getInstance().buyHouse(p);
+		
+		return res;
 		
 	}
 
-	private void botBuyHotel (Property p) {
+	private int botBuyHotel (Property p) {
 		
 		int valueAfterPurchase = money - p.getBuildingCost();
+		int res = 0;
 		
 		if (valueAfterPurchase >= 200)
-			Game.getInstance().buyHotel(p);
+			res = Game.getInstance().buyHotel(p);
+		
+		return res;
 	}
 }

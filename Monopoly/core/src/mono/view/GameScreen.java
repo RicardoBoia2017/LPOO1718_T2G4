@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -60,7 +61,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	
     private static GameScreen instance;
 
-    Music music;
+    Sound music;
+    BitmapFont font;
 	Skin skin;
 	Player playerToDraw;
 	Pair diceValues;
@@ -93,17 +95,14 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		super(); 
 		playerToDraw = Game.getInstance().getPlayers().get(0);
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
-		
-		music = Gdx.audio.newMusic(Gdx.files.internal("Music.mp3"));
-//		music.play();
-		music.setVolume(0.5f);                
-		music.setLooping(true);
-		
+				 
 		//initialize dice
 		diceValues = new Pair();
 					
 		showCard = false;
 		
+		font = new BitmapFont ();
+
 		loadAssets();
 		
 		drawAnimation();
@@ -132,10 +131,55 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		game.getAssetManager().load ("house.png", Texture.class);
 		game.getAssetManager().load ("hotel.png", Texture.class);
 		game.getAssetManager().load ("PlayersBackground.png", Texture.class);
+		loadSounds();
+		loadProperties();
 		loadCChestCards();
 		loadChanceCards();
 		loadDices();
         game.getAssetManager().finishLoading();
+	}
+	
+	private static void loadSounds()
+	{
+			game.getAssetManager().load("Lisbon.mp3", Sound.class);	
+	}
+
+	private static void loadProperties()
+	{
+		System.out.println("Entrou");
+		game.getAssetManager().load("Properties/Athens.png", Texture.class);
+		game.getAssetManager().load("Properties/Amsterdam.png", Texture.class);
+		game.getAssetManager().load("Properties/Berlin.png", Texture.class);
+		game.getAssetManager().load("Properties/Brussels.png", Texture.class);
+		game.getAssetManager().load("Properties/Buenos Aires.png", Texture.class);
+		game.getAssetManager().load("Properties/Cairo.png", Texture.class);
+		game.getAssetManager().load("Properties/Cape Town.png", Texture.class);
+		game.getAssetManager().load("Properties/Casablanca.png", Texture.class);
+		game.getAssetManager().load("Properties/Dubai.png", Texture.class);
+		game.getAssetManager().load("Properties/Lisbon.png", Texture.class);
+		game.getAssetManager().load("Properties/London.png", Texture.class);
+		game.getAssetManager().load("Properties/Madrid.png", Texture.class);
+		game.getAssetManager().load("Properties/Mexico City.png", Texture.class);
+		game.getAssetManager().load("Properties/Moscow.png", Texture.class);
+		game.getAssetManager().load("Properties/New York.png", Texture.class);
+		game.getAssetManager().load("Properties/Paris.png", Texture.class);
+		game.getAssetManager().load("Properties/Rio de Janeiro.png", Texture.class);
+		game.getAssetManager().load("Properties/Rome.png", Texture.class);
+		game.getAssetManager().load("Properties/Shanghai.png", Texture.class);
+		game.getAssetManager().load("Properties/Singapore.png", Texture.class);
+		game.getAssetManager().load("Properties/Sydney.png", Texture.class);
+		game.getAssetManager().load("Properties/Tokyo.png", Texture.class);
+		
+		game.getAssetManager().load("Properties/Dunedin Station.png", Texture.class);
+		game.getAssetManager().load("Properties/Liege Guillemins.png", Texture.class);
+		game.getAssetManager().load("Properties/Milano Centrale.png", Texture.class);
+		game.getAssetManager().load("Properties/Sao Bento.png", Texture.class);
+		
+		game.getAssetManager().load("Properties/Eletricity.png", Texture.class);
+		game.getAssetManager().load("Properties/Water.png", Texture.class);
+
+		game.getAssetManager().load("Mortgaged.png", Texture.class);
+		
 	}
 	
 	private static void loadCChestCards() 
@@ -244,8 +288,12 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		bankrupcyDraw();
 	}
 	
+	private void drawPlayerMenu() {
+		Texture board = game.getAssetManager().get("PlayersBackground.png", Texture.class);
+		game.getBatch().draw(board, 803, 197, 295, 803);
+	}
+	
 	private void drawPlayers() {
-		BitmapFont font = new BitmapFont ();
 		font.setColor (0,0,0,1);
 		font.getData().setScale(2);
 		int i = 0;
@@ -287,7 +335,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		}
 		
 		font.draw (game.getBatch(), Game.getInstance().getCurrentPlayer().getName(), 400, 100);
-
+		
 	}
 	
 	private void bankrupcyDraw() {
@@ -603,12 +651,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 			closeBtn = null;
 		}
 	}
-
-	private void drawPlayerMenu() {
-		Texture board = game.getAssetManager().get("PlayersBackground.png", Texture.class);
-		game.getBatch().draw(board, 803, 197, 295, 803);
-	}
-	  	
+  	
 	private void createRollDiceBtn() { 
         rollDiceBtn = new TextButton("Roll Dice", skin);
         rollDiceBtn.setPosition(800, 20);
@@ -635,6 +678,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 							
 						}
 							
+						chooseMusic();
+						
 						rollDiceBtn.setTouchable(Touchable.disabled);
 						rollDiceBtn.setColor(1,0,0,1);
 						
@@ -646,6 +691,17 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 				});
     }
 	
+	protected void chooseMusic() {
+		String name = Game.getInstance().getBoard().getSquares().get(Game.getInstance().getCurrentPlayer().getPosition()).getName();
+		String file = name + ".mp3";
+		
+//		if (currentPosition == 3)
+		music = game.getAssetManager().get(file);
+	
+		long soundId = music.play();
+		music.setVolume(soundId, 0.5f);
+	}
+
 	private void createBuyPropertyBtn() {
 
         buyPropertyBtn = new TextButton("Buy", skin);

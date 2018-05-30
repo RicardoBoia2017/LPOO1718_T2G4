@@ -149,7 +149,6 @@ public class MonopolyTests {
 
 		g1.movePlayer (12, false);
 		
-		System.out.println(g1.getBoard().getSquares().get(12).getName());
 		g1.buyProperty();
 
 		assertEquals (p1.getMoney(), p1Money - 150);
@@ -597,7 +596,6 @@ public class MonopolyTests {
 		
 		g1.movePlayer(4, false); //goes to income tax
 		g1.squareAction();
-		System.out.println("Current position " + p1.getPosition()); 
 
 		assertEquals (p1.getMoney(), playerMoney - 200);
 		assertEquals (g1.getTaxMoney(), 200);
@@ -1019,9 +1017,7 @@ public class MonopolyTests {
 		
 		g1.movePlayer(2, false);
 		bot1.botTurn();
-		
-		System.out.println(g1.getBoard().getSquares().get(bot1.getPosition()).getName());
-		
+				
 		assertEquals (2, bot1.getPropertiesOwned().size());
 		assertEquals (1300, bot1.getMoney());
 		
