@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.Queue;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,8 +12,6 @@ import java.util.Random;
 import mono.controller.GameController;
 import mono.model.entities.Board;
 import mono.model.entities.BuyableSquare;
-import mono.model.entities.Chance;
-import mono.model.entities.CommunityChest;
 import mono.model.entities.Property;
 import mono.model.entities.Jail;
 import mono.model.entities.Player;
@@ -52,17 +49,16 @@ public class Game {
 	private Game()
 	{
 		board = new Board();
-//		currentPlayer = players.get(0);
 		taxMoney = 0;
 		
-		chanceQueue = new LinkedList <Integer>();
 		initializeChanceQueue();
-		cChestQueue = new LinkedList <Integer>();
 		initializeCChestQueue();
 	}
 
 	private void initializeChanceQueue()
 	{				
+		chanceQueue = new LinkedList <Integer>();
+
 		for (int i = 1; i <= 10; i++)
 			chanceQueue.add(i);
 		
@@ -71,6 +67,8 @@ public class Game {
 	
 	private void initializeCChestQueue()
 	{
+		cChestQueue = new LinkedList <Integer>();
+
 		for (int i = 1; i <= 10; i++)
 			cChestQueue.add(i);
 		
@@ -140,11 +138,12 @@ public class Game {
 		currentPlayer.setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
 		return values;
+//		return new Pair (4,3);
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {
 
-		int playerIndex = currentPlayer.getGameId() - 1;
+//		int playerIndex = currentPlayer.getGameId() - 1;
 		Player p1 = currentPlayer;
 	
 //		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
@@ -169,7 +168,8 @@ public class Game {
 		String res = inCardPosition(false);
 		
 		changeCardEndTurn(res);
-
+		
+		
 		changePlayer(); 
 		
 	}
@@ -191,6 +191,8 @@ public class Game {
 				firstCard = cChestQueue.poll();
 				cChestQueue.add (firstCard);
 			}
+			
+			currentPlayer.setInCardPosition(0);
 		}	
 	}
 
@@ -204,68 +206,81 @@ public class Game {
 	}
 	
 	public void botTurn()
-	{
-		Player p = Game.getInstance().getCurrentPlayer();
-		Square s1 = Game.getInstance().getCurrentSquare();
-		
+	{	
 		if (Game.getInstance().checkPropertyAvailibility() == 0)
-		{
-			BuyableSquare bs1 = (BuyableSquare) s1;
-			
-			if (bs1.getType() == "Property")
-				botTurnProperty(p, bs1);
-			
-			else if (bs1.getType() == "Station")
-				botTurnStation(p, bs1);
-
-			else if (bs1.getType() == "Company")
-				botTurnCompany(p, bs1);
-		}
+			botBuyProperty();
+		
 		
 	}
  
-	private void botTurnProperty (Player p, BuyableSquare s) {
+	public void botBuyProperty()
+	{
+		Player p = Game.getInstance().getCurrentPlayer();
+		Square s1 = Game.getInstance().getCurrentSquare();
+		BuyableSquare bs1 = (BuyableSquare) s1;
+		
+		int moneyAfterBuy = p.getMoney() - bs1.getCost();
+		
+		if (bs1.getType() == "Property")
+			botTurnProperty(p, bs1, moneyAfterBuy);
+		
+		else if (bs1.getType() == "Station")
+			botTurnStation(p, bs1, moneyAfterBuy);
+
+		else 
+			botTurnCompany(p, bs1, moneyAfterBuy);
+	}
+	
+	private void botTurnProperty (Player p, BuyableSquare s, int moneyAfterBuy) {
 		 
 		Property property = (Property) s;
 		int sameColorCounter = countPropertiesOfAColor(property.getColor());
+		
 		ArrayList <String> twoPropertiesColor = new ArrayList <String> ();
 		twoPropertiesColor.add("BROWN");
 		twoPropertiesColor.add("DARK_BLUE");
 		
-		if (sameColorCounter == 0 && p.getMoney() - s.getCost() >= 500)
+		if ( (sameColorCounter == 0) ||
+			 (sameColorCounter == 1 && !twoPropertiesColor.contains(property.getColor()) ) )
+		{
+			if (moneyAfterBuy >= 500)
 			buyProperty();
+		}
 		
 		else if ( (sameColorCounter == 1 && twoPropertiesColor.contains(property.getColor())) ||
 				  (sameColorCounter == 2 && !twoPropertiesColor.contains(property.getColor()) ))
 		{
-			if (p.getMoney() - s.getCost() >= 200)
+			if (moneyAfterBuy >= 200)
 				buyProperty ();
 		}
 		
 	}
 	
-	private void botTurnStation (Player p, BuyableSquare s) {
+	private void botTurnStation (Player p, BuyableSquare s, int moneyAfterBuy) {
 		
 		int stationsCounter = 0;
 
 		for (BuyableSquare bs: p.getPropertiesOwned())
 		{
-			if (bs.getType() == "Company")
+			if (bs.getType() == "Station")
 				stationsCounter++;
+			
 		}
 		
-		if (stationsCounter == 0 && p.getMoney() - s.getCost() >= 500)
+		System.out.println("Stations counter: " + stationsCounter);
+		
+		if (stationsCounter == 0 && moneyAfterBuy >= 500)
 			buyProperty();		
 		
-		else if ((stationsCounter == 1 || stationsCounter == 2) && p.getMoney() - s.getCost() >= 350)
+		else if ((stationsCounter == 1 || stationsCounter == 2) && moneyAfterBuy >= 350)
 			buyProperty();
 		
-		if (stationsCounter == 3 && p.getMoney() - s.getCost() >= 200)
+		else if (stationsCounter == 3 && moneyAfterBuy >= 200)
 			buyProperty();
 
 	}
 
-	private void botTurnCompany (Player p, BuyableSquare s) {
+	private void botTurnCompany (Player p, BuyableSquare s, int moneyAfterBuy) {
 		
 		int companiesCounter = 0;
 		
@@ -275,10 +290,10 @@ public class Game {
 				companiesCounter++;
 		}
 		
-		if (companiesCounter == 0 && p.getMoney() - s.getCost() >= 500)
+		if (companiesCounter == 0 && moneyAfterBuy >= 500)
 			buyProperty();
 		
-		else if (companiesCounter == 1 && p.getMoney() - s.getCost() >= 200)
+		else if (companiesCounter == 1 && moneyAfterBuy >= 200)
 			buyProperty();
 	}
 	
@@ -469,7 +484,7 @@ public class Game {
 	}
 		
 	public int checkHotelAvailability(BuyableSquare s1) {
-	    Player p1 = currentPlayer;
+//	    Player p1 = currentPlayer;
 		     
 	    if (!s1.getType().equals("Property")) //trying to place a hotel in a square other than property 
 	    	return -1; 
@@ -535,7 +550,7 @@ public class Game {
 		return currentPlayer.getPlayerIsInJail();
 	}
 
-	public Player getPlayerInSpecific(String name) {
+	public Player getPlayerByName(String name) {
 		
 		for(int i = 0; i < players.size(); i++) {
 			if(players.get(i).getName().equals(name)) {

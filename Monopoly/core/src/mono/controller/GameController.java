@@ -128,7 +128,7 @@ public class GameController {
 	}
 
 	public Player getPlayerByName(String name) {
-		return Game.getInstance().getPlayerInSpecific(name);
+		return Game.getInstance().getPlayerByName(name);
 	}
 	
 	public void reBuyProperty (int currentCard)
