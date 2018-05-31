@@ -1,18 +1,12 @@
 package mono.view;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
-import com.badlogic.gdx.utils.Align;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.UIFactory;
 
@@ -24,7 +18,7 @@ public class MainMenuScreen extends AbstractScreen {
 	
 	public MainMenuScreen() {
 		super();
-		this.game = this.game.getInstance();
+		game = game.getInstance();
 		skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
 		
 		loadAssets();
@@ -39,7 +33,7 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		// Adding actors
-		Texture monopolyLogo = this.game.getAssetManager().get("Monopoly.png");
+		Texture monopolyLogo = game.getAssetManager().get("Monopoly.png");
 		Image bg = new Image(monopolyLogo);
 		bg.setSize(1000, 1000);
 		bg.setPosition(0, 0);

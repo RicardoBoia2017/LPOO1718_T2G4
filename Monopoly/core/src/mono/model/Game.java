@@ -108,8 +108,11 @@ public class Game {
 			
 			for (int j = 0; j < allPieces.size(); j++)
 			{
-				if (!checkifPieceIsTaken(allPieces.get(i)))
-					players.add(new Bot(gameId, botName, allPieces.get(i)));
+				if (!checkifPieceIsTaken(allPieces.get(j)))
+				{
+					players.add(new Bot(gameId, botName, allPieces.get(j)));
+					break;
+				}
 			}
 		}
 	}
@@ -189,7 +192,7 @@ public class Game {
 		
 		return values;
 
-//		return new Pair (30,0);
+//		return new Pair (2,1);
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {

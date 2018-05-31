@@ -62,6 +62,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
     private static GameScreen instance;
 
     Sound sound;
+    boolean outputSound;
     BitmapFont font;
 	Skin skin;
 	Player playerToDraw;
@@ -99,9 +100,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		diceValues = new Pair();
 					
 		showCard = false;
-		
 		font = new BitmapFont ();
-
+		outputSound = true;
+		
 		loadAssets();
 		
 		drawAnimation();
@@ -130,6 +131,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		game.getAssetManager().load ("house.png", Texture.class);
 		game.getAssetManager().load ("hotel.png", Texture.class);
 		game.getAssetManager().load ("PlayersBackground.png", Texture.class);
+		game.getAssetManager().load ("Note.png", Texture.class);
 		loadSounds();
 		loadProperties();
 		loadCChestCards();
@@ -273,7 +275,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		createNegotiateBtn();
 		addActor(negotiateBtn);
 		
-		Texture board = this.game.getAssetManager().get("Board.png");
+		addActor(createNoteBtn());
+		
+		Texture board = game.getAssetManager().get("Board.png");
 		ImageButton btnBoard = UIFactory.createButton(board);
 		btnBoard.setSize(803, 803);
 		btnBoard.setPosition(1.f, 197.f);
@@ -327,7 +331,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		Texture board = game.getAssetManager().get("PlayersBackground.png", Texture.class);
 		game.getBatch().draw(board, 803, 197, 295, 803);
 	}
-	
+
 	private void drawPlayers() {
 		font.setColor (0,0,0,1);
 		font.getData().setScale(2);
@@ -449,10 +453,10 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		if (this.diceRollTime < 1)
 		{
 			current = (Texture) diceAnimation.getKeyFrames()[rand.nextInt(6)];
-			game.getBatch().draw(current, 15.5f, 16f, 151.5f,151.5f);
+			game.getBatch().draw(current, 108.5f, 38.5f, 106.05f, 106.05f);
 			
 			current = (Texture) diceAnimation.getKeyFrames()[rand.nextInt(6)];
-			game.getBatch().draw(current, 225.5f, 16f, 151.5f,151.5f); 
+			game.getBatch().draw(current, 248.5f, 38.5f, 106.05f, 106.05f); 
 
 		}
 	}
@@ -485,9 +489,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		Sprite dice_1 = dice1.createSprite();
 		Sprite dice_2 = dice2.createSprite();
 		
-		dice_1.scale(-0.5f);
-		dice_2.scale(-0.5f);
-		dice_1.setPosition(-60, -60);
+		dice_1.scale(-0.65f);
+		dice_2.scale(-0.65f);
+		dice_1.setPosition(10, -60);
 		dice_2.setPosition(150, -60);
 				
 		dice_1.draw(game.getBatch());
@@ -713,7 +717,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 							
 						}
 							
-						chooseSound();
+						if (outputSound)
+							chooseSound(); 
 						
 						rollDiceBtn.setTouchable(Touchable.disabled);
 						rollDiceBtn.setColor(1,0,0,1);
@@ -830,7 +835,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	        endTurnBtn.addListener(
 					new InputListener() { 
 						@Override
-						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { 
 																		
 							endTurnBtn.setTouchable(Touchable.disabled);
 							endTurnBtn.setColor(1,0,0,1);
@@ -854,6 +859,28 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	        
 	}
 	 
+	private ImageButton createNoteBtn()
+	{
+		Texture note = game.getAssetManager().get("Note.png");
+		ImageButton noteBtn = UIFactory.createButton(note);
+		noteBtn.setSize(50, 50); 
+		noteBtn.setPosition(35, 40, Align.center);
+		noteBtn.addListener(new InputListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { 
+				
+				if (outputSound)
+					outputSound = false;
+				else
+					outputSound = true;
+				
+				return false;
+			}
+		});
+		
+		return noteBtn;
+	}
+	
 	protected void playerTurnButtons() {
 		rollDiceBtn.setText("Roll Dice");	
 		endTurnBtn.setText("End Turn");
