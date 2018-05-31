@@ -16,6 +16,9 @@ public class Bot extends Player {
 		if (Game.getInstance().checkPropertyAvailibility() == 0)
 			botBuyProperty();
 		
+		if (inJail)
+			botManageJail();
+			
 		botBuyBuildings();
 		
 	}
@@ -98,6 +101,16 @@ public class Bot extends Player {
 		
 		else if (companiesCounter == 1 && moneyAfterBuy >= 200)
 			Game.getInstance().buyProperty();
+	}
+	
+	private void botManageJail ()
+	{
+		if (money - 50 >= 500)
+		{
+			inJail = false;
+			turnsWithoutMoving = 0;
+			removeMoney (50, false);
+		}
 	}
 	
 	private void botBuyBuildings() {

@@ -168,9 +168,8 @@ public class Player {
 	public boolean getDiceSameValue () { return this.diceSameValue;}
 		
 	public void tellGameModelThePlayerIsInJail() {
-		System.out.print("My flag is ");
-		System.out.print(inJail);
-		Game.getInstance().tellControllerPlayerIsInJail(); 
+		if (!isBot)
+			Game.getInstance().tellControllerPlayerIsInJail(); 
 	}
 	
 	public void setCurrentDiceroll(int dice) {

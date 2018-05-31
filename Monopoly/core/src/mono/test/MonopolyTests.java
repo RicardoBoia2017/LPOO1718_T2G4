@@ -27,28 +27,53 @@ public class MonopolyTests {
 	public void testIfGameCreatesAndAddsPlayersProperly() {
 		Game g1 = createGameForTesting();
 		
-		g1.addPlayers("Hat");
-		
+		g1.addPlayer("Hat");
+		g1.addPlayer("Car");
+		g1.addPlayer("Boot");
+		g1.addPlayer("Thimble");
+		g1.addPlayer("Thimble");
+
 		Player p1 = (g1.getPlayers()).get(0);
 		Player p2 = (g1.getPlayers()).get(1);
 		Player p3 = (g1.getPlayers()).get(2);
 		Player p4 = (g1.getPlayers()).get(3);
 		
-		assertEquals(p1.getName(), "ActualPlayer");
+		assertEquals(p1.getName(), "Player1");
 		assertEquals(p1.getBoardPiece().getType(), "Hat");
-		assertEquals(p2.getName(), "Bot1");
-		assertEquals(p2.getBoardPiece().getType(), "Thimble");
-		assertEquals(p3.getName(), "Bot2");
+		assertEquals(p2.getName(), "Player2");
+		assertEquals(p2.getBoardPiece().getType(), "Car");
+		assertEquals(p3.getName(), "Player3");
 		assertEquals(p3.getBoardPiece().getType(), "Boot");
-		assertEquals(p4.getName(), "Bot3");
-		assertEquals(p4.getBoardPiece().getType(), "Car");
+		assertEquals(p4.getName(), "Player4");
+		assertEquals(p4.getBoardPiece().getType(), "Thimble");
 		
-//		Square InitialGoSquare = g1.getBoard().getSquares().get(0);
 		
 		for (Player p : g1.getPlayers())
 			assertEquals (0, p.getPosition());
 		
-//		assertEquals(InitialGoSquare.getNumPlayersOnTopOfSquare(), 4);
+	}
+	
+	@Test
+	public void testIfGameCreatesBots () {
+		Game g1 = createGameForTesting();
+		
+		g1.addPlayer("Hat");
+		g1.addPlayer("Car");
+		g1.addBots();
+
+		Player p1 = (g1.getPlayers()).get(0);
+		Player p2 = (g1.getPlayers()).get(1);
+		Player p3 = (g1.getPlayers()).get(2);
+		Player p4 = (g1.getPlayers()).get(3);
+		
+		assertEquals(p1.getName(), "Player1");
+		assertEquals(p1.getBoardPiece().getType(), "Hat");
+		assertEquals(p2.getName(), "Player2");
+		assertEquals(p2.getBoardPiece().getType(), "Car");
+		assertEquals(p3.getName(), "Bot1");
+		assertEquals(p3.getBoardPiece().getType(), "Boot");
+		assertEquals(p4.getName(), "Bot2");
+		assertEquals(p4.getBoardPiece().getType(), "Thimble");
 	}
 
 	//Movement
@@ -1201,6 +1226,28 @@ public class MonopolyTests {
 		assertEquals(0, athens.getHouses());
 		assertEquals(1, athens.getHotels());
 		assertEquals(1130, bot1.getMoney());
+	}
+
+	@Test
+	public void testIfBotPaysJail ()
+	{
+		Game g1 = createGameForTesting();
+		g1.addPlayers("Hat");
+		
+		Bot bot1 = (Bot) g1.getPlayers().get(1);
+		
+		g1.endTurn();
+		
+		assertEquals("Bot1", g1.getCurrentPlayer().getName());
+		
+		g1.movePlayer(30, false);
+		g1.squareAction();
+		
+		assertEquals(true, bot1.isInJail());
+		bot1.botTurn();
+		
+		assertEquals (false, bot1.isInJail());
+		assertEquals (1450, bot1.getMoney());
 	}
 }
 

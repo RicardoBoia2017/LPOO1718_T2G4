@@ -81,6 +81,9 @@ public class Game {
 		if (players.size() >= 4)
 			return;
 		
+		if (checkifPieceIsTaken (piece))
+			return;
+
 		int gameId = players.size() + 1;
 		String name = "Player" + gameId;
 		
@@ -162,54 +165,31 @@ public class Game {
 		this.player1Piece = player1Piece;
 		
 		currentPlayer = players.get(0);
-//		addAllPlayersToGoSquare();
 	}
-	
-//	public void addAllPlayersToGoSquare() {
-//		addPlayerToBoardSquare(0, 0);
-//		addPlayerToBoardSquare(0, 1);
-//		addPlayerToBoardSquare(0, 2);
-//		addPlayerToBoardSquare(0, 3);
-//	}
-	
-//	public void addPlayerToBoardSquare(int squareIndex, int playerIndex) {
-//		board.getSquares().get(squareIndex).setPlayerOnTopOfSquare(players.get(playerIndex));
-//	}
-	
-//	public void takePlayerFromBoardSquare(int squareIndex, int playerIndex) {
-//		board.getSquares().get(squareIndex).getplayersOnTopOfSquareArray().remove(playerIndex);
-//	}
 	
 	public Pair rollDice() {
 		
 		Random rand = new Random();
 		Pair values = new Pair();
 		
-		values.setValue1(1+rand.nextInt(6)); //dice roll 1
-		values.setValue2(1+rand.nextInt(6)); //dice roll 2
+		values.setValue1(1+rand.nextInt(6));
+		values.setValue2(1+rand.nextInt(6)); 
 		
 		currentPlayer.setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
-		return values;
+//		return values;
 
-//		return new Pair (2,1);
+		return new Pair (20,10);
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {
-
-//		int playerIndex = currentPlayer.getGameId() - 1;
-		Player p1 = currentPlayer;
-	
-//		takePlayerFromBoardSquare(p1.getPosition(), playerIndex);
-				
-		p1.move(diceRoll, sameValue);
+					
+		currentPlayer.move(diceRoll, sameValue);
 		
-		if(p1.getPosition() == 0) {
+		if( currentPlayer.getPosition() == 0) {
 			tellGoSquareItsNotFirstVisit();
 		}
-		
-//		addPlayerToBoardSquare(p1.getPosition(), playerIndex);
-		
+				
 	}
 	
 	public void squareAction ()
