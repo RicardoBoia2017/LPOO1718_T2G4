@@ -1,47 +1,32 @@
 package mono.view;
 	
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.Input.TextInputListener;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
-import appwarp.WarpController;
 import appwarp.WarpListener;
 import mono.controller.GameController;
-import mono.controller.entities.DiceModel;
-import mono.controller.entities.PlayerModel;
 import mono.model.Game;
 import mono.model.entities.Pair;
 import mono.model.entities.Piece;
 import mono.model.entities.Player;
 import mono.model.entities.Property;
-import com.badlogic.gdx.Input.TextInputListener;
-import mono.view.entities.BoardView;
 import mono.view.entities.BootView;
 import mono.view.entities.CChestView;
 import mono.view.entities.CarView;
@@ -55,7 +40,6 @@ import mono.view.entities.ThimbleView;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.ScreenManager;
 import mono.view.swapper.UIFactory;
-import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
 
 public class GameScreen extends AbstractScreen implements WarpListener {
 	
@@ -65,8 +49,13 @@ public class GameScreen extends AbstractScreen implements WarpListener {
     boolean outputSound;
     BitmapFont font;
 	Skin skin;
-	Player playerToDraw;
 	Pair diceValues;
+	int firstClick = 0;
+	
+	static float diceRollTime; 
+	static int btnState;
+	Animation diceAnimation;
+	
 	Dialog jailDialog;
 	Dialog successfulBuyDialog;
 	Dialog notBuyableDialog;
@@ -78,39 +67,16 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	Dialog notValidPlayerDialog;
 	Dialog mortgagedDialog; 
 	Dialog noMoreHouses;
+	Dialog bankruptPlayerDialog;
+
 	TextButton closeBtn; 
 	TextButton rollDiceBtn;
 	TextButton endTurnBtn;
 	TextButton buyPropertyBtn;
 	TextButton negotiateBtn;
 	TextButton propertyScreenBtn;
-	Dialog bankruptPlayerDialog;
 	Boolean showCard;
 	Boolean removeBankrupcyDialog;
-	int firstClick = 0;
-	
-	static float diceRollTime; 
-	Animation diceAnimation;
-	
-	public GameScreen() {
-		super(); 
-		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
-				 
-		//initialize dice
-		diceValues = new Pair();
-					
-		showCard = false;
-		font = new BitmapFont ();
-		outputSound = true;
-		
-		loadAssets();
-		
-		drawAnimation();
-		
-//		WarpController.getInstance().setListener(this);
-		
-		diceRollTime = 100;
-	}	
 
     /**
      * Returns a singleton instance of the game model
@@ -125,6 +91,26 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         return instance;
     }
     
+	public GameScreen() {
+		super(); 
+		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
+				 
+		//initialize dice
+		initVariables();
+		loadAssets();
+//		WarpController.getInstance().setListener(this);
+		
+	}	
+    
+	private void initVariables() {
+		diceValues = new Pair();
+		showCard = false;
+		font = new BitmapFont ();
+		outputSound = true;		
+		drawAnimation();
+		diceRollTime = 100;
+	}
+
 	private static void loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
@@ -277,6 +263,14 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 		addActor(createNoteBtn());
 		
+		if (btnState == 2)
+		{
+			rollDiceBtn.setTouchable(Touchable.disabled);
+			rollDiceBtn.setColor(1,0,0,1);
+			
+			endTurnBtn.setTouchable(Touchable.enabled);
+			endTurnBtn.setColor(0.9f, 0.9f, 0.9f, 1);
+		}
 		Texture board = game.getAssetManager().get("Board.png");
 		ImageButton btnBoard = UIFactory.createButton(board);
 		btnBoard.setSize(803, 803);
@@ -318,8 +312,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		drawBoard();
 		drawPlayerMenu();
 		drawPlayers();
-		drawDice();
-		rollDiceAnimation(delta);
+//		drawDice();
+//		rollDiceAnimation(delta);
 		drawPlayersPieces();
 		drawCard();
 		drawAHouse();
@@ -726,6 +720,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 						endTurnBtn.setTouchable(Touchable.enabled);
 						endTurnBtn.setColor(0.9f, 0.9f, 0.9f, 1);
 						
+						btnState = 2;
+						
 						return false;
 					}
 				});
@@ -840,9 +836,10 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 							endTurnBtn.setTouchable(Touchable.disabled);
 							endTurnBtn.setColor(1,0,0,1);
 							
-	
 							rollDiceBtn.setTouchable(Touchable.enabled);
 							rollDiceBtn.setColor(0.9f, 0.9f, 0.9f, 1);
+							
+							btnState = 1;
 							
 							Game.getInstance().endTurn();
 							

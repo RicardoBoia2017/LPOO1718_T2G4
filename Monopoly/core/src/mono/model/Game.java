@@ -177,9 +177,7 @@ public class Game {
 		
 		currentPlayer.setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
-//		return values;
-
-		return new Pair (20,10);
+		return values;
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {
