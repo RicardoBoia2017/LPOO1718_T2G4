@@ -56,7 +56,7 @@ public class MainMenuScreen extends AbstractScreen {
 		newGameButton = new TextButton("New Game", skin);
 		newGameButton.setPosition(20, 20);
 	    newGameButton.setWidth(400);
-        newGameButton.addListener(UIFactory.createListener(ScreenEnum.LEVEL_SELECT));
+        newGameButton.addListener(UIFactory.createListener(ScreenEnum.NUMBER_PLAYERS));
 	}
 	
 	public void createExitGameButton() {

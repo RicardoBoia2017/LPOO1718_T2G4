@@ -93,7 +93,6 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	
 	public GameScreen() {
 		super(); 
-		playerToDraw = Game.getInstance().getPlayers().get(0);
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 				 
 		//initialize dice
@@ -109,7 +108,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 //		WarpController.getInstance().setListener(this);
 		
-		this.diceRollTime = 100;
+		diceRollTime = 100;
 	}	
 
     /**
@@ -315,8 +314,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		drawBoard();
 		drawPlayerMenu();
 		drawPlayers();
-//		drawDice();
-//		rollDiceAnimation(delta);
+		drawDice();
+		rollDiceAnimation(delta);
 		drawPlayersPieces();
 		drawCard();
 		drawAHouse();
@@ -785,7 +784,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         propertyScreenBtn.setWidth(170);
         propertyScreenBtn.setChecked(false);
         
-        propertyScreenBtn.addListener(UIFactory.createListener(ScreenEnum.PROPERTIES));
+        propertyScreenBtn.addListener(UIFactory.createListener(ScreenEnum.PROPERTIES)); 
         
 	}
 	

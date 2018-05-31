@@ -76,6 +76,19 @@ public class Game {
 		Collections.shuffle((List<?>) cChestQueue);	
 	}
 	
+	public void addPlayer (String piece)
+	{
+		int gameId = players.size() + 1;
+		String name = "Player" + gameId;
+		players.add(new Player (gameId, name, piece, false));
+		currentPlayer = players.get(0);
+	}
+	
+	public void addBot ()
+	{
+//		players.add(new Bot (0,"Bot1", , false));
+	}
+	
 	public void addPlayers(String player1Piece) {
 		
 		if (players.size() != 0)

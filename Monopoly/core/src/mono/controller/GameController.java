@@ -96,6 +96,11 @@ public class GameController {
 		
 		return res;
 	}
+
+	public void addPlayer (String piece)
+	{
+		Game.getInstance().addPlayer(piece);
+	}
 	
 	public void endTurn()
 	{

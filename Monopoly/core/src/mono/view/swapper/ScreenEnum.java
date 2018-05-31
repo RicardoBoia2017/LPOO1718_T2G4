@@ -9,6 +9,7 @@ import mono.view.PieceSelectScreen;
 import mono.view.PropertiesScreen;
 import mono.view.MainMenuScreen;
 import mono.view.NegotiationScreen;
+import mono.view.NumberPlayersScreen;
 
 public enum ScreenEnum {
 	
@@ -18,15 +19,21 @@ public enum ScreenEnum {
 		}
 	},
 	
+	NUMBER_PLAYERS {
+		public AbstractScreen getScreen(Object... params) {
+			return new NumberPlayersScreen();
+		}
+	},
+	
 	LEVEL_SELECT {
 		public AbstractScreen getScreen(Object... params) {
-			return new PieceSelectScreen();
+			return new PieceSelectScreen((int)params[0]);
 		}
 	},
 	
 	GAME {
 		public AbstractScreen getScreen(Object... params) {
-			Game.getInstance().addPlayers((String) params[0]);
+			Game.getInstance().addPlayer((String) params[0]);
 			return new GameScreen();
 		}
 	},

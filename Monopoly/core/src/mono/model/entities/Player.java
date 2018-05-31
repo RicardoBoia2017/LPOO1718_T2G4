@@ -108,7 +108,7 @@ public class Player {
 		this.propertiesOwned.add(property);
 	}
 	
-	public void addMoney (int value) 
+	public void addMoney (int value)  
 	{
 		money += value;
 	}
