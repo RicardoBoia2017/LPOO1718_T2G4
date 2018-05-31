@@ -34,6 +34,7 @@ public enum ScreenEnum {
 	GAME {
 		public AbstractScreen getScreen(Object... params) {
 			Game.getInstance().addPlayer((String) params[0]);
+			Game.getInstance().addBots();
 			return new GameScreen();
 		}
 	},

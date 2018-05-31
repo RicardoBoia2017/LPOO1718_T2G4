@@ -86,10 +86,13 @@ private void manageListeners() {
 
 	if (this.currentPlayer == this.nPlayers)
 	{
-		btnBoot.removeListener (bootListener);
-		btnCar.removeListener(carListener);
-		btnHat.removeListener(hatListener);
-		btnThimble.removeListener(thimbleListener);
+		if (nPlayers > 1)
+		{
+			btnBoot.removeListener (bootListener);
+			btnCar.removeListener(carListener);
+			btnHat.removeListener(hatListener);
+			btnThimble.removeListener(thimbleListener);
+		}
 		
 		
 		btnBoot.addListener(UIFactory.createListener(ScreenEnum.GAME, "Boot"));

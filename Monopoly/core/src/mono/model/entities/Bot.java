@@ -6,8 +6,8 @@ import mono.model.Game;
 
 public class Bot extends Player {
 
-	public Bot(int gameId, String name, String pieceType, boolean bot) {
-		super(gameId, name, pieceType, bot);
+	public Bot(int gameId, String name, String pieceType) {
+		super(gameId, name, pieceType, true);
 		
 	}
 	

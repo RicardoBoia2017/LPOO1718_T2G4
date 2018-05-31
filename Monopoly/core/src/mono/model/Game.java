@@ -78,15 +78,51 @@ public class Game {
 	
 	public void addPlayer (String piece)
 	{
+		if (players.size() >= 4)
+			return;
+		
 		int gameId = players.size() + 1;
 		String name = "Player" + gameId;
+		
 		players.add(new Player (gameId, name, piece, false));
 		currentPlayer = players.get(0);
 	}
 	
-	public void addBot ()
+	public void addBots ()
 	{
-//		players.add(new Bot (0,"Bot1", , false));
+		if (players.size() >= 4)
+			return;
+		
+		ArrayList <String> allPieces = new ArrayList <String> ();
+		
+		allPieces.add("Boot");
+		allPieces.add("Car");
+		allPieces.add("Hat");
+		allPieces.add("Thimble");
+		
+		int playersLeft = 4 - players.size();
+		for (int i = 1; i <= playersLeft; i++ )
+		{
+			String botName = "Bot" + i;
+			int gameId = players.size() + 1;
+			
+			for (int j = 0; j < allPieces.size(); j++)
+			{
+				if (!checkifPieceIsTaken(allPieces.get(i)))
+					players.add(new Bot(gameId, botName, allPieces.get(i)));
+			}
+		}
+	}
+	
+	private boolean checkifPieceIsTaken(String piece)
+	{
+		for (Player p : players)
+		{
+			if (p.getBoardPiece().getType().equals(piece))
+				return true;
+		}
+		
+		return false;
 	}
 	
 	public void addPlayers(String player1Piece) {
@@ -97,27 +133,27 @@ public class Game {
 		players.add(new Player(1, "ActualPlayer", player1Piece, false));
 		
 		if(player1Piece.equals("Car")) {
-			players.add(new Bot(2, "Bot1", "Thimble", true));
-			players.add(new Bot(3, "Bot2", "Hat", true));
-			players.add(new Bot(4, "Bot3", "Boot", true));
+			players.add(new Bot(2, "Bot1", "Thimble"));
+			players.add(new Bot(3, "Bot2", "Hat"));
+			players.add(new Bot(4, "Bot3", "Boot"));
 		}
 		
 		else if(player1Piece.equals("Thimble")) {
-			players.add(new Bot(2, "Bot1", "Hat", true));
-			players.add(new Bot(3, "Bot2", "Car", true));
-			players.add(new Bot(4, "Bot3", "Boot", true));
+			players.add(new Bot(2, "Bot1", "Hat"));
+			players.add(new Bot(3, "Bot2", "Car"));
+			players.add(new Bot(4, "Bot3", "Boot"));
 		}
 		
 		else if(player1Piece.equals("Boot")) { 
-			players.add(new Bot(2, "Bot1", "Thimble", true));
-			players.add(new Bot(3, "Bot2", "Hat", true));
-			players.add(new Bot(4, "Bot3", "Car", true));
+			players.add(new Bot(2, "Bot1", "Thimble"));
+			players.add(new Bot(3, "Bot2", "Hat"));
+			players.add(new Bot(4, "Bot3", "Car"));
 		}
 		
 		else if(player1Piece.equals("Hat")) {
-			players.add(new Bot(2, "Bot1", "Thimble", true));
-			players.add(new Bot(3, "Bot2", "Boot", true));
-			players.add(new Bot(4, "Bot3", "Car", true));
+			players.add(new Bot(2, "Bot1", "Thimble"));
+			players.add(new Bot(3, "Bot2", "Boot"));
+			players.add(new Bot(4, "Bot3", "Car"));
 		}
 		
 		this.player1Piece = player1Piece;
