@@ -34,7 +34,7 @@ public class Game {
 	String player1Piece;
 	Queue <Integer> chanceQueue;
 	Queue <Integer> cChestQueue; 
-
+	
 	public static synchronized Game getInstance() 
 	{ 
 		if (instance == null)
@@ -139,7 +139,9 @@ public class Game {
 		currentPlayer.setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
 		return values;
-//		return new Pair (1,0);
+//		if (i < 4)
+//			i++;
+//		return new Pair (0,i);
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {

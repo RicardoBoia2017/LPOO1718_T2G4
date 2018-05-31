@@ -141,12 +141,32 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	
 	private static void loadSounds()
 	{
-			game.getAssetManager().load("Lisbon.mp3", Sound.class);	
+		game.getAssetManager().load("Sounds/Athens.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Amsterdam.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Berlin.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Brussels.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Buenos Aires.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Cairo.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Cape Town.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Casablanca.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Dubai.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Lisbon.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/London.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Madrid.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Mexico City.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Moscow.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/New York.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Paris.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Rio de Janeiro.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Rome.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Shanghai.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Singapore.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Sydney.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Tokyo.mp3", Sound.class);
 	}
 
 	private static void loadProperties()
 	{
-		System.out.println("Entrou");
 		game.getAssetManager().load("Properties/Athens.png", Texture.class);
 		game.getAssetManager().load("Properties/Amsterdam.png", Texture.class);
 		game.getAssetManager().load("Properties/Berlin.png", Texture.class);
@@ -693,13 +713,14 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	
 	protected void chooseMusic() {
 		String name = Game.getInstance().getBoard().getSquares().get(Game.getInstance().getCurrentPlayer().getPosition()).getName();
-		String file = name + ".mp3";
+		String file = "Sounds/" + name + ".mp3";
 		
-//		if (currentPosition == 3)
-		music = game.getAssetManager().get(file);
-	
-		long soundId = music.play();
-		music.setVolume(soundId, 0.5f);
+		if (Game.getInstance().getBoard().getSquares().get(Game.getInstance().getCurrentPlayer().getPosition()).getType() == "Property")
+		{
+			music = game.getAssetManager().get(file);
+			long soundId = music.play();
+			music.setVolume(soundId, 0.5f);
+		}
 	}
 
 	private void createBuyPropertyBtn() {
