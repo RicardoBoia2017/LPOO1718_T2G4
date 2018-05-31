@@ -5,7 +5,7 @@ import mono.model.Game;
 public class FreeParking extends Square {
 
 	public FreeParking() {
-		super("Parking", 20);
+		super("Free Parking", 20);
 	}
 
 	@Override

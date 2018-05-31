@@ -139,9 +139,8 @@ public class Game {
 		currentPlayer.setCurrentDiceroll(values.getValue1() + values.getValue2()); 
 		
 		return values;
-//		if (i < 4)
-//			i++;
-//		return new Pair (0,i);
+
+//		return new Pair (30,0);
 	}
 	
 	public void movePlayer(int diceRoll, boolean sameValue) {

@@ -61,7 +61,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	
     private static GameScreen instance;
 
-    Sound music;
+    Sound sound;
     BitmapFont font;
 	Skin skin;
 	Player playerToDraw;
@@ -125,7 +125,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         return instance;
     }
     
-	private static void  loadAssets ()
+	private static void loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
 		game.getAssetManager().load ("house.png", Texture.class);
@@ -163,6 +163,22 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		game.getAssetManager().load("Sounds/Singapore.mp3", Sound.class);
 		game.getAssetManager().load("Sounds/Sydney.mp3", Sound.class);
 		game.getAssetManager().load("Sounds/Tokyo.mp3", Sound.class);
+
+		game.getAssetManager().load("Sounds/Dunedin Station.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Liege Guillemins.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Milano Centrale.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Sao Bento.mp3", Sound.class);
+	
+		game.getAssetManager().load("Sounds/Eletricity.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Water.mp3", Sound.class);
+
+		game.getAssetManager().load("Sounds/Start.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Free Parking.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Jail.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Chance.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Community Chest.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Income Tax.mp3", Sound.class);
+		game.getAssetManager().load("Sounds/Luxury Tax.mp3", Sound.class);
 	}
 
 	private static void loadProperties()
@@ -299,8 +315,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		drawBoard();
 		drawPlayerMenu();
 		drawPlayers();
-		drawDice();
-		rollDiceAnimation(delta);
+//		drawDice();
+//		rollDiceAnimation(delta);
 		drawPlayersPieces();
 		drawCard();
 		drawAHouse();
@@ -698,7 +714,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 							
 						}
 							
-						chooseMusic();
+						chooseSound();
 						
 						rollDiceBtn.setTouchable(Touchable.disabled);
 						rollDiceBtn.setColor(1,0,0,1);
@@ -711,16 +727,14 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 				});
     }
 	
-	protected void chooseMusic() {
+	protected void chooseSound() {
 		String name = Game.getInstance().getBoard().getSquares().get(Game.getInstance().getCurrentPlayer().getPosition()).getName();
 		String file = "Sounds/" + name + ".mp3";
 		
-		if (Game.getInstance().getBoard().getSquares().get(Game.getInstance().getCurrentPlayer().getPosition()).getType() == "Property")
-		{
-			music = game.getAssetManager().get(file);
-			long soundId = music.play();
-			music.setVolume(soundId, 0.5f);
-		}
+		sound = game.getAssetManager().get(file);
+		long soundId = sound.play();
+		sound.setVolume(soundId, 0.5f);
+		
 	}
 
 	private void createBuyPropertyBtn() {
