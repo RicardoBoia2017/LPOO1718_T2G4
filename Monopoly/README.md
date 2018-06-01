@@ -91,7 +91,7 @@ Luis Mendes:
 - Player movement
 - Jail logic
 - Rent calculation
-- Start square gic
+- Start square logic
 - House and hotel building
 - Negotiation between two players
 
@@ -112,7 +112,7 @@ Each of us created the tests to the logic implemented by us.
 
 #### User manual
  
-When game starts the user goes to a screen where he can start a game or exir the application
+When game starts the user goes to a screen where he can start a game or exit the application
 
 ![main menu](https://user-images.githubusercontent.com/25772346/40852461-6e560114-65c2-11e8-8665-6e1129bd1ab0.png)
 
@@ -126,7 +126,7 @@ Then each player will choose a piece for himself
 
 The rest of the pieces will be taken by bots until the number of players is 4
 
-Then the game starts.
+After that happens, the game starts.
 
 In this screen the user has information about :
 - Each player's money, board piece, name and current position,
@@ -145,7 +145,20 @@ When its the bot turn, the user will only have one button available at the time.
 When its a player turn, he will have access to three other buttons:
 
 - BUY PROPERTY, which, if possible, will purchase the square where the player is. If not possible, an error message will show.
-- PROPERTIES, which opens a screen where the player can check all his properties. Plus he can build houses and hotels, in addition to mortgage (and then rebuy) the property
+- PROPERTIES, which opens a screen where the player can check all his properties. Plus he can build houses and hotels, in addition to mortgage (and then rebuy by 110% of the value) the property
 ![properties screen](https://user-images.githubusercontent.com/25772346/40852474-74b5b14e-65c2-11e8-81a6-207d3fb406f4.png)
 - NEGOTIATE, which allows the player to purchase other player's properties by entering their name and buy the selected property
 ![negotiations screen](https://user-images.githubusercontent.com/25772346/40852469-73f0d3e2-65c2-11e8-9548-c63b9067c2ce.png)
+
+The game follows the following rules:
+- Each player starts with 1500€
+- When they pass the GO square, they receive 200€. If they end up in it they receive 400€
+- To build houses and hotels the players has to own all properties of that color
+- Its required for a property to have 4 houses before building an hotel
+- If a property is mortgaged, all buildings will be removed
+- A player can rebuy a mortgaged property by 110% of its value
+- A player can only be arrested if he ends up in the GO TO JAIL square or by drawing a card that says so
+- The player can get out of jail by paying the fine, getting doubles on the dice or waiting 3 turns
+- Every time a player pays INCOME TAX, LUXURY TAX, and punishments from Chance and Community Chest cards, the money goes to taxes
+- If a players ends up in the FREE PARKING he will receive the tax money
+- If a player doesn't have enough money to pay a debt, he goes bankrupt and loses
