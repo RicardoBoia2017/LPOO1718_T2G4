@@ -50,6 +50,12 @@ public abstract class BuyableSquare extends Square{
 	
 	/**
 	 * 
+	 * @return owner
+	 */
+	public Player getOwner() {return owner;}
+	
+	/**
+	 * 
 	 * @return square's cost
 	 */
 	public int getCost () {return cost;}

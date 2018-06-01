@@ -184,7 +184,7 @@ public class NegotiationScreen extends AbstractScreen {
 		failedNegotiationDialog.setWidth(220f);
 		failedNegotiationDialog.button("EXIT", 1L);
 	}
-	
+	 
 	private void createSucessDialog() {
 		successfulNegotiationDialog = new Dialog("Negotiation done", skin) {
 			protected void result(Object object) {

@@ -372,7 +372,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	}
 	
 	private void bankrupcyDraw() {
-		if(Game.getInstance().getCurrentPlayer().getBankrupcyState()) {
+		if(Game.getInstance().getCurrentPlayer().getBankruptcyState()) {
 			createbankRupcyDialog();
 			addActor(bankruptPlayerDialog);
 		}
@@ -402,7 +402,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 			
 			protected void result(Object object) {
 				if (object.equals(1L)) {
-					Game.getInstance().getCurrentPlayer().setBankrupcyState(false);
+					Game.getInstance().getCurrentPlayer().setBankruptcyState(false);
 					ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 					bankruptPlayerDialog.remove();
 				}

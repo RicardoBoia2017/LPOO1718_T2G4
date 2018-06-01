@@ -483,7 +483,7 @@ public class MonopolyTests {
 				case 3:
 					assertEquals (10, p1.getPosition());
 					assertEquals (true, p1.isInJail());
-					p1.freeFromJail();
+					p1.setInJail(false);
 					g1.movePlayer(-3, false);
 					break;
 					
@@ -931,11 +931,10 @@ public class MonopolyTests {
 		
 		GameController.getInstance().buyPropertyFromOtherPlayer(p1, p2, p1.getPropertiesOwned().get(0));
 		
-		assertEquals(p1.getMoney(), ownerMoney + costOfTheProperty);
+		assertEquals(p1.getMoney(), ownerMoney + costOfTheProperty); 
 		assertEquals(p1.getPropertiesOwned().size(), 0);
 		assertEquals(p2.getPropertiesOwned().size(), 1);
 		assertEquals(p2.getMoney(), buyerMoney - costOfTheProperty);
-		assertEquals(athens.getOwner(), p2.getName());
 	}
 	
 	@Test
@@ -946,12 +945,12 @@ public class MonopolyTests {
 		
 		p1.removeMoney(1304, false);
 		
-		assertEquals(p1.getBankrupcyState(), false);
+		assertEquals(p1.getBankruptcyState(), false);
 		
 		g1.movePlayer(4, false); //bankrupcy from a tax square;
 		g1.squareAction();
 		
-		assertEquals(p1.getBankrupcyState(), true);
+		assertEquals(p1.getBankruptcyState(), true);
 		
 		p1.addMoney(1500);
 		
@@ -963,14 +962,14 @@ public class MonopolyTests {
 		
 		Player p2 = g1.getPlayers().get(1);
 		
-		assertEquals(p2.getBankrupcyState(), false);
+		assertEquals(p2.getBankruptcyState(), false);
 		
 		p2.removeMoney(1480, false); //bankrupcy from paying rent of another player's property
 		
 		g1.movePlayer(5, false);
 		g1.squareAction();
 		
-		assertEquals(p2.getBankrupcyState(), true);
+		assertEquals(p2.getBankruptcyState(), true);
 	}
 
 	//Bot

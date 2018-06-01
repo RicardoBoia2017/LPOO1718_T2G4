@@ -21,8 +21,9 @@ import mono.model.entities.Square;
 import mono.model.entities.StartSquare;
 
 /**
- * Singleton
- * @author luis
+ * Main class of the model. Stores board, players, chance and community chest queues and tax money.
+ * 
+ * @author ricar
  *
  */
 public class Game {
@@ -31,10 +32,13 @@ public class Game {
 	ArrayList <Player> players = new ArrayList<Player>();
 	Player currentPlayer;
 	int taxMoney; 
-	String player1Piece;
 	Queue <Integer> chanceQueue;
 	Queue <Integer> cChestQueue; 
 	
+	/**
+	 * 
+	 * @return singleton instance
+	 */
 	public static synchronized Game getInstance() 
 	{ 
 		if (instance == null)
@@ -43,10 +47,16 @@ public class Game {
 		return instance;  
 	}
 	
+	/**
+	 * Sets instance to null (used in unit tests)
+	 */
 	public void setGameModelInstanceToNull() {
 		instance = null;
 	}
 	
+	/**
+	 * Creates game
+	 */
 	private Game()
 	{
 		board = new Board();
@@ -56,6 +66,9 @@ public class Game {
 		initializeCChestQueue();
 	}
 
+	/**
+	 * Initializes chance queue by adding all cards and shuffling them
+	 */
 	private void initializeChanceQueue()
 	{				
 		chanceQueue = new LinkedList <Integer>();
@@ -66,6 +79,9 @@ public class Game {
 		Collections.shuffle((List<?>) chanceQueue);	
 	}
 	
+	/**
+	 * Initializes community chest queue by adding all cards and shuffling them
+	 */
 	private void initializeCChestQueue()
 	{
 		cChestQueue = new LinkedList <Integer>();
@@ -76,6 +92,10 @@ public class Game {
 		Collections.shuffle((List<?>) cChestQueue);	
 	}
 	
+	/**
+	 * If possible, adds player to games
+	 * @param piece player's piece
+	 */	
 	public void addPlayer (String piece)
 	{
 		if (players.size() >= 4)
@@ -91,6 +111,9 @@ public class Game {
 		currentPlayer = players.get(0);
 	}
 	
+	/**
+	 * If needed, adds bots to game
+	 */
 	public void addBots ()
 	{
 		if (players.size() >= 4)
@@ -120,6 +143,11 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Used when adding bots. Checks if board piece is taken
+	 * @param piece piece
+	 * @return true if piece is taken, otherwise return false
+	 */
 	private boolean checkifPieceIsTaken(String piece)
 	{
 		for (Player p : players)
@@ -131,6 +159,10 @@ public class Game {
 		return false;
 	}
 	
+	/**
+	 * Adds players to be used test.
+	 * @param player1Piece player's piece
+	 */
 	public void addPlayers(String player1Piece) {
 		
 		if (players.size() != 0)
@@ -161,12 +193,14 @@ public class Game {
 			players.add(new Bot(3, "Bot2", "Boot"));
 			players.add(new Bot(4, "Bot3", "Car"));
 		}
-		
-		this.player1Piece = player1Piece;
-		
+				
 		currentPlayer = players.get(0);
 	}
 	
+	/**
+	 * Rolls dices by getting two random numbers between 1 and 6
+	 * @return Pair with both values
+	 */
 	public Pair rollDice() {
 		
 		Random rand = new Random();
@@ -180,6 +214,12 @@ public class Game {
 		return values;
 	}
 	
+	/**
+	 * Moves player
+	 * 
+	 * @param diceRoll sum of dice values
+	 * @param sameValue true if dice values are equal, false otherwise
+	 */
 	public void movePlayer(int diceRoll, boolean sameValue) {
 					
 		currentPlayer.move(diceRoll, sameValue);
@@ -190,22 +230,32 @@ public class Game {
 				
 	}
 	
+	/**
+	 * Call action from current player's current square.
+	 */
 	public void squareAction ()
 	{
 		board.getSquares().get(currentPlayer.getPosition()).doAction(currentPlayer);
 	} 
 	
+	/**
+	 * Ends player's turn by changing current player and, if needed, changing cards queues.
+	 */
 	public void endTurn ()
 	{	
 		String res = inCardPosition(false);
 		
 		changeCardEndTurn(res);
 		
-		
 		changePlayer(); 
 		
 	}
 	
+	/**
+	 * If player is in card (Chance or Community Chest) position, removes first card from queue and adds it to the end
+	 * 
+	 * @param res result from inCardPosition method
+	 */
 	public void changeCardEndTurn(String res)
 	{ 
 		if (res != null) 
@@ -228,6 +278,9 @@ public class Game {
 		}	
 	}
 
+	/**
+	 * Changes current player to next one.
+	 */
 	private void changePlayer()
 	{	
 		if (currentPlayer.getGameId() == players.size())
@@ -237,25 +290,44 @@ public class Game {
 			this.currentPlayer = players.get(currentPlayer.getGameId());
 	}
 	
+	/**
+	 * Sets tax money to current value
+	 * 
+	 * @param newValue new value
+	 */
 	public void setTaxMoney (int newValue)
 	{
 		this.taxMoney = newValue;
 	}
 	
+	/**
+	 * Tells Jail Square that player wants to pay fine
+	 */
 	public void tellJailPlayerWantsToPayFine() {
 		Jail j1 = (Jail) board.getSquares().get(10);
 		j1.aproveFine();
 	}
 	
+	/**
+	 * Tells Go Square that player is not visiting it for the first time
+	 */
 	public void tellGoSquareItsNotFirstVisit() {
 		StartSquare s1 = (StartSquare) board.getSquares().get(0);
 		s1.setFirstVisitToFalse();
 	}
 	
+	/**
+	 * Tells controller that player is in jail
+	 */
 	public void tellControllerPlayerIsInJail() {
 		GameController.getInstance().tellViewToDisplayJailDialog();
 	}
 	
+	/**
+	 * Check if it is possible to buy square
+	 * 
+	 * @return 0 if it is possible to buy square, or a negative value otherwise
+	 */
 	public int checkPropertyAvailibility()
 	{
 		Player p1 = currentPlayer;
@@ -266,16 +338,42 @@ public class Game {
 		allowedTypes.add("Station");
 		allowedTypes.add("Company");
 		
-		if (!allowedTypes.contains(s1.getType())) //trying to buy square that can't be bought
+		if (!allowedTypes.contains(s1.getType())) 
 			return -1;
 
-		else if (checkIfPropertyIsOwned (s1.getName())) //trying to buy a square that is already owned
+		else if (checkIfPropertyIsOwned (s1.getName())) 
 			return -2;
 		
-		return 0; //square can be bought
+		return 0; 
 		
 	}
 
+	/**
+	 * Checks if a property is owned
+	 * 
+	 * @param squareName property's name
+	 * 
+	 * @return true if property is owned, otherwise returns false
+	 */
+	private boolean checkIfPropertyIsOwned (String squareName)
+	{
+		for (Player p: this.players)
+		{
+			for (Square s: p.getPropertiesOwned())
+				
+				if (s.getName() == squareName)
+					return true;
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * If player has enough money, buys property
+	 * 
+	 * @return 0 if porperty was bought, otherwise return negative value
+	 */
 	public int buyProperty()
 	{
 		Player p1 = currentPlayer;
@@ -293,6 +391,13 @@ public class Game {
 		
 	}
 	
+	/**
+	 * Builds house in ps1
+	 * 
+	 * @param ps1 property where is going to be built
+	 * 
+	 * @return 0 if house was build, otherwise returns negative value
+	 */
 	public int buyHouse(Property ps1) {
 		Player p1 = currentPlayer;
 
@@ -303,20 +408,14 @@ public class Game {
 		
 		return res;
 	}
-	
-	private boolean checkIfPropertyIsOwned (String squareName)
-	{
-		for (Player p: this.players)
-		{
-			for (Square s: p.getPropertiesOwned())
-				
-				if (s.getName() == squareName)
-					return true;
-		}
-		
-		return false;
-	}
-	
+
+	/**
+	 * Check is property is mortgaged
+	 * 
+	 * @param squarename property's name
+	 * 
+	 * @return true if property is mortgaged, otherwise returns false
+	 */
 	private boolean checkIfPropertyIsMortgaged (String squarename) {
 		BuyableSquare s1 = null;
 		
@@ -329,27 +428,42 @@ public class Game {
 		return s1.getMortgageStatus();
 	}
 	
+	/**
+	 * Checks if it is possible to build an house
+	 * 
+	 * @param s1 property where house if going to be built
+	 * 
+	 * @return 0 if it is possible to build house, negative value othewise
+	 */
 	public int checkHouseAvailability(BuyableSquare s1) { 
 		
 	    Player p1 = currentPlayer; 
 		     
-	    if (!s1.getType().equals("Property")) //trying to place a house in a square other than property 
+	    if (!s1.getType().equals("Property")) 
 	      return -1;  
 	     
-	    else if(checkIfPropertyIsMortgaged(s1.getName())) //trying to place a house in a mortgaged property 
+	    else if(checkIfPropertyIsMortgaged(s1.getName())) 
 	      return -2; 
 		     
-	    Property s2 = (Property) s1; //at this point, we can presume it is a valid property 
+	    Property s2 = (Property) s1; 
 	     
-	    if(!checkIfPlayerOwnsAllPropertiesOfThatColor(p1, s2.getColor())) //trying to place a house without owning all of that color 
+	    if(!checkIfPlayerOwnsAllPropertiesOfThatColor(p1, s2.getColor()))
 	      return -4; 
 	    
-	    if(s2.getHouses() == 4) //cannot have more than 4 houses
+	    if(s2.getHouses() == 4) 
 	    	return -5;
 	     
 	    return 0; 
 	  } 
 	
+	/**
+	 * Checks if player owns all properties of a certain color
+	 * 
+	 * @param p1 player
+	 * @param color color 
+	 * 
+	 * @return true if he has all properties of color, false otherwise
+	 */
 	private boolean checkIfPlayerOwnsAllPropertiesOfThatColor(Player p1, String color) {
 		
 		int numberOfPropertiesOfColor = 0;
@@ -360,6 +474,12 @@ public class Game {
 		
 	}
 	
+	/**
+	 * Counts properties of color
+	 * 
+	 * @param color color
+	 * @return number of properties from color
+	 */
 	public int countPropertiesOfAColor(String color) {
 		int countPropertiesOfColor = 0;
 		
@@ -378,6 +498,14 @@ public class Game {
 		return countPropertiesOfColor;
 	}
 	
+	/**
+	 * Checks if count was valid
+	 * 
+	 * @param color color
+	 * @param count count
+	 * 
+	 * @return true if was valid, false otherwise
+	 */
 	public Boolean checkIfCountingWasValid(String color, int count) {
 		if(color.equals("BROWN") || color.equals("DARK_BLUE")) {
 			return (count == 2);
@@ -388,10 +516,22 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Gives player p 200€
+	 * 
+	 * @param p player
+	 */
 	public void givePlayer200Money(Player p) {
 		p.addMoney(200);
 	}
 	
+	/**
+	 * Checks if current player in a card (Chance or Community Chest) position
+	 * 
+	 * @param currentPosition current player's position
+	 * 
+	 * @return null if he isn't, or a code if he is
+	 */
 	public String inCardPosition(boolean currentPosition)
 	{
 		String res= null;
@@ -421,9 +561,15 @@ public class Game {
 			
 		return res;
 	}
-		
+	
+	/**
+	 * Checks if it is possible to build an hotel
+	 * 
+	 * @param s1 property where hotel if going to be built
+	 * 
+	 * @return 0 if it is possible to build hotel, negative value othewise
+	 */
 	public int checkHotelAvailability(BuyableSquare s1) {
-//	    Player p1 = currentPlayer;
 		     
 	    if (!s1.getType().equals("Property")) //trying to place a hotel in a square other than property 
 	    	return -1; 
@@ -439,6 +585,12 @@ public class Game {
 	    return 0;
 	}
 
+	/**
+	 * Builds hotel in ps1
+	 * 
+	 * @param ps1 property where hotel is gonna be built
+	 * @return 0 if hotel was build, negative value otherwise
+	 */
 	public int buyHotel(Property ps1) {
 		Player p1 = currentPlayer;
 
@@ -452,13 +604,20 @@ public class Game {
 		return res;
 	}
 
-	public int mortgageProperty(int card) {
+	/**
+	 * Mortgages property
+	 *  
+	 * @param position property's position
+	 * 
+	 * @return 0 if property was mortgaged, negative value otherwise
+	 */
+	public int mortgageProperty(int position) {
 		Player p1 = currentPlayer;
 		
-		if (card >= p1.getPropertiesOwned().size())
+		if (position  >= p1.getPropertiesOwned().size())
 			return -1;
 		
-		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
+		BuyableSquare s1 = p1.getPropertiesOwned().get(position );
 		
 		s1.setInMortgage(true);
 		p1.addMoney(s1.getMortgateValue());
@@ -466,10 +625,16 @@ public class Game {
 		return 0;
 	}
 
-	public int reBuyProperty (int card)
+	/**
+	 * Re buys mortgaged property
+	 * 
+	 * @param position property's position
+	 * @return 0 if property was re bought, negative value otherwise
+	 */
+	public int reBuyProperty (int position)
 	{
 		Player p1 = currentPlayer;
-		BuyableSquare s1 = p1.getPropertiesOwned().get(card);
+		BuyableSquare s1 = p1.getPropertiesOwned().get(position);
 		
 		s1.setInMortgage(false);
 		p1.removeMoney( (int)Math.ceil (s1.getMortgateValue() * 1.10 ), false);
@@ -477,18 +642,63 @@ public class Game {
 		return 0;
 	}
 	
+	/**
+	 * 
+	 * @return player in game
+	 */
 	public ArrayList <Player> getPlayers() {return players;}
+	
+	/**
+	 * 
+	 * @return board
+	 */
 	public Board getBoard() {return board;} 
+	
+	/**
+	 * 
+	 * @return current player
+	 */
 	public Player getCurrentPlayer() {return this.currentPlayer;}
+	
+	/**
+	 * 
+	 * @return current square
+	 */
 	public Square getCurrentSquare() {return this.board.getSquares().get(currentPlayer.getPosition());}
+	
+	/**
+	 * 
+	 * @return tax money
+	 */
 	public int getTaxMoney () {return taxMoney;}
+	
+	/**
+	 * 
+	 * @return chance queue first card
+	 */
 	public int getFirstChanceCardId() {return chanceQueue.peek();}
+	
+	/**
+	 * 
+	 * @return community chest first card
+	 */
 	public int getFirstCChestCardId() {return cChestQueue.peek();}
 	
+	/**
+	 * 
+	 * @return true if current player is in jail, otherwise returns false
+	 */
 	public boolean getplayerIsInJail() {
-		return currentPlayer.getPlayerIsInJail();
+		return currentPlayer.isInJail();
 	}
 
+	/**
+	 * Gets player with name
+	 * 
+	 * @param name player's name
+	 * 
+	 * @return if player is found, he is returned, otherwise returns null
+	 */
 	public Player getPlayerByName(String name) {
 		
 		for(int i = 0; i < players.size(); i++) {
@@ -500,6 +710,14 @@ public class Game {
 		return null;
 	}
 
+	/**
+	 * Swap property from seller to buyer
+	 * 
+	 * @param seller player selling
+	 * @param buyer player buying
+	 * @param property property being swapped
+	 * @param cost cost of the sell
+	 */
 	public void swapPropertiesAround(Player seller, Player buyer, BuyableSquare property, int cost) {
 		buyer.removeMoney(cost, false);
 		seller.addMoney (cost);   

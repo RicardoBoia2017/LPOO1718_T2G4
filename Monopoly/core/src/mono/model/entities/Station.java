@@ -1,9 +1,21 @@
 package mono.model.entities;
 
+/**
+ * Creates station square and calculates rent according to station owned. Subclass of buyable square.
+ * @author ricar
+ *
+ */
 public class Station extends BuyableSquare {
 	
 	private int rent;
 
+	/**
+	 * Creates station square
+	 * 
+	 * @param name station's name
+	 * @param cost station's cost
+	 * @param position station's position
+	 */
 	public Station(String name, int cost, int position) {
 		super(name, position, cost);
 		this.rent = 25;

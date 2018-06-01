@@ -46,7 +46,7 @@ public class Bot extends Player {
 	{
 		BuyableSquare bs1 = (BuyableSquare) Game.getInstance().getCurrentSquare();;
 		
-		int moneyAfterBuy = money - bs1.getCost();
+		int moneyAfterBuy = money - bs1.getCost(); 
 		
 		if (bs1.getType() == "Property")
 			botTurnProperty(bs1, moneyAfterBuy);

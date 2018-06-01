@@ -34,7 +34,7 @@ public class Chance extends Square {
 			
 			case 3:
 				movePlayer (p,10);
-				p.sendToJail();
+				p.setInJail(true);
 				p.setCurrentDiceroll(0);
 				break;
 			
@@ -130,3 +130,4 @@ public class Chance extends Square {
 	}
 
 }
+ 
