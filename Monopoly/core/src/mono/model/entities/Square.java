@@ -2,36 +2,53 @@ package mono.model.entities;
 
 import java.util.ArrayList;
 
+/**
+ * Super class of all squares that make the board. Store its name and position in the board.
+ * 
+ * @author ricar
+ *
+ */
 public abstract class Square {
 	String name; 
 	int position;
-	ArrayList<Player> playersOnTopOfSquare = new ArrayList<Player>();
 
-	public Square(String s, int position) {
-		name = s;
+	/**
+	 * Creates a square
+	 * 
+	 * @param name square's name
+	 * @param position square's position in the board (0-39)
+	 */
+	public Square(String name, int position) {
+		this.name = name;
 		this.position = position;
 	}
 	
+	/**
+	 * 
+	 * @return square's name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * 
+	 * @return square's type
+	 */
 	public abstract String getType();
 	
+	/**
+	 * Does squares specific action
+	 * 
+	 * @param p player currently playing
+	 */
 	public abstract void doAction (Player p);
+
+	/**
+	 * 
+	 * @return square's position in the board
+	 */
 	
-//	public void setPlayerOnTopOfSquare(Player p1) {
-//		playersOnTopOfSquare.add(p1);
-//	}
-//	
-//	public int getNumPlayersOnTopOfSquare() {
-//		return playersOnTopOfSquare.size(); 
-//	}
-//	
-//	public ArrayList<Player> getplayersOnTopOfSquareArray() {
-//		return playersOnTopOfSquare;
-//	}
-//	
 	public int getPosition() {
 		return position;
 	}

@@ -2,12 +2,20 @@ package mono.model.entities;
 
 import java.awt.Point;
 
+/**
+ * Class that stores Car initial coordinates along with its move method
+ * 
+ * @author ricar
+ *
+ */
 public class CarPiece extends Piece {
 
+	/**
+	 * Creates pieces and initializes coordinates
+	 */
 	public CarPiece ()
 	{
-		this.initialX = 50;
-		this.initialY = 960;
+		super (50, 960);
 	}
 	
 	@Override
@@ -91,7 +99,6 @@ public class CarPiece extends Piece {
 		return finalPosition;
 }
 	
-
 	@Override
 	public String getType() {
 		return "Car";

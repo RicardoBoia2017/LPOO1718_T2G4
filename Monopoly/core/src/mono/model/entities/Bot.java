@@ -4,17 +4,33 @@ import java.util.ArrayList;
 
 import mono.model.Game;
 
+/**
+ * Sub class of Player. Contain methods that control bot's behaviour according to certain conditions.
+ * 
+ * @author ricar
+ *
+ */
 public class Bot extends Player {
 
+	/**
+	 * Bot constructor
+	 * 
+	 * @param gameId id in the game (1-4)
+	 * @param name Bot1, Bot2 or Bot3
+	 * @param pieceType bot's board piece
+	 */
 	public Bot(int gameId, String name, String pieceType) {
 		super(gameId, name, pieceType, true);
 		
 	}
 	
+	/**
+	 * Function that call methods that control if he buys properties, builds houses and hotels and if he is in jail or not
+	 */
 	public void botTurn()
 	{	
 		if (Game.getInstance().checkPropertyAvailibility() == 0)
-			botBuyProperty();
+			botBuySquare();
 		
 		if (inJail)
 			botManageJail();
@@ -23,7 +39,10 @@ public class Bot extends Player {
 		
 	}
  
-	private void botBuyProperty()
+	/**
+	 * Manages if bot buys square
+	 */
+	private void botBuySquare()
 	{
 		BuyableSquare bs1 = (BuyableSquare) Game.getInstance().getCurrentSquare();;
 		
@@ -39,6 +58,12 @@ public class Bot extends Player {
 			botTurnCompany (bs1, moneyAfterBuy);
 	}
 	
+	/**
+	 * Manages if bot buys property
+	 * 
+	 * @param s property 
+	 * @param moneyAfterBuy player money if the square is bought
+	 */
 	private void botTurnProperty (BuyableSquare s, int moneyAfterBuy) {
 		 
 		Property property = (Property) s;
@@ -64,6 +89,12 @@ public class Bot extends Player {
 		
 	}
 	
+	/**
+	 * Manages if bot buys station
+	 * 
+	 * @param s station
+	 * @param moneyAfterBuy player money if the square is bought
+	 */
 	private void botTurnStation (BuyableSquare s, int moneyAfterBuy) {
 		
 		int stationsCounter = 0;
@@ -86,6 +117,12 @@ public class Bot extends Player {
 
 	}
 
+	/**
+	 * Manages if bot buys company
+	 * 
+	 * @param s company
+	 * @param moneyAfterBuy player money if the square is bought
+	 */
 	private void botTurnCompany (BuyableSquare s, int moneyAfterBuy) {
 		
 		int companiesCounter = 0;
@@ -103,6 +140,9 @@ public class Bot extends Player {
 			Game.getInstance().buyProperty();
 	}
 	
+	/**
+	 * Manages if bot pays fine to get out of jail or waits
+	 */
 	private void botManageJail ()
 	{
 		if (money - 50 >= 500)
@@ -113,6 +153,9 @@ public class Bot extends Player {
 		}
 	}
 	
+	/**
+	 * Manages if bot buys buildings
+	 */
 	private void botBuyBuildings() {
 		
 		for (BuyableSquare elem: propertiesOwned)
@@ -137,6 +180,12 @@ public class Bot extends Player {
 		}
 	}
 
+	/**
+	 * Manages if bot buys houses
+	 * 
+	 * @param p property
+	 * @return 0 if bot buys houses
+	 */
 	private int botBuyHouse (Property p) {
 
 		int nHouses = p.getHouses();
@@ -152,7 +201,13 @@ public class Bot extends Player {
 		return res;
 		
 	}
-
+	
+	/**
+	 * Manages if bot buys houses
+	 * 
+	 * @param p property
+	 * @return 0 if bot buys hotel
+	 */
 	private int botBuyHotel (Property p) {
 		
 		int valueAfterPurchase = money - p.getBuildingCost();

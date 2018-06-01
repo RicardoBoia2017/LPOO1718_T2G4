@@ -496,7 +496,7 @@ public class Game {
 				return players.get(i);
 			}
 		}
-		
+		 
 		return null;
 	}
 

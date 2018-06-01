@@ -1,10 +1,19 @@
 package mono.model.entities;
 
 import mono.model.Game;
-import mono.model.entities.Pair;
 
+/**
+ * Creates a chance square and select the action according to the card id. Subclass of Square.
+ * 
+ * @author ricar
+ *
+ */
 public class Chance extends Square {
 
+	/**
+	 * Creates a chance square
+	 * @param position position in the board
+	 */
 	public Chance(int position) { 
 		super("Chance", position);
 	}
@@ -62,6 +71,11 @@ public class Chance extends Square {
 		
 	}
 
+	/**
+	 * Calculates the value the player has to pay, removes it from them and adds is to tax money
+	 * 
+	 * @param p current player
+	 */
 	private void payBuildingTaxes(Player p) {
 		
 		int value = 0;
@@ -80,6 +94,12 @@ public class Chance extends Square {
 		p.removeMoney(value, true);
 	}
 
+	/**
+	 * Called when the player has to pay to the others instead of paying to the bank
+	 * 
+	 * @param p current player
+	 * @param value value to be payed
+	 */
 	private void interactionsPlayerToPlayer(Player p, int value)
 	{
 		for (Player elem: Game.getInstance().getPlayers())
@@ -90,6 +110,12 @@ public class Chance extends Square {
 		
 	}
 	
+	/**
+	 * Moves player to the specified square
+	 * 
+	 * @param p current player
+	 * @param destPosition destination of the player
+	 */
 	private void movePlayer (Player p, int destPosition)
 	{
 		int squaresToMove = destPosition - p.getPosition();

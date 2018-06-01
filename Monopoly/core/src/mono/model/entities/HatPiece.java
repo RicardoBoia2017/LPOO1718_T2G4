@@ -2,12 +2,20 @@ package mono.model.entities;
 
 import java.awt.Point;
 
+/**
+ * Class that stores Hat initial coordinates along with its move method
+ * 
+ * @author ricar
+ *
+ */
 public class HatPiece extends Piece{
 	
+	/**
+	 * Creates pieces and initializes coordinates
+	 */
 	public HatPiece () 
 	{
-		this.initialX = 0;
-		this.initialY = 910;
+		super (0, 910);
 	}
 
 	@Override

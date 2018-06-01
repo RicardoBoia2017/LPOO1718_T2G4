@@ -79,7 +79,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	Boolean removeBankrupcyDialog;
 
     /**
-     * Returns a singleton instance of the game model
+     * Returns a singleton instance
      *
      * @return the singleton instance
      */

@@ -1,7 +1,20 @@
 package mono.model.entities;
 
+/**
+ * Creates a company square (Eletricity and Water) and calculates rent according to the number of companies owned and dice values. Subclass of BuyableSquare. 
+ * 
+ * @author ricar
+ *
+ */
 public class Companies extends BuyableSquare {
 	    
+	/**
+	 * Creates a company square
+	 * 
+	 * @param name square's name
+	 * @param cost square's cost
+	 * @param position square's position
+	 */
 	public Companies(String name, int cost, int position){
 		super(name, position, cost);
 	}
@@ -9,7 +22,6 @@ public class Companies extends BuyableSquare {
 	@Override
 	protected void payRent(Player p1) 
 	{
-		//rent is four times the dice value if one utility is owned, but ten times if both are owned
 		if(p1 != owner) {
 			int counter = 0;
 			
@@ -24,7 +36,7 @@ public class Companies extends BuyableSquare {
 				owner.addMoney(4*(p1.getAdditiveDiceRoll()));
 			}
 			
-			if(counter == 2) {
+			if(counter == 2) { 
 				p1.removeMoney(10*(p1.getAdditiveDiceRoll()), true);
 				owner.addMoney(10*(p1.getAdditiveDiceRoll()));
 			}

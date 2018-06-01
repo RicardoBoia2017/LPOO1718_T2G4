@@ -20,7 +20,7 @@ public abstract class EntityView {
 	{
 		sprite.draw(batch);
 	}
-	
+	 
     public abstract Sprite createSprite();
 
     public Sprite getSprite() {return sprite;}

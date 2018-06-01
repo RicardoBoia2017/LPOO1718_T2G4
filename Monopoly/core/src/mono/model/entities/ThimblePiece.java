@@ -2,13 +2,20 @@ package mono.model.entities;
 
 import java.awt.Point;
 
+/**
+ * Class that stores Thimble initial coordinates along with its move method
+ * 
+ * @author ricar
+ *
+ */
 public class ThimblePiece extends Piece {
 
-	
+	/**
+	 * Creates pieces and initializes coordinates
+	 */
 	public ThimblePiece ()
 	{
-		this.initialX = 50;
-		this.initialY = 910;
+		super (50, 910);
 	}
 
 	@Override

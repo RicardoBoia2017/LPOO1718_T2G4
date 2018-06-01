@@ -8,6 +8,13 @@ public class EntityModel {
 	
 	private float rotation;
 	
+	/**
+	 * Contructor 
+	 * 
+	 * @param x initial x-coordinate
+	 * @param y initial y-coordinate
+	 * @param rotation initial rotation
+	 */
 	public EntityModel(float x, float y, float rotation) {
 		this.x = x;
         this.y = y;
@@ -21,7 +28,7 @@ public class EntityModel {
      */
     public float getX() {
         return x;
-    }
+    } 
 
     /**
      * Returns the y-coordinate of this entity.

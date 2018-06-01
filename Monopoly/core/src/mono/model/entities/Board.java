@@ -2,10 +2,19 @@ package mono.model.entities;
 
 import java.util.ArrayList;
 
+/**
+ * Class that stores the arrayList with all 40 squares that make the board
+ * 
+ * @author ricar
+ *
+ */
 public class Board {
 	
 	private ArrayList<Square> spaces = new ArrayList<Square>();
 
+	/**
+	 * Creates board and initialized all 40 squares.
+	 */
 	public Board() {
 		Square Square0 = new StartSquare();
 		spaces.add(Square0);
@@ -92,6 +101,10 @@ public class Board {
 		spaces.add(Square39);
 	}
 	
+	/**
+	 * 
+	 * @return squares ArrayList
+	 */
 	public ArrayList<Square> getSquares(){
 		return spaces;
 	}

@@ -15,9 +15,12 @@ public class Monopoly extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
 	
+	/**
+	 * Creates the game and initialized batch and asset manager
+	 */
 	@Override
 	public void create () {
-		
+		 
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
 
@@ -27,6 +30,11 @@ public class Monopoly extends Game {
 		ScreenManager.getInstance().showScreen( ScreenEnum.MAIN_MENU );
 	}
 	
+    /**
+     * Returns a singleton instance
+     *
+     * @return the singleton instance
+     */
 	public static Monopoly getInstance() {
 		if (instance == null) {
 			instance = new Monopoly();

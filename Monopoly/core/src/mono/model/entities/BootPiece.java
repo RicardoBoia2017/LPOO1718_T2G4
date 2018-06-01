@@ -2,14 +2,22 @@ package mono.model.entities;
 
 import java.awt.Point;
 
+/**
+ * Class that stores Boot initial coordinates along with its move method
+ * 
+ * @author ricar
+ *
+ */
 public class BootPiece extends Piece {
 	
+	/**
+	 * Creates pieces and initializes coordinates
+	 */
 	public BootPiece ()
 	{
-		this.initialX = 0;
-		this.initialY = 960;
+		super (0,960);
 	}
-
+ 
 	public String getType()
 	{
 		return "Boot";
