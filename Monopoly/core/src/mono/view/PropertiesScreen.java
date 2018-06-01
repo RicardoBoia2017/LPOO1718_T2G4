@@ -1,15 +1,10 @@
 package mono.view;
 
-import java.awt.Font;
-import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -24,6 +19,11 @@ import mono.view.entities.PropertyView;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.UIFactory;
 
+/**
+ * Creates Property screen
+ * @author ricar
+ *
+ */
 public class PropertiesScreen extends AbstractScreen {
 
 	Skin skin;
@@ -38,6 +38,9 @@ public class PropertiesScreen extends AbstractScreen {
 	Dialog tooManyHotelsDialog;
 	TextButton reBuyBtn;
 
+	/**
+	 * Creates property screen
+	 */
 	public PropertiesScreen()
 	{
 		super();
@@ -55,6 +58,10 @@ public class PropertiesScreen extends AbstractScreen {
 		addActor(createLeftBtn());
 	}
 	
+	/**
+	 * Creates Left button
+	 * @return
+	 */
 	private TextButton createLeftBtn() {
 		
 		TextButton leftButton = new TextButton ("Left", skin);
@@ -72,6 +79,10 @@ public class PropertiesScreen extends AbstractScreen {
 		return leftButton;
 	}
 
+	/**
+	 * Creates Right button
+	 * @return
+	 */
 	private TextButton createRightBtn() {
 		
 		TextButton leftButton = new TextButton ("Right", skin);
@@ -89,6 +100,11 @@ public class PropertiesScreen extends AbstractScreen {
 		return leftButton;	
 	}
 	
+	/**
+	 * Changed property in screen
+	 * 
+	 * @param value if 1 moves to right, -1 to left
+	 */
 	private void changeCard(int value)
 	{
 		Player p1 = Game.getInstance().getCurrentPlayer();
@@ -120,6 +136,9 @@ public class PropertiesScreen extends AbstractScreen {
 		super.draw();
 	}
 
+	/**
+	 * Draws property
+	 */
 	private void drawProperty() {
 		
 		Player p1 = Game.getInstance().getCurrentPlayer();
@@ -156,6 +175,11 @@ public class PropertiesScreen extends AbstractScreen {
 		
 	}
 
+	/**
+	 * Creates Re Buy button
+	 * 
+	 * @return textbutton
+	 */
 	private TextButton createReBuyBtn() {
 	
 		reBuyBtn = new TextButton ("Rebuy property", skin);
@@ -174,12 +198,20 @@ public class PropertiesScreen extends AbstractScreen {
 		
 	}
 
+	/**
+	 * Draws in mortgage button
+	 */
 	private void drawInMortgate() {
 		
 		Texture texture = game.getAssetManager().get("Mortgaged.png");
 		game.getBatch().draw (texture, 435, 925, 200, 50);
 	}
 
+	/**
+	 * Creates Back button
+	 * 
+	 * @return textbutton
+	 */
 	private TextButton createBackBtn() {
 		
 		Player p1 = Game.getInstance().getCurrentPlayer();
@@ -195,6 +227,9 @@ public class PropertiesScreen extends AbstractScreen {
 		return backBtn;
 	}
 	
+	/**
+	 * Creates successful buy dialog
+	 */
 	public void createSuccessfulBuyDialog()
 	{
 		successfulBuyDialog = new Dialog("Purchase successful", skin){
@@ -213,6 +248,9 @@ public class PropertiesScreen extends AbstractScreen {
 		
 	}
 	
+	/**
+	 * Creates no money dialog
+	 */
 	public void createNoMoneyDialog()
 	{
 		noMoneyDialog = new Dialog("You don't have enough money", skin) {
@@ -227,6 +265,9 @@ public class PropertiesScreen extends AbstractScreen {
 		noMoneyDialog.button("EXIT", 1L);
 	}
 	
+	/**
+	 * Creates mortgage dialog
+	 */
 	private void createMortgagedDialog() {
 		mortgagedDialog = new Dialog("Property has been mortgaged", skin) {
 			protected void result(Object object) {
@@ -241,6 +282,9 @@ public class PropertiesScreen extends AbstractScreen {
 		mortgagedDialog.button("EXIT", 1L);
 	}
 
+	/**
+	 * Creates dont own all properties dialog
+	 */
 	private void createDontOwnAllPropertiesDialog() {
 		doNotOwnAllColorsDialog = new Dialog("You do not own all properties of this color", skin) {
 			protected void result(Object object) {
@@ -255,6 +299,9 @@ public class PropertiesScreen extends AbstractScreen {
 		doNotOwnAllColorsDialog.button("EXIT", 1L);
 	}
 	
+	/**
+	 * Creates not placeable dialog 
+	 */
 	private void createNotPlaceableDialog() {
 		cannotPlaceHouseDialog = new Dialog("You cannot place a building here", skin) {
 			protected void result(Object object) {
@@ -269,6 +316,9 @@ public class PropertiesScreen extends AbstractScreen {
 		cannotPlaceHouseDialog.button("EXIT", 1L);
 	}
 	
+	/**
+	 * Create no more houses dialog
+	 */
 	private void createNoMoreHousesDialog() {
 		noMoreHouses = new Dialog("You cannot have more than 4 houses", skin) {
 			protected void result(Object object) {
@@ -283,6 +333,11 @@ public class PropertiesScreen extends AbstractScreen {
 		noMoreHouses.button("EXIT", 1L);
 	}
 	
+	/**
+	 * Get square of current card
+	 * 
+	 * @return square
+	 */
 	private BuyableSquare getSquareOfCurrentCard(){
 		Player p1 = Game.getInstance().getCurrentPlayer();
 		
@@ -293,6 +348,11 @@ public class PropertiesScreen extends AbstractScreen {
 		return p1.getPropertiesOwned().get(currentCard);
 	}
 	
+	/**
+	 * Create build house button
+	 * 
+	 * @return textbutton
+	 */
 	private TextButton createBuildHouseBtn() {
 		TextButton buildHouseBtn = new TextButton ("Build House", skin);
 		buildHouseBtn.setPosition(256, 70); 
@@ -348,6 +408,9 @@ public class PropertiesScreen extends AbstractScreen {
 		return buildHouseBtn;
 	}
 	
+	/**
+	 * Creates too many hotels dialog
+	 */
 	private void createTooManyHotelsDialog() {
 		tooManyHotelsDialog = new Dialog("You cannot have more than 1 hotel", skin) {
 			protected void result(Object object) {
@@ -362,6 +425,9 @@ public class PropertiesScreen extends AbstractScreen {
 		tooManyHotelsDialog.button("EXIT", 1L);
 	}
 	
+	/**
+	 * Creates not enough houses dialog
+	 */
 	private void createNotEnoughHousesDialog() {
 		notEnoughHousesDialog = new Dialog("You do not have 4 houses built", skin) {
 			protected void result(Object object) {
@@ -376,6 +442,10 @@ public class PropertiesScreen extends AbstractScreen {
 		notEnoughHousesDialog.button("EXIT", 1L);
 	}
 
+	/**
+	 * Creates Build Hotel button
+	 * @return textbutton
+	 */
 	private TextButton createBuildHotelBtn() {
 		TextButton buildHotelBtn = new TextButton ("Build Hotel", skin);
 		buildHotelBtn.setPosition(542, 70); 
@@ -427,6 +497,10 @@ public class PropertiesScreen extends AbstractScreen {
 		return buildHotelBtn;
 	}
 	
+	/**
+	 * Create Mortgage button
+	 * @return textbutton
+	 */
 	private TextButton createMortgageBtn() {
 		TextButton mortgageButton = new TextButton ("Mortgage", skin);
 		mortgageButton.setPosition(830, 70); 

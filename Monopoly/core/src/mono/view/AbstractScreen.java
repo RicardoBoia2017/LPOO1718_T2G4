@@ -9,17 +9,27 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mono.game.Monopoly;
 
+/**
+ * Super class of screen. 
+ * @author ricar
+ *
+ */
 public abstract class AbstractScreen extends Stage implements Screen {
 	
 	static Monopoly game;
 	
+	/**
+	 * Creates abstract screen
+	 */
 	protected AbstractScreen() {
 		super( new StretchViewport(1000.0f, 1000.0f, new OrthographicCamera()) );
 	}
 	
-	// Subclasses must load actors in this method
+	/**
+	 * Adds actors to stage
+	 */
 	public abstract void buildStage();
-
+ 
 	@Override
 	public void render(float delta) {
 		// Clear screen

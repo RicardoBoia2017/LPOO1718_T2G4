@@ -11,12 +11,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.UIFactory;
 
+/**
+ * Number of player screen
+ * @author ricar
+ *
+ */
 public class NumberPlayersScreen extends AbstractScreen{
 
 	Skin skin;
 	TextField textField;
 	boolean showErrorMsg;
 	
+	/**
+	 * Creates number of players screen
+	 */
 	public NumberPlayersScreen ()
 	{
 		super();
@@ -26,6 +34,9 @@ public class NumberPlayersScreen extends AbstractScreen{
 		loadAssets();
 	}
 	
+	/**
+	 * Loads assets to AssetManager
+	 */
 	private void loadAssets() {
 		game.getAssetManager().load ("NumberPlayers.png", Texture.class);
 		game.getAssetManager().load ("Numbers/Number1.png", Texture.class);
@@ -58,18 +69,28 @@ public class NumberPlayersScreen extends AbstractScreen{
 		super.draw();
 	}
 
+	/**
+	 * Draws entities
+	 */
 	private void drawEntities() {
 		game.getBatch().begin();
 		drawNPlayers();
 		game.getBatch().end();		
 	}
 
+	/**
+	 * Draws Number of Players image
+	 */
 	private void drawNPlayers() {
 		Texture numberPlayers = game.getAssetManager().get ("NumberPlayers.png");
 		game.getBatch().draw (numberPlayers, 350, 700, 400, 50);		
 	}
 	
-	
+	/**
+	 * Create 1 button
+	 * 
+	 * @return imagebutton
+	 */
 	private ImageButton create1PlayerBtn() {
 
 		Texture texture = game.getAssetManager().get ("Numbers/Number1.png");
@@ -83,6 +104,11 @@ public class NumberPlayersScreen extends AbstractScreen{
 		return n1;
 	}
 	
+	/**
+	 * Create 2 button
+	 * 
+	 * @return imagebutton
+	 */
 	private ImageButton create2PlayerBtn() {
 
 		Texture texture = game.getAssetManager().get ("Numbers/Number2.png");
@@ -95,6 +121,11 @@ public class NumberPlayersScreen extends AbstractScreen{
 		return n2;
 	}
 	
+	/**
+	 * Create 3 button
+	 * 
+	 * @return imagebutton
+	 */
 	private ImageButton create3PlayerBtn() {
 
 		Texture texture = game.getAssetManager().get ("Numbers/Number3.png");
@@ -108,6 +139,11 @@ public class NumberPlayersScreen extends AbstractScreen{
 		return n3;
 	}
 	
+	/**
+	 * Create 4 button
+	 * 
+	 * @return imagebutton
+	 */
 	private ImageButton create4PlayerBtn() {
 
 		Texture texture = game.getAssetManager().get ("Numbers/Number4.png");

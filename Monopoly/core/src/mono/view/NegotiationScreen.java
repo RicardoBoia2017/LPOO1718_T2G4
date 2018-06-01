@@ -2,7 +2,6 @@ package mono.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -19,6 +18,12 @@ import mono.view.entities.PropertyView;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.UIFactory;
 
+/**
+ * Creates Negotation screen
+ * 
+ * @author ricar
+ *
+ */
 public class NegotiationScreen extends AbstractScreen {
 	
 	Skin skin;
@@ -32,6 +37,11 @@ public class NegotiationScreen extends AbstractScreen {
 	int buyConditional;
 	int firstClick;
 
+	/**
+	 * Create Negotiation screen
+	 * 
+	 * @param p1 Player
+	 */
 	public NegotiationScreen(Player p1) {
 		super();
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
@@ -49,6 +59,11 @@ public class NegotiationScreen extends AbstractScreen {
 		addActor(createBuyBtn());
 	}
 	
+	/**
+	 * Creates Left button
+	 * 
+	 * @return textbutton
+	 */
 	private TextButton createLeftBtn() {
 		
 		TextButton leftButton = new TextButton ("Left", skin);
@@ -66,6 +81,11 @@ public class NegotiationScreen extends AbstractScreen {
 		return leftButton;
 	}
 
+	/**
+	 * Creates right button
+	 * 
+	 * @return textbutton
+	 */
 	private TextButton createRightBtn() {
 		
 		TextButton leftButton = new TextButton ("Right", skin);
@@ -83,6 +103,9 @@ public class NegotiationScreen extends AbstractScreen {
 		return leftButton;	
 	}
 	
+	/**
+	 * Creates no money dialog
+	 */
 	public void createNoMoneyDialog()
 	{
 		noMoneyDialog = new Dialog("You don't have enough money", skin) {
@@ -97,6 +120,11 @@ public class NegotiationScreen extends AbstractScreen {
 		noMoneyDialog.button("EXIT", 1L);
 	}
 	
+	/**
+	 * Changes card in the screen
+	 * 
+	 * @param value 1 if moves right, -1 if moves -1
+	 */
 	private void changeCard(int value)
 	{
 
@@ -113,6 +141,11 @@ public class NegotiationScreen extends AbstractScreen {
 			
 	}
 	
+	/**
+	 * Create back button
+	 * 
+	 * @return text button
+	 */
 	private TextButton createBackBtn() {
 		
 		Player p1 = Game.getInstance().getCurrentPlayer(); 
@@ -142,6 +175,10 @@ public class NegotiationScreen extends AbstractScreen {
 		super.draw();
 	}
 	
+	/**
+	 * 
+	 * @return square of current card
+	 */
 	private BuyableSquare getSquareOfCurrentCard(){
 		
 		if(playerWhosePropertiesAreDisplayed.getPropertiesOwned().isEmpty()) {
@@ -151,6 +188,9 @@ public class NegotiationScreen extends AbstractScreen {
 		return playerWhosePropertiesAreDisplayed.getPropertiesOwned().get(currentCard);
 	}
 	
+	/**
+	 * Draws property card
+	 */
 	private void drawProperty() {
 		
 		if (playerWhosePropertiesAreDisplayed.getPropertiesOwned().size() == 0)
@@ -171,6 +211,9 @@ public class NegotiationScreen extends AbstractScreen {
 		
 	}
 	
+	/**
+	 * Creates fail dialog
+	 */
 	private void createFailDialog() {
 		failedNegotiationDialog = new Dialog("Negotiation failed", skin) {
 			protected void result(Object object) {
@@ -185,6 +228,9 @@ public class NegotiationScreen extends AbstractScreen {
 		failedNegotiationDialog.button("EXIT", 1L);
 	}
 	 
+	/**
+	 * Creates success dialog
+	 */
 	private void createSucessDialog() {
 		successfulNegotiationDialog = new Dialog("Negotiation done", skin) {
 			protected void result(Object object) {
@@ -199,6 +245,9 @@ public class NegotiationScreen extends AbstractScreen {
 		successfulNegotiationDialog.button("EXIT", 1L);
 	}
 	
+	/**
+	 * Create allow buying dialog
+	 */
 	private void createAllowBuyingDialog() {
 		allowBuyingDialog = new Dialog("Allow buy?", skin) {
 			protected void result(Object object) {
@@ -221,6 +270,11 @@ public class NegotiationScreen extends AbstractScreen {
 		allowBuyingDialog.button("YES", 2L);
 	}
 	
+	/**
+	 * Creates Buy button
+	 * 
+	 * @return textbutton
+	 */
 	private TextButton createBuyBtn() {
 
 		TextButton buyBtn = new TextButton ("Buy", skin);
@@ -232,13 +286,7 @@ public class NegotiationScreen extends AbstractScreen {
 		buyBtn.addListener( new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button)
 			{
-				//1. Send a Request to the other player
-				
-				//2. Await message from the other side
-				
-				//3. Message goes into res
-				
-				//int res = GameController.getInstance().negotiateProperty();
+
 				Player buyingPlayer = Game.getInstance().getCurrentPlayer();
 				BuyableSquare propertyBeingBought = getSquareOfCurrentCard();
 				

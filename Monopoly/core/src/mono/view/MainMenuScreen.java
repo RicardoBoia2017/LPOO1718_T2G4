@@ -7,23 +7,37 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+import mono.game.Monopoly;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.UIFactory;
 
+/**
+ * Main menu screen
+ * 
+ * @author ricar
+ *
+ */
 public class MainMenuScreen extends AbstractScreen {
 	
     TextButton newGameButton;
     TextButton exitGameButton;
     Skin skin;
 	
+    /**
+     * Creates main menu
+     */
 	public MainMenuScreen() {
 		super();
-		game = game.getInstance();
+		game = Monopoly.getInstance();
 		skin = new Skin(Gdx.files.internal("comic/skin/comic-ui.json"));
 		
 		loadAssets();
 	}
 
+	/**
+	 * Loads assets to AssetManager
+	 */
 	private static void loadAssets()
 	{
 		game.getAssetManager().load ("Monopoly.png", Texture.class);
@@ -46,6 +60,9 @@ public class MainMenuScreen extends AbstractScreen {
 		addActor(exitGameButton);
 	}
 	
+	/**
+	 * Creates New Game button
+	 */
 	public void createNewGameButton() {
 		newGameButton = new TextButton("New Game", skin);
 		newGameButton.setPosition(20, 20);
@@ -53,6 +70,9 @@ public class MainMenuScreen extends AbstractScreen {
         newGameButton.addListener(UIFactory.createListener(ScreenEnum.NUMBER_PLAYERS));
 	}
 	
+	/**
+	 * Creates Exit Game button
+	 */
 	public void createExitGameButton() {
         exitGameButton = new TextButton("Exit Game", skin);
         exitGameButton.setPosition(580, 20);

@@ -41,6 +41,12 @@ import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.ScreenManager;
 import mono.view.swapper.UIFactory;
 
+/**
+ * Main screen of the game. 
+ * 
+ * @author ricar
+ *
+ */
 public class GameScreen extends AbstractScreen implements WarpListener {
 	
     private static GameScreen instance;
@@ -91,6 +97,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         return instance;
     }
     
+    /**
+     * Creates game screen
+     */
 	public GameScreen() {
 		super(); 
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
@@ -102,6 +111,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}	
     
+	/**
+	 * Initializes variables
+	 */
 	private void initVariables() {
 		diceValues = new Pair();
 		showCard = false;
@@ -111,6 +123,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		diceRollTime = 100;
 	}
 
+	/**
+	 * Loads assets to AssetManager
+	 */
 	private static void loadAssets ()
 	{
 		game.getAssetManager().load ("Board.png", Texture.class);
@@ -126,6 +141,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         game.getAssetManager().finishLoading();
 	}
 	
+	/**
+	 * Loads sounds to AssetManager
+	 */
 	private static void loadSounds()
 	{
 		game.getAssetManager().load("Sounds/Athens.mp3", Sound.class);
@@ -168,6 +186,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		game.getAssetManager().load("Sounds/Luxury Tax.mp3", Sound.class);
 	}
 
+	/**
+	 * Loads Properties to AssetManager
+	 */
 	private static void loadProperties()
 	{
 		game.getAssetManager().load("Properties/Athens.png", Texture.class);
@@ -205,6 +226,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 	
+	/**
+	 * Loads Community Chest cards to AssetManager
+	 */
 	private static void loadCChestCards() 
 	{
 		game.getAssetManager().load("CChestCards/Birthday.png",Texture.class);
@@ -219,6 +243,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		game.getAssetManager().load("CChestCards/PCS.png",Texture.class);
 	} 
 
+	/**
+	 * Loads Chance cards to AssetManager
+	 */
 	private static void loadChanceCards()
 	{
 		game.getAssetManager().load("ChanceCards/AExam.png",Texture.class);
@@ -233,6 +260,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		game.getAssetManager().load("ChanceCards/LostCreditCard.png",Texture.class);
 	}
 	
+	/**
+	 * Loads Dices to AssetManager
+	 */
 	private static void loadDices()
 	{
 		game.getAssetManager().load ("Dice/Dice1.png", Texture.class);
@@ -307,13 +337,18 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		super.draw();
 	}
 	
+	/**
+	 * Draw entities 
+	 * 
+	 * @param delta delta
+	 */
 	private void drawEntities(float delta)
 	{
 		drawBoard();
 		drawPlayerMenu();
 		drawPlayers();
-//		drawDice();
-//		rollDiceAnimation(delta);
+		drawDice();
+		rollDiceAnimation(delta);
 		drawPlayersPieces();
 		drawCard();
 		drawAHouse();
@@ -321,11 +356,17 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		bankrupcyDraw();
 	}
 	
+	/**
+	 * Draw players menu background
+	 */
 	private void drawPlayerMenu() {
 		Texture board = game.getAssetManager().get("PlayersBackground.png", Texture.class);
 		game.getBatch().draw(board, 803, 197, 295, 803);
 	}
 
+	/**
+	 * Draws players' information in players menu
+	 */
 	private void drawPlayers() {
 		font.setColor (0,0,0,1);
 		font.getData().setScale(2);
@@ -371,6 +412,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 	
+	/**
+	 * Draws bankruptcy dialog
+	 */
 	private void bankrupcyDraw() {
 		if(Game.getInstance().getCurrentPlayer().getBankruptcyState()) {
 			createbankRupcyDialog();
@@ -382,6 +426,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		}
 	}
 	
+	/**
+	 * Creates invalid player dialog (When a invalid player name is inserted)
+	 */
 	private void createNotValidPlayerDialog() {
 		notValidPlayerDialog = new Dialog("Invalid Player!", skin) {
 	
@@ -397,6 +444,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		notValidPlayerDialog.button("EXIT", 1L);
 	}
 	
+	/**
+	 * Creates bankruptcy dialog 
+	 */
 	private void createbankRupcyDialog() {
 		bankruptPlayerDialog = new Dialog("You are bankrupt!", skin) {
 			
@@ -438,6 +488,11 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		   }
 	}
 
+	/**
+	 * Executes dice animation
+	 * 
+	 * @param delta delta
+	 */
 	private void rollDiceAnimation(float delta) {
 			
 		this.diceRollTime += delta;
@@ -455,6 +510,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		}
 	}
 
+	/**
+	 * Created dice roll animation
+	 */
 	private void drawAnimation() {
 			
 		Array <Texture> array = new Array <Texture> (6);
@@ -469,12 +527,18 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 	
+	/**
+	 * Draws board
+	 */
 	private void drawBoard ()
 	{
 		Texture board = game.getAssetManager().get("Board.png",Texture.class); 
 		game.getBatch().draw(board, 1, 197, 803, 803);
 	}
 	
+	/**
+	 * Draws dice
+	 */
 	public void drawDice() {
 		
 		DiceView dice1 = new DiceView(game, diceValues.getValue1());
@@ -492,6 +556,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		dice_2.draw(game.getBatch());	
 	}
 	
+	/**
+	 * Draws players pieces in board
+	 */
 	private void drawPlayersPieces()
 	{
 		for (Player p: Game.getInstance().getPlayers())
@@ -500,6 +567,13 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		}
 	}
 	
+	/**
+	 * Draws piece
+	 * 
+	 * @param p piece to be drawn
+	 * @param x coordinate X
+	 * @param y coordinate Y
+	 */
 	private void drawPiece(Piece p, int x, int y) {
 		
 		if(p.getType() == "Thimble") {
@@ -520,6 +594,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 	
+	/**
+	 * Draws house
+	 */
 	private void drawAHouse() {
 		
 		int nHouses = 0;
@@ -559,6 +636,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 	
+	/**
+	 * Draws hotel
+	 */
 	private void drawAHotel() {
 		
 		int nHotels = 0;
@@ -594,6 +674,12 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		}
 	}
 
+	/**
+	 * Draws car piece
+	 * 
+	 * @param x coordinate X
+	 * @param y coordinate Y
+	 */
 	public void drawCar(int x, int y) {
 		CarView carView = new CarView(game);
 		
@@ -605,6 +691,12 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		car.draw(game.getBatch());
 	}
 	
+	/**
+	 * Draws hat piece
+	 * 
+	 * @param x coordinate X
+	 * @param y coordinate Y
+	 */
 	public void drawHat(int x, int y) {
 		HatView hatView = new HatView(game);
 		
@@ -616,6 +708,12 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		hat.draw(game.getBatch());
 	}
 	
+	/**
+	 * Draws hat piece
+	 * 
+	 * @param x coordinate X
+	 * @param y coordinate Y
+	 */
 	public void drawBoot(int x, int y) {
 		BootView bootView = new BootView(game);
 		
@@ -627,6 +725,12 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		boot.draw(game.getBatch());
 	}
 	
+	/**
+	 * Draws thimble piece
+	 * 
+	 * @param x coordinate X
+	 * @param y coordinate Y
+	 */
 	public void drawThimble(int x, int y) {
 		ThimbleView thimbleView = new ThimbleView(game);
 		
@@ -638,6 +742,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		thimble.draw(game.getBatch());
 	}
 	
+	/**
+	 * Draws chance or community chest card
+	 */
 	private void drawCard()
 	{
 		String res = Game.getInstance().inCardPosition(false);
@@ -685,6 +792,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		}
 	}
   	
+	/**
+	 * Creates Roll Dice button
+	 */
 	private void createRollDiceBtn() { 
         rollDiceBtn = new TextButton("Roll Dice", skin);
         rollDiceBtn.setPosition(800, 20);
@@ -727,6 +837,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 				});
     }
 	
+	/**
+	 * Chooses sound to be played according to player's position
+	 */
 	protected void chooseSound() {
 		String name = Game.getInstance().getBoard().getSquares().get(Game.getInstance().getCurrentPlayer().getPosition()).getName();
 		String file = "Sounds/" + name + ".mp3";
@@ -737,6 +850,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 
+	/**
+	 * Creates Buy Property button
+	 */
 	private void createBuyPropertyBtn() {
 
         buyPropertyBtn = new TextButton("Buy", skin);
@@ -778,6 +894,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         
 	}
 	
+	/**
+	 * Creates button to go to property screen 
+	 */
 	private void createPropertyScreenBtn() {
 
         propertyScreenBtn = new TextButton("Properties", skin);
@@ -789,6 +908,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
         
 	}
 	
+	/**
+	 * Creates button to go to negotiation screen
+	 */
 	private void createNegotiateBtn() {
 		
 		negotiateBtn = new TextButton("Negotiate", skin);
@@ -819,6 +941,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 	
+	/**
+	 * Create end turn button
+	 */
 	private void createEndTurnBtn()
 	{
 	        endTurnBtn = new TextButton("End Turn", skin);
@@ -856,6 +981,11 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	        
 	}
 	 
+	/**
+	 * Create button to toggle music on or off
+	 * 
+	 * @return imagebutton
+	 */
 	private ImageButton createNoteBtn()
 	{
 		Texture note = game.getAssetManager().get("Note.png");
@@ -878,6 +1008,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		return noteBtn;
 	}
 	
+	/**
+	 * Sets buttons to player's turn
+	 */
 	protected void playerTurnButtons() {
 		rollDiceBtn.setText("Roll Dice");	
 		endTurnBtn.setText("End Turn");
@@ -892,6 +1025,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		propertyScreenBtn.setColor(0.9f, 0.9f, 0.9f, 1);
 	}
 
+	/**
+	 * Sets buttons to bot's turn
+	 */
 	protected void botTurnButtons() {
 		rollDiceBtn.setText("Bot Turn");	
 		endTurnBtn.setText("End Bot Turn");
@@ -907,6 +1043,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 
+	/**
+	 * Creates close button 
+	 */
 	private void createCloseButton()
 	{
 	     	closeBtn = new TextButton("Close", skin);
@@ -926,6 +1065,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	        
 	}
 	
+	/**
+	 * Creates jail dialog
+	 */
 	public void createJailDialog() {
 		
 		jailDialog = new Dialog("Pay the fine or wait?", skin) {
@@ -953,6 +1095,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		jailDialog.button("WAIT", 2L);
 	}
 	
+	/**
+	 * Creates successful buy dialog
+	 */
 	public void createSuccessfulBuyDialog()
 	{
 		successfulBuyDialog = new Dialog("Purchase successful", skin){
@@ -971,6 +1116,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		
 	}
 		
+	/**
+	 * Creates not buyable dialog
+	 */
 	public void createNotBuyableDialog()
 	{
 		notBuyableDialog = new Dialog("This square is not buyable", skin) {
@@ -986,6 +1134,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		notBuyableDialog.button("EXIT", 1L);
 	}
 
+	/**
+	 * Creates already owned dialog
+	 */
 	public void createAlreadyOwnedDialog()
 	{
 		alreadyOwnedDialog = new Dialog("Property is already owned", skin) {
@@ -1001,6 +1152,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		alreadyOwnedDialog.button("EXIT", 1L);
 	}
 		
+	/**
+	 * creates no money dialog
+	 */
 	public void createNoMoneyDialog()
 	{
 		noMoneyDialog = new Dialog("You don't have enough money", skin) {

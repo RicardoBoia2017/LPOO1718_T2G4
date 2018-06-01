@@ -15,6 +15,11 @@ import mono.controller.GameController;
 import mono.view.swapper.ScreenEnum;
 import mono.view.swapper.UIFactory;
 
+/**
+ * Piece Selection screen
+ * @author ricar
+ *
+ */
 public class PieceSelectScreen extends AbstractScreen {
 		
 	Skin skin;
@@ -29,7 +34,11 @@ public class PieceSelectScreen extends AbstractScreen {
 	InputListener hatListener;
 	InputListener thimbleListener;
 
-	
+	/**
+	 * Creates piece selection screen
+	 * 
+	 * @param nPlayers number of players in game
+	 */
 	public PieceSelectScreen (int nPlayers) {
 		super();
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
@@ -38,6 +47,9 @@ public class PieceSelectScreen extends AbstractScreen {
 		loadAssets();
 	}
 	
+	/**
+	 * Loads assets to AssetManager
+	 */
 	public void loadAssets() {
 		game.getAssetManager().load ("Boot.png", Texture.class);
 		game.getAssetManager().load ("Car.png", Texture.class);
@@ -82,7 +94,10 @@ public class PieceSelectScreen extends AbstractScreen {
 
 }
 
-private void manageListeners() {
+	/**
+	 * Manages listeners from buttons
+	 */
+	private void manageListeners() {
 
 	if (this.currentPlayer == this.nPlayers)
 	{
@@ -165,15 +180,17 @@ private void manageListeners() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		game.getBatch().begin();
-		drawNumberPlayer();
+		drawPlayer();
 		game.getBatch().end();
 		
 		super.act();
 		super.draw();
 	}
 	
-	
-	private void drawNumberPlayer() {
+	/**
+	 * Draw Player # label
+	 */
+	private void drawPlayer() {
 		String fileName = "Players/Player " + currentPlayer + ".png"; 
 		Texture texture = game.getAssetManager().get(fileName);
 		game.getBatch().draw(texture, 450, 900, 200, 50);
