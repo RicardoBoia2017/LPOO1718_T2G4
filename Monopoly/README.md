@@ -116,3 +116,36 @@ When game starts the user goes to a screen where he can start a game or exir the
 
 ![main menu](https://user-images.githubusercontent.com/25772346/40852461-6e560114-65c2-11e8-8665-6e1129bd1ab0.png)
 
+If the user chooses to start a game he will then choose the number of human players, from 1 to 4
+
+![number of players](https://user-images.githubusercontent.com/25772346/40852459-6e18b05c-65c2-11e8-8b6d-7767c53293d2.png)
+
+Then each player will choose a piece for himself
+
+![piece selection](https://user-images.githubusercontent.com/25772346/40852471-7426783a-65c2-11e8-8ba2-273770b33124.png)
+
+The rest of the pieces will be taken by bots until the number of players is 4
+
+Then the game starts.
+
+In this screen the user has information about :
+- Each player's money, board piece, name and current position,
+- The current player
+
+Plus there is also the value of last dice roll and a musical note on the left lower corner that allows the user to toggle the sounds on and off 
+
+![game screen](https://user-images.githubusercontent.com/25772346/40852472-7451168a-65c2-11e8-888f-7f6832711a0e.png)
+
+The player1 will roll the dice by pressing ROLL DICE and complete his turn by pressing END TURN (this buttons will never be active at the same time)
+
+When its the bot turn, the user will only have one button available at the time. First BOT TURN, and then END BOT TURN.
+
+![bot turn](https://user-images.githubusercontent.com/25772346/40852473-7478e624-65c2-11e8-9cc9-bd7e024cd2eb.png)
+
+When its a player turn, he will have access to three other buttons:
+
+- BUY PROPERTY, which, if possible, will purchase the square where the player is. If not possible, an error message will show.
+- PROPERTIES, which opens a screen where the player can check all his properties. Plus he can build houses and hotels, in addition to mortgage (and then rebuy) the property
+![properties screen](https://user-images.githubusercontent.com/25772346/40852474-74b5b14e-65c2-11e8-81a6-207d3fb406f4.png)
+- NEGOTIATE, which allows the player to purchase other player's properties by entering their name and buy the selected property
+![negotiations screen](https://user-images.githubusercontent.com/25772346/40852469-73f0d3e2-65c2-11e8-9548-c63b9067c2ce.png)
