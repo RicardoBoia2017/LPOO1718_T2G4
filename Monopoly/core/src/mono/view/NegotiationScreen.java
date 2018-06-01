@@ -36,7 +36,7 @@ public class NegotiationScreen extends AbstractScreen {
 		super();
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 		currentCard = 0;
-		playerWhosePropertiesAreDisplayed = p1;
+		playerWhosePropertiesAreDisplayed = p1; 
 		buyConditional = -1;
 		
 	}
@@ -239,10 +239,25 @@ public class NegotiationScreen extends AbstractScreen {
 				//3. Message goes into res
 				
 				//int res = GameController.getInstance().negotiateProperty();
+				Player buyingPlayer = Game.getInstance().getCurrentPlayer();
+				BuyableSquare propertyBeingBought = getSquareOfCurrentCard();
 				
 				if(firstClick == 0) {
-					createAllowBuyingDialog();
-					addActor(allowBuyingDialog);
+					if (!playerWhosePropertiesAreDisplayed.isBot())
+					{
+						createAllowBuyingDialog();
+						addActor(allowBuyingDialog);
+					}
+					
+					else
+					{
+						if (GameController.getInstance().buyPropertyfromBot(buyingPlayer, playerWhosePropertiesAreDisplayed, propertyBeingBought) == -1)
+						{
+				        	createFailDialog(); 
+			        		addActor(failedNegotiationDialog); 
+						}
+					}
+					
 					firstClick++;
 					return false;
 				}
@@ -251,8 +266,7 @@ public class NegotiationScreen extends AbstractScreen {
 					firstClick = 0;
 				}
 				
-				Player buyingPlayer = Game.getInstance().getCurrentPlayer();
-				BuyableSquare propertyBeingBought = getSquareOfCurrentCard();
+
 		        
 		        switch (buyConditional) //this would be res instead of 0
 		        { 
@@ -268,15 +282,11 @@ public class NegotiationScreen extends AbstractScreen {
 		        		addActor(noMoneyDialog);
 		        	};
 		        	
-		        	if(currentCard == 0 && playerWhosePropertiesAreDisplayed.getPropertiesOwned().size() != 1) {
-		        		System.out.println("The other one");
+		        	if(currentCard == 0 && playerWhosePropertiesAreDisplayed.getPropertiesOwned().size() != 1) 
 		        		changeCard(1);
-		        	}
 		        	
-		        	else {
-		        		System.out.println("THis one");
+		        	else 
 		        		changeCard(-1);
-		        	}
 		        	
 		        	createSucessDialog(); 
 		        	addActor(successfulNegotiationDialog); 

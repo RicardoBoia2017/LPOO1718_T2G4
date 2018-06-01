@@ -96,8 +96,8 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		skin = new Skin(Gdx.files.internal("plain-james/skin/plain-james-ui.json"));
 				 
 		//initialize dice
-		initVariables();
 		loadAssets();
+		initVariables();
 //		WarpController.getInstance().setListener(this);
 		
 	}	
@@ -183,7 +183,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		game.getAssetManager().load("Properties/London.png", Texture.class);
 		game.getAssetManager().load("Properties/Madrid.png", Texture.class);
 		game.getAssetManager().load("Properties/Mexico City.png", Texture.class);
-		game.getAssetManager().load("Properties/Moscow.png", Texture.class);
+		game.getAssetManager().load("Properties/Moscow.png", Texture.class); 
 		game.getAssetManager().load("Properties/New York.png", Texture.class);
 		game.getAssetManager().load("Properties/Paris.png", Texture.class);
 		game.getAssetManager().load("Properties/Rio de Janeiro.png", Texture.class);

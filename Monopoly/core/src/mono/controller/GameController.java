@@ -27,7 +27,7 @@ public class GameController {
 	
 //    private BoardModel board;
     
-    private List <HouseModel> houses;
+//    private List <HouseModel> houses;
     private List <PlayerModel> playerModels = new ArrayList<PlayerModel>();
     
     /**
@@ -142,7 +142,7 @@ public class GameController {
 	
 	public void reBuyProperty (int currentCard)
 	{
-		int res = Game.getInstance().reBuyProperty(currentCard);
+		Game.getInstance().reBuyProperty(currentCard);
 	}
 
 	public int buyPropertyFromOtherPlayer(Player playerThatYouAreBuyingPropertiesFrom, Player playerBuyingTheProperties, BuyableSquare propertyThatIsBeingBought) {
@@ -150,8 +150,19 @@ public class GameController {
 		if(playerBuyingTheProperties.getMoney() < propertyThatIsBeingBought.getCost()) {
 			return -1;
 		}
+		 
+		Game.getInstance().swapPropertiesAround(playerThatYouAreBuyingPropertiesFrom, playerBuyingTheProperties,propertyThatIsBeingBought, propertyThatIsBeingBought.getCost());	
+		return 0;
+	}
+
+	public int buyPropertyfromBot (Player buyer, Player seller, BuyableSquare square) {
+
+		int propertyCost = (int) Math.ceil (1.20 * square.getCost());
 		
-		Game.getInstance().swapPropertiesAround(playerThatYouAreBuyingPropertiesFrom, playerBuyingTheProperties,propertyThatIsBeingBought);	
+		if (buyer.getMoney() < propertyCost)
+			return -1;
+		
+		Game.getInstance().swapPropertiesAround(seller, buyer, square, propertyCost);
 		return 0;
 	}
 }
