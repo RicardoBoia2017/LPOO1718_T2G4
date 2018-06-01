@@ -1,5 +1,12 @@
 package mono.view;
 	
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -20,7 +27,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
-import appwarp.WarpListener;
 import mono.controller.GameController;
 import mono.model.Game;
 import mono.model.entities.Pair;
@@ -47,7 +53,7 @@ import mono.view.swapper.UIFactory;
  * @author ricar
  *
  */
-public class GameScreen extends AbstractScreen implements WarpListener {
+public class GameScreen extends AbstractScreen {
 	
     private static GameScreen instance;
 
@@ -81,6 +87,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	TextButton buyPropertyBtn;
 	TextButton negotiateBtn;
 	TextButton propertyScreenBtn;
+	TextButton network;
 	Boolean showCard;
 	Boolean removeBankrupcyDialog;
 
@@ -106,9 +113,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 				 
 		//initialize dice
 		loadAssets();
-		initVariables();
-//		WarpController.getInstance().setListener(this);
-		
+		initVariables();		
 	}	
     
 	/**
@@ -291,6 +296,9 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		createNegotiateBtn();
 		addActor(negotiateBtn);
 		
+		createNetworkingButton();
+		addActor(network);
+		
 		addActor(createNoteBtn());
 		
 		if (btnState == 2)
@@ -306,21 +314,24 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 		btnBoard.setSize(803, 803);
 		btnBoard.setPosition(1.f, 197.f);
 		
-		/*btnBoard.addListener(
-				new InputListener() {
-					@Override
-					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						System.out.println(x);
-						System.out.println(y);
-						return false;
-						}
-					});
-		
-		addActor(btnBoard);*/
-		
 		createSuccessfulBuyDialog();
 	}
 	
+	private void createNetworkingButton() {
+		network = new TextButton("Chat", skin);
+		network.setPosition(800, 75);
+		network.setWidth(170);
+		
+        network.addListener(
+				new InputListener() {
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						ScreenManager.getInstance().showScreen(ScreenEnum.NETWORKING);
+						return false;
+					}
+				});
+	}
+
 	@Override
 	public void render(float delta)
 	{
@@ -947,7 +958,7 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	private void createEndTurnBtn()
 	{
 	        endTurnBtn = new TextButton("End Turn", skin);
-	        endTurnBtn.setPosition(800, 110);
+	        endTurnBtn.setPosition(800, 130);
 	        endTurnBtn.setWidth(170);
 	        
 			endTurnBtn.setTouchable(Touchable.disabled);
@@ -1172,36 +1183,6 @@ public class GameScreen extends AbstractScreen implements WarpListener {
 	@Override
 	public void dispose() {
 		super.dispose();
-	}
-
-	@Override
-	public void onWaitingStarted(String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onError(String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onGameStarted(String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onGameFinished(int code, boolean isRemote) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onGameUpdateReceived(String message) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

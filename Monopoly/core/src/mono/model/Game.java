@@ -34,6 +34,15 @@ public class Game {
 	int taxMoney; 
 	Queue <Integer> chanceQueue;
 	Queue <Integer> cChestQueue; 
+	private int currentSocketUsed = 9021;
+	
+	public int getCurrentSocketUsed() {
+		return currentSocketUsed;
+	}
+	
+	public void incrementCurrentSocket() {
+		currentSocketUsed++;
+	}
 	
 	/**
 	 * 
@@ -517,7 +526,7 @@ public class Game {
 	}
 	
 	/**
-	 * Gives player p 200€
+	 * Gives player p 200ï¿½
 	 * 
 	 * @param p player
 	 */

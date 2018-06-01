@@ -9,6 +9,7 @@ import mono.view.PieceSelectScreen;
 import mono.view.PropertiesScreen;
 import mono.view.MainMenuScreen;
 import mono.view.NegotiationScreen;
+import mono.view.NetworkScreen;
 import mono.view.NumberPlayersScreen;
 
 public enum ScreenEnum {
@@ -49,6 +50,13 @@ public enum ScreenEnum {
 		public AbstractScreen getScreen(Object... params) {
 			return new NegotiationScreen((Player) params[0]);
 		}
+	},
+		
+	NETWORKING{
+		public AbstractScreen getScreen(Object... params) {
+			return new NetworkScreen();
+		}
+	
 	};
 	
 	public abstract AbstractScreen getScreen(Object... params);
