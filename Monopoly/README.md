@@ -6,17 +6,17 @@
  
 #### UML Diagram
 
-Model part
+Controller Part
 
-![controllerdiagram](https://user-images.githubusercontent.com/36206773/39408765-2de92da8-4bd3-11e8-995f-4aaebe9af602.png)
+![controllerdiagram](https://user-images.githubusercontent.com/36206773/40877813-bd3e527e-667e-11e8-99d4-07c5ba4c1ef4.png)
 
 View Part
 
-![viewdiagram](https://user-images.githubusercontent.com/36206773/39408773-5c0a9212-4bd3-11e8-855c-989d934400b2.png)
+![viewdiagram](https://user-images.githubusercontent.com/36206773/40877808-b0b20154-667e-11e8-9bb7-05e7199a30d9.png)
 
-Controller Part
+Model Part
 
-![modeldiagram](https://user-images.githubusercontent.com/36206773/39408777-66d39018-4bd3-11e8-91c6-143527278d5f.png)
+![modeldiagram](https://user-images.githubusercontent.com/36206773/40877804-9c8aaa46-667e-11e8-8e47-b8859a846bfb.png)
  
 #### Behavioural Aspects
 
@@ -70,7 +70,7 @@ A major dificulty during the development of the project was understand what exac
 
 We also had some difficulties with how to work with libgdx since it was the first time both of us interacted with the software, and we had to spend a lot of hours browsing the internet to find solutions to our problems (like how to only show the dialogs in specific situations).
 
-Finally, we had problems with time, since we didn't had enough to invest in the porject as we would like, since , as mentioned above, we didn't know how to work with libgdx and there was a lot of logic to implement in the model.
+Finally, we had problems with time, since we didn't had enough to invest in the project as we would like, since , as mentioned above, we didn't know how to work with libgdx and there was a lot of logic to implement in the model.
 
 #### Lessons learned
 
