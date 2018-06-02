@@ -88,6 +88,8 @@ public class NetworkScreen extends AbstractScreen {
                 ServerSocketHints serverSocketHint = new ServerSocketHints();
                 serverSocketHint.acceptTimeout = 0;
                 
+                System.out.println(Game.getInstance().getCurrentSocketUsed());
+                
                 serverSocket = Gdx.net.newServerSocket(Protocol.TCP, Game.getInstance().getCurrentSocketUsed(), serverSocketHint);
                 
                 while(true){
@@ -138,7 +140,7 @@ public class NetworkScreen extends AbstractScreen {
                 
                 SocketHints socketHints = new SocketHints();
                 socketHints.connectTimeout = 4000;
-                Socket socket = Gdx.net.newClientSocket(Protocol.TCP, textIPAddress.getText(), 0, socketHints);
+                Socket socket = Gdx.net.newClientSocket(Protocol.TCP, textIPAddress.getText(), Game.getInstance().getCurrentSocketUsed(), socketHints);
                 try {
                     socket.getOutputStream().write(textToSend.getBytes());
                 } catch (IOException e) {

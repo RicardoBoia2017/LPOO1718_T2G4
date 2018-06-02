@@ -34,7 +34,7 @@ public class Game {
 	int taxMoney; 
 	Queue <Integer> chanceQueue;
 	Queue <Integer> cChestQueue; 
-	private int currentSocketUsed = 9021;
+	private int currentSocketUsed = 22222;
 	
 	public int getCurrentSocketUsed() {
 		return currentSocketUsed;
