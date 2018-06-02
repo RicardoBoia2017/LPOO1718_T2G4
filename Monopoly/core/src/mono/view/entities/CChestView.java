@@ -5,10 +5,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
+/**
+ * Creates Community Chest view
+ * @author ricar
+ *
+ */
 public class CChestView extends EntityView {
 
 	private int cardId;
 
+	/**
+	 * Creates community chest view
+	 * 
+	 * @param game game
+	 * @param cardId card id
+	 */
 	public CChestView(Monopoly game, int cardId) {
 		super (game);
 		this.cardId = cardId;

@@ -5,8 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
+/**
+ * Creates boot view
+ * @author ricar
+ *
+ */
 public class BootView extends EntityView {
 
+	/**
+	 * Creates boot view
+	 * @param game game
+	 */
 	public BootView(Monopoly game) {
 		super (game);
 		sprite = createSprite ();

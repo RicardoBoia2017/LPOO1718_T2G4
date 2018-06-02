@@ -5,10 +5,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
+/**
+ * Creates Chance view
+ * @author ricar
+ *
+ */
 public class ChanceView extends EntityView {
 
 	private int cardId;
 	
+	/**
+	 * Creates chance view
+	 * 
+	 * @param game game
+	 * @param cardId card id
+	 */
 	public ChanceView(Monopoly game, int cardId) {
 		super (game);
 		this.cardId = cardId;

@@ -5,10 +5,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
+/**
+ * Creates Property view
+ * 
+ * @author ricar
+ *
+ */
 public class PropertyView extends EntityView {
 
 	private String name;
 	
+	/**
+	 * Creates property view
+	 * 
+	 * @param game game
+	 * @param name property name
+	 */
 	public PropertyView(Monopoly game, String name) {
 		super (game);
 		this.name = name;

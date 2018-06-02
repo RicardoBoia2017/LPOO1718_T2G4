@@ -534,7 +534,7 @@ public class GameScreen extends AbstractScreen {
 		array.add((Texture) game.getAssetManager().get("Dice/Dice5.png"));
 		array.add((Texture) game.getAssetManager().get("Dice/Dice6.png"));
 		
-		diceAnimation = new Animation<>(0.1f, array);
+		diceAnimation = new Animation(0.1f, array);
 		
 	}
 	

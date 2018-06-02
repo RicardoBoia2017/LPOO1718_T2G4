@@ -5,8 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
+/**
+ * Creates Hat view
+ * @author ricar
+ *
+ */
 public class HatView extends EntityView{
 
+	/**
+	 * Creates hat view
+	 * @param game game
+	 */
 	public HatView(Monopoly game) {
 		super (game);
 		sprite = createSprite ();

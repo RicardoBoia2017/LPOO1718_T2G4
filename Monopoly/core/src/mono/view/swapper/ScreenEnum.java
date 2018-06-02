@@ -1,6 +1,5 @@
 package mono.view.swapper;
 
-import mono.game.Monopoly;
 import mono.model.Game;
 import mono.model.entities.Player;
 import mono.view.AbstractScreen;
@@ -28,7 +27,7 @@ public enum ScreenEnum {
 	
 	LEVEL_SELECT {
 		public AbstractScreen getScreen(Object... params) {
-			return new PieceSelectScreen((int)params[0]);
+			return new PieceSelectScreen((int) params [0]);
 		}
 	},
 	

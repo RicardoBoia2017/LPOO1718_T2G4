@@ -5,8 +5,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
+/**
+ * Creates car view
+ * 
+ * @author ricar
+ *
+ */
 public class CarView extends EntityView{
 
+	/**
+	 * Creates car view
+	 * @param game game
+	 */
 	public CarView(Monopoly game) {
 		super (game);
 		sprite = createSprite ();

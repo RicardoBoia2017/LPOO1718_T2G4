@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -41,6 +42,7 @@ public class MainMenuScreen extends AbstractScreen {
 	private static void loadAssets()
 	{
 		game.getAssetManager().load ("Monopoly.png", Texture.class);
+		game.getAssetManager().load ("Facebook.png", Texture.class);
 		game.getAssetManager().finishLoading();
 	}
 	
@@ -56,6 +58,7 @@ public class MainMenuScreen extends AbstractScreen {
 		createNewGameButton();
 		createExitGameButton();
 		
+		addActor(createFacebookButton());
 		addActor(newGameButton);
 		addActor(exitGameButton);
 	}
@@ -74,6 +77,7 @@ public class MainMenuScreen extends AbstractScreen {
 	 * Creates Exit Game button
 	 */
 	public void createExitGameButton() {
+		
         exitGameButton = new TextButton("Exit Game", skin);
         exitGameButton.setPosition(580, 20);
         exitGameButton.setWidth(400);
@@ -87,6 +91,27 @@ public class MainMenuScreen extends AbstractScreen {
 				});
 	}
 
+	public ImageButton createFacebookButton() {
+		
+		Texture texture = game.getAssetManager().get("Facebook.png");
+        ImageButton facebookButton = UIFactory.createButton(texture);
+        facebookButton.setPosition(300, 100);
+        facebookButton.setWidth(400);
+        facebookButton.addListener(
+				new InputListener() {
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+						
+						Facebook login = new Facebook ();
+						login.login();
+						
+						return false;
+					}
+				});
+        
+        return facebookButton; 
+	}
+	
 	@Override
 	public void dispose() {
 		super.dispose();

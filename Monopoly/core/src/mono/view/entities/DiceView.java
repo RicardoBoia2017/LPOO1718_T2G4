@@ -5,10 +5,20 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
+/**
+ * Creates Dice view
+ * @author ricar
+ *
+ */
 public class DiceView extends EntityView {
 
 	private int number;
 	
+	/**
+	 * Creates dice view
+	 * @param game game
+	 * @param number dice value
+	 */
 	public DiceView(Monopoly game, int number) {
 		super (game);
 		this.number = number;

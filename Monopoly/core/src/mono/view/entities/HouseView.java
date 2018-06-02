@@ -5,8 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import mono.game.Monopoly;
 
+/**
+ * Creates Hotel view
+ * @author ricar
+ *
+ */
 public class HouseView extends EntityView{
 
+	/**
+	 * Creates hotel view
+	 * @param game game
+	 */
 	public HouseView(Monopoly game) {
 		super (game);
 		sprite = createSprite ();
