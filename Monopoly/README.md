@@ -48,8 +48,6 @@ Image
  
   There are three classes in the game that use this pattern: Monopoly.java, GameController.java and Game.java.
  
-### GUI Design
- 
 #### Main Functionalities
  
 - Select number of human players
@@ -94,6 +92,7 @@ Luis Mendes:
 - Start square logic
 - House and hotel building
 - Negotiation between two players
+- Chat using networking
 
 Ricardo Boia 
 
@@ -102,19 +101,20 @@ Ricardo Boia
 - Implementation of sounds
 - Properties Screen, Number of players selection screen
 - Local multiplayer implementation
-- Purchase of properties, 
+- Purchase of properties
 - Mortgage
 - Chance and Community Chest cards logic
 - Taxes logic
 - Documentation
+- Facebook login
 
 Each of us created the tests to the logic implemented by us.
 
-#### User manual
+### User manual
  
-When game starts the user goes to a screen where he can start a game or exit the application
+When game starts the user goes to a screen where he can start a game, login with Facebook or exit the application
 
-![main menu](https://user-images.githubusercontent.com/25772346/40852461-6e560114-65c2-11e8-8665-6e1129bd1ab0.png)
+![main menu](https://user-images.githubusercontent.com/25772346/40887972-7c7552d6-6748-11e8-88e4-1029ebe6d494.png)
 
 If the user chooses to start a game he will then choose the number of human players, from 1 to 4
 
