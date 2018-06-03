@@ -12,7 +12,7 @@ Controller Part
 
 View Part
 
-![viewdiagram](https://user-images.githubusercontent.com/36206773/40877808-b0b20154-667e-11e8-9bb7-05e7199a30d9.png)
+![viewdiagram](https://user-images.githubusercontent.com/36206773/40888429-d1a50a66-674e-11e8-8b4e-fa214fd2ea8c.png)
 
 Model Part
 
