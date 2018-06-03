@@ -60,7 +60,7 @@ public class PropertiesScreen extends AbstractScreen {
 	
 	/**
 	 * Creates Left button
-	 * @return
+	 * @return textbutton
 	 */
 	private TextButton createLeftBtn() {
 		
@@ -81,7 +81,7 @@ public class PropertiesScreen extends AbstractScreen {
 
 	/**
 	 * Creates Right button
-	 * @return
+	 * @return textbutton
 	 */
 	private TextButton createRightBtn() {
 		
