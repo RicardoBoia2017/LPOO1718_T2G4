@@ -150,6 +150,7 @@ When its a player turn, he will have access to fiur other buttons:
 - NEGOTIATE, which allows the player to purchase other player's properties by entering their name and buy the selected property
 ![negotiations screen](https://user-images.githubusercontent.com/25772346/40852469-73f0d3e2-65c2-11e8-9548-c63b9067c2ce.png)
 - CHAT, which opens a screen where the user can chat with other people using networking
+![chat](https://user-images.githubusercontent.com/25772346/40887971-7c2564d8-6748-11e8-81e3-0f4caf7b8525.png)
 
 The game follows the following rules:
 - Each player starts with 1500€
