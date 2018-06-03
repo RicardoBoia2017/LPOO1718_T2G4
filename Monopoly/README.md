@@ -134,21 +134,22 @@ In this screen the user has information about :
 
 Plus there is also the value of last dice roll and a musical note on the left lower corner that allows the user to toggle the sounds on and off 
 
-![game screen](https://user-images.githubusercontent.com/25772346/40852472-7451168a-65c2-11e8-888f-7f6832711a0e.png)
+![player turn](https://user-images.githubusercontent.com/25772346/40888032-672ca69e-6749-11e8-9c24-7209066d66a6.png)
 
 The player1 will roll the dice by pressing ROLL DICE and complete his turn by pressing END TURN (this buttons will never be active at the same time)
 
 When its the bot turn, the user will only have one button available at the time. First BOT TURN, and then END BOT TURN.
 
-![bot turn](https://user-images.githubusercontent.com/25772346/40852473-7478e624-65c2-11e8-9cc9-bd7e024cd2eb.png)
+![bot turn](https://user-images.githubusercontent.com/25772346/40888033-6761f394-6749-11e8-9238-f43fb0a87952.png)
 
-When its a player turn, he will have access to three other buttons:
+When its a player turn, he will have access to fiur other buttons:
 
 - BUY PROPERTY, which, if possible, will purchase the square where the player is. If not possible, an error message will show.
 - PROPERTIES, which opens a screen where the player can check all his properties. Plus he can build houses and hotels, in addition to mortgage (and then rebuy by 110% of the value) the property
 ![properties screen](https://user-images.githubusercontent.com/25772346/40852474-74b5b14e-65c2-11e8-81a6-207d3fb406f4.png)
 - NEGOTIATE, which allows the player to purchase other player's properties by entering their name and buy the selected property
 ![negotiations screen](https://user-images.githubusercontent.com/25772346/40852469-73f0d3e2-65c2-11e8-9548-c63b9067c2ce.png)
+- CHAT, which opens a screen where the user can chat with other people using networking
 
 The game follows the following rules:
 - Each player starts with 1500€
