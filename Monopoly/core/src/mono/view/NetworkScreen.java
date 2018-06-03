@@ -37,6 +37,10 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
+/**
+Class responsible for the networking chat part of the app
+*/
+
 public class NetworkScreen extends AbstractScreen {
     private Skin skin;
     private Stage stage;
@@ -49,7 +53,10 @@ public class NetworkScreen extends AbstractScreen {
     private TextArea textMessage;
     private TextButton goBack;
     private ServerSocket serverSocket;
-
+	
+	/**
+	Builds the stage and handles all the necessary network setup
+	*/
 	@Override
 	public void buildStage() {
         
@@ -107,6 +114,9 @@ public class NetworkScreen extends AbstractScreen {
         }).start(); 
 	}
 	
+	/**
+	Creates scene elements and adds them
+	*/
 	private void createAndAddSceneElements() {
 		createLabels();
         
@@ -123,6 +133,9 @@ public class NetworkScreen extends AbstractScreen {
         addActor(goBack);
 	}
 	
+	/**
+	Creates a button for sending the message to the other player and it's listener that handles sockets
+	*/
 	private void createButtonForSendingMessage() {
         sendMessage = new TextButton("Send message",skin);
 		sendMessage.setPosition(120, 75);
@@ -150,6 +163,9 @@ public class NetworkScreen extends AbstractScreen {
         });
 	}
 	
+	/**
+	Creates labels
+	*/
 	private void createLabels() {
         textLabel1 = new Label("<Enter ip adress>",skin);
         textLabel1.setPosition(120, 400);
@@ -167,6 +183,9 @@ public class NetworkScreen extends AbstractScreen {
         labelMessage.setPosition(120, 600);
 	}
 	
+	/**
+	Makes a button for going back
+	*/
 	private void createButtonForGoingBack() {
         goBack = new TextButton("Go back",skin);
         goBack.setPosition(500, 500);
